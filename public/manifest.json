@@ -1,0 +1,43 @@
+{
+  "name": "マナトビ 高校入試",
+  "short_name": "マナトビ入試",
+  "description": "高校入試5教科（英語・数学・国語・理科・社会）の実戦演習・赤シートまとめプリント・英作文道場・全国47都道府県入試研究・オンライン対戦。",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FCF5E9",
+  "theme_color": "#2458A6",
+  "lang": "ja",
+  "categories": [
+    "education",
+    "productivity"
+  ],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png?v=logo20260907",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png?v=logo20260907",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable-192.png?v=logo20260907",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/icon-maskable-512.png?v=logo20260907",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "id": "/manatobi-juken"
+}

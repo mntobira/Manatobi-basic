@@ -1,0 +1,180 @@
+/**
+ * ガチャの種類（2026-10-29 追加）：共通テストガチャ（これまでの1つ）と、2次試験ガチャ。
+ *   ガチャ画面で左右にスワイプして切り替える。抽選の仕組み（割合・10＋1連・ダブりの返還・かけら）は共通。
+ *
+ *   ・共通テストガチャ … これまでどおり（LR＝共通テスト英語 予想問題）。2次試験ガチャ専用の景品は出ない。
+ *   ・2次試験ガチャ   … LR＝大学別 英語 予想問題（北海道大学・東北大学・弘前大学・岩手大学・秋田大学・山形大学・福島大学・宇都宮大学・群馬大学・名古屋大学・静岡大学・神戸大学・大阪大学 前期、立命館大学 全学統一（文系）。書き下ろし）。
+ *                        それ以外は「新しく作った2次試験向けの装飾」＋「今ある景品の使い回し」（難関向けの単語・熟語・文法の本など）。
+ *
+ * このファイルは ITEMS を import しない（growthItems → ここ の循環を避けるため、ID だけ持つ）。
+ */
+import { NIJI_MOCK_PRINTS, NIJI_UNIVERSITIES, OTHER_MOCK_UNIVERSITIES } from '../../data/nijiMockPrints';
+import { KOBE_MOCK_PRINTS } from '../../data/kobeMockPrints';
+import { OSAKA_MOCK_PRINTS } from '../../data/osakaMockPrints';
+import { RITSU_MOCK_PRINTS } from '../../data/ritsuMockPrints';
+import { HOKUDAI_MOCK_PRINTS } from '../../data/hokudaiMockPrints';
+import { TOHOKU_MOCK_PRINTS } from '../../data/tohokuMockPrints';
+import { HIROSAKI_MOCK_PRINTS } from '../../data/hirosakiMockPrints';
+import { IWATE_MOCK_PRINTS } from '../../data/iwateMockPrints';
+import { AKITA_MOCK_PRINTS } from '../../data/akitaMockPrints';
+import { YAMAGATA_MOCK_PRINTS } from '../../data/yamagataMockPrints';
+import { FUKUSHIMA_MOCK_PRINTS } from '../../data/fukushimaMockPrints';
+import { UTSUNOMIYA_MOCK_PRINTS } from '../../data/utsunomiyaMockPrints';
+import { GUNMA_MOCK_PRINTS } from '../../data/gunmaMockPrints';
+import { PRINT_SHELVES, UNIV_REGION, univOfPrint, type PrintShelfId } from './printShelves';
+
+export type GachaPoolId = 'kyotsu' | 'niji' | 'univ';
+
+export interface GachaPoolDef {
+  id: GachaPoolId;
+  /** バナーの見出し */
+  title: string;
+  /** 切替タブの短い名前 */
+  short: string;
+  /** LR の中身（提供割合・ピックアップの説明に使う） */
+  lrName: string;
+  lrNote: string;
+  /** UR の目玉に優先する科目 */
+  preferSubjects: readonly string[];
+}
+
+export const GACHA_POOLS: readonly GachaPoolDef[] = [
+  {
+    id: 'kyotsu',
+    title: '公立高校入試ガチャ',
+    short: '公立標準',
+    lrName: '5教科 直前総仕上げスペシャルプリント＆限定称号',
+    lrNote: 'とびら君のきせかえ衣装・オーラ・背景・特別学習プリントが当たります！',
+    preferSubjects: ['english', 'math', 'science', 'social', 'japanese'],
+  },
+  {
+    id: 'niji',
+    title: '難関・自校作成ガチャ',
+    short: '難関突破',
+    lrName: '難関校・自校作成突破ハチマキ＆限定フレーム',
+    lrNote: '必勝ハチマキ・金の鉛筆オーラ・夜デスク背景など難関校チャレンジ用の特別装飾も登場！',
+    preferSubjects: ['math', 'english', 'science'],
+  },
+  {
+    id: 'univ',
+    title: 'ピックアップ選択ガチャ',
+    short: 'ピックアップ',
+    lrName: '選んだ地域の特別プリント＆難関装飾',
+    lrNote: '狙った枠の特別アイテムをピックアップして引けるガチャです（1回 500マナコイン）。',
+    preferSubjects: ['english', 'math', 'social'],
+  },
+];
+
+export const DEFAULT_GACHA_POOL: GachaPoolId = 'kyotsu';
+
+export function gachaPoolOf(id: GachaPoolId): GachaPoolDef {
+  return GACHA_POOLS.find((p) => p.id === id) ?? GACHA_POOLS[0];
+}
+
+/** 2次試験ガチャのために新しく作った装飾（共通テストガチャには出ない） */
+export const NIJI_NEW_ITEM_IDS: readonly string[] = [
+  'hat_hachimaki_red', 'hat_hachimaki_navy', 'hat_hachimaki_gold',
+  'aura_pencil', 'aura_pencil_gold',
+  'wall_campus', 'wall_sheet', 'wall_nightdesk', 'wall_dawn',
+  'frame_niji_ink', 'frame_niji_sakura', 'frame_niji_midnight',
+];
+
+/** 大学別の予想問題（LR）すべて */
+export const UNIV_MOCK_PRINT_IDS: readonly string[] = [...NIJI_MOCK_PRINTS, ...KOBE_MOCK_PRINTS, ...OSAKA_MOCK_PRINTS, ...RITSU_MOCK_PRINTS, ...HOKUDAI_MOCK_PRINTS, ...TOHOKU_MOCK_PRINTS, ...HIROSAKI_MOCK_PRINTS, ...IWATE_MOCK_PRINTS, ...AKITA_MOCK_PRINTS, ...YAMAGATA_MOCK_PRINTS, ...FUKUSHIMA_MOCK_PRINTS, ...UTSUNOMIYA_MOCK_PRINTS, ...GUNMA_MOCK_PRINTS].map((p) => p.id);
+
+/** 2次試験ガチャだけで出るもの（新しい装飾＋LRの予想問題） */
+export const NIJI_ONLY_IDS: ReadonlySet<string> = new Set([...NIJI_NEW_ITEM_IDS, ...UNIV_MOCK_PRINT_IDS]);
+
+/** 2次試験ガチャでも出る、今ある景品（使い回し。共通テストガチャからも引き続き出る） */
+export const NIJI_SHARED_IDS: readonly string[] = [
+  // UR（完全版の本）：2次・難関でも使えるもの
+  'print_book_vocab_adv', 'print_book_idiom_all', 'print_book_idiom_reading_standard', 'print_book_idiom_reading_advanced',
+  'print_book_grammar_b4_bunpo', 'print_book_grammar_b4_gohou',
+  // SR（学習プリント）
+  'print_vocab_lv3', 'print_vocab_lv3_2', 'print_vocab_lv4', 'print_grammar_100',
+  // 装飾（勉強・英語・夜の自習の雰囲気のもの）
+  'pose_studying', 'pose_thinking', 'pose_trophy', 'frame_prism',
+  'hat_graduation', 'hat_beanie_navy', 'hat_wizard',
+  'glasses_round', 'glasses_square', 'glasses_monocle', 'glasses_star',
+  'cheek_blush', 'cheek_sticker',
+  'aura_abc', 'aura_formula', 'aura_flame', 'aura_stars',
+  'wall_grid', 'wall_lined', 'wall_library', 'wall_english', 'wall_chalk', 'wall_night',
+];
+
+/** 大学選択ガチャで選べる大学（学部・系統ごとの予想問題3回分） */
+export interface SelectableUniversity {
+  id: string;
+  name: string;
+  track: string;
+  label: string;
+  region: PrintShelfId;
+  regionLabel: string;
+  printIds: readonly string[];
+}
+
+const OTHER_TRACK_NOTES: Readonly<Record<string, string>> = {
+  gunma: '理工学部・医学部保健学科',
+  ritsu: '全学統一（文系）',
+};
+
+const REGION_ORDER: readonly PrintShelfId[] = ['hokkaido_tohoku', 'kanto_chubu', 'kinki', 'chugoku_shikoku', 'kyushu_okinawa'];
+
+function buildSelectableUniversities(): readonly SelectableUniversity[] {
+  const byId = new Map<string, string[]>();
+  for (const printId of UNIV_MOCK_PRINT_IDS) {
+    const key = univOfPrint(printId);
+    if (!key) continue;
+    const list = byId.get(key) ?? [];
+    list.push(printId);
+    byId.set(key, list);
+  }
+  const raw: SelectableUniversity[] = [];
+  for (const [id, printIds] of byId.entries()) {
+    const niji = NIJI_UNIVERSITIES.find((u) => u.id === id);
+    const other = OTHER_MOCK_UNIVERSITIES.find((u) => u.id === id);
+    const name = niji?.name ?? other?.name ?? id;
+    const track = niji?.track ?? OTHER_TRACK_NOTES[id] ?? '';
+    const region = UNIV_REGION[id] ?? 'other';
+    const regionLabel = PRINT_SHELVES.find((s) => s.id === region)?.label.replace(/^2次\s*/, '') ?? 'その他';
+    raw.push({
+      id,
+      name,
+      track,
+      label: track ? `${name}（${track}）` : name,
+      region,
+      regionLabel,
+      printIds,
+    });
+  }
+  return raw.sort((a, b) => {
+    const ra = REGION_ORDER.indexOf(a.region);
+    const rb = REGION_ORDER.indexOf(b.region);
+    const oa = ra === -1 ? 99 : ra;
+    const ob = rb === -1 ? 99 : rb;
+    return oa - ob;
+  });
+}
+
+export const SELECTABLE_UNIVERSITIES: readonly SelectableUniversity[] = buildSelectableUniversities();
+export const DEFAULT_GACHA_UNIV_ID: string = SELECTABLE_UNIVERSITIES[0]?.id ?? 'hokudai';
+
+export function selectableUniversityOf(univId?: string | null): SelectableUniversity {
+  return SELECTABLE_UNIVERSITIES.find((u) => u.id === univId) ?? SELECTABLE_UNIVERSITIES[0];
+}
+
+export function normalizeGachaUnivId(univId?: string | null): string {
+  return selectableUniversityOf(univId).id;
+}
+
+const UNIV_MOCK_SET: ReadonlySet<string> = new Set(UNIV_MOCK_PRINT_IDS);
+
+/** そのアイテムがガチャの種類 pool に入るか（ガチャで出る物かどうかの判定は呼び出し側） */
+export function inGachaPool(id: string, pool: GachaPoolId, univId?: string): boolean {
+  if (pool === 'univ') {
+    const targetUniv = normalizeGachaUnivId(univId);
+    if (UNIV_MOCK_SET.has(id)) return univOfPrint(id) === targetUniv;
+    return NIJI_NEW_ITEM_IDS.includes(id) || NIJI_SHARED_IDS.includes(id);
+  }
+  if (pool === 'niji') return NIJI_ONLY_IDS.has(id) || NIJI_SHARED_IDS.includes(id);
+  return !NIJI_ONLY_IDS.has(id);
+}
