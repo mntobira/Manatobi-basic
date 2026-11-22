@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 310" width="480" height="310" font-family="Hiragino Sans, Noto Sans JP, sans-serif">
+  <title>放物線 y=ax² と直線ABおよび△OAB</title>
+  <rect width="480" height="310" fill="#ffffff"/>
+  <g stroke="#e2e8f0" stroke-width="1">
+    <line x1="40" y1="255" x2="440" y2="255"/>
+    <line x1="220" y1="20" x2="220" y2="290"/>
+  </g>
+  <line x1="40" y1="255" x2="445" y2="255" stroke="#1e293b" stroke-width="2"/>
+  <polygon points="445,255 436,250 436,260" fill="#1e293b"/>
+  <text x="434" y="277" font-size="15" font-weight="bold" fill="#1e293b">x</text>
+  <line x1="220" y1="290" x2="220" y2="20" stroke="#1e293b" stroke-width="2"/>
+  <polygon points="220,18 215,27 225,27" fill="#1e293b"/>
+  <text x="230" y="32" font-size="15" font-weight="bold" fill="#1e293b">y</text>
+  <text x="202" y="274" font-size="14" font-weight="bold" fill="#1e293b">O</text>
+  <polygon points="220,255 160,205 340,55" fill="#dbeafe" fill-opacity="0.7" stroke="#2563eb" stroke-width="1.6"/>
+  <polyline points="118.0,110.5 121.0,118.9 124.0,127.0 127.0,134.9 130.0,142.5 133.0,149.9 136.0,157.0 139.0,163.9 142.0,170.5 145.0,176.9 148.0,183.0 151.0,188.9 154.0,194.5 157.0,199.9 160.0,205.0 163.0,209.9 166.0,214.5 169.0,218.9 172.0,223.0 175.0,226.9 178.0,230.5 181.0,233.9 184.0,237.0 187.0,239.9 190.0,242.5 193.0,244.9 196.0,247.0 199.0,248.9 202.0,250.5 205.0,251.9 208.0,253.0 211.0,253.9 214.0,254.5 217.0,254.9 220.0,255.0 223.0,254.9 226.0,254.5 229.0,253.9 232.0,253.0 235.0,251.9 238.0,250.5 241.0,248.9 244.0,247.0 247.0,244.9 250.0,242.5 253.0,239.9 256.0,237.0 259.0,233.9 262.0,230.5 265.0,226.9 268.0,223.0 271.0,218.9 274.0,214.5 277.0,209.9 280.0,205.0 283.0,199.9 286.0,194.5 289.0,188.9 292.0,183.0 295.0,176.9 298.0,170.5 301.0,163.9 304.0,157.0 307.0,149.9 310.0,142.5 313.0,134.9 316.0,127.0 319.0,118.9 322.0,110.5 325.0,101.9 328.0,93.0 331.0,83.9 334.0,74.5 337.0,64.9 340.0,55.0 343.0,44.9 346.0,34.5" fill="none" stroke="#1e293b" stroke-width="2.5"/>
+  <line x1="112" y1="245" x2="364" y2="35" stroke="#dc2626" stroke-width="2.2"/>
+  <circle cx="160" cy="205" r="4.5" fill="#1d4ed8"/>
+  <text x="95" y="200" font-size="14" font-weight="bold" fill="#1d4ed8">A(-2, 2)</text>
+  <line x1="160" y1="205" x2="160" y2="255" stroke="#94a3b8" stroke-dasharray="4 3"/>
+  <text x="150" y="273" font-size="13" fill="#475569">-2</text>
+  <circle cx="340" cy="55" r="4.5" fill="#1d4ed8"/>
+  <text x="348" y="60" font-size="14" font-weight="bold" fill="#1d4ed8">B(4, 8)</text>
+  <line x1="340" y1="55" x2="340" y2="255" stroke="#94a3b8" stroke-dasharray="4 3"/>
+  <text x="335" y="273" font-size="13" fill="#475569">4</text>
+  <circle cx="220" cy="155" r="4.5" fill="#dc2626"/>
+  <text x="228" y="162" font-size="13" font-weight="bold" fill="#dc2626">切片C(0, 4)</text>
+  <text x="352" y="152" font-size="14" font-weight="bold" fill="#1e293b">y = ax²</text>
+</svg>

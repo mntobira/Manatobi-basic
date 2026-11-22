@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 240" width="540" height="240" font-family="Hiragino Sans, Noto Sans JP, sans-serif">
+  <title>日本の3都市（ア・イ・ウ）の雨温図</title>
+  <rect width="540" height="240" fill="#ffffff"/>
+  <g transform="translate(15, 18)">
+    <rect x="0" y="0" width="160" height="200" rx="6" fill="#f8fafc" stroke="#94a3b8"/>
+    <text x="46" y="20" font-size="14" font-weight="bold" fill="#1e293b">都市 ア</text>
+    <text x="18" y="37" font-size="11" fill="#475569">年平均14.6℃ / 2399mm</text>
+    <g fill="#3b82f6">
+      <rect x="20" y="110" width="8" height="65"/><rect x="30" y="125" width="8" height="50"/>
+      <rect x="40" y="140" width="8" height="35"/><rect x="50" y="145" width="8" height="30"/>
+      <rect x="60" y="145" width="8" height="30"/><rect x="70" y="135" width="8" height="40"/>
+      <rect x="80" y="122" width="8" height="53"/><rect x="90" y="132" width="8" height="43"/>
+      <rect x="100" y="120" width="8" height="55"/><rect x="110" y="125" width="8" height="50"/>
+      <rect x="120" y="108" width="8" height="67"/><rect x="130" y="102" width="8" height="73"/>
+    </g>
+    <polyline points="24,115 44,108 64,85 84,58 104,72 134,110" fill="none" stroke="#dc2626" stroke-width="2.2"/>
+    <text x="20" y="190" font-size="11" fill="#334155">1月　　　7月　　　12月</text>
+  </g>
+  <g transform="translate(190, 18)">
+    <rect x="0" y="0" width="160" height="200" rx="6" fill="#f8fafc" stroke="#94a3b8"/>
+    <text x="46" y="20" font-size="14" font-weight="bold" fill="#1e293b">都市 イ</text>
+    <text x="18" y="37" font-size="11" fill="#475569">年平均16.3℃ / 1124mm</text>
+    <g fill="#3b82f6">
+      <rect x="20" y="163" width="8" height="12"/><rect x="30" y="160" width="8" height="15"/>
+      <rect x="40" y="155" width="8" height="20"/><rect x="50" y="153" width="8" height="22"/>
+      <rect x="60" y="148" width="8" height="27"/><rect x="70" y="136" width="8" height="39"/>
+      <rect x="80" y="140" width="8" height="35"/><rect x="90" y="150" width="8" height="25"/>
+      <rect x="100" y="138" width="8" height="37"/><rect x="110" y="152" width="8" height="23"/>
+      <rect x="120" y="160" width="8" height="15"/><rect x="130" y="163" width="8" height="12"/>
+    </g>
+    <polyline points="24,110 44,102 64,80 84,54 104,68 134,107" fill="none" stroke="#dc2626" stroke-width="2.2"/>
+    <text x="20" y="190" font-size="11" fill="#334155">1月　　　7月　　　12月</text>
+  </g>
+  <g transform="translate(365, 18)">
+    <rect x="0" y="0" width="160" height="200" rx="6" fill="#f8fafc" stroke="#94a3b8"/>
+    <text x="46" y="20" font-size="14" font-weight="bold" fill="#1e293b">都市 ウ</text>
+    <text x="18" y="37" font-size="11" fill="#475569">年平均12.2℃ / 1045mm</text>
+    <g fill="#3b82f6">
+      <rect x="20" y="165" width="8" height="10"/><rect x="30" y="163" width="8" height="12"/>
+      <rect x="40" y="156" width="8" height="19"/><rect x="50" y="155" width="8" height="20"/>
+      <rect x="60" y="150" width="8" height="25"/><rect x="70" y="138" width="8" height="37"/>
+      <rect x="80" y="136" width="8" height="39"/><rect x="90" y="148" width="8" height="27"/>
+      <rect x="100" y="135" width="8" height="40"/><rect x="110" y="152" width="8" height="23"/>
+      <rect x="120" y="162" width="8" height="13"/><rect x="130" y="165" width="8" height="10"/>
+    </g>
+    <polyline points="24,136 44,122 64,90 84,60 104,78 134,132" fill="none" stroke="#dc2626" stroke-width="2.2"/>
+    <text x="20" y="190" font-size="11" fill="#334155">1月(氷点下) 7月　12月</text>
+  </g>
+</svg>

@@ -9,11 +9,11 @@ import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { SUBJECTS, getChaptersOfSubject } from '../src/data/allChapters';
-import { getEnglishStats } from '../src/data/englishData';
-import { getMathStats } from '../src/data/mathData';
-import { getJapaneseStats } from '../src/data/japaneseData';
-import { getScienceStats } from '../src/data/scienceData';
-import { getSocialStats } from '../src/data/socialData';
+import { ENGLISH_STATS } from '../src/data/englishData';
+import { MATH_STATS } from '../src/data/mathData';
+import { JAPANESE_STATS } from '../src/data/japaneseData';
+import { SCIENCE_STATS } from '../src/data/scienceData';
+import { SOCIAL_STATS } from '../src/data/socialData';
 import type { SubjectKey } from '../src/data/subjects';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -56,11 +56,11 @@ function toIndexStats(s: {
 
 function buildSubjectStats(): Record<SubjectKey, SubjectStats> {
   return {
-    english: toIndexStats(getEnglishStats()),
-    math: toIndexStats(getMathStats()),
-    japanese: toIndexStats(getJapaneseStats()),
-    science: toIndexStats(getScienceStats()),
-    social: toIndexStats(getSocialStats()),
+    english: toIndexStats(ENGLISH_STATS),
+    math: toIndexStats(MATH_STATS),
+    japanese: toIndexStats(JAPANESE_STATS),
+    science: toIndexStats(SCIENCE_STATS),
+    social: toIndexStats(SOCIAL_STATS),
   };
 }
 

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 250" width="540" height="250" font-family="Hiragino Sans, Noto Sans JP, sans-serif">
+  <title>温帯低気圧の前線断面図（A：寒冷前線 ／ B：温暖前線）</title>
+  <rect width="540" height="250" fill="#ffffff"/>
+  <rect x="20" y="195" width="500" height="32" fill="#e2e8f0" stroke="#475569"/>
+  <text x="45" y="216" font-size="13" font-weight="bold" fill="#1e3a8a">寒気（西側）</text>
+  <text x="235" y="216" font-size="13" font-weight="bold" fill="#9a3412">暖気（南側）</text>
+  <text x="420" y="216" font-size="13" font-weight="bold" fill="#1e3a8a">寒気（東側）</text>
+  <path d="M 20 120 Q 130 125 185 195 L 20 195 Z" fill="#bfdbfe" stroke="#1d4ed8" stroke-width="2"/>
+  <path d="M 80 165 L 145 165" stroke="#1d4ed8" stroke-width="2.5"/>
+  <polygon points="152,165 142,160 142,170" fill="#1d4ed8"/>
+  <path d="M 215 175 Q 190 135 175 75" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+  <polygon points="174,68 170,79 180,78" fill="#dc2626"/>
+  <path d="M 140 125 Q 132 95 150 75 Q 145 42 172 38 Q 198 40 195 72 Q 212 95 198 125 Z" fill="#cbd5e1" stroke="#475569" stroke-width="1.8"/>
+  <text x="128" y="28" font-size="13" font-weight="bold" fill="#1e293b">積乱雲（縦に発達）</text>
+  <g stroke="#2563eb" stroke-width="1.8">
+    <line x1="158" y1="130" x2="152" y2="192"/>
+    <line x1="170" y1="130" x2="164" y2="192"/>
+    <line x1="182" y1="130" x2="176" y2="192"/>
+  </g>
+  <text x="80" y="242" font-size="12" font-weight="bold" fill="#1d4ed8">前線A（短時間・強雨・北よりの風へ）</text>
+  <path d="M 335 195 L 490 125 L 520 125 L 520 195 Z" fill="#bfdbfe" stroke="#1d4ed8" stroke-width="2"/>
+  <path d="M 295 180 L 435 110" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+  <polygon points="442,107 431,107 436,116" fill="#dc2626"/>
+  <path d="M 345 135 Q 350 112 385 110 Q 420 95 465 98 Q 505 98 510 120 L 355 145 Z" fill="#e2e8f0" stroke="#64748b" stroke-width="1.8"/>
+  <text x="366" y="86" font-size="13" font-weight="bold" fill="#1e293b">乱層雲など（広くうすい雲）</text>
+  <g stroke="#60a5fa" stroke-width="1.4" stroke-dasharray="4 3">
+    <line x1="375" y1="145" x2="370" y2="192"/>
+    <line x1="400" y1="140" x2="395" y2="192"/>
+    <line x1="425" y1="135" x2="420" y2="192"/>
+    <line x1="450" y1="130" x2="445" y2="192"/>
+  </g>
+  <text x="335" y="242" font-size="12" font-weight="bold" fill="#dc2626">前線B（長時間・おだやかな雨）</text>
+</svg>

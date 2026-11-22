@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 235" width="500" height="235" font-family="Hiragino Sans, Noto Sans JP, sans-serif">
+  <title>比例代表選挙の政党別得票数（定数4議席・ドント式）</title>
+  <rect width="500" height="235" fill="#ffffff"/>
+  <text x="20" y="26" font-size="14" font-weight="bold" fill="#1e293b">ある選挙区（改選定数：4議席）におけるA党〜D党の得票数</text>
+  <g transform="translate(20, 42)" font-size="13">
+    <rect x="0" y="0" width="90" height="36" fill="#1e3a8a" stroke="#1e293b"/>
+    <text x="22" y="23" font-weight="bold" fill="#ffffff">割る数</text>
+    <rect x="90" y="0" width="92" height="36" fill="#2563eb" stroke="#1e293b"/>
+    <text x="120" y="23" font-weight="bold" fill="#ffffff">A党</text>
+    <rect x="182" y="0" width="92" height="36" fill="#0f766e" stroke="#1e293b"/>
+    <text x="212" y="23" font-weight="bold" fill="#ffffff">B党</text>
+    <rect x="274" y="0" width="92" height="36" fill="#b45309" stroke="#1e293b"/>
+    <text x="304" y="23" font-weight="bold" fill="#ffffff">C党</text>
+    <rect x="366" y="0" width="92" height="36" fill="#6d28d9" stroke="#1e293b"/>
+    <text x="396" y="23" font-weight="bold" fill="#ffffff">D党</text>
+
+    <rect x="0" y="36" width="90" height="40" fill="#f1f5f9" stroke="#64748b"/>
+    <text x="15" y="61" font-weight="bold" fill="#1e293b">÷1(得票)</text>
+    <rect x="90" y="36" width="92" height="40" fill="#ffffff" stroke="#64748b"/>
+    <text x="108" y="61" font-weight="bold" fill="#1e293b">1,200票</text>
+    <rect x="182" y="36" width="92" height="40" fill="#ffffff" stroke="#64748b"/>
+    <text x="205" y="61" font-weight="bold" fill="#1e293b">900票</text>
+    <rect x="274" y="36" width="92" height="40" fill="#ffffff" stroke="#64748b"/>
+    <text x="297" y="61" font-weight="bold" fill="#1e293b">500票</text>
+    <rect x="366" y="36" width="92" height="40" fill="#ffffff" stroke="#64748b"/>
+    <text x="389" y="61" font-weight="bold" fill="#1e293b">300票</text>
+
+    <rect x="0" y="76" width="90" height="40" fill="#f1f5f9" stroke="#64748b"/>
+    <text x="30" y="101" font-weight="bold" fill="#1e293b">÷2</text>
+    <rect x="90" y="76" width="92" height="40" fill="#ffffff" stroke="#64748b"/>
+    <text x="122" y="101" fill="#334155">600</text>
+    <rect x="182" y="76" width="92" height="40" fill="#ffffff" stroke="#64748b"/>
+    <text x="214" y="101" fill="#334155">450</text>
+    <rect x="274" y="76" width="92" height="40" fill="#ffffff" stroke="#64748b"/>
+    <text x="306" y="101" fill="#334155">250</text>
+    <rect x="366" y="76" width="92" height="40" fill="#ffffff" stroke="#64748b"/>
+    <text x="398" y="101" fill="#334155">150</text>
+
+    <rect x="0" y="116" width="90" height="40" fill="#f1f5f9" stroke="#64748b"/>
+    <text x="30" y="141" font-weight="bold" fill="#1e293b">÷3</text>
+    <rect x="90" y="116" width="92" height="40" fill="#ffffff" stroke="#64748b"/>
+    <text x="122" y="141" fill="#334155">400</text>
+    <rect x="182" y="116" width="92" height="40" fill="#ffffff" stroke="#64748b"/>
+    <text x="214" y="141" fill="#334155">300</text>
+    <rect x="274" y="116" width="92" height="40" fill="#ffffff" stroke="#64748b"/>
+    <text x="298" y="141" fill="#334155">166.6…</text>
+    <rect x="366" y="116" width="92" height="40" fill="#ffffff" stroke="#64748b"/>
+    <text x="398" y="141" fill="#334155">100</text>
+  </g>
+  <text x="20" y="218" font-size="12" fill="#475569">※得票数を 1, 2, 3… の整数で割り、商の大きい順に定数（4議席）まで配分する。</text>
+</svg>

@@ -1,0 +1,256 @@
+/*
+ * ===================================================================
+ * マナトビ 高校入試 UIポリッシュレイヤー（juken-polish.css）
+ * ===================================================================
+ *
+ * tokens.css の変数（--mt-paper, --mt-surface, --mt-brand, --mt-accent,
+ * --mt-shadow-card, --mt-font-display）を継承し、
+ * ・47都道府県入試研究（日本地図タイル・内申シミュレーター・2県比較）
+ * ・赤シート要点まとめプリント（習熟度メーター・比較表・図解組込）
+ * ・高校入試 英作文道場（自動添削・必須の型）
+ * ・5教科＆特別講座セレクター
+ * の操作感・視認性・スクロール安全領域を統一する。
+ */
+
+.juken-screen {
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: var(--mt-paper, #fcf5e9);
+  color: var(--mt-ink, #1c2a39);
+  font-family: var(--mt-font-body);
+  padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+}
+
+.juken-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: rgba(252, 245, 233, 0.94);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--mt-line, #e3d9c8);
+  padding: 10px 16px;
+}
+
+.juken-title-font {
+  font-family: var(--mt-font-display);
+  letter-spacing: -0.01em;
+}
+
+.juken-num {
+  font-family: var(--mt-font-display);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 立体感のあるマナトビ札カード */
+.juken-card {
+  background: var(--mt-surface, #ffffff);
+  border: 1.5px solid var(--mt-line, #e3d9c8);
+  border-radius: var(--mt-radius-lg, 20px);
+  box-shadow: var(--mt-shadow-card, 0 3px 0 #e6dccb, 0 6px 14px rgba(80, 60, 30, 0.06));
+}
+
+.juken-card-interactive {
+  background: var(--mt-surface, #ffffff);
+  border: 1.5px solid var(--mt-line, #e3d9c8);
+  border-radius: var(--mt-radius-lg, 20px);
+  box-shadow: var(--mt-shadow-card, 0 3px 0 #e6dccb, 0 6px 14px rgba(80, 60, 30, 0.06));
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.15s ease;
+}
+
+.juken-card-interactive:hover {
+  border-color: var(--mt-line-strong, #cbbda6);
+  transform: translateY(-1px);
+}
+
+.juken-card-interactive:active {
+  transform: translateY(2px);
+  box-shadow: var(--mt-shadow-press, 0 1px 0 #e6dccb);
+}
+
+/* 押しごたえのある立体ボタン */
+.juken-btn-primary {
+  min-height: 46px;
+  border-radius: var(--mt-radius-md, 14px);
+  background: var(--mt-brand, #2458a6);
+  color: #ffffff;
+  font-family: var(--mt-font-display);
+  font-weight: 800;
+  border: 1.5px solid #1a4482;
+  box-shadow: 0 3px 0 #183d75, 0 6px 14px rgba(36, 88, 166, 0.2);
+  transition: transform 0.1s ease, box-shadow 0.1s ease, filter 0.15s ease;
+}
+
+.juken-btn-primary:hover {
+  filter: brightness(1.05);
+}
+
+.juken-btn-primary:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #183d75;
+}
+
+.juken-btn-accent {
+  min-height: 46px;
+  border-radius: var(--mt-radius-md, 14px);
+  background: var(--mt-accent, #f29a1f);
+  color: #23180a;
+  font-family: var(--mt-font-display);
+  font-weight: 800;
+  border: 1.5px solid #c97808;
+  box-shadow: 0 3px 0 #b86c05, 0 6px 14px rgba(242, 154, 31, 0.22);
+  transition: transform 0.1s ease, box-shadow 0.1s ease, filter 0.15s ease;
+}
+
+.juken-btn-accent:hover {
+  filter: brightness(1.04);
+}
+
+.juken-btn-accent:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #b86c05;
+}
+
+.juken-btn-soft {
+  min-height: 44px;
+  border-radius: var(--mt-radius-md, 14px);
+  background: #ffffff;
+  color: var(--mt-ink-warm, #3d3222);
+  font-weight: 800;
+  border: 1.5px solid var(--mt-line, #e3d9c8);
+  box-shadow: 0 2px 0 #e6dccb;
+  transition: transform 0.1s ease, background-color 0.15s ease;
+}
+
+.juken-btn-soft:hover {
+  background: #fffaf0;
+}
+
+.juken-btn-soft:active {
+  transform: translateY(1.5px);
+  box-shadow: 0 0.5px 0 #e6dccb;
+}
+
+/* 47都道府県 日本地図タイルグリッド（13列 × 13行） */
+.japan-tile-scroll {
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.japan-tile-grid {
+  display: grid;
+  grid-template-columns: repeat(13, minmax(46px, 1fr));
+  grid-template-rows: repeat(13, 38px);
+  gap: 4px;
+  min-width: 630px;
+  padding: 12px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #eaf3fc 0%, #f4f8fd 100%);
+  border: 1.5px solid #cfe0f5;
+}
+
+.japan-tile-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.1;
+  border: 1.5px solid rgba(30, 58, 138, 0.16);
+  background: #ffffff;
+  color: #243447;
+  box-shadow: 0 2px 0 rgba(30, 58, 138, 0.1);
+  cursor: pointer;
+  transition: transform 0.1s ease, background-color 0.15s ease, border-color 0.15s ease;
+  user-select: none;
+  padding: 2px;
+}
+
+.japan-tile-cell:hover {
+  transform: translateY(-1px);
+  border-color: var(--mt-brand, #2458a6);
+}
+
+.japan-tile-cell[data-dimmed='true'] {
+  opacity: 0.34;
+}
+
+.japan-tile-cell[data-target='true'] {
+  background: #e7f0fd;
+  border-color: #2458a6;
+  color: #163c78;
+}
+
+.japan-tile-cell[data-selected='true'] {
+  background: var(--mt-accent, #f29a1f);
+  border-color: #b86c05;
+  color: #1f1405;
+  box-shadow: 0 2px 0 #9f5b02, 0 0 0 2px #ffffff;
+  z-index: 2;
+}
+
+/* 整理比較テーブル */
+.juken-table-wrap {
+  overflow-x: auto;
+  border-radius: 14px;
+  border: 1.5px solid var(--mt-line, #e3d9c8);
+  background: #ffffff;
+}
+
+.juken-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.juken-table th {
+  background: #f4efe4;
+  color: #3a2f21;
+  font-weight: 800;
+  text-align: left;
+  padding: 9px 12px;
+  border-bottom: 1.5px solid var(--mt-line, #e3d9c8);
+  white-space: nowrap;
+}
+
+.juken-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid #efe6d6;
+  color: #262019;
+  vertical-align: top;
+}
+
+.juken-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* 赤シート暗記チップ */
+.juken-cloze-hidden {
+  background: linear-gradient(180deg, #e54848 0%, #cf3434 100%);
+  color: transparent !important;
+  border: 1.5px solid #b42525;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.16), 0 1px 0 #fff;
+  user-select: none;
+  cursor: pointer;
+}
+
+.juken-cloze-hidden * {
+  visibility: hidden;
+}
+
+.juken-cloze-revealed {
+  background: #fff1f1;
+  color: #b91c1c;
+  border: 1.5px solid #f2b6b6;
+  cursor: pointer;
+}
+
+.juken-cloze-off {
+  background: #fff4dc;
+  color: #9a4d06;
+  border: 1.5px solid #f0cf8e;
+}

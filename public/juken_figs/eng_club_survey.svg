@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 235" width="520" height="235" font-family="Hiragino Sans, Noto Sans JP, sans-serif">
+  <title>Green City Junior High School 生徒アンケート結果グラフ</title>
+  <rect width="520" height="235" fill="#ffffff"/>
+  <text x="20" y="26" font-size="14" font-weight="bold" fill="#1e293b">Q. What do you want to try at the International Festival? (120 students)</text>
+  <g transform="translate(25, 48)" font-size="13">
+    <text x="0" y="22" font-weight="bold" fill="#1e293b">Cooking world food</text>
+    <rect x="165" y="6" width="240" height="22" rx="4" fill="#2563eb"/>
+    <text x="413" y="22" font-weight="bold" fill="#1d4ed8">48 students (40%)</text>
+    <text x="0" y="62" font-weight="bold" fill="#1e293b">Listening to music</text>
+    <rect x="165" y="46" width="150" height="22" rx="4" fill="#0f766e"/>
+    <text x="323" y="62" font-weight="bold" fill="#0f766e">30 students (25%)</text>
+    <text x="0" y="102" font-weight="bold" fill="#1e293b">Playing traditional games</text>
+    <rect x="165" y="86" width="120" height="22" rx="4" fill="#d97706"/>
+    <text x="293" y="102" font-weight="bold" fill="#b45309">24 students (20%)</text>
+    <text x="0" y="142" font-weight="bold" fill="#1e293b">Talking online in English</text>
+    <rect x="165" y="126" width="90" height="22" rx="4" fill="#7c3aed"/>
+    <text x="263" y="142" font-weight="bold" fill="#6d28d9">18 students (15%)</text>
+  </g>
+  <text x="25" y="218" font-size="12" fill="#475569">Note: Cooking session starts at 10:30 a.m. (Room A) and 1:30 p.m. (Room A). Max 25 people per session.</text>
+</svg>
