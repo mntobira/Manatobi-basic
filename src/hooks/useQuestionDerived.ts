@@ -355,8 +355,10 @@ export function useQuestionDerived({
    *   ・キーボード表示中は入力欄をキーボードの上に見せる従来ロジックを優先
    *   ・全画面表示中は問題文ペインが absolute inset-0 になり無関係
    */
+  // リスニング専用の上下逆配分レイアウトは、実際に音声トラックを持つリスニング問題だけに適用する
+  // （stepwise=true の通常4択問題に適用すると、問題文と図版が min-h-0 flex-1 で潰れて重なるため）
   const listeningMobileSplit =
-    !isDesktop && listeningUnified && !isProblemExpanded && !isProblemCollapsed && !keyboardVisible;
+    !isDesktop && listeningTracks.length > 0 && !isProblemExpanded && !isProblemCollapsed && !keyboardVisible;
 
   /**
    * いま解いている問に「図」があるか。

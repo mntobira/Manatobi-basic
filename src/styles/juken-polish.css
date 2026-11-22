@@ -254,3 +254,180 @@
   color: #9a4d06;
   border: 1.5px solid #f0cf8e;
 }
+
+/* ===================================================================
+ * 中学生向け 回答画面（Quiz / ProblemPane / AnswerPane / MultipleChoice）
+ * =================================================================== */
+.juken-quiz-shell {
+  --quiz-accent: #2458a6;
+  --quiz-soft: #dce8fb;
+  --quiz-surface: #f4f8fe;
+  background: #fcf5e9;
+  color: #1c2a39;
+  font-family: var(--mt-font-body);
+}
+
+/* 小問ステップピルバー（(1)(2)(3)...） */
+.juken-step-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 2px 2px 6px;
+  scrollbar-width: none;
+}
+.juken-step-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.juken-step-pill {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 36px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1.5px solid #dfd4c0;
+  background: #ffffff;
+  color: #4f5d6b;
+  font: 800 12.5px/1 var(--mt-font-display);
+  box-shadow: 0 2px 0 #e6dccb;
+  cursor: pointer;
+  transition: transform 0.1s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.juken-step-pill[data-answered="true"] {
+  border-color: #96d1b1;
+  background: #ecf9f1;
+  color: #1b6b40;
+}
+
+.juken-step-pill[data-active="true"] {
+  border-color: var(--quiz-accent);
+  background: var(--quiz-accent);
+  color: #ffffff;
+  box-shadow: 0 2px 0 color-mix(in srgb, var(--quiz-accent) 70%, #000 24%);
+}
+
+/* 設問＋選択肢一体型カード */
+.juken-sq-card {
+  background: #ffffff;
+  border: 2px solid #e4d9c5;
+  border-radius: 20px;
+  box-shadow: 0 3px 0 #e6dccb, 0 6px 16px rgba(60, 45, 20, 0.05);
+  padding: 16px;
+  transition: border-color 0.15s ease;
+}
+
+.juken-sq-card[data-answered="true"] {
+  border-color: color-mix(in srgb, var(--quiz-accent) 42%, #d8ccb6);
+}
+
+/* 立体4択ボタン（重なりゼロ・消去メモボタン分離型） */
+.juken-choice-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: stretch;
+  gap: 6px;
+  width: 100%;
+}
+
+.juken-choice-btn {
+  min-width: 0;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 13px;
+  border-radius: 16px;
+  border: 2px solid #e3d8c4;
+  background: #fffefb;
+  color: #1c2a39;
+  text-align: left;
+  font: 700 15.5px/1.48 var(--mt-font-body);
+  box-shadow: 0 3px 0 #e6dccb;
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.08s ease, border-color 0.14s ease, background-color 0.14s ease;
+}
+
+.juken-choice-btn:hover:not([data-struck="true"]) {
+  border-color: color-mix(in srgb, var(--quiz-accent) 55%, #d6c8b0);
+  background: #ffffff;
+}
+
+.juken-choice-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #e6dccb;
+}
+
+.juken-choice-btn[data-selected="true"] {
+  border-color: var(--quiz-accent);
+  background: color-mix(in srgb, var(--quiz-accent) 10%, #ffffff);
+  box-shadow: 0 3px 0 color-mix(in srgb, var(--quiz-accent) 65%, #000 18%);
+}
+
+.juken-choice-btn[data-struck="true"] {
+  border-style: dashed;
+  border-color: #d5cec2;
+  background: #f5f2ec;
+  color: #9aa3ad;
+  box-shadow: none;
+}
+
+.juken-choice-mark {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  background: #f5efe2;
+  border: 1.5px solid #dfd3bd;
+  color: #3d3222;
+  font: 800 14px/1 var(--mt-font-display);
+}
+
+.juken-choice-btn[data-selected="true"] .juken-choice-mark {
+  background: var(--quiz-accent);
+  border-color: var(--quiz-accent);
+  color: #ffffff;
+}
+
+.juken-choice-btn[data-struck="true"] .juken-choice-mark {
+  background: #ebe6dc;
+  border-color: #d6cfc2;
+  color: #a0a8b0;
+}
+
+/* 右端の独立「消去メモ（×）」ボタン — 本文に絶対重ならない */
+.juken-elim-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  min-height: 52px;
+  border-radius: 14px;
+  border: 1.5px solid #e7ddd0;
+  background: #faf6ee;
+  color: #8b7e6a;
+  font: 800 10px/1.1 var(--mt-font-body);
+  cursor: pointer;
+  transition: background-color 0.14s ease, color 0.14s ease, border-color 0.14s ease;
+}
+
+.juken-elim-btn:hover {
+  background: #f3ece0;
+  color: #5b4f3e;
+}
+
+.juken-elim-btn[data-struck="true"] {
+  border-color: #e6a298;
+  background: #fff0ee;
+  color: #c0392b;
+}
+

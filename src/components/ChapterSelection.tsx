@@ -149,22 +149,20 @@ export function ChapterSelection({ mode, onSelectChapter, onBack, subject = 'eng
   }, []);
 
   return (
-    <div className="mtb-page chapter-route flex h-[calc(100dvh-env(safe-area-inset-top)-env(safe-area-inset-bottom))] min-h-0 w-full flex-col overflow-hidden notebook-paper p-3 pb-[calc(5.75rem+env(safe-area-inset-bottom))] sm:p-5 sm:pb-[calc(5.75rem+env(safe-area-inset-bottom))] md:p-6 md:pb-[calc(5.75rem+env(safe-area-inset-bottom))] relative font-handwriting">
-      {/* ★見出しは1行・80px以内（UIの決まり）★
-          以前は「科目名の小見出し／演習問題／学習したい単元を選択してください／科目を変更」の4段で
-          スマホの縦の1/4を使っていた。戻る・科目名・とびら君を1行にまとめる。 */}
+    <div className="mtb-page chapter-route flex h-[calc(100dvh-env(safe-area-inset-top)-env(safe-area-inset-bottom))] min-h-0 w-full flex-col overflow-hidden p-3 pb-[calc(5.75rem+env(safe-area-inset-bottom))] sm:p-5 sm:pb-[calc(5.75rem+env(safe-area-inset-bottom))] md:p-6 md:pb-[calc(5.75rem+env(safe-area-inset-bottom))] relative">
+      {/* ★見出しは1行・80px以内（UIの決まり）★ */}
       <header className="chapter-route-heading unit-head shrink-0">
-        <button type="button" onClick={onBack} className="unit-head-back" aria-label={`${backLabel}へ戻る`}>
+        <button type="button" onClick={onBack} className="unit-head-back cursor-pointer" aria-label={`${backLabel}へ戻る`}>
           <ArrowLeft size={18} aria-hidden="true" /><span>{backLabel}</span>
         </button>
         <div className="unit-head-title">
-          <h2 style={{ color: theme.accent }}>{isListening ? '英語リスニング' : isGrammar ? '英文法' : isToeic ? 'TOEIC' : theme.label}</h2>
-          <p>{mode === 'mini_test' ? '小テスト' : isListening ? '共通テスト大問別・1回ずつ完結' : isToeic ? (toeicTabs ? toeicSub : '1回30問・4択（短文穴埋め）') : isGrammar ? '単元別の4択演習' : '単元を選ぶ'}</p>
+          <h2 style={{ color: theme.accent }}>{isListening ? '英語リスニング' : isGrammar ? '英文法' : isToeic ? 'TOEIC' : `高校入試・${theme.label}`}</h2>
+          <p>{mode === 'mini_test' ? '入試直前 スピード小テスト' : isListening ? '共通テスト大問別・1回ずつ完結' : isToeic ? (toeicTabs ? toeicSub : '1回30問・4択（短文穴埋め）') : isGrammar ? '単元別の4択演習' : '解きたい単元を選ぼう！（カードをタップすると出題範囲が見られます）'}</p>
         </div>
         <DoorMascot subject={subject} showSpeech={false} size="mini" className="unit-head-mascot w-auto" />
       </header>
 
-      <div className="chapter-workspace flex min-h-0 flex-1 flex-col font-handwriting">
+      <div className="chapter-workspace flex min-h-0 flex-1 flex-col">
         {/* ================================================================
             章／大問の一覧
             ================================================================
@@ -444,6 +442,7 @@ export function ChapterSelection({ mode, onSelectChapter, onBack, subject = 'eng
                   </h4>
                 ) : null;
                 const expanded = expandedChapterId === chapter.id;
+                const subQuestionTotal = questions.reduce((sum, q) => sum + Math.max(1, (q.subQuestions || []).length), 0);
 
                 return (
                   <React.Fragment key={chapter.id}>
@@ -454,6 +453,7 @@ export function ChapterSelection({ mode, onSelectChapter, onBack, subject = 'eng
                     title={chapter.abstractTitle}
                     topics={chapter.topics}
                     questionCount={questions.length}
+                    subQuestionTotal={subQuestionTotal}
                     status={status}
                     accuracy={accuracyOf(stat)}
                     perfects={isGrammar ? undefined : stage?.p ?? 0}

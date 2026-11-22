@@ -1,47 +1,22 @@
-/**
- * =====================================================================
- * 演習画面のヘッダー帯（単元名・スコア・順位・進捗）
- * =====================================================================
- * ■ なぜ Quiz.tsx から切り出したのか
- *   Quiz.tsx の JSX に残っていた「上部の帯」100 行分。
- *   ペイン2つ（ProblemPane / AnswerPane）を切り出したあと、
- *   ここだけが JSX の塊として残っていたので同じ形にそろえた。
- *
- * ■ 動きも見た目も 1 ピクセルも変えていない
- *   JSX は Quiz.tsx にあったものをそのまま移しただけ。
- *   props 名も Quiz.tsx 側の呼び名と同じにしてある。
- *
- * ■ ここを触るときの注意
- *   「入力中だけ隠す」条件（!isDesktop && keyboardVisible）は、
- *   実際の端末でキーボードの占有率を数えて決めたもの。
- *   PC（isDesktop）には一切かからない条件にしてある。
- *   詳しい経緯は下のコメントに残してある。
- */
 import { useState } from 'react';
-import { ArrowLeft, Lightbulb, X } from 'lucide-react';
+import { ArrowLeft, Flame, Lightbulb, X } from 'lucide-react';
+import { DoorMascot } from './DoorMascot';
+import type { SubjectKey } from '../data/allChapters';
 
 export interface QuizHeaderProps {
-  /** 章（単元）の表示名。Quiz.tsx では chapter.abstractTitle を渡している。
-   *  （chapter.title ではないので注意。取り違えると帯の見出しが変わる） */
   chapterAbstractTitle: string;
-  /** 演習モード（mini_test など）。見た目の色分けに使う。 */
   mode: string;
-  /** 画面幅が PC 相当か。true のときは「入力中に隠す」条件がかからない。 */
   isDesktop: boolean;
-  /** スマホでソフトキーボードが出ているか。 */
   keyboardVisible: boolean;
-  /** 「単元選択に戻る」を押したとき。 */
   handleExit: () => void;
-  /** 章の途中経過（点数・コンボ）。 */
   run: { score: number; combo: number };
-  /** いま何問目か（1 から数えた値）。 */
   progressPosition: number;
-  /** 1画面に2問以上（問34・35）あるときの最後の番号。「1〜2 / 2」と出す */
   progressPositionEnd?: number;
-  /** 全部で何問か。 */
   progressTotal: number;
-  /** この単元で扱う内容（chapter.topics）。解く前・迷ったときに「ポイント」で見られる */
   topics?: string[];
+  subject?: SubjectKey;
+  subjectLabel?: string;
+  accent?: string;
 }
 
 export function QuizHeader({
@@ -55,129 +30,142 @@ export function QuizHeader({
   progressPositionEnd,
   progressTotal,
   topics = [],
+  subject,
+  subjectLabel,
+  accent = '#2458A6',
 }: QuizHeaderProps) {
-  // Quiz.tsx にあったときの呼び名をそのまま残す（下の JSX を書き換えないため）。
-  const chapter = { abstractTitle: chapterAbstractTitle };
-  /**
-   * ★この単元のポイント★（ひとりで学ぶの学びやすさ）
-   * 解く前に「何を確かめる単元か」、迷ったときに「どの考え方を使うか」を
-   * 問題を離れずに確かめられるようにする。答えは見せない（扱う内容の一覧だけ）。
-   */
   const [pointsOpen, setPointsOpen] = useState(false);
   const points = topics.filter((t) => typeof t === 'string' && t.trim()).slice(0, 8);
+  const modeLabel = mode === 'mini_test' ? '小テスト' : '実戦演習';
+  const badgeText = subjectLabel ? `${subjectLabel}・${modeLabel}` : modeLabel;
+
   return (
     <>
-    {/*
-      Header (Fixed)
-
-      ★B-3：解答を打っている間だけ、上部の帯を引っ込める★
-      ─────────────────────────────────────────────────────
-      ご指摘：
-        「解答打つ時にこんなに画面塞がれるとしんどい
-          (ア) 前へ 1/9 次へ 完了のところは必要だけど、
-          それ以外の☑️とか色々消せないの？
-          どちらにせよこれだと回答打ちづらい」
-
-      ■ まず画面の占有を、誰が出しているかで分けて数えた
-        （いただいた画面／844px 高さ換算）
-          アプリのヘッダー（単元名・スコア・1/4）    7%  ← アプリ側
-          タイマーバー（残り 6:10）                3%  ← アプリ側
-          問題ヘッダー（Q1 問題文・たたむ・全画面）   5%  ← アプリ側
-          問題文＋解答欄（★本体★）               25%
-          ブラウザの操作バー（< > ↻ ⇧ ⋮）          6%  ← ブラウザ側
-          キーボードの ∧ ∨ ☑️ の行                6%  ← ★ブラウザ側★
-          かなキーボード本体                      48%  ← ブラウザ側
-
-      ■ ★正直に書きます：☑️ の行はこちらから消せません★
-        お尋ねの「☑️とか」の行は、キーボード（IME）と
-        ブラウザが出している部分で、Webページ側の CSS や
-        JavaScript からは操作できません。合計 60% がここです。
-        「消せます」と書くのは嘘になるので書きません。
-
-      ■ できること＝アプリ側の 15%（約126px）を入力中だけ空ける
-        ヘッダー・タイマー・問題ヘッダーは、
-        文字を打っている最中には読む必要がないものです。
-        keyboardVisible の間だけ引っ込めると
-          本体 25% → 40%（211px → 337px、約1.6倍）
-        になります。
-
-      ■ 消さないもの
-        ・「(ア) 前へ 1/9 次へ 完了」バー … 必要と明言されたので残す
-        ・入力欄と問題文               … 本体
-        ・ヘッダーの中身そのもの         … 消さずに「隠す」だけ。
-          「完了」でキーボードが閉じれば即座に元に戻る。
-      PC（isDesktop）には一切かからない条件にしてある。
-    */}
-    <div data-quiz-header className={`flex-none px-2 pt-[calc(0.35rem+env(safe-area-inset-top,0px))] pb-1 md:p-6 md:pt-6 border-b border-[#EADFC8] bg-[#FFFAF0] shadow-sm z-10 flex items-center justify-between gap-2 md:gap-4 ${
-      !isDesktop && keyboardVisible ? 'hidden' : ''
-    }`}>
-      <div className="flex items-center text-left gap-2 md:gap-4 min-w-0">
-        <button 
-          onClick={handleExit}
-          title="単元選択に戻る"
-          aria-label="単元選択に戻る"
-          className="flex h-11 w-11 items-center justify-center rounded-full hover:bg-gray-100 text-gray-500 transition-colors shrink-0"
-        >
-          <ArrowLeft size={18} className="md:w-5 md:h-5" aria-hidden="true" />
-        </button>
-        <div className="min-w-0 flex-1">
-          {/* 2026-10-02 D2：解答・解説カードと同じ「演習」札。対戦（夜の青）と見分けがつく */}
-          <span className="inline-flex items-center rounded-full bg-[#F3C64F] px-2 text-xs font-extrabold leading-5 text-[#5B3D00]">
-            {mode === 'mini_test' ? '小テスト' : '演習'}
-          </span>
-          <h2 className="text-sm md:text-xl font-handwriting text-[#2C3E50] font-bold truncate">
-            {chapter.abstractTitle}
-          </h2>
-        </div>
-      </div>
-
-      <div className="flex items-center gap-2 shrink-0">
-        {points.length > 0 && (
-          <button type="button" onClick={() => setPointsOpen(true)} data-unit-points-button
-            className="flex min-h-11 min-w-11 items-center justify-center gap-1 rounded-full border border-[#F4D03F]/50 bg-[#FFF9E0] px-2 text-xs font-bold text-[#8a6d00] md:px-3"
-            aria-haspopup="dialog" aria-label="この単元のポイントを見る">
-            <Lightbulb size={13} aria-hidden="true" />
-            <span className="hidden sm:inline">ポイント</span>
+      <header
+        data-quiz-header
+        className={`flex-none px-3 pt-[calc(0.45rem+env(safe-area-inset-top,0px))] pb-2 md:px-6 md:py-3.5 border-b border-[#e4d9c5] bg-[#fffdf7] z-20 flex items-center justify-between gap-2.5 md:gap-4 ${
+          !isDesktop && keyboardVisible ? 'hidden' : ''
+        }`}
+      >
+        {/* 左：もどるボタン ＋ 科目バッジ・単元名 */}
+        <div className="flex items-center text-left gap-2.5 md:gap-3.5 min-w-0 flex-1">
+          <button
+            type="button"
+            onClick={handleExit}
+            title="単元選択に戻る"
+            aria-label="単元選択に戻る"
+            className="inline-flex min-h-[40px] items-center justify-center gap-1 rounded-full border border-[#dfd4c0] bg-white px-3 text-xs md:text-sm font-extrabold text-[#3d3222] shadow-[0_2px_0_#e6dccb] active:translate-y-0.5 transition-all shrink-0 cursor-pointer"
+          >
+            <ArrowLeft size={16} aria-hidden="true" />
+            <span className="hidden min-[380px]:inline">もどる</span>
           </button>
-        )}
 
-        {/* 2026-10-02 D2：演習では点数（累積スコア）を出さない。学習に集中する画面にする */}
-
-        <div className="flex items-center gap-2 md:gap-3 bg-gray-100 rounded-full px-3 py-1 md:px-4 md:py-1.5 shrink-0">
-          <div className="text-xs md:text-sm text-gray-500 font-bold hidden sm:block">進捗</div>
-          {/* 分母は「今回解く範囲の問題数」。
-              1回分（例：第3回演習）だけを選んで解いているときに
-              章全体の 14 が分母になると、あと13回残っているように見えて
-              いつまでも終わらない印象になるため。
-
-              ★リスニング（1問ずつモード）では「問」を数える★
-              ご要望「問1で1つの進捗、問2で1つの進捗」に合わせ、
-              4問ある回では 1/4 → 2/4 → 3/4 → 4/4 と動く。
-              以前は4問まとめて1件だったので 1/1 のまま動かず、
-              解いた実感がまったく残らなかった。 */}
-          <div className="font-mono font-bold text-[#2C3E50] text-xs md:text-base">
-            <span className="text-sm md:text-lg">{progressPosition}{progressPositionEnd ? `〜${progressPositionEnd}` : ''}</span>
-            <span className="text-gray-400 mx-1">/</span>
-            <span>{progressTotal}</span>
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-1.5">
+              <span
+                className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-extrabold leading-4 text-white"
+                style={{ backgroundColor: accent }}
+              >
+                {badgeText}
+              </span>
+              {run.combo >= 2 && (
+                <span className="inline-flex items-center gap-0.5 rounded-full bg-[#fff1db] border border-[#f2c47e] px-2 py-0.5 text-[11px] font-extrabold text-[#b35300]">
+                  <Flame size={12} className="fill-current" aria-hidden="true" />
+                  {run.combo}連続!
+                </span>
+              )}
+            </div>
+            <h2 className="mt-0.5 text-sm md:text-lg font-extrabold text-[#1c2a39] truncate tracking-tight">
+              {chapterAbstractTitle}
+            </h2>
           </div>
         </div>
-      </div>
-    </div>
-    {pointsOpen && (
-      <div className="unit-points-backdrop" role="presentation" onClick={() => setPointsOpen(false)}>
-        <div className="unit-points" role="dialog" aria-modal="true" aria-labelledby="unit-points-title" data-unit-points onClick={(e) => e.stopPropagation()}>
-          <header>
-            <Lightbulb size={18} aria-hidden="true" />
-            <h3 id="unit-points-title">この単元のポイント</h3>
-            <button type="button" onClick={() => setPointsOpen(false)} aria-label="閉じる" autoFocus><X size={18} /></button>
-          </header>
-          <p className="unit-points-title">{chapter.abstractTitle}</p>
-          <ol>{points.map((t, i) => <li key={i}>{t}</li>)}</ol>
-          <p className="unit-points-note">迷ったら、どの考え方を使う問題かをここで確かめてから解いてみよう。解説は答えを出したあとに見られます。</p>
-          <button type="button" className="unit-points-close" onClick={() => setPointsOpen(false)}>問題にもどる</button>
+
+        {/* 右：要点ヒント ＋ 大問進捗ピル */}
+        <div className="flex items-center gap-2 shrink-0">
+          {points.length > 0 && (
+            <button
+              type="button"
+              onClick={() => setPointsOpen(true)}
+              data-unit-points-button
+              className="inline-flex min-h-[40px] items-center justify-center gap-1.5 rounded-full border border-[#ebd089] bg-[#fff8e3] px-3 text-xs font-extrabold text-[#8a5800] shadow-[0_2px_0_#ead69d] active:translate-y-0.5 transition-all cursor-pointer"
+              aria-haspopup="dialog"
+              aria-label="この単元のヒントを見る"
+            >
+              <Lightbulb size={15} aria-hidden="true" />
+              <span>ヒント</span>
+            </button>
+          )}
+
+          <div
+            className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 shrink-0"
+            style={{
+              backgroundColor: `color-mix(in srgb, ${accent} 9%, #ffffff)`,
+              borderColor: `color-mix(in srgb, ${accent} 26%, #e3d8c4)`,
+            }}
+          >
+            <span className="text-[11px] font-extrabold text-[#5a6573] hidden sm:inline">セット</span>
+            <span
+              className="font-extrabold text-xs md:text-sm tabular-nums"
+              style={{ color: accent, fontFamily: 'var(--mt-font-display)' }}
+            >
+              {progressPosition}
+              {progressPositionEnd ? `〜${progressPositionEnd}` : ''}
+              <span className="mx-0.5 text-[#8a94a0]">/</span>
+              {progressTotal}
+            </span>
+          </div>
         </div>
-      </div>
-    )}
+      </header>
+
+      {pointsOpen && (
+        <div
+          className="unit-points-backdrop"
+          role="presentation"
+          onClick={() => setPointsOpen(false)}
+        >
+          <div
+            className="unit-points"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="unit-points-title"
+            data-unit-points
+            onClick={(e) => e.stopPropagation()}
+          >
+            <header>
+              <Lightbulb size={18} aria-hidden="true" />
+              <h3 id="unit-points-title">この単元の攻略ポイント</h3>
+              <button
+                type="button"
+                onClick={() => setPointsOpen(false)}
+                aria-label="閉じる"
+                autoFocus
+              >
+                <X size={18} />
+              </button>
+            </header>
+            <div className="mb-2 flex items-center gap-2.5">
+              {subject && <DoorMascot subject={subject} showSpeech={false} size="mini" />}
+              <p className="unit-points-title m-0">{chapterAbstractTitle}</p>
+            </div>
+            <ol>
+              {points.map((t, i) => (
+                <li key={i}>{t}</li>
+              ))}
+            </ol>
+            <p className="unit-points-note">
+              迷ったら「どの公式・ルールを使う問題か」をここで思い出してから解いてみよう！詳しい解説は答え合わせで見られます。
+            </p>
+            <button
+              type="button"
+              className="unit-points-close"
+              onClick={() => setPointsOpen(false)}
+            >
+              問題にもどる
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }

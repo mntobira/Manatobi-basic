@@ -215,8 +215,10 @@ export function QuestionFigure({
     // 高さ基準で得られる高さ（26vh）が、幅基準の高さ（枠幅/比）より大きいか
     viewportH * 0.26 > frameWidth / aspect;
 
+  const isSvgDiagram = /\.svg(?:$|\?)/i.test(src);
   const isWide =
     !fill &&
+    !isSvgDiagram &&
     aspect !== null &&
     // 横長の図だけを対象にする（下限）
     aspect >= FIG_ASPECT_THRESHOLD &&
