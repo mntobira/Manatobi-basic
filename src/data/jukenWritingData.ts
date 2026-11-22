@@ -1,13 +1,14 @@
 /**
  * ===================================================================
- * 高校入試 英作文道場データ（三重県後期選抜 英作文対策プリント＋全国公立型）
+ * 高校入試 英作文道場データ v2（三重県後期選抜＋全国公立・都立/埼玉/神奈川/大阪型）
  * ===================================================================
  *
  * 送付プリント『三重県後期選抜 英語 英作文対策プリント』の
- * ・過去5年（R4〜R8）分析と2点満点減点基準
- * ・必須の型21選 ＆ 減点ゼロの言い換え5選
- * ・基礎ドリル（和文英訳・誤文訂正）
- * ・予想問題 第1回〜第6回（対話補充＆テーマ意見英作文）
+ * ・過去5年（R4〜R8）分析と2点〜12点満点減点基準
+ * ・必須の型21選 ＆ 減点ゼロの言い換え7選
+ * ・基礎ドリル（和文英訳）・誤文訂正ドリル
+ * ・予想問題 第1回〜第6回（対話補充・Eメール）
+ * ・都道府県別 代表フォーマット実戦（東京都立3文Eメール・埼玉/大阪40語意見英作・神奈川条件英作）
  * を網羅的に収録。
  */
 
@@ -29,9 +30,11 @@ export interface ParaphraseTip {
 
 export interface WritingTask {
   id: string;
-  group: 'drill' | 'error_fix' | 'mock_dialogue' | 'national_opinion';
+  group: 'drill' | 'error_fix' | 'mock_dialogue' | 'national_opinion' | 'pref_special';
   badge: string;
   title: string;
+  /** 対象都道府県・出題タイプのタグ */
+  prefTag?: string;
   /** 対話文や状況設定 */
   context: string;
   /** 指示・条件 */
@@ -40,6 +43,8 @@ export interface WritingTask {
   minWords: number;
   /** 推奨最大語数（0は上限なし） */
   maxWords?: number;
+  /** 最小文数（東京3文指定など） */
+  minSentences?: number;
   /** 解答文の末尾記号の期待値 */
   expectedEndPunct?: '.' | '?' | 'any';
   /** ヒントになる推奨キーワード */
@@ -56,9 +61,9 @@ export const WRITING_PATTERNS_21: readonly WritingPattern[] = [
   { no: 1, category: '意見・理由', pattern: 'I think (that) S + V.', japanese: '私は〜だと思います。', example: 'I think that reading books is important.', caution: '後ろに完全な文（S+V）を続ける！' },
   { no: 2, category: '意見・理由', pattern: 'because S + V', japanese: 'なぜなら〜だからです。', example: 'I like summer because I can swim in the sea.', caution: 'Why ~? への返答や理由説明の大定番。' },
   { no: 3, category: '意見・理由', pattern: 'First, ... Second, ...', japanese: '第一に〜。第二に〜。', example: 'First, it is easy. Second, it is cheap.', caution: '2文以上で理由を書くときに論理が明確になる。' },
-  { no: 4, category: '提案・依頼', pattern: 'Why don\'t we + 原形 ~?', japanese: '一緒に〜しませんか。', example: 'Why don\'t we go to the library after school?', caution: '文末は必ずクエスチョンマーク（?）にする！' },
+  { no: 4, category: '提案・依頼', pattern: "Why don't we + 原形 ~?", japanese: '一緒に〜しませんか。', example: "Why don't we go to the library after school?", caution: '文末は必ずクエスチョンマーク（?）にする！' },
   { no: 5, category: '提案・依頼', pattern: 'How about + ~ing?', japanese: '〜するのはどうですか。', example: 'How about making pancakes together?', caution: 'about は前置詞なので後ろは必ず ~ing（または名詞）！' },
-  { no: 6, category: '提案・依頼', pattern: 'Let\'s + 原形 ~.', japanese: '〜しましょう。', example: 'Let\'s meet at the station at ten.', caution: '文末はピリオド（.）。時刻の前に at を忘れない。' },
+  { no: 6, category: '提案・依頼', pattern: "Let's + 原形 ~.", japanese: '〜しましょう。', example: "Let's meet at the station at ten.", caution: '文末はピリオド（.）。時刻の前に at を忘れない。' },
   { no: 7, category: '提案・依頼', pattern: 'Could you + 原形 ~?', japanese: '〜していただけませんか。', example: 'Could you tell me the way to the hospital?', caution: '丁寧な依頼。Will you / Can you より丁寧。' },
   { no: 8, category: '提案・依頼', pattern: 'Shall I + 原形 ~?', japanese: '（私が）〜しましょうか。', example: 'Shall I help you with your homework?', caution: '手伝いを申し出るときに最適。' },
   { no: 9, category: '提案・依頼', pattern: 'You should + 原形 ~.', japanese: 'あなたは〜すべきです（〜した方がよい）。', example: 'You should take an umbrella today.', caution: '困っている相手へのアドバイス問題で鉄板！' },
@@ -107,6 +112,18 @@ export const PARAPHRASE_TIPS_5: readonly ParaphraseTip[] = [
     safeEn: 'You should go to bed early and eat breakfast every day.',
     point: '抽象的な日本語は「早く寝る・朝食を食べる」など具体的な中学英語の行動に直す！',
   },
+  {
+    hardJa: '自分の意見を他の人と共有できます。',
+    ngTrap: '× We can share opinion with another people.（単複・anotherミス！）',
+    safeEn: 'We can share our ideas with others. / We can talk about our ideas.',
+    point: 'our ideas と複数所有格にするか、talk about our ideas with our friends にすると安全！',
+  },
+  {
+    hardJa: '環境を守るためにレジ袋を減らすべきです。',
+    ngTrap: '× For protect environment, we should reduce...',
+    safeEn: 'To help the earth, we should bring our own bags when we go shopping.',
+    point: 'environment のつづりに自信がなければ the earth / nature に言い換えて満点確保！',
+  },
 ];
 
 export const WRITING_TASKS: readonly WritingTask[] = [
@@ -115,18 +132,19 @@ export const WRITING_TASKS: readonly WritingTask[] = [
     id: 'wt_drill_1',
     group: 'drill',
     badge: '基礎ドリル①',
+    prefTag: '全県共通・提案',
     title: '提案＆待ち合わせの英作文',
     context: '日曜日に友人の Tom と映画を見に行くことになりました。以下の内容を表す1文を英語で書きなさい。\n「午前10時に駅の前で会いましょう。」',
-    condition: '6語以上の英語1文で書くこと（Let\'s または Why don\'t we を使うと書きやすい）。',
+    condition: "6語以上の英語1文で書くこと（Let's または Why don't we を使うと書きやすい）。",
     minWords: 6,
     expectedEndPunct: 'any',
     hintKeywords: ['meet', 'station', 'ten'],
     modelAnswers: [
-      'Let\'s meet in front of the station at ten.',
-      'Why don\'t we meet at the station at 10 a.m.?',
+      "Let's meet in front of the station at ten.",
+      "Why don't we meet at the station at 10 a.m.?",
     ],
     rubricPoints: [
-      'Let\'s ＋動詞の原形（ピリオド）または Why don\'t we ＋動詞の原形（?）が正しく使えているか',
+      "Let's ＋動詞の原形（ピリオド）または Why don't we ＋動詞の原形（?）が正しく使えているか",
       '時刻の前に前置詞 at、「〜の前で」に in front of（または駅の地点 at the station）が使えているか',
     ],
   },
@@ -134,6 +152,7 @@ export const WRITING_TASKS: readonly WritingTask[] = [
     id: 'wt_drill_2',
     group: 'drill',
     badge: '基礎ドリル②',
+    prefTag: '全県共通・目的不定詞',
     title: '目的を表す不定詞（〜するために）',
     context: '昨日の放課後の行動について英語で伝えます。\n「私は昨日、理科の本を借りるために図書館へ行きました。」',
     condition: '8語以上の英語1文で書くこと（時制に注意！）。',
@@ -151,11 +170,32 @@ export const WRITING_TASKS: readonly WritingTask[] = [
     ],
   },
   {
+    id: 'wt_drill_3',
+    group: 'drill',
+    badge: '基礎ドリル③',
+    prefTag: '全県共通・形式主語It',
+    title: 'It is 形容詞 for 人 to ~ 構文（「楽しい・大切だ」）',
+    context: '外国語学習についてのあなたの考えを1文で表しなさい。\n「私たちにとって、いろいろな国の文化を学ぶことは大切です。」',
+    condition: 'It is ... for ... to ~ の形を使って9語以上の英語1文で書くこと。',
+    minWords: 9,
+    expectedEndPunct: '.',
+    hintKeywords: ['It is', 'important', 'for us', 'to learn'],
+    modelAnswers: [
+      'It is important for us to learn about cultures of many countries.',
+      'It is very important for us to study foreign cultures.',
+    ],
+    rubricPoints: [
+      'It is important for us to ＋動詞の原形 の骨格が正確に書けているか',
+      'countries / cultures など複数形が適切に使われているか',
+    ],
+  },
+  {
     id: 'wt_fix_1',
     group: 'error_fix',
     badge: '誤文訂正ドリル①',
+    prefTag: '減点ゼロ特訓',
     title: '頻出減点ミスの修正（動名詞主語・三単現・複数形）',
-    context: '次の英文には文法上の誤りが【2か所】あります。誤りをすべて直して正しい英文全体を書き直しなさい。',
+    context: '次の英文には文法上の誤りが【3か所】あります。誤りをすべて直して正しい英文全体を書き直しなさい。',
     brokenSentence: 'Read many book make me happy.',
     condition: '主語を動名詞（または不定詞）にし、数えられる名詞と動詞の形を正しく直すこと。',
     minWords: 6,
@@ -175,8 +215,9 @@ export const WRITING_TASKS: readonly WritingTask[] = [
     id: 'wt_fix_2',
     group: 'error_fix',
     badge: '誤文訂正ドリル②',
-    title: '頻出減点ミスの修正（間接疑問文の語順・前置詞to）',
-    context: '次の2文のうち、下の誤文の誤りを正しく直して1文で書き直しなさい。',
+    prefTag: '減点ゼロ特訓',
+    title: '頻出減点ミスの修正（間接疑問文の語順）',
+    context: '次の誤文の誤りを正しく直して1文で書き直しなさい。',
     brokenSentence: 'Please tell me what time will the bus come.',
     condition: '間接疑問文の正しい語順に直して全文を書くこと。',
     minWords: 7,
@@ -184,19 +225,41 @@ export const WRITING_TASKS: readonly WritingTask[] = [
     hintKeywords: ['tell', 'what time', 'the bus', 'will'],
     modelAnswers: [
       'Please tell me what time the bus will come.',
-      'Could you tell me what time the bus comes?',
+      'Please tell me when the bus will come.',
     ],
     rubricPoints: [
       'what time の後ろが「主語（the bus）＋助動詞・動詞（will come）」の肯定文語順になっているか',
       'Please で始まる命令文なので文末がピリオド（.）になっているか',
     ],
   },
+  {
+    id: 'wt_fix_3',
+    group: 'error_fix',
+    badge: '誤文訂正ドリル③',
+    prefTag: '減点ゼロ特訓',
+    title: '頻出減点ミスの修正（他動詞 discuss と時・条件の副詞節）',
+    context: '次の英文には文法上の誤りが【2か所】あります。誤りをすべて直して正しい英文全体を書き直しなさい。',
+    brokenSentence: 'If it will rain tomorrow, we will discuss about the plan in our classroom.',
+    condition: 'if節の中の時制と、discuss の語法を正しく直して全文を書くこと。',
+    minWords: 12,
+    expectedEndPunct: '.',
+    hintKeywords: ['If it rains', 'tomorrow', 'discuss the plan'],
+    modelAnswers: [
+      'If it rains tomorrow, we will discuss the plan in our classroom.',
+      'If it is rainy tomorrow, we will talk about the plan in our classroom.',
+    ],
+    rubricPoints: [
+      '①条件の副詞節（If ~ tomorrow）の中が現在形 rains（三単現の-s忘れ注意！）になっているか',
+      '②discuss は他動詞なので直後の about を削除できているか（または talk about に言い換えているか）',
+    ],
+  },
 
-  // ---- 三重県後期選抜 大問3型 予想問題 第1回〜第6回 ----
+  // ---- 三重県後期選抜 大問3型 予想問題 第1回〜第4回 ----
   {
     id: 'wt_mock_1',
     group: 'mock_dialogue',
     badge: '予想問題 第1回',
+    prefTag: '三重・愛知・千葉型',
     title: '対話文補充：ALTの先生におすすめの場所を紹介する',
     context: '【対話】\nMs. Brown: I have three days off next week. I want to visit a nice place in your town. Where should I go?\nYou: You should visit Green Park.\nMs. Brown: Oh, why do you recommend it?\nYou: (　あなたの返答　)',
     condition: 'Green Park をおすすめする理由が伝わるように、6語以上の英語1文で書くこと。',
@@ -216,8 +279,9 @@ export const WRITING_TASKS: readonly WritingTask[] = [
     id: 'wt_mock_2',
     group: 'mock_dialogue',
     badge: '予想問題 第2回',
+    prefTag: '三重・静岡・福岡型',
     title: '対話文補充：体調を崩しそうな友人へのアドバイス',
-    context: '【対話】\nKen: We have an important soccer game this Saturday, so I practiced until midnight last night. I\'m very sleepy now.\nYou: Oh, really? (　あなたのアドバイス　)\nKen: You\'re right. I\'ll go home early and rest tonight.',
+    context: "【対話】\nKen: We have an important soccer game this Saturday, so I practiced until midnight last night. I'm very sleepy now.\nYou: Oh, really? (　あなたのアドバイス　)\nKen: You're right. I'll go home early and rest tonight.",
     condition: 'Ken の最後の返答（早く帰って今夜は休むよ）につながるように、相手を気づかうアドバイスを6語以上の英語で書くこと。',
     minWords: 6,
     expectedEndPunct: '.',
@@ -228,26 +292,27 @@ export const WRITING_TASKS: readonly WritingTask[] = [
     ],
     rubricPoints: [
       'You should ＋動詞の原形 など適切な助言表現が使えているか',
-      '直後の Ken のセリフ（I\'ll go home early and rest tonight.）と文脈が一致しているか',
+      "直後の Ken のセリフ（I'll go home early and rest tonight.）と文脈が一致しているか",
     ],
   },
   {
     id: 'wt_mock_3',
     group: 'mock_dialogue',
     badge: '予想問題 第3回',
-    title: '対話文補充：留学生を料理パーティーに誘い、持ち物を尋ねる／提案する',
-    context: '【対話】\nYou: Hi, Emma! My friends and I will make okonomiyaki at my house this Sunday. (　あなたの誘いの文　)\nEmma: Sounds great! I\'d love to join you. What time should I go to your house?\nYou: Please come at eleven.',
+    prefTag: '三重・宮城・広島型',
+    title: '対話文補充：留学生を料理パーティーに誘う',
+    context: "【対話】\nYou: Hi, Emma! My friends and I will make okonomiyaki at my house this Sunday. (　あなたの誘いの文　)\nEmma: Sounds great! I'd love to join you. What time should I go to your house?\nYou: Please come at eleven.",
     condition: 'Emma が「いいね！ぜひ参加したいわ」と答えるような誘いの文を、5語以上の疑問文で書くこと。',
     minWords: 5,
     expectedEndPunct: '?',
-    hintKeywords: ['Why don\'t you', 'Would you like to', 'join', 'with us'],
+    hintKeywords: ["Why don't you", 'Would you like to', 'join', 'with us'],
     modelAnswers: [
       'Would you like to join us?',
-      'Why don\'t you come and cook with us?',
+      "Why don't you come and cook with us?",
       'Do you want to make it with us?',
     ],
     rubricPoints: [
-      '相手（Emma）を誘う表現 Would you like to ~? / Why don\'t you ~? / Do you want to ~? が使えているか',
+      "相手（Emma）を誘う表現 Would you like to ~? / Why don't you ~? / Do you want to ~? が使えているか",
       '疑問文なので文末にクエスチョンマーク（?）がついているか',
     ],
   },
@@ -255,8 +320,9 @@ export const WRITING_TASKS: readonly WritingTask[] = [
     id: 'wt_mock_4',
     group: 'mock_dialogue',
     badge: '予想問題 第4回',
+    prefTag: 'Eメール返信型',
     title: 'Eメール返信：送別会のプレゼント選びの提案',
-    context: '【友人Mikiからのメール】\nNext Friday is Mr. Clark\'s last day at our school. Let\'s give him a nice present from our class! What should we give him, and why?\n\n【あなたの返信メール】\nHi, Miki. Good idea! (　あなたの提案と理由　)',
+    context: "【友人Mikiからのメール】\nNext Friday is Mr. Clark's last day at our school. Let's give him a nice present from our class! What should we give him, and why?\n\n【あなたの返信メール】\nHi, Miki. Good idea! (　あなたの提案と理由　)",
     condition: '「何を贈るとよいか」と「その理由」の両方が入るように、10語以上の英語（1文または2文）で書くこと。',
     minWords: 10,
     expectedEndPunct: 'any',
@@ -273,12 +339,13 @@ export const WRITING_TASKS: readonly WritingTask[] = [
   {
     id: 'wt_mock_5',
     group: 'national_opinion',
-    badge: '予想問題 第5回（意見英作文）',
+    badge: '予想問題 第5回（2択意見）',
+    prefTag: '全国公立・二択意見型',
     title: '全国公立頻出：紙の本と電子書籍、どちらが好きか',
     context: '【Question】\nWhich do you like better, reading paper books or reading e-books? Write your opinion and give at least one reason.',
-    condition: '自分の立場を明確にし、理由を含めて【15語〜30語程度】の英語で書くこと。',
+    condition: '自分の立場を明確にし、理由を含めて【15語〜35語程度】の英語で書くこと。',
     minWords: 15,
-    maxWords: 40,
+    maxWords: 42,
     expectedEndPunct: '.',
     hintKeywords: ['like', 'better', 'because', 'easy', 'eyes'],
     modelAnswers: [
@@ -294,12 +361,13 @@ export const WRITING_TASKS: readonly WritingTask[] = [
   {
     id: 'wt_mock_6',
     group: 'national_opinion',
-    badge: '予想問題 第6回（意見英作文）',
+    badge: '予想問題 第6回（将来目標）',
+    prefTag: '全国公立・テーマ型',
     title: '全国公立頻出：高校生活で挑戦したいこと',
     context: '【Question】\nWhat do you want to try when you become a high school student? Write what you want to do and why.',
-    condition: '「やりたいこと」と「その理由」を含めて【15語〜30語程度】の英語で書くこと。',
+    condition: '「やりたいこと」と「その理由」を含めて【15語〜35語程度】の英語で書くこと。',
     minWords: 15,
-    maxWords: 40,
+    maxWords: 42,
     expectedEndPunct: '.',
     hintKeywords: ['want to', 'when', 'because', 'make friends'],
     modelAnswers: [
@@ -311,6 +379,74 @@ export const WRITING_TASKS: readonly WritingTask[] = [
       'やりたいこと（want to ~）と理由・目的が具体的に述べられているか',
     ],
   },
+
+  // ---- 都道府県別 代表フォーマット特訓 ----
+  {
+    id: 'wt_pref_tokyo',
+    group: 'pref_special',
+    badge: '東京都立 大問3型（12点配点）',
+    prefTag: '東京都立（3文Eメール）',
+    title: '東京都立名物：「3つの英文」で書くEメール返信',
+    context: '【留学生 Sam から届いたメール】\nThank you for taking me to the museum in Tokyo yesterday! What place in Japan did you enjoy visiting the most in the past? Tell me about it!\n\n【あなたの返信メール】\nHi, Sam. I was glad to go to the museum with you. (　ここに3つの英文を書く　) Let\'s go somewhere together again!',
+    condition: 'Samの質問に対する答えと、そこで何をしたか・どう感じたかを含め、【必ず3つの英文（ピリオド等で終わる3文）】かつ合計18語以上で書くこと。',
+    minWords: 18,
+    maxWords: 50,
+    minSentences: 3,
+    expectedEndPunct: '.',
+    hintKeywords: ['visited Kyoto', 'saw', 'temples', 'exciting'],
+    modelAnswers: [
+      'I enjoyed visiting Kyoto the most last autumn. I saw many old temples and ate delicious matcha sweets with my family there. Learning about Japanese history was very exciting for me.',
+      'Okinawa is my favorite place. I went there two years ago and swam in the beautiful blue sea. It gave me a lot of great memories.',
+    ],
+    rubricPoints: [
+      '東京都立の鉄則：ピリオド（. / ! / ?）で区切られた【ちょうど3つの英文】になっているか（2文や4文は減点！）',
+      '過去の経験（in the past）について尋ねられているため、過去形（visited / went / saw / was）で統一できているか',
+      '場所の名前＋具体的な行動＋感想の3文構成になっているか',
+    ],
+  },
+  {
+    id: 'wt_pref_saitama_osaka',
+    group: 'pref_special',
+    badge: '埼玉・大阪C・北海道型（長め意見論述）',
+    prefTag: '埼玉・大阪・北海道（30〜45語）',
+    title: 'グループ学習 vs 一人での学習（2理由構成の意見エッセイ）',
+    context: '【Topic】\nWhich do you prefer when you study for tests, studying with friends or studying alone? State your opinion and give TWO reasons.',
+    condition: '立場を明確にし、First, / Second,（または Also,）を使って【理由を2つ】挙げ、【25語〜45語程度】の英語で書くこと。',
+    minWords: 25,
+    maxWords: 55,
+    minSentences: 3,
+    expectedEndPunct: '.',
+    hintKeywords: ['prefer', 'First,', 'Second,', 'ask questions', 'focus'],
+    modelAnswers: [
+      'I prefer studying with friends. First, when I have a difficult question, we can help each other and solve it quickly. Second, talking with my friends helps me stay motivated for a long time.',
+      'I prefer studying alone in my room. First, it is quiet, so I can focus on my weak subjects at my own pace. Second, I do not waste time talking about other things.',
+    ],
+    rubricPoints: [
+      '第1文で I prefer ~ing. と明確に自分の立場を宣言しているか',
+      'First, ... / Second, ... で2つの異なる理由が論理的に展開されているか',
+      '25語以上のまとまった分量で主語・動詞のねじれがないか',
+    ],
+  },
+  {
+    id: 'wt_pref_kanagawa',
+    group: 'pref_special',
+    badge: '神奈川県立 問5型（指定語条件英作）',
+    prefTag: '神奈川・千葉・福岡（条件指定）',
+    title: '神奈川県立型：指定された動詞を使って対話を完成させる',
+    context: '【対話】\naki: Look at the sky. Dark clouds are coming, and I forgot my umbrella.\nBob: Don\'t worry. I have two umbrellas in my locker, so (　　　　　).\nAki: Really? Thank you so much!',
+    condition: '語群ではなく条件指定：【 lend 】という語を必ず1回使い、文脈に合うように5語以上の英語（コンマの続きではなく完全な1文として I can ... 等）で書くこと。',
+    minWords: 5,
+    expectedEndPunct: '.',
+    hintKeywords: ['I can', 'lend', 'you', 'one'],
+    modelAnswers: [
+      'I can lend you one.',
+      'I will lend one of them to you.',
+    ],
+    rubricPoints: [
+      'lend + 人 + 物（lend you one）または lend + 物 + to 人（lend one to you）の語法が正確か',
+      '前の two umbrellas を受けて代名詞 one（不特定の1本。× it は特定の同じ傘を指すので注意！）が使えているか',
+    ],
+  },
 ];
 
 export interface AutoCheckIssue {
@@ -320,18 +456,20 @@ export interface AutoCheckIssue {
 
 export interface AutoCheckResult {
   wordCount: number;
+  sentenceCount: number;
   estimatedScore: 0 | 1 | 2;
   issues: AutoCheckIssue[];
 }
 
 /**
- * 生徒が入力した英文を自動解析し、語数・大文字・句読点・入試頻出の減点ミスを判定する
+ * 生徒が入力した英文を自動解析し、語数・文数・大文字・句読点・入試頻出の減点ミスを判定する
  */
 export function evaluateEnglishWriting(rawInput: string, task: WritingTask): AutoCheckResult {
   const trimmed = rawInput.trim();
   if (!trimmed) {
     return {
       wordCount: 0,
+      sentenceCount: 0,
       estimatedScore: 0,
       issues: [{ level: 'warn', message: '英文を入力して「減点チェック＆採点」を押してください。' }],
     };
@@ -342,6 +480,12 @@ export function evaluateEnglishWriting(rawInput: string, task: WritingTask): Aut
     .split(/\s+/)
     .filter(Boolean);
   const wordCount = words.length;
+
+  // Mr. / Ms. などの略語ピリオドを除外して文の数を数える
+  const strippedAbbr = trimmed.replace(/\b(Mr|Ms|Mrs|Dr|Jr|St|a\.m|p\.m)\./gi, '$1');
+  const sentenceMatches = strippedAbbr.match(/[.?!]+/g);
+  const sentenceCount = sentenceMatches ? sentenceMatches.length : 1;
+
   const issues: AutoCheckIssue[] = [];
   let deductions = 0;
 
@@ -352,7 +496,7 @@ export function evaluateEnglishWriting(rawInput: string, task: WritingTask): Aut
       message: `語数不足：現在 ${wordCount} 語です（条件：${task.minWords} 語以上）。理由や場所・時の表現を補いましょう。`,
     });
     deductions += 2;
-  } else if (task.maxWords && wordCount > task.maxWords + 5) {
+  } else if (task.maxWords && wordCount > task.maxWords + 6) {
     issues.push({
       level: 'warn',
       message: `現在 ${wordCount} 語です（目安上限 ${task.maxWords} 語）。長すぎると文法ミスのリスクが上がります。`,
@@ -362,6 +506,27 @@ export function evaluateEnglishWriting(rawInput: string, task: WritingTask): Aut
       level: 'ok',
       message: `語数クリア：${wordCount} 語（条件 ${task.minWords} 語以上）`,
     });
+  }
+
+  // 1b. 文数チェック（東京都立3文指定など）
+  if (task.minSentences) {
+    if (task.id === 'wt_pref_tokyo' && sentenceCount !== 3) {
+      issues.push({
+        level: 'error',
+        message: `文数注意：東京都立型は「ちょうど3つの英文」が条件ですが、現在 ${sentenceCount} 文と判定されました。ピリオドの数を確認しましょう！`,
+      });
+      deductions += 1;
+    } else if (sentenceCount < task.minSentences) {
+      issues.push({
+        level: 'warn',
+        message: `現在 ${sentenceCount} 文です。${task.minSentences} 文以上に分けると論理がより明確になります。`,
+      });
+    } else {
+      issues.push({
+        level: 'ok',
+        message: `文数クリア：${sentenceCount} 文構成`,
+      });
+    }
   }
 
   // 2. 文頭の大文字チェック
@@ -437,6 +602,13 @@ export function evaluateEnglishWriting(rawInput: string, task: WritingTask): Aut
     });
     deductions += 1;
   }
+  if (/\bdiscuss(ed|ing)?\s+about\s+/i.test(trimmed)) {
+    issues.push({
+      level: 'error',
+      message: '典型ミス発見：discuss は他動詞なので直後の about は不要です！（discuss the plan または talk about the plan）',
+    });
+    deductions += 1;
+  }
   if (/\bhow\s+about\s+(go|make|give|play|visit|eat|meet|buy)\b/i.test(trimmed)) {
     issues.push({
       level: 'error',
@@ -444,19 +616,28 @@ export function evaluateEnglishWriting(rawInput: string, task: WritingTask): Aut
     });
     deductions += 1;
   }
-  if (/\bwhen\s+I\s+will\b|\bif\s+it\s+will\b/i.test(trimmed)) {
+  if (/\b(when|if)\s+(I|you|he|she|it|we|they)\s+will\b/i.test(trimmed)) {
     issues.push({
       level: 'error',
       message: '典型ミス発見：「〜するとき（when）」「もし〜なら（if）」の副詞節の中では will を使わず現在形にします！',
     });
     deductions += 1;
   }
-  if (/\bconvinient\b|\bconveniance\b/i.test(trimmed)) {
+  if (/\bconvinient\b|\bconveniance\b|\benviroment\b/i.test(trimmed)) {
     issues.push({
       level: 'error',
-      message: 'スペルミス発見：convenient のつづりが誤っています。useful や easy to use に言い換えると安全です！',
+      message: 'スペルミス発見：convenient / environment のつづりが誤っています。useful や the earth に言い換えると安全です！',
     });
     deductions += 1;
+  }
+
+  // 指定語チェック（神奈川型）
+  if (task.id === 'wt_pref_kanagawa' && !/\blend\b/i.test(trimmed)) {
+    issues.push({
+      level: 'error',
+      message: '条件未達：指定語「lend」が使われていません。必ず lend を1回使って書きましょう。',
+    });
+    deductions += 2;
   }
 
   if (deductions === 0) {
@@ -469,6 +650,7 @@ export function evaluateEnglishWriting(rawInput: string, task: WritingTask): Aut
   const estimatedScore: 0 | 1 | 2 = deductions === 0 ? 2 : deductions === 1 ? 1 : 0;
   return {
     wordCount,
+    sentenceCount,
     estimatedScore,
     issues,
   };

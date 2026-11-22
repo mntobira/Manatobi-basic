@@ -13,22 +13,24 @@ import type { Chapter, Part, Problem } from '../types/curriculum';
 import { SUBJECT_REGISTRY, type SubjectKey } from './subjects';
 export type { SubjectKey } from './subjects';
 
-interface PartsLike {
-  parts: Part[];
+type SubjectDataInput = Part[] | { parts: Part[] };
+
+function toParts(data: SubjectDataInput): Part[] {
+  return Array.isArray(data) ? data : data?.parts || [];
 }
 
 interface SubjectEntry {
   id: SubjectKey;
   label: string;
-  data: PartsLike;
+  data: { parts: Part[] };
 }
 
-const SUBJECT_DATA: Record<SubjectKey, PartsLike> = {
-  english: englishData,
-  math: mathData,
-  japanese: japaneseData,
-  science: scienceData,
-  social: socialData,
+const SUBJECT_DATA: Record<SubjectKey, { parts: Part[] }> = {
+  english: { parts: toParts(englishData) },
+  math: { parts: toParts(mathData) },
+  japanese: { parts: toParts(japaneseData) },
+  science: { parts: toParts(scienceData) },
+  social: { parts: toParts(socialData) },
 };
 
 export const SUBJECTS: readonly SubjectEntry[] = SUBJECT_REGISTRY.map((s) => ({
@@ -37,7 +39,7 @@ export const SUBJECTS: readonly SubjectEntry[] = SUBJECT_REGISTRY.map((s) => ({
   data: SUBJECT_DATA[s.id],
 }));
 
-function flattenChapters(data: PartsLike): Chapter[] {
+function flattenChapters(data: { parts: Part[] }): Chapter[] {
   return (data.parts || []).flatMap((part) => part.chapters || []);
 }
 
