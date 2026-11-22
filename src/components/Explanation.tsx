@@ -349,7 +349,7 @@ export function Explanation({ mode: initialMode, chapter, answers, onBack, onRet
     const firstIncorrect = subs.find(
       (sq) => isAttempted(answers[sq.id]) && !isAnswerCorrect(sq, answers[sq.id]),
     );
-    setSelectedSqId(firstIncorrect ? firstIncorrect.id : null);
+    setSelectedSqId(firstIncorrect ? firstIncorrect.id : subs.length === 1 ? subs[0].id : null);
     setMobileProblemCollapsed(false);
     // 問題が替わったときだけ開く問を選び直す（解答や表示状態の更新では選び直さない）
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -27,13 +27,11 @@
 .chapter-route #chapter-tab-panel > div:first-child h3 { font-size: 15px; }
 .chapter-route #chapter-tab-panel > div:first-child button { min-height: 44px; font-size: 12px; }
 
-/* 一覧：左の縦線・丸番号（旧デザイン）はやめ、番号はカードの中に「01.」で出す */
-.chapter-route .chapter-route-list.unit-card-list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; padding-left: 0; margin-left: 0; border-left: 0; }
-@media (min-width: 1024px) { .chapter-route .chapter-route-list.unit-card-list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 12px; align-items: start; } }
-/* PC 幅いっぱい：英文法の16単元が1画面に収まるよう 1200px〜は3列、1700px〜は4列（2026-10-16） */
-@media (min-width: 1200px) { .chapter-route .chapter-route-list.unit-card-list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (min-width: 1700px) { .chapter-route .chapter-route-list.unit-card-list { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-.unit-card-list .math-stage-heading { grid-column: 1 / -1; }
+/* 一覧：スマホは1列、タブレット・PC（860px〜）はゆったり読める2列までに抑える（3〜4列に詰め込んで単元名やボタンが潰れるのを防ぐ） */
+.chapter-route .chapter-route-list.unit-card-list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; padding-left: 0; margin-left: 0; border-left: 0; }
+@media (min-width: 860px) { .chapter-route .chapter-route-list.unit-card-list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 14px; row-gap: 12px; align-items: start; } }
+.unit-card-list .math-stage-heading { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 6px 0 2px; padding: 6px 12px; border-radius: 10px; background: #f6efe2; color: #4a3d2b; font: 800 13px/1.35 var(--mt-font-display); }
+.unit-card-list .math-stage-heading small { font: 700 11.5px/1 var(--mt-font-body); color: #7a6a4c; }
 .unit-card-link { display: inline-flex; align-items: center; gap: 5px; min-height: 44px; margin-top: 6px; padding: 0 12px; border: 1px solid #f1d3ad; border-radius: 12px; background: var(--mt-accent-soft); color: var(--mt-accent-ink); font: 700 13px/1 var(--mt-font-body); }
 .unit-card-questions { display: grid; gap: 4px; margin-top: 8px; padding: 6px; border: 1px solid #e5dccc; border-radius: 12px; background: #fff; }
 .unit-card-questions button { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 44px; padding: 6px 10px; border-radius: 8px; text-align: left; font: 700 13px/1.5 var(--mt-font-body); color: #4f5a66; }

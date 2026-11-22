@@ -65,7 +65,10 @@ import { safeSetItem } from '../utils/storageGuard';
 import { safeGetItem } from '../utils/safeLocalStorage';
 import { resolveQuizRange } from '../utils/quizRange';
 import { logRejection } from '../utils/reportError';
+import { subjectOfChapterId } from '../data/subjects';
+import { subjectTheme } from '../data/subjectTheme';
 import type { Chapter, Problem, SubQuestion } from '../types/curriculum';
+import '../styles/juken-polish.css';
 
 interface QuizProps {
   mode: 'mini_test' | 'practice';
@@ -766,13 +769,23 @@ function QuizBody({ mode, chapter, onFinish, onBack, onReturnToBattle, isGuest, 
     );
   }
 
+  const quizSubject = subjectOfChapterId(chapter.id) ?? undefined;
+  const quizTheme = subjectTheme(quizSubject);
+
   return (
-    <div className="fixed inset-0 w-full flex flex-col bg-gray-50 overflow-hidden z-40">
+    <div
+      className="juken-quiz-shell fixed inset-0 w-full flex flex-col bg-[#fcf5e9] overflow-hidden z-40"
+      style={
+        {
+          '--quiz-accent': quizTheme.accent,
+          '--quiz-soft': quizTheme.accentSoft,
+          '--quiz-surface': quizTheme.surface,
+        } as React.CSSProperties
+      }
+    >
       {onReturnToBattle && <button type="button" onClick={onReturnToBattle} className="min-h-11 shrink-0 border-b border-blue-200 bg-blue-50 px-3 py-2 text-sm font-bold text-blue-900">バトル結果・解説に戻る</button>}
       
-      {/* ヘッダー帯（単元名・スコア・順位・進捗）の JSX は
-          components/QuizHeader.tsx へ切り出した。
-          「入力中だけ隠す」条件もあちらが持っている（PC には掛からない）。 */}
+      {/* ヘッダー帯 */}
       <QuizHeader
         chapterAbstractTitle={chapter.abstractTitle}
         mode={mode}
@@ -784,14 +797,14 @@ function QuizBody({ mode, chapter, onFinish, onBack, onReturnToBattle, isGuest, 
         progressPositionEnd={progressPill.positionEnd}
         progressTotal={progressPill.total}
         topics={Array.isArray(chapter.topics) ? chapter.topics : []}
+        subject={quizSubject}
+        subjectLabel={quizTheme.label}
+        accent={quizTheme.accent}
       />
 
 
-      {/* タイマーバー（ヘッダー直下、問題本文の上） ー 控えめな細いバー
-          ★B-3：入力中は隠す（3%）★
-            計測は running のまま続くので、隠しても時間の進みは変わらない。
-            表示だけを止めている（＝止めたら不正になる、を避ける）。 */}
-      <div className={`flex-none bg-white border-b border-gray-100 ${
+      {/* タイマーバー */}
+      <div className={`flex-none border-b border-[#e5dac6] ${
         !isDesktop && keyboardVisible ? 'hidden' : ''
       }`}>
         <QuizTimerBar
@@ -802,32 +815,9 @@ function QuizBody({ mode, chapter, onFinish, onBack, onReturnToBattle, isGuest, 
         />
       </div>
 
-      {/* Main Content Area (Split on Desktop, Stacked on Mobile)
-
-          ★スマホは全教科とも「問題文が上・解答が下」に統一する（ご要望）
-          ------------------------------------------------------------------
-          ご指摘：
-            「問題文と解答入力を逆にして。(リスニングの話)
-              選択肢を見せるということに気が取られて問題が見えない
-              スクロールがしにくい　図も見えない。」
-
-          以前はリスニングだけ上下反転（col-reverse）で解答ペインを上に
-          出していたが、問題文が「下からせり出すカード」になってしまい
-          ・問題文・図が見えない
-          ・下のカードの中をスクロールする操作が難しい
-          という本末転倒な状態だった。
-          そこで自然な読み順（上＝問題 → 下＝解答）へ戻す。
-          「問題と選択肢を同時に見る」は、リスニング時の問題ペインの
-          高さ上限（下記 max-h-[40vh]）と再生ボタンのスリム化で満たす。
-          PC は従来どおり「問題＝左 / 解答＝右」。 */}
+      {/* Main Content Area (Split on Desktop when reference material exists, Centered Single Desk otherwise) */}
       <div className={`flex-1 min-h-0 flex flex-col lg:flex-row overflow-hidden relative ${listeningMaterialsMobile ? 'pb-[calc(4.75rem+env(safe-area-inset-bottom))]' : ''}`}>
 
-        {/*
-          Section 1: 問題文ペイン（左 58% ／スマホでは上）
-          実体は components/ProblemPane.tsx に切り出した。
-          高さの取り合い（listeningMobileSplit）や max-h の根拠コメントも
-          そちらに一緒に移してある。
-        */}
         <ProblemPane
           currentQuestion={currentQuestion}
           currentQuestionIndex={currentQuestionIndex}
@@ -857,10 +847,9 @@ function QuizBody({ mode, chapter, onFinish, onBack, onReturnToBattle, isGuest, 
           inlineQuestionRows={inlineQuestionRows}
           hideRedundantSubQuestionList={hideRedundantSubQuestionList}
           problemScrollRef={problemScrollRef}
+          accent={quizTheme.accent}
         />
 
-        {/* 解答ペイン（右42%／スマホ下）の JSX は components/AnswerPane.tsx へ切り出した。
-            渡しているのは「状態」と「判定」だけで、見た目はあちらが持っている。 */}
         <AnswerPane
           currentQuestion={currentQuestion}
           isDesktop={isDesktop}
@@ -877,22 +866,23 @@ function QuizBody({ mode, chapter, onFinish, onBack, onReturnToBattle, isGuest, 
           mobileAnswerSubs={mobileAnswerSubs}
           safeMobileAnsIdx={safeMobileAnsIdx}
           goMobileAns={goMobileAns}
+          setMobileAnsIdx={setMobileAnsIdx}
           handleMobileCardKeyDown={handleMobileCardKeyDown}
           isLastNavSub={isLastNavSub}
           renderedAnswerGroups={renderedAnswerGroups}
           renderMultipleChoiceControl={renderMultipleChoiceControl}
           renderSortingControl={renderSortingControl}
           questionNeedsMathPalette={questionNeedsMathPalette}
+          isEnglishProse={isEnglishProse}
+          combinedHighlights={combinedHighlights}
           isProblemExpanded={isProblemExpanded}
           canGoPrevious={canGoPrevious}
           handlePrevious={handlePrevious}
           handleNext={handleNext}
+          accent={quizTheme.accent}
         />
       </div>
 
-      {/* スマホの下部固定バー2本（ナビ／入力）の JSX は
-          components/MobileFloatingBar.tsx へ切り出した。
-          「(ア) 前へ 1/9 次へ 完了」バーは必要と明言されたもの。消さないこと。 */}
       <MobileFloatingBar
         currentQuestion={currentQuestion}
         isDesktop={isDesktop}
@@ -910,6 +900,12 @@ function QuizBody({ mode, chapter, onFinish, onBack, onReturnToBattle, isGuest, 
         canGoPrevious={canGoPrevious}
         handlePrevious={handlePrevious}
         handleNext={handleNext}
+        answers={answers}
+        mobileAnswerSubs={mobileAnswerSubs}
+        safeMobileAnsIdx={safeMobileAnsIdx}
+        goMobileAns={goMobileAns}
+        listeningUnified={listeningUnified}
+        accent={quizTheme.accent}
       />
     </div>
   );

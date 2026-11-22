@@ -62,7 +62,7 @@
   .app-screen-stack > :not(audio) { animation: mo-fade .45s ease-out backwards; }
 
   /* 一覧の札が順に並ぶ（stagger）。--mo-i は CSS の :nth-child で与える */
-  :is(.sc-list > *, .rn-list > li, .sr-day > ol > li, .unit-card, .mypage-tabs > button, .game-home-utility > button, .game-stage-shortcuts > button, .intro-page section) {
+  :is(.sc-list > *, .rn-list > li, .sr-day > ol > li, .mypage-tabs > button, .game-home-utility > button, .game-stage-shortcuts > button, .intro-page section) {
     animation: mo-card-in .6s var(--mo-ease-out) backwards; animation-delay: calc(120ms + var(--mo-i, 0) * 55ms);
   }
   @keyframes mo-card-in { from { opacity: 0; translate: 0 16px; } to { opacity: 1; translate: 0 0; } }

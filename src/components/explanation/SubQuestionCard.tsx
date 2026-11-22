@@ -1,7 +1,7 @@
 import React from 'react';
 import { AlertCircle, BookOpen, CheckCircle2, ChevronDown, Circle, KeyRound, Target, XCircle } from 'lucide-react';
 import { formatText } from '../../utils/textFormatter';
-import { answerCardMarker } from '../../utils/questionDisplay';
+import { answerCardMarker, splitQuestionLabel } from '../../utils/questionDisplay';
 import { isScriptFirstExplanation, stripScriptBox } from '../../utils/listeningExplanation';
 import { ExplanationBody } from '../ExplanationBody';
 import { isAttempted, pictureCellOf } from './helpers';
@@ -57,6 +57,7 @@ export function renderSubQuestionCard(ctx: SubQuestionCardContext, sq: SubQuesti
                         const sqSlice = listeningTracks.length > 0 ? stripScriptBox(sqSliceRaw) : sqSliceRaw;
                         const sqIndex = (question?.subQuestions || []).indexOf(sq);
                         const displayLabel = answerCardMarker(sq, sqIndex < 0 ? 0 : sqIndex, question);
+                        const { body: sqPromptBody } = splitQuestionLabel(sq.label || '', displayLabel);
                         const hasThinking = Boolean(
                           sq.detailedExplanation?.theme ||
                           sq.detailedExplanation?.steps?.length,
@@ -103,46 +104,46 @@ export function renderSubQuestionCard(ctx: SubQuestionCardContext, sq: SubQuesti
                           <div
                             id={`sq-${sq.id}`}
                             key={sq.id}
-                            className={`rounded-xl border overflow-hidden shadow-sm ${
+                            className={`rounded-2xl border-2 overflow-hidden shadow-xs ${
                               isCorrect
-                                  ? ('border-emerald-200')
+                                  ? ('border-emerald-300')
                                   : isUnanswered
-                                    ? ('border-gray-200')
-                                    : ('border-red-200')
+                                    ? ('border-[#e3d8c4]')
+                                    : ('border-rose-300')
                             }`}
                           >
-                            {/* 正誤・自分の解答・正解は、アコーディオンに入れず常に表示する。 */}
-                            <div className={`p-3 md:p-4 space-y-3 ${answerBoxBaseClass} ${
+                            {/* 正誤・設問文・自分の解答・正解は、アコーディオンに入れず常に表示する。 */}
+                            <div className={`p-3.5 md:p-4 space-y-3 ${answerBoxBaseClass} ${
                               isCorrect
-                                  ? ('bg-emerald-50')
+                                  ? ('bg-emerald-50/85')
                                   : isUnanswered
-                                    ? ('bg-gray-50')
-                                    : ('bg-red-50')
+                                    ? ('bg-[#faf6ee]')
+                                    : ('bg-rose-50/80')
                             }`}>
-                              <div className="flex flex-wrap items-center justify-between gap-3">
-                                <div className="flex items-center gap-3 min-w-0">
-                                  <div className={`font-bold text-xs md:text-sm px-3 py-1.5 rounded-xl border shadow-xs ${'text-gray-700 bg-white border-gray-200'}`}>
+                              <div className="flex flex-wrap items-center justify-between gap-2.5">
+                                <div className="flex items-center gap-2.5 min-w-0">
+                                  <div className={`font-extrabold text-xs md:text-sm px-3 py-1 rounded-xl border shadow-2xs ${'text-[#1c2a39] bg-white border-[#dfd4c0]'}`}>
                                     {formatText(displayLabel)}
                                   </div>
                                   {isUnanswered ? (
-                                    <div className={`flex items-center gap-1.5 font-bold text-sm ${'text-gray-500'}`}>
-                                      <Circle size={18} />
-                                      <span>未解答 — まだ解いていない問です</span>
+                                    <div className={`flex items-center gap-1.5 font-extrabold text-sm ${'text-[#6b5d47]'}`}>
+                                      <Circle size={17} />
+                                      <span>未回答 — 解説を読んで解き方をつかもう！</span>
                                     </div>
                                   ) : (
-                                    <div className={`flex items-center gap-1.5 font-bold text-sm ${isCorrect ? ('text-emerald-700') : ('text-red-600')}`}>
+                                    <div className={`flex items-center gap-1.5 font-extrabold text-sm ${isCorrect ? ('text-emerald-700') : ('text-rose-600')}`}>
                                       {isCorrect ? <CheckCircle2 size={18} /> : <XCircle size={18} />}
-                                      <span>{isCorrect ? '正解！' : '不正解 — ここが伸びしろ'}</span>
+                                      <span>{isCorrect ? '大正解！バッチリ！' : '惜しい！ここで覚えれば次は解ける！'}</span>
                                     </div>
                                   )}
                                 </div>
-                                <div className={`font-bold text-sm md:text-base ${'text-gray-800'}`}>
-                                  <span className={`text-xs mr-1 font-modern ${'text-gray-500'}`}>
-                                    正解:
-                                  </span>
-                                  {formatText(sq.correctAnswer)}
-                                </div>
                               </div>
+
+                              {isMobile && listeningTracks.length === 0 && sqPromptBody.trim().length > 0 && (
+                                <div className="rounded-xl bg-white/90 border border-[#e6dccb] px-3 py-2.5 text-sm font-bold leading-relaxed text-[#1c2a39] break-words [overflow-wrap:anywhere]">
+                                  {formatText(sqPromptBody, [], { prose: isEnglishChapter })}
+                                </div>
+                              )}
 
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <div>
