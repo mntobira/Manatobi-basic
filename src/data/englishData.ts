@@ -951,6 +951,78 @@ Yuta: Right. We will prepare the gym for the games from 11:00 a.m. to 12:30 p.m.
               },
             ],
           },
+          {
+            id: 'en4_1_p2',
+            title: '【図解】図書館サイエンスイベントのポスター＆バス時刻表の複合読解4問',
+            category: 'ポスター・時刻表の複合読解',
+            imageUrl: '/juken_figs/eng_library_schedule.svg',
+            imageCaption: 'Green City Library — Summer Science Event ポスターとバス時刻表',
+            leadText: `次の Green City Library のイベント案内ポスターとバス時刻表を読み、また下の Saki と兄の Tom の対話を参考にして (1)〜(4) の問いに答えなさい。
+
+Saki: Tom, let's go to the Summer Science Event at Green City Library on August 8 with Mom and Dad!
+Tom: Sounds great! That means the four of us—Mom, Dad, you, and I—will go together. I'm a high school student, and you're a junior high school student.
+Saki: Right! And I want to enter the hall as soon as the doors open so we can get front-row seats!`,
+            explanationSummary: '近年47都道府県の英語入試で急増している【ポスター＋時刻表＋対話文の3点照合問題】です！①高校生の Tom は Adult 料金（Junior high & under に含まれない！）、②4人以上の団体割引（$2 off total）、③開場時刻（開始15分前＝10:15 a.m.）とバス停からの徒歩5分（10:10までにバス停到着が必要！）を丁寧に組み合わせましょう。',
+            surroundingKnowledge: [
+              'as soon as ~（〜するとすぐに）／ front-row seats（最前列の席）／ & under（〜以下）',
+              'a quarter before ~（〜の15分前）／ total（合計金額）',
+            ],
+            deepDiveTopics: ['複数資料問題での「年齢区分（高校生＝大人料金ケース）」と「徒歩時間（walk）の加算」'],
+            questions: [
+              {
+                prompt: 'ポスターの記載から、イベントの会場のドアが開く時刻（開場時刻）は何時何分か。',
+                choices: ['午前10時15分', '午前10時30分', '午前10時00分', '午前10時45分'],
+                wrongReasons: [
+                  '午前10時30分はイベント自体の開始時刻（start）。',
+                  '30分前ではなく 15 minutes before start（開始15分前）。',
+                  '開始15分後にしてしまったミス。',
+                ],
+                skill: 'ポスター時刻条件の読み取り',
+                rate: 86,
+                oneLine: '開始 10:30 a.m. の 15 minutes before start（15分前）だから【10:15 a.m.】に開場！',
+                why: 'Doors open 15 minutes before start と Time: 10:30 a.m. を照合して 10:15 a.m. となります。',
+              },
+              {
+                prompt: 'Saki が言っている「開場するとすぐにホールに入りたい」という希望をかなえるために、Central Station から乗ることができる【最も遅いバス】はどれか。（バス停からホールまで歩いて5分かかることに注意！）',
+                choices: ['Bus No. 2（9:50発）', 'Bus No. 3（10:05発）', 'Bus No. 1（9:35発）', 'Bus No. 4（10:20発）'],
+                wrongReasons: [
+                  'Bus No. 3 は図書館バス停に 10:25 着（ホール到着 10:30）となり、開始時刻には間に合うが「開場時刻（10:15）」には間に合わない！',
+                  'Bus No. 1 でも間に合うが「乗ることができる最も遅い（latest）バス」ではない。',
+                  'Bus No. 4 はイベント開始時刻（10:30）にも遅刻する。',
+                ],
+                skill: '時刻表＋徒歩時間の逆算思考',
+                patternType: '目標時刻 10:15 − 徒歩5分 ＝ 10:10着のバス',
+                rate: 61,
+                difficulty: 4,
+                oneLine: '開場 10:15 a.m. にホール着 → 徒歩5分を引いて【10:10 a.m.】までにバス停に着く【Bus No. 2（9:50発 → 10:10着）】が正解！',
+                why: '共通テストや全国公立入試で最頻出の「時刻表＋徒歩分数＋開場時刻」の3段階思考問題です！',
+              },
+              {
+                prompt: 'Saki（中学生）、兄の Tom（高校生）、母、父の【4人】でチケットを買うとき、支払う【合計金額】はいくらか。ポスターの割引条件も考慮して答えなさい。',
+                choices: ['$26', '$28', '$24', '$22'],
+                wrongReasons: [
+                  '$28 は4人以上のグループ割引（$2 off total）を引き忘れた金額（$8×3＋$4＝$28）！',
+                  '高校生の Tom を $4（中学生以下）として計算し $8×2＋$4×2＝$24 としたミス（割引前で $24、割引後 $22）。',
+                  '高校生の Tom を子ども料金にしたうえでさらに $2 引いた金額。',
+                ],
+                skill: '料金表・年齢区分・団体割引の計算',
+                patternType: '高校生はJunior high & underに含まれない＋団体割引',
+                rate: 57,
+                difficulty: 4,
+                oneLine: '父・母・高校生のTomの3人が大人料金（$8×3＝$24）＋ 中学生のSaki（$4）＝ $28！ 4人以上割引で $2 引いて【$26】！',
+                why: 'Tickets 欄は「Junior high students & under: $4」なので高校生の Tom は $8 です。合計 $28 から Group of 4 or more people: $2 off total を適用して $26 になります。',
+              },
+              {
+                prompt: 'イベント本編（10:30 a.m. – 12:00 p.m.）の開催時間は全部で何分間か。半角数字のみ（単位なし）で入力しなさい。',
+                shortAnswer: '90',
+                acceptedAnswers: ['90', '90分', '90 minutes'],
+                skill: '英語時刻表記の時間計算（短答）',
+                rate: 85,
+                oneLine: '10:30 a.m.（午前10時30分）から 12:00 p.m.（正午12時00分）までは1時間30分＝【90】分間！',
+                why: '英語では正午（昼の12時）を 12:00 p.m.（noon）、真夜中の0時を 12:00 a.m.（midnight）と表します。10:30 から 12:00 までは 90 分間です。',
+              },
+            ],
+          },
         ],
         miniTest: [
           {

@@ -1,7 +1,17 @@
 import React, { useEffect } from 'react';
-import { BookOpen, ArrowLeft, FileText, Swords, ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
+import {
+  BookOpen,
+  ArrowLeft,
+  FileText,
+  Swords,
+  ArrowRight,
+  Sparkles,
+  CheckCircle2,
+  Zap,
+} from 'lucide-react';
 import { labelOfSubject } from '../data/subjectLabels';
 import { DEFAULT_SUBJECT, subjectDefinitionOf } from '../data/subjects';
+import { getSubjectStats } from '../data/chapterIndex.generated';
 import { DoorMascot } from './DoorMascot';
 import { subjectTheme } from '../data/subjectTheme';
 import type { SubjectKey } from '../data/allChapters';
@@ -27,6 +37,7 @@ export function ModeSelection({
   const hideLearning = !learningDescription;
   const theme = subjectTheme(subject);
   const subjectName = labelOfSubject(subject);
+  const stats = getSubjectStats(subject);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -44,11 +55,11 @@ export function ModeSelection({
     >
       {/* 上部ナビバー */}
       <header className="juken-header">
-        <div className="mx-auto flex max-w-4xl items-center justify-between gap-3">
+        <div className="mx-auto flex max-w-5xl items-center justify-between gap-3">
           <button
             type="button"
             onClick={onBack}
-            className="juken-btn-soft inline-flex items-center gap-1.5 px-3.5 text-sm"
+            className="juken-btn-soft inline-flex items-center gap-1.5 px-3.5 text-sm cursor-pointer"
             aria-label="ホームに戻る"
           >
             <ArrowLeft size={17} aria-hidden="true" />
@@ -57,7 +68,7 @@ export function ModeSelection({
 
           <div className="flex items-center gap-2">
             <span
-              className="inline-flex items-center rounded-full px-3 py-1 text-xs font-extrabold text-white shadow-xs"
+              className="inline-flex items-center rounded-full px-3.5 py-1 text-xs font-extrabold text-white shadow-xs"
               style={{ backgroundColor: theme.accent }}
             >
               高校入試・{subjectName}
@@ -68,7 +79,7 @@ export function ModeSelection({
             <button
               type="button"
               onClick={onChangeSubject}
-              className="juken-btn-soft inline-flex items-center gap-1 px-3.5 text-xs sm:text-sm"
+              className="juken-btn-soft inline-flex items-center gap-1 px-3.5 text-xs sm:text-sm cursor-pointer"
             >
               <span>教科をかえる</span>
             </button>
@@ -78,7 +89,7 @@ export function ModeSelection({
         </div>
       </header>
 
-      <main className="mx-auto max-w-4xl px-4 pt-5 pb-8 sm:px-6">
+      <main className="mx-auto max-w-5xl px-4 pt-5 pb-8 sm:px-6">
         {/* とびら君のガイドバナー */}
         <section
           className="juken-card mb-5 flex items-center gap-3.5 p-4 sm:p-5"
@@ -98,9 +109,14 @@ export function ModeSelection({
               >
                 {subjectName}の学習スタイルを選ぼう！
               </h1>
+              {stats.chapters ? (
+                <span className="juken-num inline-flex items-center rounded-full bg-white/90 border border-[#e3d9c8] px-2.5 py-0.5 text-xs font-extrabold text-[#4a3f2f]">
+                  全{stats.chapters}単元・計{stats.questions ?? 0}問収録
+                </span>
+              ) : null}
             </div>
             <p className="mt-1 text-xs font-bold leading-relaxed text-[#4f5d6b] sm:text-sm">
-              まずは「赤シートまとめプリント」で重要語句・公式をチェックしてから、「入試実戦問題」にチャレンジすると正答率がグッと上がるよ！
+              ①「赤シートまとめ」で重要語句を確認 → ②「スピード小テスト」で基礎チェック → ③「入試実戦演習」で図表・応用問題を仕上げる3ステップが最強ルート！
             </p>
           </div>
         </section>
@@ -110,7 +126,7 @@ export function ModeSelection({
             type="button"
             onClick={onBattle}
             aria-label="オンライン対戦を開く"
-            className="juken-card-interactive mb-5 flex w-full items-center justify-between gap-3 px-4 py-3 text-left"
+            className="juken-card-interactive mb-5 flex w-full items-center justify-between gap-3 px-4 py-3 text-left cursor-pointer"
           >
             <span className="flex items-center gap-3 min-w-0">
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#eaf3fc] text-[#2458a6]">
@@ -129,15 +145,15 @@ export function ModeSelection({
           </button>
         )}
 
-        {/* メイン2モード選択カード */}
+        {/* 3モード選択カード */}
         <div
           className={`grid gap-4 ${
-            hideLearning ? 'grid-cols-1 max-w-xl mx-auto' : 'grid-cols-1 md:grid-cols-2'
+            hideLearning ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1 lg:grid-cols-3'
           }`}
         >
           {/* 1. 単元別・入試実戦演習 */}
           <section
-            className="juken-card flex flex-col justify-between p-5 sm:p-6"
+            className="juken-card flex flex-col justify-between p-5"
             aria-labelledby="mode-practice-title"
           >
             <div>
@@ -150,22 +166,24 @@ export function ModeSelection({
                   }}
                 >
                   <Sparkles size={13} aria-hidden="true" />
-                  アウトプット（実戦力UP）
+                  実戦力UP（本番対策）
                 </span>
-                <span className="text-xs font-extrabold text-[#7a6a4c]">4択・解説つき</span>
+                <span className="juken-num text-xs font-extrabold text-[#7a6a4c]">
+                  {stats.practiceQuestions ? `${stats.practiceQuestions}問` : '図表・4択＆短答'}
+                </span>
               </div>
 
               <div className="mb-3 flex items-center gap-3">
                 <div
-                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-white shadow-xs"
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl text-white shadow-xs"
                   style={{ backgroundColor: theme.accent }}
                 >
-                  <BookOpen size={24} aria-hidden="true" />
+                  <BookOpen size={22} aria-hidden="true" />
                 </div>
                 <div>
                   <h2
                     id="mode-practice-title"
-                    className="juken-title-font text-xl font-extrabold text-[#1c2a39]"
+                    className="juken-title-font text-lg sm:text-xl font-extrabold text-[#1c2a39]"
                   >
                     単元別の入試実戦演習
                   </h2>
@@ -175,7 +193,7 @@ export function ModeSelection({
                 </div>
               </div>
 
-              <p className="mb-4 text-sm leading-relaxed text-[#3e4c5b]">
+              <p className="mb-4 text-xs sm:text-sm leading-relaxed text-[#3e4c5b]">
                 {definition?.practiceDescription ??
                   '入試でよく出る重要問題を単元ごとに演習します。ひっかけ選択肢の理由までわかる丁寧な解説つき！'}
               </p>
@@ -183,11 +201,11 @@ export function ModeSelection({
               <ul className="mb-5 space-y-1.5 rounded-xl bg-[#faf6ed] p-3 text-xs font-bold text-[#4a3f2f]">
                 <li className="flex items-center gap-2">
                   <CheckCircle2 size={15} style={{ color: theme.accent }} className="shrink-0" />
-                  <span>迷った選択肢を消せる「消去メモ」機能つき</span>
+                  <span>図表・実験グラフ・読解まで本番形式で演習</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 size={15} style={{ color: theme.accent }} className="shrink-0" />
-                  <span>なぜ間違いなのかまで分かる詳しい解説</span>
+                  <span>消去メモ＆ひっかけ選択肢の理由つき解説</span>
                 </li>
               </ul>
             </div>
@@ -195,53 +213,118 @@ export function ModeSelection({
             <button
               type="button"
               onClick={() => onSelectMode('practice')}
-              className="flex min-h-[52px] w-full items-center justify-between rounded-2xl px-5 py-3 text-base font-extrabold text-white transition-transform active:translate-y-0.5 cursor-pointer"
+              className="flex min-h-[50px] w-full items-center justify-between rounded-2xl px-4 py-3 text-sm sm:text-base font-extrabold text-white transition-transform active:translate-y-0.5 cursor-pointer"
               style={{
                 backgroundColor: theme.accent,
                 border: `1.5px solid color-mix(in srgb, ${theme.accent} 80%, #000 20%)`,
                 boxShadow: `0 4px 0 color-mix(in srgb, ${theme.accent} 70%, #000 25%)`,
                 fontFamily: 'var(--mt-font-display)',
               }}
-              aria-label="演習問題の単元を選ぶ"
+              aria-label="入試実戦演習の単元を選ぶ"
             >
-              <span>演習問題の単元を選ぶ</span>
-              <ArrowRight size={20} aria-hidden="true" />
+              <span>実戦演習の単元を選ぶ</span>
+              <ArrowRight size={19} aria-hidden="true" />
             </button>
           </section>
 
-          {/* 2. 赤シート要点まとめプリント */}
+          {/* 2. 入試直前 スピード小テスト（mini_test） */}
+          <section
+            className="juken-card flex flex-col justify-between p-5"
+            aria-labelledby="mode-minitest-title"
+          >
+            <div>
+              <div className="mb-3 flex items-center justify-between gap-2">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#fff3d6] px-3 py-1 text-xs font-extrabold text-[#9a5700]">
+                  <Zap size={13} aria-hidden="true" />
+                  スキマ時間（3分チェック）
+                </span>
+                <span className="juken-num text-xs font-extrabold text-[#9a5700]">
+                  {stats.miniTestQuestions ? `${stats.miniTestQuestions}問` : '重要基礎チェック'}
+                </span>
+              </div>
+
+              <div className="mb-3 flex items-center gap-3">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#e38614] text-white shadow-xs">
+                  <Zap size={22} aria-hidden="true" />
+                </div>
+                <div>
+                  <h2
+                    id="mode-minitest-title"
+                    className="juken-title-font text-lg sm:text-xl font-extrabold text-[#1c2a39]"
+                  >
+                    スピード小テスト
+                  </h2>
+                  <p className="text-xs font-bold text-[#5a6573]">
+                    落とせない1問1答・基本計算をテンポよく確認！
+                  </p>
+                </div>
+              </div>
+
+              <p className="mb-4 text-xs sm:text-sm leading-relaxed text-[#3e4c5b]">
+                実戦問題とは別の専用チェック問題で、単元の基礎知識・重要公式・頻出ひっかけが頭に入っているかを約3分でスピード診断できます。
+              </p>
+
+              <ul className="mb-5 space-y-1.5 rounded-xl bg-[#fff8e8] p-3 text-xs font-bold text-[#5c3d0c]">
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 size={15} className="shrink-0 text-[#d97706]" />
+                  <span>実戦演習と重複ゼロの専用チェック問題を収録</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 size={15} className="shrink-0 text-[#d97706]" />
+                  <span>通学中や休み時間のウォーミングアップに最適</span>
+                </li>
+              </ul>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => onSelectMode('mini_test')}
+              className="flex min-h-[50px] w-full items-center justify-between rounded-2xl bg-[#e38614] px-4 py-3 text-sm sm:text-base font-extrabold text-white transition-transform active:translate-y-0.5 cursor-pointer"
+              style={{
+                border: '1.5px solid #b56506',
+                boxShadow: '0 4px 0 #9e5604',
+                fontFamily: 'var(--mt-font-display)',
+              }}
+              aria-label="スピード小テストの単元を選ぶ"
+            >
+              <span>スピード小テストを選ぶ</span>
+              <ArrowRight size={19} aria-hidden="true" />
+            </button>
+          </section>
+
+          {/* 3. 赤シート要点まとめプリント */}
           {!hideLearning && (
             <section
-              className="juken-card flex flex-col justify-between p-5 sm:p-6"
+              className="juken-card flex flex-col justify-between p-5"
               aria-labelledby="mode-learning-title"
             >
               <div>
                 <div className="mb-3 flex items-center justify-between gap-2">
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-[#fde8e8] px-3 py-1 text-xs font-extrabold text-[#c23b3b]">
                     <FileText size={13} aria-hidden="true" />
-                    インプット（暗記・要点整理）
+                    暗記・要点整理
                   </span>
                   <span className="text-xs font-extrabold text-[#c23b3b]">赤シートON/OFF対応</span>
                 </div>
 
                 <div className="mb-3 flex items-center gap-3">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#d94343] text-white shadow-xs">
-                    <FileText size={24} aria-hidden="true" />
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#d94343] text-white shadow-xs">
+                    <FileText size={22} aria-hidden="true" />
                   </div>
                   <div>
                     <h2
                       id="mode-learning-title"
-                      className="juken-title-font text-xl font-extrabold text-[#1c2a39]"
+                      className="juken-title-font text-lg sm:text-xl font-extrabold text-[#1c2a39]"
                     >
-                      赤シート要点まとめプリント
+                      赤シート要点まとめ
                     </h2>
                     <p className="text-xs font-bold text-[#5a6573]">
-                      テスト前日・スキマ時間の総復習にぴったり！
+                      テスト前日・重要語句と公式の総復習に！
                     </p>
                   </div>
                 </div>
 
-                <p className="mb-4 text-sm leading-relaxed text-[#3e4c5b]">
+                <p className="mb-4 text-xs sm:text-sm leading-relaxed text-[#3e4c5b]">
                   {learningDescription}
                 </p>
 
@@ -260,7 +343,7 @@ export function ModeSelection({
               <button
                 type="button"
                 onClick={() => onSelectMode('learning')}
-                className="flex min-h-[52px] w-full items-center justify-between rounded-2xl bg-[#d94343] px-5 py-3 text-base font-extrabold text-white transition-transform active:translate-y-0.5 cursor-pointer"
+                className="flex min-h-[50px] w-full items-center justify-between rounded-2xl bg-[#d94343] px-4 py-3 text-sm sm:text-base font-extrabold text-white transition-transform active:translate-y-0.5 cursor-pointer"
                 style={{
                   border: '1.5px solid #a82828',
                   boxShadow: '0 4px 0 #992222',
@@ -269,7 +352,7 @@ export function ModeSelection({
                 aria-label="赤シート要点まとめプリントを開く"
               >
                 <span>赤シートプリントをひらく</span>
-                <ArrowRight size={20} aria-hidden="true" />
+                <ArrowRight size={19} aria-hidden="true" />
               </button>
             </section>
           )}

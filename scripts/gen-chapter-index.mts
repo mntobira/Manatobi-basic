@@ -25,6 +25,9 @@ interface ChapterIndexEntry {
   abstractTitle?: string;
   realTitle?: string;
   problemCount: number;
+  subQuestionCount: number;
+  practiceSubQuestionCount: number;
+  miniTestSubQuestionCount: number;
 }
 
 interface SubjectIndexEntry {
@@ -36,6 +39,8 @@ interface SubjectIndexEntry {
 interface SubjectStats {
   chapters?: number;
   questions?: number;
+  practiceQuestions?: number;
+  miniTestQuestions?: number;
   sections?: number;
   units?: number;
   points?: number;
@@ -45,12 +50,16 @@ interface SubjectStats {
 function toIndexStats(s: {
   partCount: number;
   chapterCount: number;
+  practiceQuestionCount: number;
+  miniTestQuestionCount: number;
   totalQuestionCount: number;
 }): SubjectStats {
   return {
     sections: s.partCount,
     chapters: s.chapterCount,
     questions: s.totalQuestionCount,
+    practiceQuestions: s.practiceQuestionCount,
+    miniTestQuestions: s.miniTestQuestionCount,
   };
 }
 
@@ -69,10 +78,21 @@ function buildIndex(): SubjectIndexEntry[] {
 
   for (const subject of SUBJECTS) {
     const chapters = getChaptersOfSubject(subject.id).map((chapter) => {
+      const practiceSubQuestionCount = (chapter.practiceProblems || []).reduce(
+        (sum, p) => sum + Math.max(1, (p.subQuestions || []).length),
+        0,
+      );
+      const miniTestSubQuestionCount = (chapter.miniTest || []).reduce(
+        (sum, p) => sum + Math.max(1, (p.subQuestions || []).length),
+        0,
+      );
       const entry: ChapterIndexEntry = {
         id: String(chapter.id),
         problemCount:
           (chapter.miniTest?.length || 0) + (chapter.practiceProblems?.length || 0),
+        subQuestionCount: practiceSubQuestionCount + miniTestSubQuestionCount,
+        practiceSubQuestionCount,
+        miniTestSubQuestionCount,
       };
       if (typeof chapter.title === 'string' && chapter.title) entry.title = chapter.title;
       if (typeof chapter.abstractTitle === 'string' && chapter.abstractTitle) {
@@ -102,6 +122,9 @@ export interface ChapterIndexEntry {
   abstractTitle?: string;
   realTitle?: string;
   problemCount: number;
+  subQuestionCount?: number;
+  practiceSubQuestionCount?: number;
+  miniTestSubQuestionCount?: number;
 }
 
 export interface SubjectIndexEntry {
@@ -126,6 +149,8 @@ const STATS_HEADER = `
 export interface SubjectStatsEntry {
   chapters?: number;
   questions?: number;
+  practiceQuestions?: number;
+  miniTestQuestions?: number;
   sections?: number;
   units?: number;
   points?: number;
@@ -156,8 +181,12 @@ function main(): void {
     (sum, s) => sum + s.chapters.reduce((n, c) => n + c.problemCount, 0),
     0,
   );
+  const subQuestions = index.reduce(
+    (sum, s) => sum + s.chapters.reduce((n, c) => n + c.subQuestionCount, 0),
+    0,
+  );
   console.log(`[gen:index] ${OUT}`);
-  console.log(`[gen:index] 教科 ${index.length} / 章 ${chapters} / 大問 ${problems}`);
+  console.log(`[gen:index] 教科 ${index.length} / 章 ${chapters} / 大問 ${problems} / 小問 ${subQuestions}`);
   console.log(`[gen:index] 生成サイズ ${Buffer.byteLength(source, 'utf8').toLocaleString()} バイト`);
 }
 

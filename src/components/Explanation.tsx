@@ -490,10 +490,10 @@ export function Explanation({ mode: initialMode, chapter, answers, onBack, onRet
       //   スマホでは同一の「縦スクロール可能」なオーバーレイにする。
       //   iOS Safari では position:fixed + height:100% だとスクロールが効かない
       //   ことがあるため、動的ビューポート高さ(h-dvh)と慣性スクロールを明示する。
-      ? `fixed inset-0 w-full h-[100dvh] flex flex-col bg-[#FDFBF7] overflow-y-auto overscroll-contain [-webkit-overflow-scrolling:touch] z-50`
+      ? `fixed inset-0 w-full h-[100dvh] flex flex-col bg-[#fcf5e9] overflow-y-auto overscroll-contain [-webkit-overflow-scrolling:touch] z-50`
       : isResultView
-        ? `fixed inset-0 w-full h-full flex flex-col bg-[#FDFBF7] overflow-y-auto z-50`
-        : `fixed inset-0 w-full h-full flex flex-col bg-[#FDFBF7] overflow-hidden z-50`
+        ? `fixed inset-0 w-full h-full flex flex-col bg-[#fcf5e9] overflow-y-auto z-50`
+        : `fixed inset-0 w-full h-full flex flex-col bg-[#fcf5e9] overflow-hidden z-50`
     }>
       {onReturnToBattle && <button type="button" onClick={onReturnToBattle} className="sticky top-0 z-[55] min-h-11 shrink-0 border-b border-blue-200 bg-blue-50 px-3 pt-[calc(0.5rem+env(safe-area-inset-top,0px))] pb-2 text-sm font-bold text-blue-900">バトル結果・解説に戻る</button>}
       {reviewNav && <ReviewTopNav reviewNav={reviewNav} />}
@@ -526,12 +526,8 @@ export function Explanation({ mode: initialMode, chapter, answers, onBack, onRet
             「問題文と読み比べる本文の書体」だけ。
         */}
         <div className={isMobile 
-          ? `w-full flex flex-col ${isResultView || reviewNav ? 'flex-1' : ''} ${CARD_FONT_FAMILY} relative ${
-              'bg-white text-gray-800'
-            }`
-          : `${isResultView ? 'w-full flex-1' : 'w-full h-full'} flex flex-col ${CARD_FONT_FAMILY} relative ${
-              'bg-white text-gray-800'
-            }`
+          ? `w-full flex flex-col ${isResultView || reviewNav ? 'flex-1' : ''} ${CARD_FONT_FAMILY} relative bg-[#fcf5e9] text-[#1c2a39]`
+          : `${isResultView ? 'w-full flex-1' : 'w-full h-full'} flex flex-col ${CARD_FONT_FAMILY} relative bg-[#fcf5e9] text-[#1c2a39]`
         }>
       {/* Background effects */}
       
@@ -574,13 +570,11 @@ export function Explanation({ mode: initialMode, chapter, answers, onBack, onRet
       {!(isResultView && resultStep === 'summary') && (
       <div className={isMobile
         ? reorderMobile
-          // スマホの1問ごとの答え合わせ：問題文ペインを sticky で上部に
-          // 固定するため、外側の余白は付けない（全幅の上下2ペイン）。
-          ? `relative z-10 ${'bg-white'}`
-          : `p-4 md:p-6 relative z-10 space-y-6 md:space-y-8 ${'bg-white'}`
+          ? `relative z-10 bg-[#fcf5e9]`
+          : `p-4 md:p-6 relative z-10 space-y-6 md:space-y-8 bg-[#fcf5e9]`
         : isResultView
-          ? `p-4 md:p-6 pb-[calc(2rem+env(safe-area-inset-bottom))] relative z-10 space-y-6 md:space-y-8 ${'bg-white'}`
-          : `p-4 md:p-6 relative z-10 flex-1 overflow-hidden flex flex-col ${'bg-white'}`
+          ? `p-4 md:p-6 pb-[calc(2rem+env(safe-area-inset-bottom))] relative z-10 space-y-6 md:space-y-8 bg-[#fcf5e9]`
+          : `p-4 md:p-6 relative z-10 flex-1 overflow-hidden flex flex-col bg-[#fcf5e9]`
       }>
       {/* Weak Areas Analysis
           ★ 修正：問題数が多い場合（弱点エリアが多数）に desktop で潜在的にはみ出してスクロールできなかった不具合を解消。
@@ -609,14 +603,9 @@ export function Explanation({ mode: initialMode, chapter, answers, onBack, onRet
               1問ごとの解説表示（!isResultView）のときだけ、2カラムの固定高さレイアウトにする。 */}
         <div className={isMobile
           ? reorderMobile
-            // 1問ごとの答え合わせ（スマホ）：問題文ペインを sticky にするため
-            // 枠・角丸を付けず全幅で使う。
-            ? `${'bg-white'}`
-            : `rounded-2xl shadow-lg border ${'bg-white border-gray-200'}`
+            ? `bg-[#fcf5e9]`
+            : `rounded-2xl shadow-lg border bg-white border-[#e3d9c8]`
           : isResultView
-            // 結果表示（全問の解答・解説一覧）はページ全体スクロールに任せる。
-            // ここで flex-1 / h-full / overflow-hidden を付けると、スコアパネルに圧迫されて
-            // 解答・解説エリアが潰れ、スクロールできず内容が見えなくなる不具合が起きていた。
             ? `border-none shadow-none`
             : `border-none shadow-none flex-1 flex flex-col h-full min-h-0 overflow-hidden`
         }>
@@ -642,24 +631,24 @@ export function Explanation({ mode: initialMode, chapter, answers, onBack, onRet
                   下の解説をスクロールしても問題文が常に見える（ご要望
                   「解答と解説・問題は一緒に一画面で見える状態で出したい」）。 */}
             <div className={reorderMobile
-              ? `sticky ${reviewNav ? 'top-[calc(57px+env(safe-area-inset-top,0px))]' : 'top-[env(safe-area-inset-top,0px)]'} z-20 min-w-0 bg-white border-b-2 border-gray-200 shadow-md flex flex-col`
+              ? `sticky ${reviewNav ? 'top-[calc(57px+env(safe-area-inset-top,0px))]' : 'top-[env(safe-area-inset-top,0px)]'} z-20 min-w-0 bg-[#fffefb] border-b-2 border-[#e3d9c8] shadow-xs flex flex-col`
               : `space-y-6 pb-8 min-w-0 ${isResultView ? 'lg:pr-4' : 'lg:overflow-y-auto lg:h-full lg:pr-4'}`}>
               {/* スマホ：問題文ペインのヘッダー（演習画面と同じ「たたむ」付き） */}
               {reorderMobile && (
-                <div className="lx-problem-head flex items-center justify-between px-3 py-1 border-b border-gray-100 bg-blue-50/30">
-                  <span className="font-bold text-[#2C3E50] text-sm flex items-center gap-2">
-                    <BookOpen size={15} className="text-[#A9CCE3]" />
-                    問題文
+                <div className="lx-problem-head flex items-center justify-between px-3.5 py-1.5 border-b border-[#efe7d8] bg-[#faf5ea]">
+                  <span className="font-extrabold text-[#3d3222] text-xs flex items-center gap-1.5">
+                    <BookOpen size={14} className="text-[#2458a6]" />
+                    問題・資料
                   </span>
                   <button
                     onClick={() => setMobileProblemCollapsed(v => !v)}
                     aria-expanded={!mobileProblemCollapsed}
-                    className="flex min-h-[44px] items-center gap-0.5 rounded-md px-2 text-xs font-bold text-gray-600 active:bg-gray-50 whitespace-nowrap"
+                    className="flex min-h-[38px] items-center gap-0.5 rounded-lg px-2.5 text-xs font-extrabold text-[#5c4f3d] active:bg-[#f2ebde] whitespace-nowrap cursor-pointer"
                   >
                     {mobileProblemCollapsed ? (
-                      <>問題文を表示<ChevronDown size={12} /></>
+                      <>問題文をひらく<ChevronDown size={13} /></>
                     ) : (
-                      <>たたむ<ChevronUp size={12} /></>
+                      <>たたむ<ChevronUp size={13} /></>
                     )}
                   </button>
                 </div>

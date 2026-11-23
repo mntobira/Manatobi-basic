@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 270" width="540" height="270" font-family="Hiragino Sans, Noto Sans JP, sans-serif">
+  <title>ヒトの心臓の4つの部屋と血液循環（肺循環・体循環）</title>
+  <rect width="540" height="270" rx="12" fill="#fffdf9" stroke="#e4d9c5" stroke-width="2"/>
+  <text x="270" y="25" text-anchor="middle" font-size="14" font-weight="800" fill="#1e293b">【ヒトの血液循環模式図（正面から見た向き）】</text>
+
+  <!-- 肺 -->
+  <rect x="190" y="40" width="160" height="44" rx="12" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="270" y="60" text-anchor="middle" font-size="13" font-weight="800" fill="#1d4ed8">肺（肺胞）</text>
+  <text x="270" y="76" text-anchor="middle" font-size="10.5" fill="#475569">CO₂を出し・O₂をとりこむ</text>
+
+  <!-- 心臓枠 -->
+  <rect x="180" y="108" width="180" height="86" rx="14" fill="#fff5f5" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="270" y1="108" x2="270" y2="194" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="180" y1="151" x2="360" y2="151" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <text x="225" y="134" text-anchor="middle" font-size="12.5" font-weight="800" fill="#1e40af">右心房</text>
+  <text x="225" y="177" text-anchor="middle" font-size="12.5" font-weight="800" fill="#1e40af">右心室</text>
+  <text x="315" y="134" text-anchor="middle" font-size="12.5" font-weight="800" fill="#b91c1c">左心房</text>
+  <text x="315" y="177" text-anchor="middle" font-size="12.5" font-weight="800" fill="#b91c1c">左心室</text>
+
+  <!-- 全身の組織・小腸・肝臓・腎臓 -->
+  <rect x="148" y="216" width="244" height="40" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="270" y="235" text-anchor="middle" font-size="11.5" font-weight="800" fill="#92400e">全身の毛細血管（小腸・肝臓・腎臓など）</text>
+  <text x="270" y="249" text-anchor="middle" font-size="10" fill="#78350f">O₂・養分を渡し、CO₂・不要物を回収</text>
+
+  <!-- 血管A: 肺動脈 (右心室 -> 肺) 静脈血(青) -->
+  <path d="M 180 172 L 105 172 L 105 62 L 188 62" fill="none" stroke="#2563eb" stroke-width="4"/>
+  <polygon points="188,62 179,57 179,67" fill="#2563eb"/>
+  <rect x="20" y="84" width="118" height="36" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="79" y="100" text-anchor="middle" font-size="12" font-weight="800" fill="#1e40af">血管A：肺動脈</text>
+  <text x="79" y="114" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1e3a8a">（静脈血が流れる！）</text>
+
+  <!-- 血管B: 肺静脈 (肺 -> 左心房) 動脈血(赤) -->
+  <path d="M 350 62 L 435 62 L 435 128 L 362 128" fill="none" stroke="#dc2626" stroke-width="4"/>
+  <polygon points="362,128 371,123 371,133" fill="#dc2626"/>
+  <rect x="402" y="72" width="122" height="38" rx="8" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="463" y="88" text-anchor="middle" font-size="12" font-weight="800" fill="#991b1b">血管B：肺静脈</text>
+  <text x="463" y="102" text-anchor="middle" font-size="10" font-weight="700" fill="#991b1b">（O₂最多の動脈血！）</text>
+
+  <!-- 血管C: 大動脈 (左心室 -> 全身) 動脈血(赤) -->
+  <path d="M 360 175 L 445 175 L 445 236 L 394 236" fill="none" stroke="#dc2626" stroke-width="4"/>
+  <polygon points="394,236 403,231 403,241" fill="#dc2626"/>
+  <rect x="408" y="186" width="116" height="34" rx="8" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="466" y="207" text-anchor="middle" font-size="12" font-weight="800" fill="#991b1b">血管C：大動脈</text>
+
+  <!-- 血管D: 大静脈 (全身 -> 右心房) 静脈血(青) -->
+  <path d="M 148 236 L 85 236 L 85 128 L 178 128" fill="none" stroke="#2563eb" stroke-width="4"/>
+  <polygon points="178,128 169,123 169,133" fill="#2563eb"/>
+  <rect x="16" y="186" width="116" height="34" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="74" y="207" text-anchor="middle" font-size="12" font-weight="800" fill="#1e40af">血管D：大静脈</text>
+</svg>

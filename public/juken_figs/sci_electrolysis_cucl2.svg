@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 250" width="540" height="250" font-family="Hiragino Sans, Noto Sans JP, sans-serif">
+  <title>塩化銅水溶液の電気分解とイオンの移動</title>
+  <rect width="540" height="250" rx="12" fill="#fffdf9" stroke="#e4d9c5" stroke-width="2"/>
+  <text x="270" y="25" text-anchor="middle" font-size="14" font-weight="800" fill="#1e293b">【塩化銅水溶液（CuCl₂）の電気分解モデル】</text>
+
+  <!-- 電源 -->
+  <rect x="215" y="38" width="110" height="30" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.8"/>
+  <text x="270" y="58" text-anchor="middle" font-size="12.5" font-weight="800" fill="#1e293b">直流電源装置</text>
+  <text x="195" y="57" font-size="13" font-weight="800" fill="#dc2626">＋極</text>
+  <text x="332" y="57" font-size="13" font-weight="800" fill="#2563eb">−極</text>
+
+  <!-- 導線 -->
+  <path d="M 215 53 L 175 53 L 175 95" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+  <path d="M 325 53 L 365 53 L 365 95" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+
+  <!-- ビーカーと水溶液 -->
+  <path d="M 115 95 L 115 222 Q 115 232 125 232 L 415 232 Q 425 232 425 222 L 425 95" fill="none" stroke="#475569" stroke-width="3"/>
+  <rect x="117" y="120" width="306" height="110" rx="6" fill="#dbeafe" opacity="0.78"/>
+  <text x="270" y="222" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1e3a8a">青色の塩化銅水溶液（電気分解が進むと青色がうすくなる）</text>
+
+  <!-- 炭素棒（陽極・陰極） -->
+  <rect x="163" y="88" width="24" height="112" rx="4" fill="#334155"/>
+  <text x="175" y="82" text-anchor="middle" font-size="12.5" font-weight="800" fill="#b91c1c">陽極（＋）</text>
+  <!-- 塩素の泡 -->
+  <circle cx="155" cy="142" r="5" fill="#ecfccb" stroke="#65a30d" stroke-width="1.5"/>
+  <circle cx="195" cy="154" r="4.5" fill="#ecfccb" stroke="#65a30d" stroke-width="1.5"/>
+  <circle cx="156" cy="168" r="4" fill="#ecfccb" stroke="#65a30d" stroke-width="1.5"/>
+
+  <rect x="353" y="88" width="24" height="112" rx="4" fill="#334155"/>
+  <!-- 陰極の赤茶色の銅付着 -->
+  <rect x="350" y="128" width="30" height="72" rx="5" fill="#b45309" opacity="0.88"/>
+  <text x="365" y="82" text-anchor="middle" font-size="12.5" font-weight="800" fill="#1d4ed8">陰極（−）</text>
+
+  <!-- イオン移動 -->
+  <circle cx="240" cy="152" r="17" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="240" y="157" text-anchor="middle" font-size="12" font-weight="800" fill="#166534">Cl⁻</text>
+  <line x1="220" y1="152" x2="196" y2="152" stroke="#16a34a" stroke-width="2.5"/>
+  <polygon points="196,152 204,147 204,157" fill="#16a34a"/>
+
+  <circle cx="300" cy="176" r="18" fill="#ffedd5" stroke="#ea580c" stroke-width="2"/>
+  <text x="300" y="181" text-anchor="middle" font-size="11.5" font-weight="800" fill="#9a3412">Cu²⁺</text>
+  <line x1="320" y1="176" x2="345" y2="176" stroke="#ea580c" stroke-width="2.5"/>
+  <polygon points="345,176 337,171 337,181" fill="#ea580c"/>
+
+  <!-- 吹き出しラベル -->
+  <rect x="12" y="122" width="95" height="68" rx="8" fill="#f7fee7" stroke="#65a30d" stroke-width="1.5"/>
+  <text x="59" y="140" text-anchor="middle" font-size="11.5" font-weight="800" fill="#3f6212">気体：塩素 Cl₂</text>
+  <text x="59" y="156" text-anchor="middle" font-size="10" fill="#365314">・刺激臭／有毒</text>
+  <text x="59" y="170" text-anchor="middle" font-size="10" fill="#365314">・インクを脱色</text>
+  <text x="59" y="183" text-anchor="middle" font-size="10" fill="#365314">（漂白・殺菌作用）</text>
+
+  <rect x="433" y="122" width="95" height="68" rx="8" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5"/>
+  <text x="480" y="140" text-anchor="middle" font-size="11.5" font-weight="800" fill="#9a3412">固体：銅 Cu</text>
+  <text x="480" y="156" text-anchor="middle" font-size="10" fill="#7c2d12">・赤茶色の物質</text>
+  <text x="480" y="170" text-anchor="middle" font-size="10" fill="#7c2d12">・こすると金属光沢</text>
+  <text x="480" y="183" text-anchor="middle" font-size="10" fill="#7c2d12">・電気をよく通す</text>
+</svg>

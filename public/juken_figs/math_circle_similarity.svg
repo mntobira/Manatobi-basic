@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 250" width="540" height="250" font-family="Hiragino Sans, Noto Sans JP, sans-serif">
+  <title>円に内接する三角形・直径の円周角と相似</title>
+  <rect width="540" height="250" rx="12" fill="#fffdf9" stroke="#e4d9c5" stroke-width="2"/>
+  <text x="270" y="24" text-anchor="middle" font-size="14" font-weight="800" fill="#1e293b">【円Oの直径ABと弦CDの交点P（円周角の定理と相似）】</text>
+
+  <!-- 左：図形 -->
+  <g transform="translate(25, 25)">
+    <circle cx="145" cy="112" r="88" fill="#f8fafc" stroke="#0e7c86" stroke-width="2.5"/>
+    <!-- 直径 AB -->
+    <line x1="57" y1="112" x2="233" y2="112" stroke="#1e293b" stroke-width="2.5"/>
+    <circle cx="145" cy="112" r="3.5" fill="#1e293b"/>
+    <text x="145" y="129" text-anchor="middle" font-size="12" font-weight="800" fill="#1e293b">O</text>
+    <text x="42" y="117" text-anchor="middle" font-size="14" font-weight="800" fill="#1e293b">A</text>
+    <text x="248" y="117" text-anchor="middle" font-size="14" font-weight="800" fill="#1e293b">B</text>
+
+    <!-- 点C (上側: 角度60deg from B -> x=145+88*cos(120)=101, y=112-88*sin(120)=35.8) -->
+    <!-- 点D (下側: x=145+88*cos(-45)=207.2, y=112+88*sin(45)=174.2) -->
+    <circle cx="101" cy="36" r="3.5" fill="#dc2626"/>
+    <text x="95" y="26" text-anchor="middle" font-size="14" font-weight="800" fill="#dc2626">C</text>
+
+    <circle cx="207" cy="174" r="3.5" fill="#2563eb"/>
+    <text x="220" y="186" text-anchor="middle" font-size="14" font-weight="800" fill="#2563eb">D</text>
+
+    <!-- 弦 CD, AC, BD, BC, AD -->
+    <line x1="101" y1="36" x2="207" y2="174" stroke="#dc2626" stroke-width="2.2"/>
+    <line x1="57" y1="112" x2="101" y2="36" stroke="#475569" stroke-width="2"/>
+    <line x1="233" y1="112" x2="101" y2="36" stroke="#475569" stroke-width="1.8" stroke-dasharray="4 3"/>
+    <line x1="233" y1="112" x2="207" y2="174" stroke="#475569" stroke-width="2"/>
+
+    <!-- 交点 P (y=112 on line from (101,36) to (207,174): t=(112-36)/(174-36)=76/138=0.5507 -> x=101+106*0.5507=159.4) -->
+    <circle cx="159" cy="112" r="4" fill="#b45309"/>
+    <text x="163" y="104" font-size="13" font-weight="800" fill="#b45309">P</text>
+
+    <!-- 直角マーク at ∠ACB -->
+    <text x="108" y="55" font-size="11" font-weight="800" fill="#0f766e">90°</text>
+  </g>
+
+  <!-- 右：条件まとめボックス -->
+  <rect x="305" y="46" width="215" height="178" rx="10" fill="#f3fbfc" stroke="#0e7c86" stroke-width="1.5"/>
+  <text x="412" y="68" text-anchor="middle" font-size="12.5" font-weight="800" fill="#0b6169">図形のポイント整理</text>
+  <line x1="318" y1="76" x2="506" y2="76" stroke="#aee3e8" stroke-width="1.5"/>
+  <text x="320" y="98" font-size="11.5" font-weight="700" fill="#1e293b">① 線分ABは円Oの【直径】</text>
+  <text x="332" y="116" font-size="11" fill="#0f766e">→ 半円の弧に対する円周角 ∠ACB＝90°</text>
+  <text x="320" y="140" font-size="11.5" font-weight="700" fill="#1e293b">② 同じ弧に対する円周角は等しい</text>
+  <text x="332" y="158" font-size="11" fill="#1e40af">→ 弧BCで ∠CAP ＝ ∠BDP</text>
+  <text x="332" y="175" font-size="11" fill="#1e40af">→ 対頂角 ∠APC ＝ ∠DPB</text>
+  <text x="320" y="200" font-size="12" font-weight="800" fill="#b91c1c">∴ △ACP ∽ △DBP（2組の角が等しい！）</text>
+  <text x="332" y="216" font-size="10.5" font-weight="700" fill="#7f1d1d">対応順：A↔D、C↔B、P↔P に注意！</text>
+</svg>
