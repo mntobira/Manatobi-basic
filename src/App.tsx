@@ -282,7 +282,7 @@ export default function App() {
    */
   const [chaptersBackTo, setChaptersBackTo] = useState<'home' | 'foundation' | 'study'>('home');
   /** 科目を切り替えて、その科目の単元一覧を開く（固めるページから使う） */
-  const openSubjectUnits = (subject: SubjectId, from: 'home' | 'foundation' | 'study') => {
+  const openSubjectUnits = (subject: SubjectId, from: 'home' | 'foundation' | 'study', targetMode: 'practice' | 'mini_test' = 'practice') => {
     if (!isSubjectEnabled(subject)) return;
     if (subject !== selectedSubject) {
       setSelectedChapterId(null);
@@ -291,7 +291,7 @@ export default function App() {
       safeSetItem(STORAGE_KEYS.lastLearnState, 'chapters');
     }
     setSelectedSubject(subject);
-    setAppMode('practice');
+    setAppMode(targetMode);
     setChaptersBackTo(from);
     setAppState('chapters');
   };
@@ -301,7 +301,7 @@ export default function App() {
     setStudyLastContent(content.id);
     safeSetItem(STORAGE_KEYS.studyCatalogLast, content.id);
     if (content.action.kind === 'units') {
-      if (isSubjectId(content.action.subject)) openSubjectUnits(content.action.subject, 'study');
+      if (isSubjectId(content.action.subject)) openSubjectUnits(content.action.subject, 'study', content.action.mode ?? 'practice');
       return;
     }
     if (content.action.kind === 'learning') {
@@ -671,6 +671,7 @@ export default function App() {
               <React.Suspense fallback={<ScreenLoading />}>
                 <ChapterSelection
                   mode={appMode as 'mini_test' | 'practice'}
+                  onChangeMode={(nextMode) => setAppMode(nextMode)}
                   onChangeSubject={handleChangeStudySubject}
                   onSelectChapter={handleSelectChapter}
                   onBack={() => setAppState(chaptersBackTo === 'study' ? 'study' : studyEntry(selectedSubject) === 'chapters' ? 'home' : 'mode_selection')}

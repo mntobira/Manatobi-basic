@@ -75,8 +75,8 @@ export function ProblemStatement({ question, qIndex, scorePercentage, singleQues
                       // スマホの1問ごとの答え合わせ：枠なし・演習画面と同じ文字サイズ
                       //（親ペインの text-[15px] leading-[1.85] を継承）。
                       ? ''
-                      : 'p-4 rounded-lg border text-sm md:text-base leading-relaxed'} ${
-                      (reorderMobile ? 'text-gray-800' : 'bg-white border-gray-200 text-gray-800')
+                      : 'p-4 md:p-5 rounded-2xl border-2 text-sm md:text-base leading-relaxed shadow-[0_3px_0_#e6dccb]'} ${
+                      (reorderMobile ? 'text-[#1c2a39]' : 'bg-white border-[#e4d9c5] text-[#1c2a39]')
                     }`}>
                       {/* ★英語リスニング：復習用の音源を問題文欄に置く。
                           採点直後の画面なので、「聞き取れなかった箇所を

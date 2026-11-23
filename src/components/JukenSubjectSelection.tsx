@@ -117,7 +117,7 @@ export const JukenSubjectSelection: React.FC<JukenSubjectSelectionProps> = ({
                       <span>{sub.label}</span>
                     </span>
                     <span className="juken-num text-xs font-extrabold text-[#5a6573]">
-                      全{stats.chapters ?? 0}単元・実戦{stats.questions ?? 0}問＋赤シート
+                      全{stats.chapters ?? 0}単元・計{stats.questions ?? 0}問（実戦{stats.practiceQuestions ?? 0}＋小テスト{stats.miniTestQuestions ?? 0}）
                     </span>
                   </div>
                   <p className="mt-2.5 text-xs sm:text-sm font-medium text-[#2b241c] leading-6">
@@ -129,7 +129,7 @@ export const JukenSubjectSelection: React.FC<JukenSubjectSelectionProps> = ({
                   className="flex items-center justify-between pt-2.5 border-t border-[#efe6d6] text-xs sm:text-sm font-extrabold"
                   style={{ color: sub.theme.accent }}
                 >
-                  <span>実戦演習・赤シートまとめへ進む</span>
+                  <span>実戦演習・小テスト・赤シートへ進む</span>
                   <ChevronRight className="w-4 h-4" />
                 </div>
               </button>

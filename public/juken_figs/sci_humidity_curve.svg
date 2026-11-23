@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 250" width="540" height="250" font-family="Hiragino Sans, Noto Sans JP, sans-serif">
+  <title>空気中の飽和水蒸気量曲線と露点・湿度の計算</title>
+  <rect width="540" height="250" rx="12" fill="#fffdf9" stroke="#e4d9c5" stroke-width="2"/>
+  <text x="270" y="24" text-anchor="middle" font-size="14" font-weight="800" fill="#1e293b">【1 m³ あたりの飽和水蒸気量グラフと空気塊A】</text>
+
+  <!-- グラフ軸 -->
+  <line x1="68" y1="205" x2="365" y2="205" stroke="#334155" stroke-width="2"/>
+  <line x1="68" y1="42" x2="68" y2="205" stroke="#334155" stroke-width="2"/>
+
+  <!-- 横補助線 (0, 10, 20, 30 g/m3) -->
+  <line x1="68" y1="155" x2="355" y2="155" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="68" y1="105" x2="355" y2="105" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="68" y1="55" x2="355" y2="55" stroke="#e2e8f0" stroke-width="1"/>
+
+  <text x="58" y="209" text-anchor="end" font-size="11" fill="#475569">0</text>
+  <text x="58" y="159" text-anchor="end" font-size="11" fill="#475569">10</text>
+  <text x="58" y="109" text-anchor="end" font-size="11" fill="#475569">20</text>
+  <text x="58" y="59" text-anchor="end" font-size="11" fill="#475569">30</text>
+  <text x="22" y="128" text-anchor="middle" font-size="11.5" font-weight="700" fill="#334155" transform="rotate(-90 22 128)">水蒸気量 [g/m³]</text>
+
+  <!-- 気温目盛: 5℃(105), 10℃(150), 15℃(195), 20℃(240), 25℃(285), 30℃(330) -->
+  <text x="105" y="222" text-anchor="middle" font-size="11" fill="#475569">5</text>
+  <text x="150" y="222" text-anchor="middle" font-size="11" font-weight="800" fill="#1d4ed8">10</text>
+  <text x="195" y="222" text-anchor="middle" font-size="11" fill="#475569">15</text>
+  <text x="240" y="222" text-anchor="middle" font-size="11" fill="#475569">20</text>
+  <text x="285" y="222" text-anchor="middle" font-size="11" font-weight="800" fill="#dc2626">25</text>
+  <text x="330" y="222" text-anchor="middle" font-size="11" fill="#475569">30</text>
+  <text x="215" y="240" text-anchor="middle" font-size="11.5" font-weight="700" fill="#334155">気温 [℃]</text>
+
+  <!-- 飽和水蒸気量曲線: 5℃=6.8(171), 10℃=9.4(158), 15℃=12.8(141), 20℃=17.3(118.5), 25℃=23.1(89.5), 30℃=30.4(53) -->
+  <path d="M 80 180 Q 150 162 195 141 T 285 89.5 T 330 53" fill="none" stroke="#0284c7" stroke-width="3"/>
+
+  <!-- 25℃ の棒 (飽和 23.1g, 現在水蒸気量 = 12.8g? Let's make 15℃=12.8 and 25℃=23.1, or 10℃=9.4 and 25℃=23.1 -> let's give exact clean table on the right!) -->
+  <!-- 25℃での飽和水蒸気量枠 -->
+  <rect x="273" y="89.5" width="24" height="115.5" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <!-- 現在の水蒸気量 11.55g (50%) or 12.8g (露点15℃) -> 12.8g at 25℃ -->
+  <rect x="273" y="141" width="24" height="64" fill="#38bdf8" stroke="#0369a1" stroke-width="1.5"/>
+  <circle cx="285" cy="141" r="4.5" fill="#dc2626"/>
+  <text x="303" y="145" font-size="11.5" font-weight="800" fill="#dc2626">空気A（25℃）</text>
+
+  <!-- 露点への水平線 (15℃, 12.8g) -->
+  <line x1="195" y1="141" x2="285" y2="141" stroke="#dc2626" stroke-width="2" stroke-dasharray="4 3"/>
+  <line x1="195" y1="141" x2="195" y2="205" stroke="#1d4ed8" stroke-width="1.8" stroke-dasharray="3 3"/>
+  <circle cx="195" cy="141" r="4.5" fill="#1d4ed8"/>
+  <text x="155" y="133" font-size="11" font-weight="800" fill="#1d4ed8">露点 15℃</text>
+
+  <!-- 右側：飽和水蒸気量の数値表 -->
+  <rect x="374" y="42" width="152" height="192" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="450" y="61" text-anchor="middle" font-size="12" font-weight="800" fill="#1e293b">飽和水蒸気量データ</text>
+  <line x1="382" y1="69" x2="518" y2="69" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="412" y="84" text-anchor="middle" font-size="11" font-weight="800" fill="#475569">気温</text>
+  <text x="482" y="84" text-anchor="middle" font-size="11" font-weight="800" fill="#475569">飽和量</text>
+  <text x="412" y="104" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1e293b">5 ℃</text>
+  <text x="482" y="104" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1e293b">6.8 g/m³</text>
+  <text x="412" y="126" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1e293b">10 ℃</text>
+  <text x="482" y="126" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1e293b">9.4 g/m³</text>
+  <text x="412" y="148" text-anchor="middle" font-size="11.5" font-weight="800" fill="#1d4ed8">15 ℃</text>
+  <text x="482" y="148" text-anchor="middle" font-size="11.5" font-weight="800" fill="#1d4ed8">12.8 g/m³</text>
+  <text x="412" y="170" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1e293b">20 ℃</text>
+  <text x="482" y="170" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1e293b">17.3 g/m³</text>
+  <text x="412" y="192" text-anchor="middle" font-size="11.5" font-weight="800" fill="#dc2626">25 ℃</text>
+  <text x="482" y="192" text-anchor="middle" font-size="11.5" font-weight="800" fill="#dc2626">23.1 g/m³</text>
+  <text x="412" y="214" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1e293b">30 ℃</text>
+  <text x="482" y="214" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1e293b">30.4 g/m³</text>
+</svg>

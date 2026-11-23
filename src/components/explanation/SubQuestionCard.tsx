@@ -1,5 +1,15 @@
 import React from 'react';
-import { AlertCircle, BookOpen, CheckCircle2, ChevronDown, Circle, KeyRound, Target, XCircle } from 'lucide-react';
+import {
+  AlertCircle,
+  BookOpen,
+  CheckCircle2,
+  ChevronDown,
+  Circle,
+  KeyRound,
+  Lightbulb,
+  Target,
+  XCircle,
+} from 'lucide-react';
 import { formatText } from '../../utils/textFormatter';
 import { answerCardMarker, splitQuestionLabel } from '../../utils/questionDisplay';
 import { isScriptFirstExplanation, stripScriptBox } from '../../utils/listeningExplanation';
@@ -7,18 +17,8 @@ import { ExplanationBody } from '../ExplanationBody';
 import { isAttempted, pictureCellOf } from './helpers';
 import type { AudioTrack, Problem, SubQuestion } from '../../types/curriculum';
 
-/**
- * 小問1つぶんの答え合わせカード（正誤・あなたの解答・正解・解説・思考手順・部分点）。
- * 2026-10-13 のリファクタリングで Explanation.tsx の renderSq（約270行の内側関数）を切り出した。
- * JSX・クラス名・文言・並び順は元のまま。
- *
- * ★あえて「コンポーネント（<SubQuestionCard />）」ではなく「関数（renderSubQuestionCard(...)）」にしている★
- *   元は renderSq(sq, isCorrect) という関数呼び出しで、戻り値の <div key={sq.id}> の key を React が読んでいた。
- *   <SubQuestionCard /> にすると React の要素ツリーに1段増え、key の付き方も変わる。
- *   DOM は同じでも、再描画のときの差分の取り方（＝挙動）がわずかに変わる余地があるため、
- *   元と同じ「関数を呼んで要素を返す」形のまま外に出した。
- *   開閉などの状態は、元どおりすべて親（Explanation）が持つ。ここは受け取った値で描くだけ。
- */
+const KANA_LABELS = ['ア', 'イ', 'ウ', 'エ', 'オ', 'カ'];
+
 export interface SubQuestionCardContext {
   question: Problem;
   answers: Record<string, string>;
@@ -36,185 +36,345 @@ export interface SubQuestionCardContext {
   sliceForSq: (sq: SubQuestion) => string;
 }
 
+/**
+ * 解説本文から冗長な先頭行「【正解】…」と末尾の「【他の選択肢が誤りである理由…】」を切り離す。
+ * （正解はすぐ上のカードに表示済み、誤答理由は sq.distractors があれば専用の視覚カードで描画するため）
+ */
+function cleanExplanationSlice(raw: string, hasStructuredDistractors: boolean): string {
+  let cleaned = raw.replace(/^【正解】[^\n]*\n*/m, '').trim();
+  if (hasStructuredDistractors) {
+    cleaned = cleaned
+      .replace(/\n*【他の選択肢が誤りである理由[^\n]*】[\s\S]*$/m, '')
+      .trim();
+  }
+  return cleaned;
+}
+
 export function renderSubQuestionCard(ctx: SubQuestionCardContext, sq: SubQuestion, isCorrect: boolean) {
   const {
-    question, answers, isMobile, isPracticeMode, isEnglishChapter, listeningTracks,
-    answerBoxBaseClass, explBodyBaseClass, explBodyFontClass,
-    openExplanationBySq, openThinkingBySq, setOpenExplanationBySq, setOpenThinkingBySq,
+    question,
+    answers,
+    isMobile,
+    isPracticeMode,
+    isEnglishChapter,
+    listeningTracks,
+    answerBoxBaseClass,
+    explBodyBaseClass,
+    explBodyFontClass,
+    openExplanationBySq,
+    openThinkingBySq,
+    setOpenExplanationBySq,
+    setOpenThinkingBySq,
     sliceForSq,
   } = ctx;
-                        // 手を付けていない問は「不正解」ではなく「未解答」として
-                        // 灰色系の落ち着いた表示にする（赤い✕を出さない）。
-                        const attempted = isAttempted(answers[sq.id]);
-                        const isUnanswered = !attempted;
-                        // ★PC（画面に余裕がある）では最初から開いておく（2026-10-04 ご要望）★
-                        //   閉じたら閉じたまま（利用者の操作を優先）。スマホは従来どおり閉じて始める。
-                        const explanationOpen = openExplanationBySq[sq.id] ?? !isMobile;
-                        const thinkingOpen = openThinkingBySq[sq.id] ?? !isMobile;
-                        // ★スクリプト（英文＋和訳）を上に出しているときは、解説の中の同じ英文の枠は出さない（2026-10-04 ご要望）★
-                        const sqSliceRaw = sliceForSq(sq);
-                        const isScriptFirst = isScriptFirstExplanation(sqSliceRaw);
-                        const sqSlice = listeningTracks.length > 0 ? stripScriptBox(sqSliceRaw) : sqSliceRaw;
-                        const sqIndex = (question?.subQuestions || []).indexOf(sq);
-                        const displayLabel = answerCardMarker(sq, sqIndex < 0 ? 0 : sqIndex, question);
-                        const { body: sqPromptBody } = splitQuestionLabel(sq.label || '', displayLabel);
-                        const hasThinking = Boolean(
-                          sq.detailedExplanation?.theme ||
-                          sq.detailedExplanation?.steps?.length,
-                        );
 
-                        const thinkingBody = hasThinking ? (
-                          <div className={`border-t p-4 md:p-5 space-y-4 ${'border-amber-200 bg-amber-50/40'}`}>
-                            {sq.detailedExplanation?.theme && (
-                              <div>
-                                <h5 className={`font-bold mb-1.5 flex items-center gap-1.5 ${'text-amber-700'}`}>
-                                  <KeyRound size={15} />
-                                  <span>答えの核心（ここだけは押さえる）</span>
-                                </h5>
-                                <p className={`font-bold leading-relaxed ${'text-gray-800'}`}>
-                                  {formatText(sq.detailedExplanation.theme)}
-                                </p>
-                              </div>
-                            )}
+  const attempted = isAttempted(answers[sq.id]);
+  const isUnanswered = !attempted;
+  const singleFocusMode = (question?.subQuestions || []).length <= 1;
+  // 1問ずつ答え合わせするときはスマホでも最初から解説を開き、タップの手間をゼロにする
+  const explanationOpen = openExplanationBySq[sq.id] ?? (!isMobile || singleFocusMode);
+  const thinkingOpen = openThinkingBySq[sq.id] ?? !isMobile;
 
-                            {!isScriptFirst && isPracticeMode && sq.detailedExplanation?.steps?.length > 0 && (
-                              <div>
-                                <h5 className={`font-bold mb-2 flex items-center gap-1.5 ${'text-emerald-700'}`}>
-                                  <Target size={15} />
-                                  <span>正解までの道すじ</span>
-                                </h5>
-                                <ol className="list-none space-y-2">
-                                  {sq.detailedExplanation.steps.map((step: string, idx: number) => (
-                                    <li key={idx} className="flex items-start gap-2.5">
-                                      <span className={`shrink-0 mt-0.5 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold ${'bg-emerald-100 text-emerald-700 border border-emerald-300'}`}>
-                                        {idx + 1}
-                                      </span>
-                                      {/* 書体は直書きせず土台から継承する（(C) 書体統一） */}
-                                      <span className="leading-relaxed min-w-0">{formatText(step)}</span>
-                                    </li>
-                                  ))}
-                                </ol>
-                              </div>
-                            )}
+  const sqSliceRaw = sliceForSq(sq);
+  const isScriptFirst = isScriptFirstExplanation(sqSliceRaw);
+  const sqSliceStripped = listeningTracks.length > 0 ? stripScriptBox(sqSliceRaw) : sqSliceRaw;
+  const hasDistractorCards = Array.isArray(sq.distractors) && sq.distractors.length > 0;
+  const sqSlice = cleanExplanationSlice(sqSliceStripped, hasDistractorCards);
 
-                          </div>
-                        ) : null;
+  const sqIndex = (question?.subQuestions || []).indexOf(sq);
+  const displayLabel = answerCardMarker(sq, sqIndex < 0 ? 0 : sqIndex, question);
+  const { body: sqPromptBody } = splitQuestionLabel(sq.label || '', displayLabel);
 
-                        return (
-                          <div
-                            id={`sq-${sq.id}`}
-                            key={sq.id}
-                            className={`rounded-2xl border-2 overflow-hidden shadow-xs ${
-                              isCorrect
-                                  ? ('border-emerald-300')
-                                  : isUnanswered
-                                    ? ('border-[#e3d8c4]')
-                                    : ('border-rose-300')
-                            }`}
-                          >
-                            {/* 正誤・設問文・自分の解答・正解は、アコーディオンに入れず常に表示する。 */}
-                            <div className={`p-3.5 md:p-4 space-y-3 ${answerBoxBaseClass} ${
-                              isCorrect
-                                  ? ('bg-emerald-50/85')
-                                  : isUnanswered
-                                    ? ('bg-[#faf6ee]')
-                                    : ('bg-rose-50/80')
-                            }`}>
-                              <div className="flex flex-wrap items-center justify-between gap-2.5">
-                                <div className="flex items-center gap-2.5 min-w-0">
-                                  <div className={`font-extrabold text-xs md:text-sm px-3 py-1 rounded-xl border shadow-2xs ${'text-[#1c2a39] bg-white border-[#dfd4c0]'}`}>
-                                    {formatText(displayLabel)}
-                                  </div>
-                                  {isUnanswered ? (
-                                    <div className={`flex items-center gap-1.5 font-extrabold text-sm ${'text-[#6b5d47]'}`}>
-                                      <Circle size={17} />
-                                      <span>未回答 — 解説を読んで解き方をつかもう！</span>
-                                    </div>
-                                  ) : (
-                                    <div className={`flex items-center gap-1.5 font-extrabold text-sm ${isCorrect ? ('text-emerald-700') : ('text-rose-600')}`}>
-                                      {isCorrect ? <CheckCircle2 size={18} /> : <XCircle size={18} />}
-                                      <span>{isCorrect ? '大正解！バッチリ！' : '惜しい！ここで覚えれば次は解ける！'}</span>
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
+  const userOptionIdx = Array.isArray(sq.options)
+    ? sq.options.indexOf(String(answers[sq.id] ?? ''))
+    : -1;
+  const correctOptionIdx = Array.isArray(sq.options)
+    ? sq.options.indexOf(String(sq.correctAnswer ?? ''))
+    : -1;
 
-                              {isMobile && listeningTracks.length === 0 && sqPromptBody.trim().length > 0 && (
-                                <div className="rounded-xl bg-white/90 border border-[#e6dccb] px-3 py-2.5 text-sm font-bold leading-relaxed text-[#1c2a39] break-words [overflow-wrap:anywhere]">
-                                  {formatText(sqPromptBody, [], { prose: isEnglishChapter })}
-                                </div>
-                              )}
+  const hasThinking = Boolean(
+    sq.detailedExplanation?.theme || sq.detailedExplanation?.steps?.length,
+  );
 
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                <div>
-                                  <div className={`text-xs md:text-xs mb-1 ${'text-gray-500'}`}>あなたの解答</div>
-                                  <div className={`font-bold text-sm md:text-base p-3 rounded-lg border break-words whitespace-pre-wrap ${
-                                    isCorrect
-                                        ? ('bg-white border-emerald-200 text-emerald-700')
-                                        : isUnanswered
-                                          ? ('bg-white border-gray-200 text-gray-400')
-                                          : ('bg-white border-red-200 text-red-600 line-through opacity-80')
-                                  }`}>
-                                    {formatText(answers[sq.id] || '未解答')}
-                                    {/* 2026-10-08 絵の問題：選んだ絵のコマも出す（記号だけでは復習で何の絵か分からない） */}
-                                    {(() => { const oi = Array.isArray(sq.options) ? sq.options.indexOf(String(answers[sq.id] ?? '')) : -1; const pic = pictureCellOf(sq, oi, sq.options?.length ?? 0); return pic ? <span className="lx-answer-pic" role="img" aria-label="あなたが選んだイラスト" style={pic} /> : null; })()}
-                                  </div>
-                                </div>
-                                <div>
-                                  <div className={`text-xs md:text-xs mb-1 ${'text-gray-500'}`}>正解</div>
-                                  <div className={`font-bold text-sm md:text-base p-3 rounded-lg border break-words ${'text-emerald-700 bg-white border-emerald-200'}`}>
-                                    {formatText(sq.correctAnswer)}
-                                    {(() => { const oi = Array.isArray(sq.options) ? sq.options.indexOf(String(sq.correctAnswer ?? '')) : -1; const pic = pictureCellOf(sq, oi, sq.options?.length ?? 0); return pic ? <span className="lx-answer-pic" role="img" aria-label="正解のイラスト" style={pic} /> : null; })()}
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
+  const thinkingBody = hasThinking ? (
+    <div className="border-t border-amber-200/80 bg-[#fffaf0] p-4 md:p-5 space-y-4">
+      {sq.detailedExplanation?.theme && (
+        <div className="rounded-xl border border-amber-200 bg-white p-3.5 shadow-2xs">
+          <h5 className="text-xs font-extrabold mb-1 flex items-center gap-1.5 text-[#9a5700]">
+            <Lightbulb size={15} />
+            <span>答えの核心（入試で使える1行ルール）</span>
+          </h5>
+          <p className="font-extrabold text-sm md:text-[15px] leading-relaxed text-[#1c2a39]">
+            {formatText(sq.detailedExplanation.theme, [], { prose: isEnglishChapter })}
+          </p>
+        </div>
+      )}
 
-                            <div className={`border-t p-2.5 space-y-2 ${'bg-white border-gray-200'}`}>
-                              <button
-                                type="button"
-                                onClick={() => setOpenExplanationBySq(prev => ({ ...prev, [sq.id]: !explanationOpen }))}
-                                aria-expanded={explanationOpen}
-                                className={`w-full flex items-center justify-between gap-3 rounded-lg border px-3 py-2.5 text-left font-bold ${'bg-sky-50 border-sky-200 text-sky-700 hover:bg-sky-100'}`}
-                              >
-                                <span className="flex items-center gap-2"><BookOpen size={16} />解説</span>
-                                <ChevronDown size={18} className={`transition-transform ${explanationOpen ? 'rotate-180' : ''}`} />
-                              </button>
-                              {explanationOpen && (
-                                <div className={`rounded-lg border p-3 md:p-4 ${explBodyBaseClass} ${'bg-sky-50/40 border-sky-100'}`}>
-                                  {sqSlice.trim() ? (
-                                    <ExplanationBody
-                                      text={sqSlice}
-                                      tone={'light'}
-                                      prose={isEnglishChapter}
-                                      className={`${explBodyFontClass} ${'text-gray-700'}`}
-                                    />
-                                  ) : (
-                                    <p className="text-xs text-gray-500">この小問の解説は「思考手順・答えの核心」にまとめています。</p>
-                                  )}
-                                </div>
-                              )}
+      {!isScriptFirst && isPracticeMode && sq.detailedExplanation?.steps && sq.detailedExplanation.steps.length > 0 && (
+        <div>
+          <h5 className="text-xs font-extrabold mb-2.5 flex items-center gap-1.5 text-emerald-800">
+            <Target size={15} />
+            <span>正解までの3ステップ</span>
+          </h5>
+          <ol className="list-none space-y-2">
+            {sq.detailedExplanation.steps.map((step: string, idx: number) => (
+              <li
+                key={idx}
+                className="flex items-start gap-2.5 rounded-xl bg-white/90 border border-[#ebe2d1] px-3 py-2"
+              >
+                <span className="shrink-0 mt-0.5 w-5 h-5 rounded-full flex items-center justify-center text-xs font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300">
+                  {idx + 1}
+                </span>
+                <span className="text-xs sm:text-sm leading-relaxed min-w-0 text-[#262019]">
+                  {formatText(step, [], { prose: isEnglishChapter })}
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      )}
+    </div>
+  ) : null;
 
-                              <button
-                                type="button"
-                                onClick={() => setOpenThinkingBySq(prev => ({ ...prev, [sq.id]: !thinkingOpen }))}
-                                aria-expanded={thinkingOpen}
-                                className={`w-full flex items-center justify-between gap-3 rounded-lg border px-3 py-2.5 text-left font-bold ${'bg-amber-50 border-amber-200 text-amber-700 hover:bg-amber-100'}`}
-                              >
-                                <span className="flex items-center gap-2"><KeyRound size={16} />思考手順・答えの核心</span>
-                                <ChevronDown size={18} className={`transition-transform ${thinkingOpen ? 'rotate-180' : ''}`} />
-                              </button>
-                              {thinkingOpen && (thinkingBody || (
-                                <div className="border-t p-4 text-xs text-gray-500">詳しい解説は上の「解説」にまとめています。</div>
-                              ))}
-                            </div>
+  return (
+    <div
+      id={`sq-${sq.id}`}
+      key={sq.id}
+      className={`rounded-2xl border-2 overflow-hidden bg-white shadow-[0_3px_0_#e6dccb] ${
+        isCorrect
+          ? 'border-emerald-400'
+          : isUnanswered
+          ? 'border-[#dfd4c0]'
+          : 'border-rose-300'
+      }`}
+    >
+      {/* 上段：正誤バナー ＋ 設問文 ＋ あなたの解答 / 正解 */}
+      <div
+        className={`p-3.5 md:p-4 space-y-3 ${answerBoxBaseClass} ${
+          isCorrect
+            ? 'bg-emerald-50/80'
+            : isUnanswered
+            ? 'bg-[#faf6ee]'
+            : 'bg-rose-50/75'
+        }`}
+      >
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="font-extrabold text-xs md:text-sm px-3 py-1 rounded-xl border text-[#1c2a39] bg-white border-[#dfd4c0] shadow-2xs">
+              {formatText(displayLabel)}
+            </div>
+            {isUnanswered ? (
+              <div className="flex items-center gap-1.5 font-extrabold text-sm text-[#6b5d47]">
+                <Circle size={17} />
+                <span>未回答 — 解説を読んで解き方をつかもう！</span>
+              </div>
+            ) : (
+              <div
+                className={`flex items-center gap-1.5 font-extrabold text-sm ${
+                  isCorrect ? 'text-emerald-700' : 'text-rose-600'
+                }`}
+              >
+                {isCorrect ? <CheckCircle2 size={18} /> : <XCircle size={18} />}
+                <span>
+                  {isCorrect ? '大正解！バッチリ！' : '惜しい！ここで覚えれば次は解ける！'}
+                </span>
+              </div>
+            )}
+          </div>
+          {sq.skill && (
+            <span className="inline-flex items-center rounded-full bg-white/90 border border-[#dfd4c0] px-2.5 py-0.5 text-[11px] font-extrabold text-[#5a6573]">
+              {sq.skill}
+            </span>
+          )}
+        </div>
 
-                            {sq.partialCreditCriteria && (
-                              <div className={`border-t text-xs md:text-xs p-3 flex items-start gap-2 ${'bg-amber-50 text-amber-700 border-amber-200'}`}>
-                                <AlertCircle className="shrink-0 mt-0.5 w-4 h-4" />
-                                <span className="leading-relaxed">{formatText(sq.partialCreditCriteria)}</span>
-                              </div>
-                            )}
-                          </div>
-                        );
+        {/* 設問文をカード内にも表示（左右を見比べなくても何の問いかすぐ分かる） */}
+        {listeningTracks.length === 0 && sqPromptBody.trim().length > 0 && (
+          <div className="rounded-xl bg-white/95 border border-[#e6dccb] px-3.5 py-2.5 text-sm font-bold leading-relaxed text-[#1c2a39] break-words [overflow-wrap:anywhere]">
+            {formatText(sqPromptBody, [], { prose: isEnglishChapter })}
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div>
+            <div className="text-xs font-extrabold mb-1 text-[#5c4f3d]">あなたの解答</div>
+            <div
+              className={`font-bold text-sm md:text-[15px] p-3 rounded-xl border break-words whitespace-pre-wrap flex items-start gap-2 ${
+                isCorrect
+                  ? 'bg-white border-emerald-300 text-emerald-800'
+                  : isUnanswered
+                  ? 'bg-white border-[#e3d9c8] text-gray-400'
+                  : 'bg-white border-rose-200 text-rose-700'
+              }`}
+            >
+              {userOptionIdx >= 0 && KANA_LABELS[userOptionIdx] && (
+                <span
+                  className={`inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-xs font-extrabold ${
+                    isCorrect
+                      ? 'bg-emerald-600 text-white'
+                      : 'bg-rose-100 text-rose-700 border border-rose-200'
+                  }`}
+                >
+                  {KANA_LABELS[userOptionIdx]}
+                </span>
+              )}
+              <span className={!isCorrect && !isUnanswered ? 'line-through opacity-85' : ''}>
+                {formatText(answers[sq.id] || '未解答', [], { prose: isEnglishChapter })}
+              </span>
+              {(() => {
+                const pic = pictureCellOf(sq, userOptionIdx, sq.options?.length ?? 0);
+                return pic ? (
+                  <span
+                    className="lx-answer-pic"
+                    role="img"
+                    aria-label="あなたが選んだイラスト"
+                    style={pic}
+                  />
+                ) : null;
+              })()}
+            </div>
+          </div>
+
+          <div>
+            <div className="text-xs font-extrabold mb-1 text-emerald-800">正解</div>
+            <div className="font-bold text-sm md:text-[15px] p-3 rounded-xl border-2 border-emerald-300 bg-white text-emerald-800 break-words flex items-start gap-2">
+              {correctOptionIdx >= 0 && KANA_LABELS[correctOptionIdx] && (
+                <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-emerald-600 text-xs font-extrabold text-white">
+                  {KANA_LABELS[correctOptionIdx]}
+                </span>
+              )}
+              <span>{formatText(sq.correctAnswer, [], { prose: isEnglishChapter })}</span>
+              {(() => {
+                const pic = pictureCellOf(sq, correctOptionIdx, sq.options?.length ?? 0);
+                return pic ? (
+                  <span
+                    className="lx-answer-pic"
+                    role="img"
+                    aria-label="正解のイラスト"
+                    style={pic}
+                  />
+                ) : null;
+              })()}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 下段：解説 ＆ ひっかけ選択肢の理由カード ＆ 思考手順 */}
+      <div className="border-t border-[#e8dfd0] p-3 space-y-2.5 bg-white">
+        <button
+          type="button"
+          onClick={() =>
+            setOpenExplanationBySq((prev) => ({ ...prev, [sq.id]: !explanationOpen }))
+          }
+          aria-expanded={explanationOpen}
+          className="w-full flex items-center justify-between gap-3 rounded-xl border border-[#c7dcf7] bg-[#f2f7fe] px-3.5 py-2.5 text-left font-extrabold text-[#1d4b8f] hover:bg-[#e7f1fd] transition-colors cursor-pointer"
+        >
+          <span className="flex items-center gap-2 text-sm">
+            <BookOpen size={16} />
+            <span>くわしい解説・ひっかけ選択肢のワケ</span>
+          </span>
+          <ChevronDown
+            size={18}
+            className={`transition-transform ${explanationOpen ? 'rotate-180' : ''}`}
+          />
+        </button>
+
+        {explanationOpen && (
+          <div className={`space-y-3 ${explBodyBaseClass}`}>
+            {/* メインの解法解説 */}
+            <div className="rounded-xl border border-[#dce8f8] bg-[#f8fbff] p-3.5 md:p-4">
+              {sqSlice ? (
+                <ExplanationBody
+                  text={sqSlice}
+                  tone="light"
+                  prose={isEnglishChapter}
+                  className={`${explBodyFontClass} text-[#1c2a39]`}
+                />
+              ) : (
+                <p className="text-xs text-gray-500">
+                  この小問の解説は下の「答えの核心・正解までの3ステップ」にまとめています。
+                </p>
+              )}
+            </div>
+
+            {/* 構造化された「ひっかけ選択肢の理由（消去法の根拠）」カード */}
+            {hasDistractorCards && (
+              <div className="rounded-xl border border-[#eadfce] bg-[#fcf9f3] p-3.5 space-y-2">
+                <div className="text-xs font-extrabold text-[#6b4f2a] flex items-center gap-1.5">
+                  <XCircle size={14} className="text-rose-500 shrink-0" />
+                  <span>他の選択肢が×になる理由（消去法の根拠）</span>
+                </div>
+                <ul className="space-y-1.5">
+                  {sq.distractors!.map((d) => {
+                    const optIdx = d.no - 1;
+                    const kana = KANA_LABELS[optIdx] ?? String(d.no);
+                    const isUserPickedWrong = !isCorrect && !isUnanswered && userOptionIdx === optIdx;
+                    return (
+                      <li
+                        key={d.no}
+                        className={`flex items-start gap-2 rounded-lg border px-2.5 py-2 text-xs sm:text-[13px] leading-relaxed ${
+                          isUserPickedWrong
+                            ? 'border-rose-300 bg-rose-50/90 text-[#3b1818]'
+                            : 'border-[#ebe2d3] bg-white text-[#332b21]'
+                        }`}
+                      >
+                        <span
+                          className={`mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md text-[11px] font-extrabold ${
+                            isUserPickedWrong
+                              ? 'bg-rose-600 text-white'
+                              : 'bg-[#efe8da] text-[#5c4f3d]'
+                          }`}
+                        >
+                          {kana}
+                        </span>
+                        <div className="min-w-0 flex-1">
+                          {isUserPickedWrong && (
+                            <span className="mr-1.5 inline-block rounded bg-rose-600 px-1.5 py-0.2 text-[10px] font-extrabold text-white">
+                              あなたが選んだ選択肢
+                            </span>
+                          )}
+                          <span>{formatText(d.why, [], { prose: isEnglishChapter })}</span>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
+          </div>
+        )}
+
+        <button
+          type="button"
+          onClick={() => setOpenThinkingBySq((prev) => ({ ...prev, [sq.id]: !thinkingOpen }))}
+          aria-expanded={thinkingOpen}
+          className="w-full flex items-center justify-between gap-3 rounded-xl border border-[#edd5a1] bg-[#fff8e8] px-3.5 py-2.5 text-left font-extrabold text-[#8a4f06] hover:bg-[#fff2d4] transition-colors cursor-pointer"
+        >
+          <span className="flex items-center gap-2 text-sm">
+            <KeyRound size={16} />
+            <span>答えの核心・正解までの3ステップ</span>
+          </span>
+          <ChevronDown
+            size={18}
+            className={`transition-transform ${thinkingOpen ? 'rotate-180' : ''}`}
+          />
+        </button>
+
+        {thinkingOpen &&
+          (thinkingBody || (
+            <div className="border-t p-3 text-xs text-gray-500">
+              詳しい解説は上の枠にまとめています。
+            </div>
+          ))}
+      </div>
+
+      {sq.partialCreditCriteria && (
+        <div className="border-t text-xs p-3 flex items-start gap-2 bg-amber-50 text-amber-800 border-amber-200">
+          <AlertCircle className="shrink-0 mt-0.5 w-4 h-4" />
+          <span className="leading-relaxed">{formatText(sq.partialCreditCriteria)}</span>
+        </div>
+      )}
+    </div>
+  );
 }

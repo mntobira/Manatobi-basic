@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 // 教科ごとの parts は data/allChapters.ts から引く
 // （以前はこのファイルで6教科ぶんを個別に import していた）
 import { type SubjectKey } from '../data/allChapters';
-import { ChevronRight, ArrowLeft, X, Headphones } from 'lucide-react';
+import { ChevronRight, ArrowLeft, X, Headphones, BookOpen, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { DoorMascot } from './DoorMascot';
 import { subjectTheme } from '../data/subjectTheme';
@@ -29,6 +29,7 @@ import { getChapterGroups, getGrammarPartGroups, collectAudioSets, splitTabTitle
 
 interface ChapterSelectionProps {
   mode: 'mini_test' | 'practice';
+  onChangeMode?: (mode: 'mini_test' | 'practice') => void;
   /**
    * 単元（章）を選んで演習画面へ移るためのハンドラ。
    *
@@ -58,7 +59,7 @@ interface ChapterSelectionProps {
   subject?: SubjectKey;
 }
 
-export function ChapterSelection({ mode, onSelectChapter, onBack, subject = 'english', rememberedGroup, onGroupChange, backLabel = '戻る' }: ChapterSelectionProps) {
+export function ChapterSelection({ mode, onChangeMode, onSelectChapter, onBack, subject = 'english', rememberedGroup, onGroupChange, backLabel = '戻る' }: ChapterSelectionProps) {
   const isListening = false;
   const isToeic = false;
   const isRounds = false;
@@ -157,10 +158,66 @@ export function ChapterSelection({ mode, onSelectChapter, onBack, subject = 'eng
         </button>
         <div className="unit-head-title">
           <h2 style={{ color: theme.accent }}>{isListening ? '英語リスニング' : isGrammar ? '英文法' : isToeic ? 'TOEIC' : `高校入試・${theme.label}`}</h2>
-          <p>{mode === 'mini_test' ? '入試直前 スピード小テスト' : isListening ? '共通テスト大問別・1回ずつ完結' : isToeic ? (toeicTabs ? toeicSub : '1回30問・4択（短文穴埋め）') : isGrammar ? '単元別の4択演習' : '解きたい単元を選ぼう！（カードをタップすると出題範囲が見られます）'}</p>
+          <p>{mode === 'mini_test' ? '入試直前 スピード小テスト（基礎＆重要公式チェック）' : isListening ? '共通テスト大問別・1回ずつ完結' : isToeic ? (toeicTabs ? toeicSub : '1回30問・4択（短文穴埋め）') : isGrammar ? '単元別の4択演習' : '単元別の入試実戦演習（カードをタップすると出題範囲が見られます）'}</p>
         </div>
-        <DoorMascot subject={subject} showSpeech={false} size="mini" className="unit-head-mascot w-auto" />
+        {onChangeMode ? (
+          <div className="hidden sm:inline-flex items-center rounded-xl border border-[#dfd4c0] bg-white/90 p-1 shadow-2xs shrink-0" role="group" aria-label="出題モード切り替え">
+            <button
+              type="button"
+              onClick={() => onChangeMode('practice')}
+              aria-pressed={mode === 'practice'}
+              className={`inline-flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-extrabold transition-colors cursor-pointer ${
+                mode === 'practice' ? 'text-white shadow-2xs' : 'text-[#5a6573] hover:bg-[#f7f2e8]'
+              }`}
+              style={mode === 'practice' ? { backgroundColor: theme.accent } : undefined}
+            >
+              <BookOpen size={13} aria-hidden="true" />
+              <span>実戦演習</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => onChangeMode('mini_test')}
+              aria-pressed={mode === 'mini_test'}
+              className={`inline-flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-extrabold transition-colors cursor-pointer ${
+                mode === 'mini_test' ? 'bg-[#e38614] text-white shadow-2xs' : 'text-[#5a6573] hover:bg-[#f7f2e8]'
+              }`}
+            >
+              <Zap size={13} aria-hidden="true" />
+              <span>小テスト</span>
+            </button>
+          </div>
+        ) : (
+          <DoorMascot subject={subject} showSpeech={false} size="mini" className="unit-head-mascot w-auto" />
+        )}
       </header>
+
+      {onChangeMode && (
+        <div className="mb-2 flex sm:hidden items-center gap-1.5 rounded-xl border border-[#dfd4c0] bg-white/85 p-1 shrink-0" role="group" aria-label="出題モード切り替え">
+          <button
+            type="button"
+            onClick={() => onChangeMode('practice')}
+            aria-pressed={mode === 'practice'}
+            className={`flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-extrabold transition-colors cursor-pointer ${
+              mode === 'practice' ? 'text-white shadow-2xs' : 'text-[#5a6573]'
+            }`}
+            style={mode === 'practice' ? { backgroundColor: theme.accent } : undefined}
+          >
+            <BookOpen size={13} aria-hidden="true" />
+            <span>入試実戦演習</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => onChangeMode('mini_test')}
+            aria-pressed={mode === 'mini_test'}
+            className={`flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-extrabold transition-colors cursor-pointer ${
+              mode === 'mini_test' ? 'bg-[#e38614] text-white shadow-2xs' : 'text-[#5a6573]'
+            }`}
+          >
+            <Zap size={13} aria-hidden="true" />
+            <span>スピード小テスト</span>
+          </button>
+        </div>
+      )}
 
       <div className="chapter-workspace flex min-h-0 flex-1 flex-col">
         {/* ================================================================
