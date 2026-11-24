@@ -1,5 +1,6 @@
 import type { Part } from '../types/curriculum';
 import { buildChapter, countSubjectStats } from './juken/problemHelpers';
+import { EXTRA_ENGLISH_CHAPTERS } from './juken/extraEnglish';
 
 const englishParts: Part[] = [
   {
@@ -1267,5 +1268,8 @@ His words changed my mind completely. Since last summer, my friends and I have h
   },
 ];
 
-export const englishData = englishParts;
-export const ENGLISH_STATS = countSubjectStats(englishParts);
+export const englishData: Part[] = englishParts.map((part) => {
+  const extras = EXTRA_ENGLISH_CHAPTERS.filter((ch) => ch.id.startsWith(part.id.replace('en_part', 'en') + '_'));
+  return extras.length ? { ...part, chapters: [...part.chapters, ...extras] } : part;
+});
+export const ENGLISH_STATS = countSubjectStats(englishData);

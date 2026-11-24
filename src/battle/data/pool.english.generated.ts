@@ -12,7 +12,7 @@
  * を実行すること。
  *
  * -------------------------------------------------------------------
- * ■ 収録数: 62 問
+ * ■ 収録数: 79 問
  * -------------------------------------------------------------------
  *
  * ■ 中身は「タプルの配列」であって、読みやすさを捨てている。
@@ -44,6 +44,15 @@ export const POOL: readonly unknown[][] = [
   ["q:en1_2:en1_2_p1:en1_2_p1_q4","en1_2","en1_2_p1","en1_2_p1_q4",0,"","Lake Biwa is larger than any other ( ) in Japan.",["the lakes","lake","lakes","a lake"],1,[],20,""],
   ["q:en1_2:en1_2_p1:en1_2_p1_q5","en1_2","en1_2_p1","en1_2_p1_q5",0,"","I didn't know ( ) to buy as a birthday present for my mother, so I asked my father.",["where","when","how","what"],3,[],20,""],
   ["q:en1_2:en1_2_p1:en1_2_p1_q6","en1_2","en1_2_p1","en1_2_p1_q6",0,"","This riverside park is ( ) more popular among families than it was five years ago.",["many","much","very","so"],1,[],20,""],
+  ["q:en1_3:en1_3_m1:en1_3_m1_q1","en1_3","en1_3_m1","en1_3_m1_q1",0,"","Could you show your ticket ( ) the station staff at the gate?",["with","of","for","to"],3,[],20,""],
+  ["q:en1_3:en1_3_m1:en1_3_m1_q2","en1_3","en1_3_m1","en1_3_m1_q2",0,"","( ) fast Ken runs! Nobody in our school can run faster than him.",["Who","How","What","Why"],1,[],20,""],
+  ["q:en1_3:en1_3_m1:en1_3_m1_q3","en1_3","en1_3_m1","en1_3_m1_q3",0,"","It is cold outside, so please keep the door ( ).",["closing to","close to","closely","closed"],3,[],20,""],
+  ["q:en1_3:en1_3_p1:en1_3_p1_q1","en1_3","en1_3_p1","en1_3_p1_q1",0,"公立入試の書き換え・適語選択・整序問題で毎年出題される「第4・第5文型」「感嘆文」「命令文＋and/or」「代名詞」を完全制覇します。","「私の父は私の誕生日に新しい自転車を買ってくれました。」 My father bought a new bike ( ) me on my birthday.",["for","at","to","of"],0,[],20,""],
+  ["q:en1_3:en1_3_p1:en1_3_p1_q2","en1_3","en1_3_p1","en1_3_p1_q2",0,"公立入試の書き換え・適語選択・整序問題で毎年出題される「第4・第5文型」「感嘆文」「命令文＋and/or」「代名詞」を完全制覇します。","The news about our soccer team made everyone in our class very ( ).",["happy","happiness","happily","happier than"],0,[],20,""],
+  ["q:en1_3:en1_3_p1:en1_3_p1_q3","en1_3","en1_3_p1","en1_3_p1_q3",0,"公立入試の書き換え・適語選択・整序問題で毎年出題される「第4・第5文型」「感嘆文」「命令文＋and/or」「代名詞」を完全制覇します。","次の2文がほぼ同じ意味になるように（ ）に入る最も適切な語を選びなさい。 This is a very tall tower. ＝ ( ) a tall tower this is!",["What","Which","So","How"],0,[],20,""],
+  ["q:en1_3:en1_3_p1:en1_3_p1_q4","en1_3","en1_3_p1","en1_3_p1_q4",0,"公立入試の書き換え・適語選択・整序問題で毎年出題される「第4・第5文型」「感嘆文」「命令文＋and/or」「代名詞」を完全制覇します。","Hurry up, ( ) you will miss the first train!",["or","and","so","but"],0,[],20,""],
+  ["q:en1_3:en1_3_p1:en1_3_p1_q5","en1_3","en1_3_p1","en1_3_p1_q5",0,"公立入試の書き換え・適語選択・整序問題で毎年出題される「第4・第5文型」「感嘆文」「命令文＋and/or」「代名詞」を完全制覇します。","Yesterday I met an old friend of ( ) near the library.",["mine","me","my","I"],0,[],20,""],
+  ["q:en1_3:en1_3_p1:en1_3_p1_q6","en1_3","en1_3_p1","en1_3_p1_q6",0,"公立入試の書き換え・適語選択・整序問題で毎年出題される「第4・第5文型」「感嘆文」「命令文＋and/or」「代名詞」を完全制覇します。","I have two dogs. One is white, and ( ) is black.",["the other","others","other","another"],0,[],20,""],
   ["q:en2_1:en2_1_m1:en2_1_m1_q1","en2_1","en2_1_m1","en2_1_m1_q1",0,"入試の正誤・空所補充で狙われやすい3問をチェックしましょう。","Mt. Fuji was ( ) with white snow when we saw it from the train window.",["covered","to cover","covering","covers"],0,[],20,""],
   ["q:en2_1:en2_1_m1:en2_1_m1_q2","en2_1","en2_1_m1","en2_1_m1_q2",0,"入試の正誤・空所補充で狙われやすい3問をチェックしましょう。","A: Have you finished your science report ( )? — B: No, not yet. I'm still writing it.",["yet","already","ever","just"],0,[],20,""],
   ["q:en2_1:en2_1_m1:en2_1_m1_q3","en2_1","en2_1_m1","en2_1_m1_q3",0,"入試の正誤・空所補充で狙われやすい3問をチェックしましょう。","My older brother let me ( ) his new tablet to look up some words.",["use","used","to use","using"],0,[],20,""],
@@ -70,6 +79,14 @@ export const POOL: readonly unknown[][] = [
   ["q:en3_1:en3_1_p1:en3_1_p1_q3","en3_1","en3_1_p1","en3_1_p1_q3",0,"『三重県後期選抜 英語 英作文対策プリント』の過去5年分析・必須の型21選・誤文訂正ドリルから、本番で1点も減点されないための急所6問です。","英作文で減点されやすい「他動詞の語法」について、文法的に【正しい】英文を一つ選びなさい。",["We discussed the school festival in our class yesterday.","We discussed about the school festival in our class yesterday.","My sister married with a doctor two years ago.","We visited to Kyoto Museum last month."],0,[],20,""],
   ["q:en3_1:en3_1_p1:en3_1_p1_q4","en3_1","en3_1_p1","en3_1_p1_q4",0,"『三重県後期選抜 英語 英作文対策プリント』の過去5年分析・必須の型21選・誤文訂正ドリルから、本番で1点も減点されないための急所6問です。","「あなたにおすすめの場所があります。そこでは新鮮な海の幸を食べることができます。」を表すとき、（ ）に入る最も自然な表現はどれか。 I have a nice place to visit. ( ) delicious…",["You can eat fresh and","You are eat fresh and","There has fresh and","It can eating fresh and"],0,[],20,""],
   ["q:en3_1:en3_1_p1:en3_1_p1_q5","en3_1","en3_1_p1","en3_1_p1_q5",0,"『三重県後期選抜 英語 英作文対策プリント』の過去5年分析・必須の型21選・誤文訂正ドリルから、本番で1点も減点されないための急所6問です。","日本文「私の母は私に自転車の乗り方を教えてくれました。」に合うように並べ替えるとき、正しい語順になっているものを選びなさい。",["My mother taught me how to ride a bike.","My mother taught me what to riding a bike.","My mother taught how to ride a bike me.","My mother taught to me how ride a bike."],0,[],20,""],
+  ["q:en3_2:en3_2_m1:en3_2_m1_q1","en3_2","en3_2_m1","en3_2_m1_q1",0,"入試本番感覚で最も適切な英語表現を選びなさい。","留学生に「私たちの写真を撮ってくれませんか」と頼むときの最も自然な英文を選びなさい。",["Shall we take a picture of you?","Have you ever taken a picture?","Could you take a picture of us?","Do you like taking pictures?"],2,[],20,""],
+  ["q:en3_2:en3_2_m1:en3_2_m1_q2","en3_2","en3_2_m1","en3_2_m1_q2",0,"入試本番感覚で最も適切な英語表現を選びなさい。","I didn't know ( ) to buy a ticket at the station, so a kind woman helped me.",["who","why","how","which"],2,[],20,""],
+  ["q:en3_2:en3_2_m1:en3_2_m1_q3","en3_2","en3_2_m1","en3_2_m1_q3",0,"入試本番感覚で最も適切な英語表現を選びなさい。","英語の時刻表現「a quarter to nine」が表す時刻はどれか。",["9時45分","8時15分","8時45分","9時15分"],2,[],20,""],
+  ["q:en3_2:en3_2_p1:en3_2_p1_q1","en3_2","en3_2_p1","en3_2_p1_q1",0,"公立入試のリスニング台本で差がつく「時刻・料金計算」と、筆記で配点が高い「整序・状況英作文」を解きましょう。","【リスニング台本読解】 Boy: What time will the movie start? Girl: It starts at two thirty. Let's meet at the ticket coun…",["午後2時00分（2:00）","午後2時10分（2:10）","午後2時20分（2:20）","午後2時30分（2:30）"],0,[],20,""],
+  ["q:en3_2:en3_2_p1:en3_2_p1_q2","en3_2","en3_2_p1","en3_2_p1_q2",0,"公立入試のリスニング台本で差がつく「時刻・料金計算」と、筆記で配点が高い「整序・状況英作文」を解きましょう。","【リスニング台本読解】 Clerk: Welcome! One notebook is 200 yen, and one pen is 150 yen. Today, if you buy three notebook…",["650円","750円","900円","800円"],3,[],20,""],
+  ["q:en3_2:en3_2_p1:en3_2_p1_q3","en3_2","en3_2_p1","en3_2_p1_q3",0,"公立入試のリスニング台本で差がつく「時刻・料金計算」と、筆記で配点が高い「整序・状況英作文」を解きましょう。","「この箱は重すぎて私には運べません。」となるように語句を並べ替えたとき、正しい英文を選びなさい。",["This box is heavy too for me to carry it.","This box is too heavy for me to carry.","This box is so heavy for me that carry.","This box is enough heavy for me to carry."],1,[],20,""],
+  ["q:en3_2:en3_2_p1:en3_2_p1_q4","en3_2","en3_2_p1","en3_2_p1_q4",0,"公立入試のリスニング台本で差がつく「時刻・料金計算」と、筆記で配点が高い「整序・状況英作文」を解きましょう。","三重県後期・英作文プリント準拠：スピーチ原稿で「私の祖父は毎朝犬と散歩をするということ」を表す1文として【最も適切なもの】を選びなさい。",["Does my grandfather walk with his dog every morning?","My grandfather is taking a walk with his dog yesterday.","That my grandfather walk with his dog every morning.","My grandfather takes a walk with his dog every morning."],3,[],20,""],
+  ["q:en3_2:en3_2_p1:en3_2_p1_q5","en3_2","en3_2_p1","en3_2_p1_q5",0,"公立入試のリスニング台本で差がつく「時刻・料金計算」と、筆記で配点が高い「整序・状況英作文」を解きましょう。","「あなたが昨日私に見せてくれた写真はとても美しかったです。」となるように（ ）に入る正しい語順を選びなさい。 The picture ( ) was very beautiful.",["who you showed me yesterday","you showed me yesterday","showed you me yesterday","which you showed it to me yesterday"],1,[],20,""],
   ["q:en4_1:en4_1_m1:en4_1_m1_q1","en4_1","en4_1_m1","en4_1_m1_q1",0,"次の図書館からの案内掲示を読んで、(1)〜(3)に答えなさい。","8月中に生徒が本を借りる場合、一度に最大何冊まで何週間借りられるか。",["最大5冊・3週間","最大8冊・2週間","最大8冊・3週間","最大5冊・2週間"],2,[],20,""],
   ["q:en4_1:en4_1_m1:en4_1_m1_q2","en4_1","en4_1_m1","en4_1_m1_q2",0,"次の図書館からの案内掲示を読んで、(1)〜(3)に答えなさい。","2階の自習室（Study Room）を使いたい人が、使う前に必ずしなければならないことは何か。",["前日までに電話で申し込むこと","本を少なくとも1冊借りること","カウンターで座席を予約すること","利用料100円を支払うこと"],2,[],20,""],
   ["q:en4_1:en4_1_m1:en4_1_m1_q3","en4_1","en4_1_m1","en4_1_m1_q3",0,"次の図書館からの案内掲示を読んで、(1)〜(3)に答えなさい。","この図書館を利用【できない】日時は次のうちどれか。",["水曜日の午前10時00分","日曜日の午後2時00分","火曜日の午前9時00分","金曜日の午後6時30分"],2,[],20,""],

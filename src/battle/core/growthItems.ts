@@ -2,19 +2,7 @@
 import { GACHA_PRINTS } from '../../data/gachaPrints.generated';
 import type { GachaPrintDef } from '../../data/gachaPrints.generated';
 import { KYOTSU_MOCK_PRINTS } from '../../data/kyotsuMockPrints';
-import { NIJI_MOCK_PRINTS } from '../../data/nijiMockPrints';
-import { KOBE_MOCK_PRINTS } from '../../data/kobeMockPrints';
-import { OSAKA_MOCK_PRINTS } from '../../data/osakaMockPrints';
-import { RITSU_MOCK_PRINTS } from '../../data/ritsuMockPrints';
-import { HOKUDAI_MOCK_PRINTS } from '../../data/hokudaiMockPrints';
-import { TOHOKU_MOCK_PRINTS } from '../../data/tohokuMockPrints';
-import { HIROSAKI_MOCK_PRINTS } from '../../data/hirosakiMockPrints';
-import { IWATE_MOCK_PRINTS } from '../../data/iwateMockPrints';
-import { AKITA_MOCK_PRINTS } from '../../data/akitaMockPrints';
-import { YAMAGATA_MOCK_PRINTS } from '../../data/yamagataMockPrints';
-import { FUKUSHIMA_MOCK_PRINTS } from '../../data/fukushimaMockPrints';
-import { UTSUNOMIYA_MOCK_PRINTS } from '../../data/utsunomiyaMockPrints';
-import { GUNMA_MOCK_PRINTS } from '../../data/gunmaMockPrints';
+import { NIJI_MOCK_PRINTS, LEVEL_JUKEN_PRINT } from '../../data/nijiMockPrints';
 import { ACCESSORY_SLOTS, type AccessorySlot } from './tobiraParts';
 import type { GrowthProgress } from './growthTypes';
 import { badgeById } from './growthBadges';
@@ -70,9 +58,7 @@ export interface ItemDef {
  * レベル報酬の学習プリント（UR）。ガチャからは出ない。レベルに届いたら自動で手に入る。
  * PDF は scripts/gacha-prints/build-level-ur.py で作る。
  */
-export const LEVEL_PRINTS: readonly GachaPrintDef[] = [
-  { id: 'print_level_listening_howto', label: '共通テスト リスニングの聞き方（大問別の聞き方と毎日の練習法）', subject: 'english_listening', category: '出題傾向', file: '/prints/print_level_listening_howto.pdf', thumb: '/prints/thumbs/print_level_listening_howto.webp', pages: 2, kb: 82 },
-];
+export const LEVEL_PRINTS: readonly GachaPrintDef[] = [LEVEL_JUKEN_PRINT];
 
 /** 学習プリントのレア度：完全版の本は UR（大当たり）、それ以外の学習プリントは SR */
 export function printRarity(p: GachaPrintDef): GachaRarity {
@@ -84,7 +70,7 @@ export const LEVEL_REWARD_ITEMS: readonly ItemDef[] = [
   { id: 'lv_cheek_star', kind: 'cheek', rarity: 'R', label: 'ほしのペイント（Lv.3）', value: 'star:#FFD43B', unlock: { level: 3 } },
   { id: 'lv_glasses_round', kind: 'glasses', rarity: 'R', label: '学者のまるメガネ（Lv.7）', value: 'round:#8B5E34', unlock: { level: 7 } },
   { id: 'lv_aura_notes', kind: 'aura', rarity: 'SR', label: 'リスニングのおんぷ（Lv.12）', value: 'notes:#2F9E8F', unlock: { level: 12 } },
-  { id: 'print_level_listening_howto', kind: 'print', rarity: 'UR', label: LEVEL_PRINTS[0].label, value: LEVEL_PRINTS[0].file, unlock: { level: 15 } },
+  { id: LEVEL_PRINTS[0].id, kind: 'print', rarity: 'UR', label: LEVEL_PRINTS[0].label, value: LEVEL_PRINTS[0].file, unlock: { level: 15 } },
   { id: 'lv_wall_gold', kind: 'wallpaper', rarity: 'SR', label: '壁紙：黄金の書斎（Lv.25）', value: 'gold', unlock: { level: 25 } },
   { id: 'lv_frame_aurora', kind: 'frame', rarity: 'UR', label: 'マスターのオーロラフレーム（Lv.30）', value: '#8657c5', pattern: 'aurora', unlock: { level: 30 } },
 ];
@@ -354,28 +340,20 @@ export const ITEMS: readonly ItemDef[] = [
   { id: 'frame_niji_ink', kind: 'frame', gacha: true, rarity: 'N', label: '墨のフレーム', value: '#3A3A3A', unlock: { gacha: true } },
   { id: 'frame_niji_sakura', kind: 'frame', gacha: true, rarity: 'R', label: 'サクラサクフレーム', value: '#F28AB2', pattern: 'sparkle', unlock: { gacha: true } },
   { id: 'frame_niji_midnight', kind: 'frame', gacha: true, rarity: 'SR', label: '深夜の追い込みフレーム', value: '#2B2D55', pattern: 'stars', unlock: { gacha: true } },
-  // ── LR（2次試験ガチャ）：国公立2次 英語 予想問題（書き下ろし・過去問ではない。一覧は nijiMockPrints.ts）──
+  // ── LR（47都道府県ガチャ）：全国47都道府県 公立高校入試 5教科予想問題＆解説（全47冊）──
   ...NIJI_MOCK_PRINTS.map((p): ItemDef => ({ id: p.id, kind: 'print', gacha: true, rarity: 'LR', label: p.label, value: p.file, unlock: { gacha: true } })),
-  // ── LR（2次試験ガチャ）：大学別 英語 予想問題（北大・東北大・弘前大・岩手大・秋田大・山形大・福島大・宇都宮大・群馬大・神戸大・阪大・立命館。問題／解答・解説が別冊。一覧は hokudai/tohoku/hirosaki/iwate/akita/yamagata/fukushima/utsunomiya/gunma/kobe/osaka/ritsuMockPrints.ts）──
-  ...KOBE_MOCK_PRINTS.map((p): ItemDef => ({ id: p.id, kind: 'print', gacha: true, rarity: 'LR', label: p.label, value: p.file, unlock: { gacha: true } })),
-  ...OSAKA_MOCK_PRINTS.map((p): ItemDef => ({ id: p.id, kind: 'print', gacha: true, rarity: 'LR', label: p.label, value: p.file, unlock: { gacha: true } })),
-  ...RITSU_MOCK_PRINTS.map((p): ItemDef => ({ id: p.id, kind: 'print', gacha: true, rarity: 'LR', label: p.label, value: p.file, unlock: { gacha: true } })),
-  ...HOKUDAI_MOCK_PRINTS.map((p): ItemDef => ({ id: p.id, kind: 'print', gacha: true, rarity: 'LR', label: p.label, value: p.file, unlock: { gacha: true } })),
-  ...TOHOKU_MOCK_PRINTS.map((p): ItemDef => ({ id: p.id, kind: 'print', gacha: true, rarity: 'LR', label: p.label, value: p.file, unlock: { gacha: true } })),
-  ...HIROSAKI_MOCK_PRINTS.map((p): ItemDef => ({ id: p.id, kind: 'print', gacha: true, rarity: 'LR', label: p.label, value: p.file, unlock: { gacha: true } })),
-  ...IWATE_MOCK_PRINTS.map((p): ItemDef => ({ id: p.id, kind: 'print', gacha: true, rarity: 'LR', label: p.label, value: p.file, unlock: { gacha: true } })),
-  ...AKITA_MOCK_PRINTS.map((p): ItemDef => ({ id: p.id, kind: 'print', gacha: true, rarity: 'LR', label: p.label, value: p.file, unlock: { gacha: true } })),
-  ...YAMAGATA_MOCK_PRINTS.map((p): ItemDef => ({ id: p.id, kind: 'print', gacha: true, rarity: 'LR', label: p.label, value: p.file, unlock: { gacha: true } })),
-  ...FUKUSHIMA_MOCK_PRINTS.map((p): ItemDef => ({ id: p.id, kind: 'print', gacha: true, rarity: 'LR', label: p.label, value: p.file, unlock: { gacha: true } })),
-  ...UTSUNOMIYA_MOCK_PRINTS.map((p): ItemDef => ({ id: p.id, kind: 'print', gacha: true, rarity: 'LR', label: p.label, value: p.file, unlock: { gacha: true } })),
-  ...GUNMA_MOCK_PRINTS.map((p): ItemDef => ({ id: p.id, kind: 'print', gacha: true, rarity: 'LR', label: p.label, value: p.file, unlock: { gacha: true } })),
-  // ── レベル報酬（2026-10-04 ご要望「レベルを上げる意味」）：このレベルでしか手に入らないもの ──
+  // ── レベル報酬：このレベルでしか手に入らないもの ──
   ...LEVEL_REWARD_ITEMS,
 ];
 
-/** 学習プリント（UR）の詳細（サムネイル・ページ数など）。プリントでなければ undefined */
+/** 学習プリント（LR/UR/SR）の詳細（サムネイル・ページ数など）。プリントでなければ undefined */
 export function printOf(id: string): GachaPrintDef | undefined {
-  return GACHA_PRINTS.find((p) => p.id === id) ?? KYOTSU_MOCK_PRINTS.find((p) => p.id === id) ?? NIJI_MOCK_PRINTS.find((p) => p.id === id) ?? KOBE_MOCK_PRINTS.find((p) => p.id === id) ?? OSAKA_MOCK_PRINTS.find((p) => p.id === id) ?? RITSU_MOCK_PRINTS.find((p) => p.id === id) ?? HOKUDAI_MOCK_PRINTS.find((p) => p.id === id) ?? TOHOKU_MOCK_PRINTS.find((p) => p.id === id) ?? HIROSAKI_MOCK_PRINTS.find((p) => p.id === id) ?? IWATE_MOCK_PRINTS.find((p) => p.id === id) ?? AKITA_MOCK_PRINTS.find((p) => p.id === id) ?? YAMAGATA_MOCK_PRINTS.find((p) => p.id === id) ?? FUKUSHIMA_MOCK_PRINTS.find((p) => p.id === id) ?? UTSUNOMIYA_MOCK_PRINTS.find((p) => p.id === id) ?? GUNMA_MOCK_PRINTS.find((p) => p.id === id) ?? LEVEL_PRINTS.find((p) => p.id === id);
+  return (
+    GACHA_PRINTS.find((p) => p.id === id) ??
+    KYOTSU_MOCK_PRINTS.find((p) => p.id === id) ??
+    NIJI_MOCK_PRINTS.find((p) => p.id === id) ??
+    LEVEL_PRINTS.find((p) => p.id === id)
+  );
 }
 
 /**

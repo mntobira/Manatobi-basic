@@ -347,12 +347,12 @@ function GachaRoomContent({
               disabled={busy}
               onClick={() => univDialog.current?.showModal()}
               data-gacha-univ-select
-              aria-label={`狙う大学を選ぶ（現在：${selectedUniv.label}）`}
+              aria-label={`狙う都道府県を選ぶ（現在：${selectedUniv.label}）`}
             >
               <School size={20} aria-hidden="true" />
               <span>
-                大学をえらぶ
-                <small>{selectedUniv.label}（全{selectedUniv.printIds.length}冊）</small>
+                都道府県をえらぶ
+                <small>{selectedUniv.label}（LR狙い撃ち）</small>
               </span>
             </button>
           ) : (

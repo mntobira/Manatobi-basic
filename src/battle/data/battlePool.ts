@@ -28,11 +28,11 @@ import type { BattleAnswerFormat, BattleQuestion } from '../core/types';
 
 /** 教科ごとの収録数（UIで「この教科は◯問あります」と出すために使う） */
 export const POOL_COUNTS: Readonly<Record<string, number>> = {
-  english: 62,
-  math: 68,
-  japanese: 49,
-  science: 84,
-  social: 65,
+  english: 79,
+  math: 99,
+  japanese: 73,
+  science: 116,
+  social: 97,
 };
 
 /**
@@ -57,11 +57,11 @@ export const POOL_COUNTS: Readonly<Record<string, number>> = {
 export const POOL_FORMAT_COUNTS: Readonly<
   Record<string, Readonly<Partial<Record<BattleAnswerFormat, number>>>>
 > = {
-  english: { choice4: 62 },
-  math: { choice4: 68 },
-  japanese: { choice4: 49 },
-  science: { choice4: 83, kana: 1 },
-  social: { choice4: 65 },
+  english: { choice4: 79 },
+  math: { choice4: 99 },
+  japanese: { choice4: 73 },
+  science: { choice4: 115, kana: 1 },
+  social: { choice4: 97 },
 };
 
 /**
@@ -206,11 +206,11 @@ export function loadedPool(subject: string): readonly BattleQuestion[] {
  * データ本体を読まずに判断するために置いてある。
  */
 export const ANSWER_COUNTS: Readonly<Record<string, number>> = {
-  english: 62,
-  math: 68,
-  japanese: 49,
-  science: 83,
-  social: 65,
+  english: 79,
+  math: 99,
+  japanese: 73,
+  science: 115,
+  social: 97,
 };
 
 async function loadAnswerRaw(subject: string): Promise<readonly (readonly [string, string])[]> {

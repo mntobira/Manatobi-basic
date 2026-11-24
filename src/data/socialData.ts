@@ -1,5 +1,6 @@
 import type { Part } from '../types/curriculum';
 import { buildChapter, countSubjectStats } from './juken/problemHelpers';
+import { EXTRA_SOCIAL_CHAPTERS } from './juken/extraSocial';
 
 const socialParts: Part[] = [
   {
@@ -1563,5 +1564,8 @@ const socialParts: Part[] = [
   },
 ];
 
-export const socialData = socialParts;
-export const SOCIAL_STATS = countSubjectStats(socialParts);
+export const socialData: Part[] = socialParts.map((part) => {
+  const extras = EXTRA_SOCIAL_CHAPTERS.filter((ch) => ch.id.startsWith(part.id.replace('so_part', 'so') + '_'));
+  return extras.length ? { ...part, chapters: [...part.chapters, ...extras] } : part;
+});
+export const SOCIAL_STATS = countSubjectStats(socialData);

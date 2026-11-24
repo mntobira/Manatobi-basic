@@ -12,6 +12,8 @@
  * を網羅的に収録。
  */
 
+import { EXTRA_WRITING_TASKS } from './juken/extraWriting';
+
 export interface WritingPattern {
   no: number;
   category: '意見・理由' | '提案・依頼' | '感情・経験' | '不定詞・構文';
@@ -447,6 +449,7 @@ export const WRITING_TASKS: readonly WritingTask[] = [
       '前の two umbrellas を受けて代名詞 one（不特定の1本。× it は特定の同じ傘を指すので注意！）が使えているか',
     ],
   },
+  ...EXTRA_WRITING_TASKS,
 ];
 
 export interface AutoCheckIssue {

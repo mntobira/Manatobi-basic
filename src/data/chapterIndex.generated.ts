@@ -47,6 +47,16 @@ export const SUBJECT_INDEX: readonly SubjectIndexEntry[] = [
         "realTitle": "It is ... for A to ~・動名詞のみをとる動詞・if/whenの現在形・比較級と最上級"
       },
       {
+        "id": "en1_3",
+        "problemCount": 2,
+        "subQuestionCount": 9,
+        "practiceSubQuestionCount": 6,
+        "miniTestSubQuestionCount": 3,
+        "title": "第4文型（to/for書き換え）・第5文型・感嘆文・命令文・代名詞",
+        "abstractTitle": "第4文型（to/for書き換え）・第5文型・感嘆文・命令文・代名詞",
+        "realTitle": "SVOO（give/buy）とSVOC（make/call/keep）・What/How感嘆文・命令文＋and/or・独立所有格"
+      },
+      {
         "id": "en2_1",
         "problemCount": 2,
         "subQuestionCount": 9,
@@ -75,6 +85,16 @@ export const SUBJECT_INDEX: readonly SubjectIndexEntry[] = [
         "title": "英作文の必須構文21選・減点回避＆誤文訂正スキル",
         "abstractTitle": "英作文の必須構文21選・減点回避＆誤文訂正スキル",
         "realTitle": "三重県後期選抜 英作文対策プリント直結！2点満点基準・言い換え術・頻出整序"
+      },
+      {
+        "id": "en3_2",
+        "problemCount": 2,
+        "subQuestionCount": 8,
+        "practiceSubQuestionCount": 5,
+        "miniTestSubQuestionCount": 3,
+        "title": "リスニング計算＆対話・整序英作文（並べ替え）実戦攻略",
+        "abstractTitle": "リスニング計算＆対話・整序英作文（並べ替え）実戦攻略",
+        "realTitle": "時刻・割引リスニング問題・疑問詞/後置修飾の整序英作文・状況英作文判定"
       },
       {
         "id": "en4_1",
@@ -123,6 +143,16 @@ export const SUBJECT_INDEX: readonly SubjectIndexEntry[] = [
         "realTitle": "直前数学対策プリント大問2直結！昨年基準の生徒数増減・食塩水濃度・池の周り・橋と列車"
       },
       {
+        "id": "ma1_3",
+        "problemCount": 2,
+        "subQuestionCount": 9,
+        "practiceSubQuestionCount": 6,
+        "miniTestSubQuestionCount": 3,
+        "title": "平方根nの応用（分数型）・整数の文字式証明・規則性（タイル/マッチ棒）",
+        "abstractTitle": "平方根nの応用（分数型）・整数の文字式証明・規則性（タイル/マッチ棒）",
+        "realTitle": "直前数学PDF演習1〜4完全網羅・連続整数の証明・n番目の規則性立式"
+      },
+      {
         "id": "ma2_1",
         "problemCount": 2,
         "subQuestionCount": 9,
@@ -141,6 +171,16 @@ export const SUBJECT_INDEX: readonly SubjectIndexEntry[] = [
         "title": "放物線と直線の交点・三角形OABの面積・面積二等分（図解演習）",
         "abstractTitle": "放物線と直線の交点・三角形OABの面積・面積二等分（図解演習）",
         "realTitle": "大問3の花形！放物線 y=ax² と直線ABの式・y軸分割による△OAB面積・中点による二等分線"
+      },
+      {
+        "id": "ma2_3",
+        "problemCount": 2,
+        "subQuestionCount": 7,
+        "practiceSubQuestionCount": 5,
+        "miniTestSubQuestionCount": 2,
+        "title": "一次関数ダイヤグラム・図形上の動点・スタフリ交点直線公式",
+        "abstractTitle": "一次関数ダイヤグラム・図形上の動点・スタフリ交点直線公式",
+        "realTitle": "すれ違い・追い越しのダイヤグラム／動点の変域場合分け／放物線2交点の直線裏ワザ"
       },
       {
         "id": "ma3_1",
@@ -173,6 +213,16 @@ export const SUBJECT_INDEX: readonly SubjectIndexEntry[] = [
         "realTitle": "正四面体・直方体の断面図・高さの比と底面積比から求める三角錐の体積比"
       },
       {
+        "id": "ma3_4",
+        "problemCount": 2,
+        "subQuestionCount": 8,
+        "practiceSubQuestionCount": 5,
+        "miniTestSubQuestionCount": 3,
+        "title": "三角形の合同・相似証明 ＆ コンパス作図（垂直二等分線・角の二等分線・接線）",
+        "abstractTitle": "三角形の合同・相似証明 ＆ コンパス作図（垂直二等分線・角の二等分線・接線）",
+        "realTitle": "回転移動の合同証明・折り返し相似・作図条件の読み替え完全攻略"
+      },
+      {
         "id": "ma4_1",
         "problemCount": 3,
         "subQuestionCount": 12,
@@ -181,6 +231,16 @@ export const SUBJECT_INDEX: readonly SubjectIndexEntry[] = [
         "title": "箱ひげ図と四分位範囲・確率（さいころ・カード・玉）の完全攻略",
         "abstractTitle": "箱ひげ図と四分位範囲・確率（さいころ・カード・玉）の完全攻略",
         "realTitle": "直前数学プリント大問1・2直結！箱ひげ図の正誤判定・2個のさいころ36通り表・標本調査"
+      },
+      {
+        "id": "ma4_2",
+        "problemCount": 2,
+        "subQuestionCount": 8,
+        "practiceSubQuestionCount": 6,
+        "miniTestSubQuestionCount": 2,
+        "title": "度数分布表（階級値平均・累積相対度数）・標本調査・連立方程式追加パターン",
+        "abstractTitle": "度数分布表（階級値平均・累積相対度数）・標本調査・連立方程式追加パターン",
+        "realTitle": "直前数学PDF連立全8型コンプ（池の周り・トンネル列車・食塩水）＆標本調査の推定"
       }
     ]
   },
@@ -209,6 +269,16 @@ export const SUBJECT_INDEX: readonly SubjectIndexEntry[] = [
         "realTitle": "一発判別テストで解く「ない」の4識別・「れる/られる」4用法・尊敬語と謙譲語の罠"
       },
       {
+        "id": "ja1_3",
+        "problemCount": 2,
+        "subQuestionCount": 8,
+        "practiceSubQuestionCount": 6,
+        "miniTestSubQuestionCount": 2,
+        "title": "漢字の同音異義語・四字熟語・慣用句・ことわざ・部首と筆順",
+        "abstractTitle": "漢字の同音異義語・四字熟語・慣用句・ことわざ・部首と筆順",
+        "realTitle": "全国公立大問1完全制覇：同音異訓（計る/測る/図る）・身体慣用句・故事成語"
+      },
+      {
         "id": "ja2_1",
         "problemCount": 2,
         "subQuestionCount": 8,
@@ -229,6 +299,16 @@ export const SUBJECT_INDEX: readonly SubjectIndexEntry[] = [
         "realTitle": "直接書かれない気持ちを「しぐさ・風景・象徴物」から読み解く本格小説演習"
       },
       {
+        "id": "ja2_3",
+        "problemCount": 2,
+        "subQuestionCount": 8,
+        "practiceSubQuestionCount": 6,
+        "miniTestSubQuestionCount": 2,
+        "title": "韻文（短歌・俳句・現代詩）の表現技法・季語・句切れ完全攻略",
+        "abstractTitle": "韻文（短歌・俳句・現代詩）の表現技法・季語・句切れ完全攻略",
+        "realTitle": "枕詞・体言止め・倒置法・擬人法・現代詩（口語自由詩/文語定型詩）と季語の季節"
+      },
+      {
         "id": "ja3_1",
         "problemCount": 3,
         "subQuestionCount": 13,
@@ -237,6 +317,16 @@ export const SUBJECT_INDEX: readonly SubjectIndexEntry[] = [
         "title": "古文読解（歴史的仮名遣い・古語・主語補完・係り結び）と漢文訓読・条件作文",
         "abstractTitle": "古文読解（歴史的仮名遣い・古語・主語補完・係り結び）と漢文訓読・条件作文",
         "realTitle": "歴史的仮名遣い変換・重要古語20選・係り結びの法則・返り点（レ点・一二点）と資料条件作文"
+      },
+      {
+        "id": "ja3_2",
+        "problemCount": 2,
+        "subQuestionCount": 8,
+        "practiceSubQuestionCount": 6,
+        "miniTestSubQuestionCount": 2,
+        "title": "漢文訓読（返り点・書き下し文・再読文字）＆ 古文文学史・和歌修辞",
+        "abstractTitle": "漢文訓読（返り点・書き下し文・再読文字）＆ 古文文学史・和歌修辞",
+        "realTitle": "レ点・一二点・上下点の読む順番／置き字（而・於・矣）と主要古典作品総整理"
       }
     ]
   },
@@ -265,6 +355,16 @@ export const SUBJECT_INDEX: readonly SubjectIndexEntry[] = [
         "realTitle": "消化酵素と柔毛・肺循環と門脈・肝臓（尿素）と腎臓・反射・体細胞分裂とメンデル遺伝3:1"
       },
       {
+        "id": "sc1_3",
+        "problemCount": 2,
+        "subQuestionCount": 8,
+        "practiceSubQuestionCount": 6,
+        "miniTestSubQuestionCount": 2,
+        "title": "音・光（屈折/全反射/凸レンズ）・ばねと水圧・浮力・電磁誘導・放射線",
+        "abstractTitle": "音・光（屈折/全反射/凸レンズ）・ばねと水圧・浮力・電磁誘導・放射線",
+        "realTitle": "理科最終プリント第1〜4・33・35講完全網羅：オシロスコープ・凸レンズ実像虚像・浮力・レンツの法則"
+      },
+      {
         "id": "sc2_1",
         "problemCount": 2,
         "subQuestionCount": 8,
@@ -283,6 +383,16 @@ export const SUBJECT_INDEX: readonly SubjectIndexEntry[] = [
         "title": "電流回路（オームの法則・電力・電力量）・電流と磁界・運動と仕事",
         "abstractTitle": "電流回路（オームの法則・電力・電力量）・電流と磁界・運動と仕事",
         "realTitle": "直列・並列の合成抵抗と消費電力・フレミング左手の法則と電磁誘導・斜面運動と動滑車の仕事率"
+      },
+      {
+        "id": "sc2_3",
+        "problemCount": 2,
+        "subQuestionCount": 8,
+        "practiceSubQuestionCount": 6,
+        "miniTestSubQuestionCount": 2,
+        "title": "気体の発生と捕集・水溶液の溶解度と再結晶・状態変化と蒸留・電池のしくみ",
+        "abstractTitle": "気体の発生と捕集・水溶液の溶解度と再結晶・状態変化と蒸留・電池のしくみ",
+        "realTitle": "理科最終プリント第5〜8・30講完全網羅：アンモニア噴水・溶解度計算・沸点蒸留・ダニエル電池"
       },
       {
         "id": "sc3_1",
@@ -305,6 +415,16 @@ export const SUBJECT_INDEX: readonly SubjectIndexEntry[] = [
         "realTitle": "塩化銅と塩酸の電気分解・イオン化傾向とダニエル電池の亜鉛板/銅板・中和滴定のイオン数グラフ"
       },
       {
+        "id": "sc3_3",
+        "problemCount": 2,
+        "subQuestionCount": 8,
+        "practiceSubQuestionCount": 6,
+        "miniTestSubQuestionCount": 2,
+        "title": "植物と動物の分類総整理・神経系（反射）・食物連鎖と炭素循環（分解者）",
+        "abstractTitle": "植物と動物の分類総整理・神経系（反射）・食物連鎖と炭素循環（分解者）",
+        "realTitle": "理科最終プリント第9・11・22・24・34講完全網羅：シダコケ・脊椎5綱・反射経路・菌類細菌類"
+      },
+      {
         "id": "sc4_1",
         "problemCount": 2,
         "subQuestionCount": 9,
@@ -323,6 +443,16 @@ export const SUBJECT_INDEX: readonly SubjectIndexEntry[] = [
         "title": "気象（飽和水蒸気量と湿度・前線と低気圧）と天体（日周/年周運動・金星・月と季節）",
         "abstractTitle": "気象（飽和水蒸気量と湿度・前線と低気圧）と天体（日周/年周運動・金星・月と季節）",
         "realTitle": "露点と湿度計算・寒冷前線（積乱雲・にわか雨・北寄りの風）vs温暖前線・金星の満ち欠けと時刻"
+      },
+      {
+        "id": "sc4_3",
+        "problemCount": 2,
+        "subQuestionCount": 8,
+        "practiceSubQuestionCount": 6,
+        "miniTestSubQuestionCount": 2,
+        "title": "日本の四季の天気・大気の動き（海陸風/季節風）・太陽系惑星と月の満ち欠け・金星",
+        "abstractTitle": "日本の四季の天気・大気の動き（海陸風/季節風）・太陽系惑星と月の満ち欠け・金星",
+        "realTitle": "理科最終プリント第17〜20・31〜32講完全網羅：西高東低・月の南中時刻・金星の満ち欠けと大きさ"
       }
     ]
   },
@@ -349,6 +479,26 @@ export const SUBJECT_INDEX: readonly SubjectIndexEntry[] = [
         "title": "日本地理（地形図・6気候区の雨温図・扇状地と三角州・工業と農林水産業統計）",
         "abstractTitle": "日本地理（地形図・6気候区の雨温図・扇状地と三角州・工業と農林水産業統計）",
         "realTitle": "2万5千分の1地形図・太平洋/日本海/瀬戸内/中央高地の雨温図・中京/京葉の工業帯グラフ・促成と抑制栽培"
+      },
+      {
+        "id": "so1_3",
+        "problemCount": 2,
+        "subQuestionCount": 8,
+        "practiceSubQuestionCount": 6,
+        "miniTestSubQuestionCount": 2,
+        "title": "世界6州の地誌完全網羅（アジア・ヨーロッパ・アフリカ・北米・南米・オセアニア）",
+        "abstractTitle": "世界6州の地誌完全網羅（アジア・ヨーロッパ・アフリカ・北米・南米・オセアニア）",
+        "realTitle": "最終地理プリント第4〜7講準拠：EU統合と農業・アフリカのモノカルチャー・北米適地適作・BRICS"
+      },
+      {
+        "id": "so1_4",
+        "problemCount": 2,
+        "subQuestionCount": 8,
+        "practiceSubQuestionCount": 6,
+        "miniTestSubQuestionCount": 2,
+        "title": "日本7地方の地誌完全網羅（九州〜北海道）＆ 重要統計資料①②（農林水産・貿易）",
+        "abstractTitle": "日本7地方の地誌完全網羅（九州〜北海道）＆ 重要統計資料①②（農林水産・貿易）",
+        "realTitle": "最終地理プリント第8〜14講＋重要資料①②準拠：工業地域出荷額比・促成/抑制栽培・地形図と統計"
       },
       {
         "id": "so2_1",
@@ -381,6 +531,16 @@ export const SUBJECT_INDEX: readonly SubjectIndexEntry[] = [
         "realTitle": "世界恐慌（ニューディールとブロック経済）→満州事変〜太平洋戦争→農地改革と財閥解体→サンフランシスコ平和条約〜冷戦終結"
       },
       {
+        "id": "so2_4",
+        "problemCount": 2,
+        "subQuestionCount": 8,
+        "practiceSubQuestionCount": 6,
+        "miniTestSubQuestionCount": 2,
+        "title": "歴史テーマ史横断（土地制度・日中外交・文化史・戦後日本と冷戦終結）",
+        "abstractTitle": "歴史テーマ史横断（土地制度・日中外交・文化史・戦後日本と冷戦終結）",
+        "realTitle": "スタフリ歴史横断整理：墾田永年私財法〜農地改革・勘合貿易〜日中国交正常化・戦後史完全版"
+      },
+      {
         "id": "so3_1",
         "problemCount": 2,
         "subQuestionCount": 9,
@@ -399,6 +559,16 @@ export const SUBJECT_INDEX: readonly SubjectIndexEntry[] = [
         "title": "選挙（ドント式計算）と経済（市場価格・金融政策・財政と税制・社会保障）＋国際社会とSDGs",
         "abstractTitle": "選挙（ドント式計算）と経済（市場価格・金融政策・財政と税制・社会保障）＋国際社会とSDGs",
         "realTitle": "比例代表ドント式議席計算・需要供給曲線・日銀の公開市場操作と円高円安・累進課税・少子高齢化と国連安保理"
+      },
+      {
+        "id": "so3_3",
+        "problemCount": 2,
+        "subQuestionCount": 8,
+        "practiceSubQuestionCount": 6,
+        "miniTestSubQuestionCount": 2,
+        "title": "地方自治（直接請求権）・現代社会と税制/社会保障4柱・国際社会（国連・SDGs・環境）",
+        "abstractTitle": "地方自治（直接請求権）・現代社会と税制/社会保障4柱・国際社会（国連・SDGs・環境）",
+        "realTitle": "最終公民プリント第1・4・6・7講完全網羅：直接請求権の提出先・直接税/間接税・社会保障4柱・国連常任理事国"
       }
     ]
   }
@@ -425,38 +595,38 @@ export interface SubjectStatsEntry {
 export const SUBJECT_STATS: Readonly<Record<string, SubjectStatsEntry>> = {
   "english": {
     "sections": 4,
-    "chapters": 7,
-    "questions": 63,
-    "practiceQuestions": 42,
-    "miniTestQuestions": 21
+    "chapters": 9,
+    "questions": 80,
+    "practiceQuestions": 53,
+    "miniTestQuestions": 27
   },
   "math": {
     "sections": 4,
-    "chapters": 8,
-    "questions": 75,
-    "practiceQuestions": 51,
-    "miniTestQuestions": 24
+    "chapters": 12,
+    "questions": 107,
+    "practiceQuestions": 73,
+    "miniTestQuestions": 34
   },
   "japanese": {
     "sections": 3,
-    "chapters": 5,
-    "questions": 51,
-    "practiceQuestions": 36,
-    "miniTestQuestions": 15
+    "chapters": 8,
+    "questions": 75,
+    "practiceQuestions": 54,
+    "miniTestQuestions": 21
   },
   "science": {
     "sections": 4,
-    "chapters": 8,
-    "questions": 89,
-    "practiceQuestions": 65,
-    "miniTestQuestions": 24
+    "chapters": 12,
+    "questions": 121,
+    "practiceQuestions": 89,
+    "miniTestQuestions": 32
   },
   "social": {
     "sections": 3,
-    "chapters": 7,
-    "questions": 71,
-    "practiceQuestions": 50,
-    "miniTestQuestions": 21
+    "chapters": 11,
+    "questions": 103,
+    "practiceQuestions": 74,
+    "miniTestQuestions": 29
   }
 };
 

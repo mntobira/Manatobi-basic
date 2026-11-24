@@ -1,5 +1,6 @@
 import type { Part } from '../types/curriculum';
 import { buildChapter, countSubjectStats } from './juken/problemHelpers';
+import { EXTRA_MATH_CHAPTERS } from './juken/extraMath';
 
 const mathParts: Part[] = [
   {
@@ -1503,5 +1504,8 @@ const mathParts: Part[] = [
   },
 ];
 
-export const mathData = mathParts;
-export const MATH_STATS = countSubjectStats(mathParts);
+export const mathData: Part[] = mathParts.map((part) => {
+  const extras = EXTRA_MATH_CHAPTERS.filter((ch) => ch.id.startsWith(part.id.replace('ma_part', 'ma') + '_'));
+  return extras.length ? { ...part, chapters: [...part.chapters, ...extras] } : part;
+});
+export const MATH_STATS = countSubjectStats(mathData);
