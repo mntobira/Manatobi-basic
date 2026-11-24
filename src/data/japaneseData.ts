@@ -1,5 +1,6 @@
 import type { Part } from '../types/curriculum';
 import { buildChapter, countSubjectStats } from './juken/problemHelpers';
+import { EXTRA_JAPANESE_CHAPTERS } from './juken/extraJapanese';
 
 const japaneseParts: Part[] = [
   {
@@ -1106,5 +1107,8 @@ const japaneseParts: Part[] = [
   },
 ];
 
-export const japaneseData = japaneseParts;
-export const JAPANESE_STATS = countSubjectStats(japaneseParts);
+export const japaneseData: Part[] = japaneseParts.map((part) => {
+  const extras = EXTRA_JAPANESE_CHAPTERS.filter((ch) => ch.id.startsWith(part.id.replace('ja_part', 'ja') + '_'));
+  return extras.length ? { ...part, chapters: [...part.chapters, ...extras] } : part;
+});
+export const JAPANESE_STATS = countSubjectStats(japaneseData);

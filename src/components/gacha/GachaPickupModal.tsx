@@ -65,10 +65,10 @@ export function pickupShelves(lr: readonly ItemDef[]): PickupShelf[] {
   return out;
 }
 
-/** LR の短い説明（大学数・冊数）。大学別でなければ null */
+/** LR の短い説明（都道府県数・冊数）。都道府県別でなければ null */
 export function pickupLrSummary(lr: readonly ItemDef[]): string | null {
-  const univs = new Set(lr.map((i) => (nijiUniversityOf(i.id) ?? mockUniversityOf(i.id))?.name).filter(Boolean));
-  return univs.size ? `${univs.size}大学・${lr.length}冊。地方を選ぶと、大学ごとに並びます。` : null;
+  const prefs = new Set(lr.map((i) => (nijiUniversityOf(i.id) ?? mockUniversityOf(i.id))?.name).filter(Boolean));
+  return prefs.size ? `全国${prefs.size}都道府県・全${lr.length}冊。地方ブロックを選ぶと都道府県ごとに見られます。` : null;
 }
 
 function PickupItem({ item, progress, pool, univId }: { item: ItemDef; progress: GrowthProgress | null; pool: GachaPoolId; univId?: string }) {
@@ -143,7 +143,7 @@ export function GachaPickupModal({ dialog, items, progress, pool = DEFAULT_GACHA
         <p className="gacha-pickup-lead">ページの一部だけ見られます。全部は、ガチャで当てて「マイPDF」から。</p>
         {(pool === 'niji' || pool === 'univ') && (
           <details className="gacha-pickup-disclaimer" data-niji-disclaimer>
-            <summary>※ 各大学の過去問・公式問題ではありません（予想問題）。収録している大学を見る</summary>
+            <summary>※ 各都道府県の公式過去問ではありません（書き下ろし予想問題）</summary>
             <p className="gacha-detail-disclaimer">※ {NIJI_DISCLAIMER}</p>
           </details>
         )}

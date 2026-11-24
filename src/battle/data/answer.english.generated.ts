@@ -19,7 +19,7 @@
  * このファイルは ★試合が終わってリザルト画面が出たときだけ★ 読み込む。
  *
  * -------------------------------------------------------------------
- * ■ 収録数: 62 問（oneLine を持つ問題だけ）
+ * ■ 収録数: 79 問（oneLine を持つ問題だけ）
  * -------------------------------------------------------------------
  * 機械生成の問題は元データに1行解答が無いので入っていない。
  * 画面側は「無い問題は答えの行を出さない」作りにしてある。
@@ -47,6 +47,15 @@ export const ANSWERS: readonly (readonly [string, string])[] = [
   ["q:en1_2:en1_2_p1:en1_2_p1_q4","lake ＝ 比較級 ＋ than any other ＋【単数名詞】＝「他のどの〜よりも…だ」！"],
   ["q:en1_2:en1_2_p1:en1_2_p1_q5","what ＝ buy の目的語「何を」が空いているので what to buy（何を買うべきか）！"],
   ["q:en1_2:en1_2_p1:en1_2_p1_q6","much ＝ 比較級を「ずっと〜」と強めるときは much / a lot / far / even！（very は絶対NG）"],
+  ["q:en1_3:en1_3_m1:en1_3_m1_q1","to ＝ show 人 物 ⇔ show 物 to 人！"],
+  ["q:en1_3:en1_3_m1:en1_3_m1_q2","How ＝ 後ろが「形容詞・副詞（fast）＋ S ＋ V!」なら How！"],
+  ["q:en1_3:en1_3_m1:en1_3_m1_q3","closed ＝ keep the door closed ＝「ドアを閉まった状態にしておく」！"],
+  ["q:en1_3:en1_3_p1:en1_3_p1_q1","for ＝ buy / make / cook / find は「1人でもできる動作（〜のために）」だから前置詞は for！"],
+  ["q:en1_3:en1_3_p1:en1_3_p1_q2","happy ＝ make ＋ O ＋ 形容詞 ＝「Oを〜（な状態・気持ち）にする」！ 副詞 happily は絶対NG！"],
+  ["q:en1_3:en1_3_p1:en1_3_p1_q3","What ＝ 後ろに「a ＋ 形容詞 ＋ 名詞（a tall tower）」がある感嘆文は What！"],
+  ["q:en1_3:en1_3_p1:en1_3_p1_q4","or ＝ 「命令文, or ~」＝「〜しなさい、さもないと…」！ プラス結果なら and、マイナス結果なら or！"],
+  ["q:en1_3:en1_3_p1:en1_3_p1_q5","mine ＝ 「私の（ひとりの）古い友人」＝ an old friend of mine！（冠詞 a/an と所有格は並べられない）"],
+  ["q:en1_3:en1_3_p1:en1_3_p1_q6","the other ＝ 2つあるうちの「一方は one、残りのもう一方は the other」！"],
   ["q:en2_1:en2_1_m1:en2_1_m1_q1","covered ＝ 「〜に覆われている」は be covered with ~！（by ではなく with を使う代表格）"],
   ["q:en2_1:en2_1_m1:en2_1_m1_q2","yet ＝ 現在完了（完了）の疑問文の文末「もう〜しましたか」は yet！（否定文では「まだ」）"],
   ["q:en2_1:en2_1_m1:en2_1_m1_q3","use ＝ 「Oに（許可して）〜させてくれる」は let ＋ O ＋ 動詞の原形！"],
@@ -73,6 +82,14 @@ export const ANSWERS: readonly (readonly [string, string])[] = [
   ["q:en3_1:en3_1_p1:en3_1_p1_q3","We discussed the school festival in our class yesterday. ＝ discuss（〜について議論する）・visit（〜を訪れる）は他動詞！ about や to をつけない！（不安なら talk about に言い換える）"],
   ["q:en3_1:en3_1_p1:en3_1_p1_q4","You can eat fresh and ＝ 場所・体験をおすすめするときの鉄板2文目：You can ＋ 原形 ~ there.！"],
   ["q:en3_1:en3_1_p1:en3_1_p1_q5","My mother taught me how to ride a bike. ＝ teach [show / tell] ＋ 人 ＋ how to 原形「人に〜のしかたを教える」！"],
+  ["q:en3_2:en3_2_m1:en3_2_m1_q1","Could you take a picture of us? ＝ 「〜してくれませんか」＝ Could [Will / Can] you take a picture of us?"],
+  ["q:en3_2:en3_2_m1:en3_2_m1_q2","how ＝ how to 原形 ＝「〜のしかた・方法」！"],
+  ["q:en3_2:en3_2_m1:en3_2_m1_q3","8時45分 ＝ a quarter（15分）to nine（9時まであと15分）＝【8時45分】！"],
+  ["q:en3_2:en3_2_p1:en3_2_p1_q1","午後2時00分（2:00） ＝ 映画開始 2:30 → 20分前で 2:10 → さらに10分早く（ten minutes earlier than that）で【2:00】！"],
+  ["q:en3_2:en3_2_p1:en3_2_p1_q2","800円 ＝ ノート3冊セット特価 500円 ＋ ペン2本（150×2＝300円）＝【800円】！"],
+  ["q:en3_2:en3_2_p1:en3_2_p1_q3","This box is too heavy for me to carry. ＝ too ＋ 形容詞 ＋ (for 人) ＋ to 原形！（文末に it をつけないのが超重要ポイント！）"],
+  ["q:en3_2:en3_2_p1:en3_2_p1_q4","My grandfather takes a walk with his dog every morning. ＝ 原稿補充の「〜ということ」に That は絶対不要！ 三単現の takes をつけた完全な平叙文にする！"],
+  ["q:en3_2:en3_2_p1:en3_2_p1_q5","you showed me yesterday ＝ The picture [which/that] you showed me yesterday ＝ 名詞の直後に S + V を置いて後ろから修飾！"],
   ["q:en4_1:en4_1_m1:en4_1_m1_q1","最大8冊・3週間 ＝ In August, up to 8 books for three weeks.（カッコ内の usually は通常期！）"],
   ["q:en4_1:en4_1_m1:en4_1_m1_q2","カウンターで座席を予約すること ＝ reserve a seat at the counter before using it ＝ 使う前にカウンターで席を予約する！"],
   ["q:en4_1:en4_1_m1:en4_1_m1_q3","火曜日の午前9時00分 ＝ 開館は 9:30 a.m. から！ 火曜でも午前9時00分はまだ開いていない！"],

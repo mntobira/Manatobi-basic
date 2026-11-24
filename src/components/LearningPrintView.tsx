@@ -4,11 +4,14 @@ import {
   ArrowLeft,
   BookOpenCheck,
   CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
   Eye,
   EyeOff,
   PenTool,
   Play,
   RotateCcw,
+  Search,
   Sparkles,
   Star,
 } from 'lucide-react';
@@ -68,6 +71,8 @@ export const LearningPrintView: React.FC<LearningPrintViewProps> = ({
 }) => {
   const [redSheetOn, setRedSheetOn] = useState<boolean>(true);
   const [revealedKeys, setRevealedKeys] = useState<Record<string, boolean>>({});
+  const [selectedGroup, setSelectedGroup] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const [masteredSheets, setMasteredSheets] = useState<Record<string, boolean>>(() => {
     try {
       const raw = localStorage.getItem('mntb_juken_mastered_prints');
@@ -77,18 +82,46 @@ export const LearningPrintView: React.FC<LearningPrintViewProps> = ({
     }
   });
 
-  const sheets = useMemo(
+  const allSubjectSheets = useMemo(
     () => SUMMARY_PRINT_SHEETS.filter((s) => s.subject === subject),
     [subject],
   );
-  const [activeSheetId, setActiveSheetId] = useState<string>(sheets[0]?.id ?? '');
+
+  const groups = useMemo(() => {
+    const seen: string[] = [];
+    for (const s of allSubjectSheets) {
+      if (s.group && !seen.includes(s.group)) seen.push(s.group);
+    }
+    return seen;
+  }, [allSubjectSheets]);
+
+  const sheets = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    return allSubjectSheets.filter((s) => {
+      if (selectedGroup !== 'all' && s.group !== selectedGroup) return false;
+      if (!q) return true;
+      if (
+        s.title.toLowerCase().includes(q) ||
+        s.badge.toLowerCase().includes(q) ||
+        s.subtitle.toLowerCase().includes(q)
+      ) {
+        return true;
+      }
+      return s.items.some(
+        (it) => it.heading.toLowerCase().includes(q) || it.body.toLowerCase().includes(q),
+      );
+    });
+  }, [allSubjectSheets, selectedGroup, searchQuery]);
+
+  const [activeSheetId, setActiveSheetId] = useState<string>(allSubjectSheets[0]?.id ?? '');
 
   const activeSheet: SummaryPrintSheet | undefined =
-    sheets.find((s) => s.id === activeSheetId) ?? sheets[0];
+    sheets.find((s) => s.id === activeSheetId) ?? sheets[0] ?? allSubjectSheets[0];
+
+  const activeIndex = activeSheet ? sheets.findIndex((s) => s.id === activeSheet.id) : -1;
 
   const subjectDef = subjectDefinitionOf(subject) ?? SUBJECT_REGISTRY[0];
 
-  // このシート内のすべての空欄IDを集計し、開いた数（自己テスト確認数）を表示する
   const sheetClozeIds = useMemo(() => {
     if (!activeSheet) return [];
     const ids: string[] = [];
@@ -137,6 +170,13 @@ export const LearningPrintView: React.FC<LearningPrintViewProps> = ({
     [masteredSheets],
   );
 
+  const goPrevNext = (delta: number) => {
+    if (sheets.length < 2 || activeIndex < 0) return;
+    const nextIdx = (activeIndex + delta + sheets.length) % sheets.length;
+    setActiveSheetId(sheets[nextIdx].id);
+    resetRevealed();
+  };
+
   return (
     <div className="juken-screen">
       {/* 固定ヘッダー */}
@@ -179,17 +219,20 @@ export const LearningPrintView: React.FC<LearningPrintViewProps> = ({
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 pt-4 space-y-4">
+      <main className="max-w-4xl mx-auto px-4 pt-4 space-y-3.5 pb-12">
         {/* 5教科タブ */}
         <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
           {SUBJECT_REGISTRY.map((s) => {
             const active = s.id === subject;
+            const count = SUMMARY_PRINT_SHEETS.filter((p) => p.subject === s.id).length;
             return (
               <button
                 key={s.id}
                 type="button"
                 onClick={() => {
                   onSelectSubject(s.id as SubjectKey);
+                  setSelectedGroup('all');
+                  setSearchQuery('');
                   const first = SUMMARY_PRINT_SHEETS.find((p) => p.subject === s.id);
                   if (first) setActiveSheetId(first.id);
                   resetRevealed();
@@ -199,13 +242,16 @@ export const LearningPrintView: React.FC<LearningPrintViewProps> = ({
                     ? { backgroundColor: s.theme.accent, borderColor: s.theme.accent }
                     : undefined
                 }
-                className={`min-h-[44px] px-4 py-2 rounded-full text-sm font-extrabold whitespace-nowrap border transition ${
+                className={`min-h-[42px] px-4 py-1.5 rounded-full text-sm font-extrabold whitespace-nowrap border transition inline-flex items-center gap-1.5 ${
                   active
                     ? 'text-white shadow-sm'
                     : 'bg-white text-[#4c4033] border-[#dfd2bc] hover:bg-[#fffaf0]'
                 }`}
               >
-                {s.label}
+                <span>{s.label}</span>
+                <span className={`text-[11px] px-1.5 py-0.5 rounded-full ${active ? 'bg-white/25 text-white' : 'bg-[#f4ece0] text-[#6b5c49]'}`}>
+                  {count}枚
+                </span>
               </button>
             );
           })}
@@ -222,52 +268,111 @@ export const LearningPrintView: React.FC<LearningPrintViewProps> = ({
           )}
         </div>
 
-        {/* プリント選択カード */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-          {sheets.map((sheet) => {
-            const isSelected = activeSheet?.id === sheet.id;
-            const done = !!masteredSheets[sheet.id];
-            return (
+        {/* 分野フィルタ ＆ キーワード検索 */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          {groups.length > 1 && (
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 no-scrollbar">
               <button
-                key={sheet.id}
                 type="button"
-                onClick={() => {
-                  setActiveSheetId(sheet.id);
-                  resetRevealed();
-                }}
-                className={`juken-card-interactive text-left p-3.5 min-h-[78px] flex flex-col justify-between ${
-                  isSelected ? 'ring-2 ring-offset-1' : 'opacity-90'
+                onClick={() => setSelectedGroup('all')}
+                className={`px-3 py-1.5 rounded-xl text-xs font-extrabold whitespace-nowrap border transition ${
+                  selectedGroup === 'all'
+                    ? 'bg-[#2c241b] text-white border-[#2c241b]'
+                    : 'bg-white text-[#574938] border-[#e2d6c3] hover:bg-[#fffaf0]'
                 }`}
-                style={
-                  isSelected
-                    ? { borderColor: subjectDef.theme.accent, ['--tw-ring-color' as string]: subjectDef.theme.accent }
-                    : undefined
-                }
               >
-                <div className="flex items-center justify-between gap-2">
-                  <span
-                    className="text-xs font-extrabold px-2 py-0.5 rounded-md"
-                    style={{
-                      backgroundColor: `${subjectDef.theme.accentSoft}77`,
-                      color: subjectDef.theme.accent,
-                    }}
-                  >
-                    {sheet.badge}
-                  </span>
-                  <div className="flex items-center gap-0.5 text-[#f29a1f]">
-                    {Array.from({ length: sheet.stars }).map((_, i) => (
-                      <Star key={i} className="w-3.5 h-3.5 fill-current" />
-                    ))}
-                    {done && <CheckCircle2 className="w-4 h-4 text-[#1f7a4d] ml-1" />}
-                  </div>
-                </div>
-                <p className="mt-1.5 text-xs sm:text-sm font-extrabold text-[#1c2a39] line-clamp-2">
-                  {sheet.title}
-                </p>
+                すべて（{allSubjectSheets.length}）
               </button>
-            );
-          })}
+              {groups.map((g) => {
+                const cnt = allSubjectSheets.filter((s) => s.group === g).length;
+                const on = selectedGroup === g;
+                return (
+                  <button
+                    key={g}
+                    type="button"
+                    onClick={() => {
+                      setSelectedGroup(g);
+                      const firstInGroup = allSubjectSheets.find((s) => s.group === g);
+                      if (firstInGroup) setActiveSheetId(firstInGroup.id);
+                      resetRevealed();
+                    }}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-extrabold whitespace-nowrap border transition ${
+                      on
+                        ? 'bg-[#2c241b] text-white border-[#2c241b]'
+                        : 'bg-white text-[#574938] border-[#e2d6c3] hover:bg-[#fffaf0]'
+                    }`}
+                  >
+                    {g}（{cnt}）
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          <label className="relative flex items-center min-w-[210px]">
+            <Search className="w-4 h-4 text-[#8c7c68] absolute left-3 pointer-events-none" />
+            <input
+              type="search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="語句・単元名でプリント検索"
+              className="w-full pl-9 pr-3 py-1.5 rounded-xl border border-[#dfd2bc] bg-white text-xs sm:text-sm font-semibold text-[#231d16] placeholder:text-[#9c8c78]"
+            />
+          </label>
         </div>
+
+        {/* プリント選択カード */}
+        {sheets.length === 0 ? (
+          <div className="juken-card p-6 text-center text-sm font-bold text-[#6d5e4c]">
+            該当するまとめプリントが見つかりませんでした。検索語を変えるか「すべて」を押してください。
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+            {sheets.map((sheet) => {
+              const isSelected = activeSheet?.id === sheet.id;
+              const done = !!masteredSheets[sheet.id];
+              return (
+                <button
+                  key={sheet.id}
+                  type="button"
+                  onClick={() => {
+                    setActiveSheetId(sheet.id);
+                    resetRevealed();
+                  }}
+                  className={`juken-card-interactive text-left p-3 min-h-[72px] flex flex-col justify-between ${
+                    isSelected ? 'ring-2 ring-offset-1' : 'opacity-90'
+                  }`}
+                  style={
+                    isSelected
+                      ? { borderColor: subjectDef.theme.accent, ['--tw-ring-color' as string]: subjectDef.theme.accent }
+                      : undefined
+                  }
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <span
+                      className="text-[11px] font-extrabold px-2 py-0.5 rounded-md truncate"
+                      style={{
+                        backgroundColor: `${subjectDef.theme.accentSoft}77`,
+                        color: subjectDef.theme.accent,
+                      }}
+                    >
+                      {sheet.badge}
+                    </span>
+                    <div className="flex items-center gap-0.5 text-[#f29a1f] shrink-0">
+                      {Array.from({ length: sheet.stars }).map((_, i) => (
+                        <Star key={i} className="w-3 h-3 fill-current" />
+                      ))}
+                      {done && <CheckCircle2 className="w-3.5 h-3.5 text-[#1f7a4d] ml-1" />}
+                    </div>
+                  </div>
+                  <p className="mt-1 text-xs sm:text-[13px] font-extrabold text-[#1c2a39] line-clamp-2 leading-snug">
+                    {sheet.title}
+                  </p>
+                </button>
+              );
+            })}
+          </div>
+        )}
 
         {/* 選択中のプリント本体 */}
         {activeSheet && (
@@ -277,12 +382,37 @@ export const LearningPrintView: React.FC<LearningPrintViewProps> = ({
               style={{ backgroundColor: subjectDef.theme.surface }}
             >
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <span
-                  className="text-xs font-extrabold px-3 py-1 rounded-full text-white"
-                  style={{ backgroundColor: subjectDef.theme.accent }}
-                >
-                  {activeSheet.badge} ・ 出題優先度 {'★'.repeat(activeSheet.stars)}
-                </span>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span
+                    className="text-xs font-extrabold px-3 py-1 rounded-full text-white"
+                    style={{ backgroundColor: subjectDef.theme.accent }}
+                  >
+                    {activeSheet.badge} ・ 出題優先度 {'★'.repeat(activeSheet.stars)}
+                  </span>
+                  {sheets.length > 1 && (
+                    <div className="inline-flex items-center gap-1">
+                      <button
+                        type="button"
+                        onClick={() => goPrevNext(-1)}
+                        className="p-1.5 rounded-lg bg-white border border-[#dfd2bc] text-[#4c4033] hover:bg-[#fffaf0]"
+                        aria-label="前のプリントへ"
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                      </button>
+                      <span className="text-xs font-extrabold text-[#574938] px-1">
+                        {activeIndex + 1} / {sheets.length}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => goPrevNext(1)}
+                        className="p-1.5 rounded-lg bg-white border border-[#dfd2bc] text-[#4c4033] hover:bg-[#fffaf0]"
+                        aria-label="次のプリントへ"
+                      >
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                    </div>
+                  )}
+                </div>
 
                 {redSheetOn && sheetClozeIds.length > 0 && (
                   <div className="flex items-center gap-2">
@@ -357,7 +487,6 @@ export const LearningPrintView: React.FC<LearningPrintViewProps> = ({
                       })}
                     </div>
 
-                    {/* 比較整理表がある場合 */}
                     {item.table && (
                       <div className="juken-table-wrap mt-2">
                         <table className="juken-table">
@@ -383,7 +512,6 @@ export const LearningPrintView: React.FC<LearningPrintViewProps> = ({
                       </div>
                     )}
 
-                    {/* 図版がある場合 */}
                     {item.imageUrl && (
                       <div className="pt-1">
                         <QuestionFigure src={item.imageUrl} caption={item.imageCaption} />

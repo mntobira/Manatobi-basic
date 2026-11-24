@@ -1,10 +1,10 @@
 /**
- * 大学選択ガチャ（1回500マナコイン）で狙う大学を選ぶダイアログ。
- *   ・地方の棚（北海道・東北／関東・中部／近畿／中国・四国／九州・沖縄）＋名前検索で素早く絞り込める。
- *   ・各大学（学部・系統別）の全3回分の所持数もひと目で分かる。
+ * 都道府県選択ガチャ（1回500マナコイン）で狙う都道府県を選ぶダイアログ（全国47都道府県対応）。
+ *   ・6地方ブロック（北海道・東北／関東／中部・東海・北陸／近畿／中国・四国／九州・沖縄）＋名前検索で素早く絞り込める。
+ *   ・各都道府県の予想問題PDFの所持状況もひと目で分かる。
  */
 import { useMemo, useState, type RefObject } from 'react';
-import { Check, School, Search } from 'lucide-react';
+import { Check, MapPin, Search } from 'lucide-react';
 import {
   SELECTABLE_UNIVERSITIES,
   selectableUniversityOf,
@@ -15,7 +15,7 @@ import type { GrowthProgress } from '../../battle/core/growth';
 import { NIJI_DISCLAIMER } from '../../data/nijiMockPrints';
 
 const REGION_SHELVES = PRINT_SHELVES.filter((s) =>
-  ['hokkaido_tohoku', 'kanto_chubu', 'kinki', 'chugoku_shikoku', 'kyushu_okinawa'].includes(s.id),
+  ['hokkaido_tohoku', 'kanto', 'chubu', 'kinki', 'chugoku_shikoku', 'kyushu_okinawa'].includes(s.id),
 );
 
 export function GachaUniversityModal({
@@ -48,7 +48,7 @@ export function GachaUniversityModal({
       if (!q) return true;
       return (
         u.name.toLowerCase().includes(q) ||
-        u.track.toLowerCase().includes(q) ||
+        u.id.toLowerCase().includes(q) ||
         u.label.toLowerCase().includes(q) ||
         u.regionLabel.toLowerCase().includes(q)
       );
@@ -71,14 +71,14 @@ export function GachaUniversityModal({
       }}
     >
       <header>
-        <h2 id="gacha-univ-title">狙う大学を選ぶ（1回500枚）</h2>
+        <h2 id="gacha-univ-title">狙う都道府県を選ぶ（全47都道府県・1回500枚）</h2>
         <button type="button" autoFocus onClick={() => dialog.current?.close()}>
           閉じる
         </button>
       </header>
       <div className="game-details-body gacha-univ-modal">
         <p className="gacha-pickup-lead">
-          選んだ大学の英語予想問題（第1〜3回）だけが LR で出ます。現在：<b>{current.label}</b>
+          選んだ都道府県の公立高校入試 5教科予想問題PDFだけが LR 枠で出ます。現在：<b>{current.label}</b>
         </p>
 
         <label className="gacha-univ-search">
@@ -87,8 +87,8 @@ export function GachaUniversityModal({
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="大学名・学部でさがす（例：名古屋、医）"
-            aria-label="大学名・学部で検索"
+            placeholder="都道府県名・地方でさがす（例：三重、東京、近畿）"
+            aria-label="都道府県名・地方で検索"
             data-gacha-univ-search
           />
         </label>
@@ -110,7 +110,7 @@ export function GachaUniversityModal({
               onClick={() => setRegion(sh.id)}
               data-univ-region={sh.id}
             >
-              {sh.label.replace(/^2次\s*/, '')}
+              {sh.label}
               <small>{regionCounts.get(sh.id) ?? 0}</small>
             </button>
           ))}
@@ -118,10 +118,10 @@ export function GachaUniversityModal({
 
         {filtered.length === 0 ? (
           <p className="gacha-univ-empty" role="status">
-            条件に合う大学が見つかりませんでした。別の語や「すべて」をお試しください。
+            条件に合う都道府県が見つかりませんでした。別の語や「すべて」をお試しください。
           </p>
         ) : (
-          <ul className="gacha-univ-list" aria-label="選択できる大学一覧">
+          <ul className="gacha-univ-list" aria-label="選択できる都道府県一覧">
             {filtered.map((u) => {
               const ownedCount = u.printIds.filter((pid) => progress?.owned.includes(pid)).length;
               const selected = u.id === current.id;
@@ -134,7 +134,7 @@ export function GachaUniversityModal({
                     data-gacha-univ-option={u.id}
                     onClick={() => choose(u.id)}
                   >
-                    <School size={18} aria-hidden="true" />
+                    <MapPin size={18} aria-hidden="true" />
                     <span className="gacha-univ-option-body">
                       <strong>
                         {u.name}
@@ -143,7 +143,7 @@ export function GachaUniversityModal({
                       {u.track && <span className="gacha-univ-track">{u.track}</span>}
                     </span>
                     <span className="gacha-univ-owned" data-complete={ownedCount === u.printIds.length || undefined}>
-                      所持 {ownedCount}/{u.printIds.length}冊
+                      {ownedCount > 0 ? '所持済み' : `未所持（${u.printIds.length}冊）`}
                     </span>
                     {selected && <Check size={18} aria-hidden="true" className="gacha-univ-check" />}
                   </button>
@@ -154,7 +154,7 @@ export function GachaUniversityModal({
         )}
 
         <details className="gacha-pickup-disclaimer">
-          <summary>※ 各大学の過去問・公式問題ではありません（予想問題）</summary>
+          <summary>※ 各都道府県の公式過去問ではありません（オリジナル予想問題）</summary>
           <p className="gacha-detail-disclaimer">※ {NIJI_DISCLAIMER}</p>
         </details>
       </div>
