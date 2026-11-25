@@ -431,3 +431,101 @@
   color: #c0392b;
 }
 
+/* ===================================================================
+ * 1画面完結ビュー（スクロール最小化・カードページ送り）
+ * ＆ 原本まとめプリント準拠の強調表現（英・数・国・地理・公民）
+ * =================================================================== */
+.juken-onescreen {
+  height: 100%;
+  max-height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--mt-paper, #fcf5e9);
+  color: var(--mt-ink, #1c2a39);
+  font-family: var(--mt-font-body);
+}
+
+.juken-onescreen-head {
+  flex-shrink: 0;
+  background: rgba(252, 245, 233, 0.96);
+  border-bottom: 1px solid var(--mt-line, #e3d9c8);
+  padding: 6px 12px;
+}
+
+.juken-onescreen-toolbar {
+  flex-shrink: 0;
+  padding: 6px 12px 4px;
+  border-bottom: 1px solid #ece2d0;
+  background: #faf3e5;
+}
+
+.juken-onescreen-stage {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 8px 12px 10px;
+}
+
+.juken-onescreen-foot {
+  flex-shrink: 0;
+  background: #f6efe2;
+  border-top: 1.5px solid #e3d9c8;
+  padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px));
+}
+
+/* 原本プリント準拠：黒背景・白抜き太字セクション帯 */
+.juken-print-black-banner {
+  background: linear-gradient(90deg, #1b2430 0%, #2b384b 100%);
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 7px 12px;
+  font-family: var(--mt-font-display);
+  font-weight: 900;
+  letter-spacing: 0.01em;
+  box-shadow: 0 2px 0 rgba(15, 23, 42, 0.25);
+}
+
+/* 原本プリント準拠：太字＋下線（最重要語句・キーワード） */
+.juken-em-bu {
+  font-weight: 900;
+  color: #111827;
+  text-decoration: underline;
+  text-decoration-thickness: 2.5px;
+  text-underline-offset: 3px;
+  text-decoration-color: #1d4ed8;
+}
+
+/* 原本プリント準拠：赤字太字（絶対落とせない引っかけ・禁止ルール） */
+.juken-em-red {
+  font-weight: 900;
+  color: #c81e1e;
+  background: #fff1f1;
+  padding: 0 4px;
+  border-radius: 5px;
+  border-bottom: 2px solid #ef4444;
+}
+
+/* 原本プリント準拠：黄色蛍光マーカー強調 */
+.juken-em-mark {
+  font-weight: 800;
+  color: #1f2937;
+  background: linear-gradient(transparent 52%, #fde047 52%);
+  padding: 0 2px;
+}
+
+/* 原本プリント準拠：⇒ まとめ結論コールアウト枠 */
+.juken-em-arrow-line {
+  display: block;
+  margin-top: 6px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  border-left: 4px solid #d97706;
+  background: #fffbeb;
+  color: #78350f;
+  font-weight: 800;
+}
+
+

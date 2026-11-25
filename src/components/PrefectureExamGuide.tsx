@@ -33,6 +33,7 @@ import {
 } from '../data/prefectureExams';
 import type { SubjectKey } from '../data/subjects';
 import { TobiraBuddy } from './TobiraBuddy';
+import { AiPromptStudioModal } from './AiPromptStudioModal';
 
 interface PrefectureExamGuideProps {
   onBack: () => void;
@@ -76,6 +77,8 @@ export const PrefectureExamGuide: React.FC<PrefectureExamGuideProps> = ({
   );
   const [guideTab, setGuideTab] = useState<GuideTab>('karte');
   const [selectorMode, setSelectorMode] = useState<SelectorMode>('map');
+  const [selectorOpen, setSelectorOpen] = useState<boolean>(false);
+  const [showPromptStudio, setShowPromptStudio] = useState<boolean>(false);
   const [regionFilter, setRegionFilter] = useState<'すべて' | RegionKey>('すべて');
   const [formatFilter, setFormatFilter] = useState<'all' | AnswerFormatType>('all');
   const [naishinFilter, setNaishinFilter] = useState<'all' | NaishinSpanType>('all');
@@ -206,52 +209,81 @@ export const PrefectureExamGuide: React.FC<PrefectureExamGuideProps> = ({
             </h1>
           </div>
 
-          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#2458a6] text-white text-xs font-extrabold shrink-0">
-            <MapPin className="w-3.5 h-3.5" />
-            <span>志望：{targetPref.name}</span>
+          <div className="flex items-center gap-1.5 shrink-0">
+            <button
+              type="button"
+              onClick={() => setShowPromptStudio(true)}
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-[#0f766e] text-white text-xs font-extrabold hover:opacity-95 transition"
+              title="ChatGPT図版＆ElevenLabs v4リスニング台本プロンプト集"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">AI図版・音源プロンプト</span>
+              <span className="sm:hidden">AI図版</span>
+            </button>
+            <div className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-[#2458a6] text-white text-xs font-extrabold">
+              <MapPin className="w-3.5 h-3.5" />
+              <span>志望：{targetPref.name}</span>
+            </div>
           </div>
         </div>
       </header>
 
       <main className="max-w-5xl mx-auto px-4 pt-4 space-y-4">
-        {/* とびら君ナビゲーション帯 */}
-        <div className="juken-card p-3.5 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <TobiraBuddy
-            size="sm"
-            bubble="right"
-            input={{ screen: 'study' }}
-            line={`${activePref.name}は「${activePref.naishinSpan}内申・${activePref.answerFormat}」だよ！ 内申シミュレーターで目標当日点も計算してみよう！`}
-          />
-          <div className="flex items-center gap-1.5 shrink-0 self-end sm:self-center">
-            <button
-              type="button"
-              onClick={() => setSelectorMode('map')}
-              className={`min-h-[40px] px-3 py-1.5 rounded-xl text-xs font-extrabold inline-flex items-center gap-1 border transition ${
-                selectorMode === 'map'
-                  ? 'bg-[#2458a6] text-white border-[#1b4482]'
-                  : 'bg-[#f6efe2] text-[#4b3e2e] border-[#dfd3be]'
-              }`}
-            >
-              <MapIcon className="w-3.5 h-3.5" />
-              <span>日本地図で選ぶ</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => setSelectorMode('list')}
-              className={`min-h-[40px] px-3 py-1.5 rounded-xl text-xs font-extrabold inline-flex items-center gap-1 border transition ${
-                selectorMode === 'list'
-                  ? 'bg-[#2458a6] text-white border-[#1b4482]'
-                  : 'bg-[#f6efe2] text-[#4b3e2e] border-[#dfd3be]'
-              }`}
-            >
-              <ListFilter className="w-3.5 h-3.5" />
-              <span>一覧で選ぶ</span>
-            </button>
-          </div>
-        </div>
+        {/* 1画面コンパクト都道府県切替バー ＋ 開閉式セレクター */}
+        <section className="juken-card p-3 sm:p-4 space-y-3">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="text-xs font-extrabold text-[#6b5b47] shrink-0">表示中の都道府県：</span>
+              <select
+                aria-label="都道府県クイック選択"
+                value={activePref.id}
+                onChange={(e) => setSelectedPrefId(e.target.value)}
+                className="min-h-[38px] px-3 py-1.5 rounded-xl border-2 border-[#2458a6] bg-[#fffdf8] text-xs sm:text-sm font-extrabold text-[#163c78]"
+              >
+                {PREFECTURE_EXAMS.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {p.name}（{p.answerFormat}・内申{p.naishinSpan}）
+                  </option>
+                ))}
+              </select>
+            </div>
 
-        {/* 都道府県セレクター（検索・絞り込み・日本地図タイル or 一覧） */}
-        <section className="juken-card p-4 sm:p-5 space-y-3">
+            <div className="flex items-center gap-1.5">
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectorMode('map');
+                  setSelectorOpen((prev) => (selectorMode === 'map' ? !prev : true));
+                }}
+                className={`min-h-[38px] px-3 py-1.5 rounded-xl text-xs font-extrabold inline-flex items-center gap-1 border transition ${
+                  selectorOpen && selectorMode === 'map'
+                    ? 'bg-[#2458a6] text-white border-[#1b4482]'
+                    : 'bg-[#f6efe2] text-[#4b3e2e] border-[#dfd3be]'
+                }`}
+              >
+                <MapIcon className="w-3.5 h-3.5" />
+                <span>{selectorOpen && selectorMode === 'map' ? '地図を閉じる' : '日本地図から探す'}</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectorMode('list');
+                  setSelectorOpen((prev) => (selectorMode === 'list' ? !prev : true));
+                }}
+                className={`min-h-[38px] px-3 py-1.5 rounded-xl text-xs font-extrabold inline-flex items-center gap-1 border transition ${
+                  selectorOpen && selectorMode === 'list'
+                    ? 'bg-[#2458a6] text-white border-[#1b4482]'
+                    : 'bg-[#f6efe2] text-[#4b3e2e] border-[#dfd3be]'
+                }`}
+              >
+                <ListFilter className="w-3.5 h-3.5" />
+                <span>{selectorOpen && selectorMode === 'list' ? '絞込を閉じる' : '条件で絞り込む'}</span>
+              </button>
+            </div>
+          </div>
+
+          {selectorOpen && (
+            <div className="pt-2 border-t border-[#ece2d0] space-y-3">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
             <div className="relative">
               <Search className="w-4 h-4 text-[#7a6a4c] absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -388,6 +420,8 @@ export const PrefectureExamGuide: React.FC<PrefectureExamGuideProps> = ({
                   条件に一致する都道府県がありません。検索条件をリセットしてください。
                 </p>
               )}
+            </div>
+          )}
             </div>
           )}
         </section>
@@ -981,6 +1015,12 @@ export const PrefectureExamGuide: React.FC<PrefectureExamGuideProps> = ({
           </section>
         )}
       </main>
+      {showPromptStudio && (
+        <AiPromptStudioModal
+          initialTab="chatgpt_figure"
+          onClose={() => setShowPromptStudio(false)}
+        />
+      )}
     </div>
   );
 };

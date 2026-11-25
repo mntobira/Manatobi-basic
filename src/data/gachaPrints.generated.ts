@@ -24,7 +24,7 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [
     "file": "/prints/print_ur_juken_en_complete.pdf",
     "thumb": "/prints/thumbs/print_ur_juken_en_complete.webp",
     "pages": 8,
-    "kb": 82
+    "kb": 143
   },
   {
     "id": "print_ur_juken_ma_complete",
@@ -34,7 +34,7 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [
     "file": "/prints/print_ur_juken_ma_complete.pdf",
     "thumb": "/prints/thumbs/print_ur_juken_ma_complete.webp",
     "pages": 8,
-    "kb": 74
+    "kb": 132
   },
   {
     "id": "print_ur_juken_ja_complete",
@@ -44,7 +44,7 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [
     "file": "/prints/print_ur_juken_ja_complete.pdf",
     "thumb": "/prints/thumbs/print_ur_juken_ja_complete.webp",
     "pages": 7,
-    "kb": 97
+    "kb": 158
   },
   {
     "id": "print_ur_juken_sc_complete",
@@ -54,7 +54,7 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [
     "file": "/prints/print_ur_juken_sc_complete.pdf",
     "thumb": "/prints/thumbs/print_ur_juken_sc_complete.webp",
     "pages": 13,
-    "kb": 141
+    "kb": 210
   },
   {
     "id": "print_ur_juken_so_geo_complete",
@@ -64,7 +64,7 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [
     "file": "/prints/print_ur_juken_so_geo_complete.pdf",
     "thumb": "/prints/thumbs/print_ur_juken_so_geo_complete.webp",
     "pages": 8,
-    "kb": 135
+    "kb": 223
   },
   {
     "id": "print_ur_juken_so_hist_civ_complete",
@@ -73,8 +73,8 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [
     "category": "完全版",
     "file": "/prints/print_ur_juken_so_hist_civ_complete.pdf",
     "thumb": "/prints/thumbs/print_ur_juken_so_hist_civ_complete.webp",
-    "pages": 9,
-    "kb": 191
+    "pages": 8,
+    "kb": 292
   },
   {
     "id": "print_ur_juken_writing_complete",
@@ -83,8 +83,8 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [
     "category": "完全版",
     "file": "/prints/print_ur_juken_writing_complete.pdf",
     "thumb": "/prints/thumbs/print_ur_juken_writing_complete.webp",
-    "pages": 4,
-    "kb": 41
+    "pages": 3,
+    "kb": 69
   },
   {
     "id": "print_ur_juken_ma_drill_all",
@@ -93,8 +93,8 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [
     "category": "完全版",
     "file": "/prints/print_ur_juken_ma_drill_all.pdf",
     "thumb": "/prints/thumbs/print_ur_juken_ma_drill_all.webp",
-    "pages": 4,
-    "kb": 44
+    "pages": 6,
+    "kb": 89
   },
   {
     "id": "print_ur_juken_sc_drill_all",
@@ -103,8 +103,8 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [
     "category": "完全版",
     "file": "/prints/print_ur_juken_sc_drill_all.pdf",
     "thumb": "/prints/thumbs/print_ur_juken_sc_drill_all.webp",
-    "pages": 4,
-    "kb": 77
+    "pages": 6,
+    "kb": 127
   },
   {
     "id": "print_ur_juken_so_drill_all",
@@ -113,8 +113,8 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [
     "category": "完全版",
     "file": "/prints/print_ur_juken_so_drill_all.pdf",
     "thumb": "/prints/thumbs/print_ur_juken_so_drill_all.webp",
-    "pages": 5,
-    "kb": 85
+    "pages": 7,
+    "kb": 209
   },
   {
     "id": "print_sr_juken_en_grammar",
@@ -123,8 +123,8 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [
     "category": "演習プリント",
     "file": "/prints/print_sr_juken_en_grammar.pdf",
     "thumb": "/prints/thumbs/print_sr_juken_en_grammar.webp",
-    "pages": 4,
-    "kb": 35
+    "pages": 5,
+    "kb": 73
   },
   {
     "id": "print_sr_juken_en_rc",
@@ -133,8 +133,8 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [
     "category": "演習プリント",
     "file": "/prints/print_sr_juken_en_rc.pdf",
     "thumb": "/prints/thumbs/print_sr_juken_en_rc.webp",
-    "pages": 4,
-    "kb": 37
+    "pages": 5,
+    "kb": 75
   },
   {
     "id": "print_sr_juken_en_trend",
@@ -143,8 +143,8 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [
     "category": "出題傾向",
     "file": "/prints/print_sr_juken_en_trend.pdf",
     "thumb": "/prints/thumbs/print_sr_juken_en_trend.webp",
-    "pages": 4,
-    "kb": 52
+    "pages": 5,
+    "kb": 108
   },
   {
     "id": "print_sr_juken_ma_algebra",
@@ -154,7 +154,7 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [
     "file": "/prints/print_sr_juken_ma_algebra.pdf",
     "thumb": "/prints/thumbs/print_sr_juken_ma_algebra.webp",
     "pages": 4,
-    "kb": 37
+    "kb": 68
   },
   {
     "id": "print_sr_juken_ma_func",
@@ -164,7 +164,7 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [
     "file": "/prints/print_sr_juken_ma_func.pdf",
     "thumb": "/prints/thumbs/print_sr_juken_ma_func.webp",
     "pages": 4,
-    "kb": 36
+    "kb": 66
   },
   {
     "id": "print_sr_juken_ma_geom",
@@ -173,8 +173,8 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [
     "category": "演習プリント",
     "file": "/prints/print_sr_juken_ma_geom.pdf",
     "thumb": "/prints/thumbs/print_sr_juken_ma_geom.webp",
-    "pages": 4,
-    "kb": 40
+    "pages": 5,
+    "kb": 74
   },
   {
     "id": "print_sr_juken_ma_data",
@@ -183,8 +183,8 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [
     "category": "出題傾向",
     "file": "/prints/print_sr_juken_ma_data.pdf",
     "thumb": "/prints/thumbs/print_sr_juken_ma_data.webp",
-    "pages": 4,
-    "kb": 47
+    "pages": 5,
+    "kb": 81
   },
   {
     "id": "print_sr_juken_ja_kotoba",
@@ -193,8 +193,8 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [
     "category": "演習プリント",
     "file": "/prints/print_sr_juken_ja_kotoba.pdf",
     "thumb": "/prints/thumbs/print_sr_juken_ja_kotoba.webp",
-    "pages": 4,
-    "kb": 67
+    "pages": 5,
+    "kb": 116
   },
   {
     "id": "print_sr_juken_ja_reading",
@@ -204,7 +204,7 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [
     "file": "/prints/print_sr_juken_ja_reading.pdf",
     "thumb": "/prints/thumbs/print_sr_juken_ja_reading.webp",
     "pages": 5,
-    "kb": 91
+    "kb": 140
   },
   {
     "id": "print_sr_juken_ja_koten",
@@ -213,28 +213,28 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [
     "category": "出題傾向",
     "file": "/prints/print_sr_juken_ja_koten.pdf",
     "thumb": "/prints/thumbs/print_sr_juken_ja_koten.webp",
-    "pages": 4,
-    "kb": 81
+    "pages": 5,
+    "kb": 129
   },
   {
     "id": "print_sr_juken_sc_phys_chem",
-    "label": "高校入試 理科 物理・化学（オームの法則・凸レンズ・気体・化学反応とイオン）演習プリント",
+    "label": "高校入試 理科 生物・物理（光合成・遺伝・オームの法則・凸レンズ・仕事）演習プリント",
     "subject": "science",
     "category": "演習プリント",
     "file": "/prints/print_sr_juken_sc_phys_chem.pdf",
     "thumb": "/prints/thumbs/print_sr_juken_sc_phys_chem.webp",
-    "pages": 4,
-    "kb": 77
+    "pages": 5,
+    "kb": 114
   },
   {
     "id": "print_sr_juken_sc_bio_earth",
-    "label": "高校入試 理科 生物・地学（光合成・遺伝・天気湿度・地震・天体金星）演習プリント",
+    "label": "高校入試 理科 化学・地学（気体水溶液・イオン電池・天気湿度・地震・天体）演習プリント",
     "subject": "science",
     "category": "演習プリント",
     "file": "/prints/print_sr_juken_sc_bio_earth.pdf",
     "thumb": "/prints/thumbs/print_sr_juken_sc_bio_earth.webp",
-    "pages": 4,
-    "kb": 67
+    "pages": 5,
+    "kb": 122
   },
   {
     "id": "print_sr_juken_so_geo",
@@ -244,7 +244,7 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [
     "file": "/prints/print_sr_juken_so_geo.pdf",
     "thumb": "/prints/thumbs/print_sr_juken_so_geo.webp",
     "pages": 5,
-    "kb": 82
+    "kb": 154
   },
   {
     "id": "print_sr_juken_so_hist",
@@ -254,7 +254,7 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [
     "file": "/prints/print_sr_juken_so_hist.pdf",
     "thumb": "/prints/thumbs/print_sr_juken_so_hist.webp",
     "pages": 5,
-    "kb": 118
+    "kb": 179
   },
   {
     "id": "print_sr_juken_so_civics",
@@ -264,6 +264,6 @@ export const GACHA_PRINTS: readonly GachaPrintDef[] = [
     "file": "/prints/print_sr_juken_so_civics.pdf",
     "thumb": "/prints/thumbs/print_sr_juken_so_civics.webp",
     "pages": 5,
-    "kb": 86
+    "kb": 151
   }
 ];

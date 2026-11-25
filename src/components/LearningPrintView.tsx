@@ -1,19 +1,19 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import '../styles/juken-polish.css';
 import {
   ArrowLeft,
   BookOpenCheck,
   CheckCircle2,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
   Eye,
   EyeOff,
+  Lightbulb,
   PenTool,
   Play,
   RotateCcw,
-  Search,
   Sparkles,
-  Star,
 } from 'lucide-react';
 import { SUBJECT_REGISTRY, type SubjectKey, subjectDefinitionOf } from '../data/subjects';
 import { SUMMARY_PRINT_SHEETS, type SummaryPrintSheet } from '../data/summaryPrintsData';
@@ -26,6 +26,16 @@ interface LearningPrintViewProps {
   onStartChapter: (chapterId: string, subject: SubjectKey) => void;
   onOpenWritingDojo?: () => void;
   onBack: () => void;
+}
+
+/**
+ * 理科・社会（歴史）を除き、原本授業プリント準拠の強調・構造表現を有効にする判定
+ * 対象：英語・数学・国語・社会（地理）・社会（公民）
+ */
+function isPrintEmphasisEnabled(sheet: SummaryPrintSheet): boolean {
+  if (sheet.subject === 'science') return false;
+  if (sheet.subject === 'social' && sheet.group.startsWith('歴史')) return false;
+  return true;
 }
 
 /**
@@ -62,6 +72,69 @@ function parseClozeSegments(text: string): Array<{ type: 'text' | 'cloze'; conte
   return parts;
 }
 
+/**
+ * 原本プリント準拠のインライン強調レンダラ（英・数・国・地理・公民のみ適用）
+ */
+function renderRichPrintText(raw: string, enableRich: boolean): React.ReactNode {
+  if (!enableRich) {
+    return formatText(raw);
+  }
+
+  const enriched = raw
+    .replace(/(?<![!])(※[^。\n]+)/g, '!!$1!!')
+    .replace(/(?<![!])(×[^→\n)]+)/g, '!!$1!!')
+    .replace(/(?<![!])(絶対に?[^、。！!\n]{1,20}(?:ない|不可|禁止)[！!]?)/g, '!!$1!!')
+    .replace(/(?<![_])(【[^】]{1,18}】)/g, '__$1__')
+    .replace(/(?<![_])(Step[1-9]|STEP\s*[1-9]|①|②|③|④|⑤|⑥|⑦|⑧|⑨|⑩)/g, '__$1__')
+    .replace(/(?<![=])(語呂：「[^」]+」)/g, '==$1==');
+
+  const tokenRegex = /(!![^!]+!!|==[^=]+==|__[^_]+__)/g;
+  const nodes: React.ReactNode[] = [];
+  let last = 0;
+  let m: RegExpExecArray | null;
+  let k = 0;
+
+  while ((m = tokenRegex.exec(enriched)) !== null) {
+    if (m.index > last) {
+      nodes.push(<React.Fragment key={`n_${k++}`}>{formatText(enriched.slice(last, m.index))}</React.Fragment>);
+    }
+    const tok = m[0];
+    const inner = tok.slice(2, -2);
+    if (tok.startsWith('!!')) {
+      nodes.push(
+        <span key={`r_${k++}`} className="juken-em-red">
+          {formatText(inner)}
+        </span>,
+      );
+    } else if (tok.startsWith('==')) {
+      nodes.push(
+        <mark key={`m_${k++}`} className="juken-em-mark">
+          {formatText(inner)}
+        </mark>,
+      );
+    } else {
+      nodes.push(
+        <span key={`u_${k++}`} className="juken-em-bu">
+          {formatText(inner)}
+        </span>,
+      );
+    }
+    last = tokenRegex.lastIndex;
+  }
+
+  if (last < enriched.length) {
+    nodes.push(<React.Fragment key={`n_${k++}`}>{formatText(enriched.slice(last))}</React.Fragment>);
+  }
+  return nodes;
+}
+
+const TONE_STYLES: Record<string, { bg: string; border: string; badgeBg: string; conclBg: string; conclText: string }> = {
+  blue: { bg: '#f2f7ff', border: '#93c5fd', badgeBg: '#1d4ed8', conclBg: '#dbeafe', conclText: '#1e3a8a' },
+  amber: { bg: '#fffbeb', border: '#fcd34d', badgeBg: '#b45309', conclBg: '#fef3c7', conclText: '#78350f' },
+  rose: { bg: '#fff5f5', border: '#fda4af', badgeBg: '#be123c', conclBg: '#ffe4e6', conclText: '#881337' },
+  emerald: { bg: '#f0fdf4', border: '#86efac', badgeBg: '#15803d', conclBg: '#dcfce7', conclText: '#14532d' },
+};
+
 export const LearningPrintView: React.FC<LearningPrintViewProps> = ({
   subject,
   onSelectSubject,
@@ -69,10 +142,12 @@ export const LearningPrintView: React.FC<LearningPrintViewProps> = ({
   onOpenWritingDojo,
   onBack,
 }) => {
-  const [redSheetOn, setRedSheetOn] = useState<boolean>(true);
+  // 丸暗記にならないよう、初期表示は「授業プリント理解モード（赤シートOFF）」から開始！
+  const [redSheetOn, setRedSheetOn] = useState<boolean>(false);
   const [revealedKeys, setRevealedKeys] = useState<Record<string, boolean>>({});
+  const [openExamples, setOpenExamples] = useState<Record<string, boolean>>({});
   const [selectedGroup, setSelectedGroup] = useState<string>('all');
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [itemPage, setItemPage] = useState<number>(0);
   const [masteredSheets, setMasteredSheets] = useState<Record<string, boolean>>(() => {
     try {
       const raw = localStorage.getItem('mntb_juken_mastered_prints');
@@ -95,49 +170,44 @@ export const LearningPrintView: React.FC<LearningPrintViewProps> = ({
     return seen;
   }, [allSubjectSheets]);
 
-  const sheets = useMemo(() => {
-    const q = searchQuery.trim().toLowerCase();
-    return allSubjectSheets.filter((s) => {
-      if (selectedGroup !== 'all' && s.group !== selectedGroup) return false;
-      if (!q) return true;
-      if (
-        s.title.toLowerCase().includes(q) ||
-        s.badge.toLowerCase().includes(q) ||
-        s.subtitle.toLowerCase().includes(q)
-      ) {
-        return true;
-      }
-      return s.items.some(
-        (it) => it.heading.toLowerCase().includes(q) || it.body.toLowerCase().includes(q),
-      );
-    });
-  }, [allSubjectSheets, selectedGroup, searchQuery]);
+  const sheets = useMemo(
+    () =>
+      allSubjectSheets.filter((s) =>
+        selectedGroup === 'all' ? true : s.group === selectedGroup,
+      ),
+    [allSubjectSheets, selectedGroup],
+  );
 
   const [activeSheetId, setActiveSheetId] = useState<string>(allSubjectSheets[0]?.id ?? '');
 
   const activeSheet: SummaryPrintSheet | undefined =
     sheets.find((s) => s.id === activeSheetId) ?? sheets[0] ?? allSubjectSheets[0];
 
-  const activeIndex = activeSheet ? sheets.findIndex((s) => s.id === activeSheet.id) : -1;
+  useEffect(() => {
+    setItemPage(0);
+  }, [activeSheet?.id]);
 
   const subjectDef = subjectDefinitionOf(subject) ?? SUBJECT_REGISTRY[0];
+  const richEmphasis = activeSheet ? isPrintEmphasisEnabled(activeSheet) : false;
 
-  const sheetClozeIds = useMemo(() => {
-    if (!activeSheet) return [];
+  const activeItems = activeSheet?.items ?? [];
+  const safeItemIdx = Math.min(itemPage, Math.max(0, activeItems.length - 1));
+  const currentItem = activeItems[safeItemIdx];
+
+  const currentItemClozeIds = useMemo(() => {
+    if (!activeSheet || !currentItem) return [];
     const ids: string[] = [];
-    activeSheet.items.forEach((item, itemIdx) => {
-      parseClozeSegments(item.body).forEach((seg) => {
-        if (seg.type === 'cloze') {
-          ids.push(`${activeSheet.id}_${itemIdx}_${seg.key}`);
-        }
-      });
+    parseClozeSegments(currentItem.body).forEach((seg) => {
+      if (seg.type === 'cloze') {
+        ids.push(`${activeSheet.id}_${safeItemIdx}_${seg.key}`);
+      }
     });
     return ids;
-  }, [activeSheet]);
+  }, [activeSheet, currentItem, safeItemIdx]);
 
   const revealedCount = useMemo(
-    () => sheetClozeIds.filter((id) => !!revealedKeys[id]).length,
-    [sheetClozeIds, revealedKeys],
+    () => currentItemClozeIds.filter((id) => !!revealedKeys[id]).length,
+    [currentItemClozeIds, revealedKeys],
   );
 
   const toggleCloze = (clozeId: string) => {
@@ -147,9 +217,9 @@ export const LearningPrintView: React.FC<LearningPrintViewProps> = ({
 
   const resetRevealed = () => setRevealedKeys({});
 
-  const revealAllInSheet = () => {
+  const revealAllInCurrentCard = () => {
     const next: Record<string, boolean> = { ...revealedKeys };
-    for (const id of sheetClozeIds) next[id] = true;
+    for (const id of currentItemClozeIds) next[id] = true;
     setRevealedKeys(next);
   };
 
@@ -159,7 +229,7 @@ export const LearningPrintView: React.FC<LearningPrintViewProps> = ({
       try {
         localStorage.setItem('mntb_juken_mastered_prints', JSON.stringify(next));
       } catch {
-        // ignore storage quota errors
+        // ignore
       }
       return next;
     });
@@ -170,34 +240,54 @@ export const LearningPrintView: React.FC<LearningPrintViewProps> = ({
     [masteredSheets],
   );
 
-  const goPrevNext = (delta: number) => {
-    if (sheets.length < 2 || activeIndex < 0) return;
-    const nextIdx = (activeIndex + delta + sheets.length) % sheets.length;
-    setActiveSheetId(sheets[nextIdx].id);
-    resetRevealed();
+  const stepPrev = () => {
+    if (!activeSheet) return;
+    if (safeItemIdx > 0) {
+      setItemPage(safeItemIdx - 1);
+      return;
+    }
+    const idx = sheets.findIndex((s) => s.id === activeSheet.id);
+    if (idx > 0) {
+      const prevSheet = sheets[idx - 1];
+      setActiveSheetId(prevSheet.id);
+      setItemPage(Math.max(0, prevSheet.items.length - 1));
+    }
+  };
+
+  const stepNext = () => {
+    if (!activeSheet) return;
+    if (safeItemIdx < activeItems.length - 1) {
+      setItemPage(safeItemIdx + 1);
+      return;
+    }
+    const idx = sheets.findIndex((s) => s.id === activeSheet.id);
+    if (idx >= 0 && idx < sheets.length - 1) {
+      setActiveSheetId(sheets[idx + 1].id);
+      setItemPage(0);
+    }
   };
 
   return (
-    <div className="juken-screen">
-      {/* 固定ヘッダー */}
-      <header className="juken-header">
+    <div className="juken-onescreen" data-juken-print-onescreen>
+      {/* 1. 固定スリムヘッダー */}
+      <header className="juken-onescreen-head">
         <div className="max-w-4xl mx-auto flex items-center justify-between gap-2">
           <button
             type="button"
             onClick={onBack}
-            className="juken-btn-soft inline-flex items-center gap-1.5 px-3 py-2 text-sm"
+            className="juken-btn-soft inline-flex items-center gap-1 px-2.5 py-1.5 text-xs sm:text-sm min-h-[38px]"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>もどる</span>
           </button>
 
           <div className="flex items-center gap-1.5 min-w-0">
-            <BookOpenCheck className="w-5 h-5 shrink-0" style={{ color: subjectDef.theme.accent }} />
-            <h1 className="juken-title-font text-base sm:text-lg font-extrabold truncate">
-              入試直結 まとめプリント
+            <BookOpenCheck className="w-4 h-4 shrink-0" style={{ color: subjectDef.theme.accent }} />
+            <h1 className="juken-title-font text-sm sm:text-base font-extrabold truncate">
+              授業＆要点プリント
             </h1>
-            <span className="hidden sm:inline-block text-xs font-extrabold px-2 py-0.5 rounded-full bg-[#e3f3ea] text-[#1f7a4d]">
-              読破 {masteredTotal}/{SUMMARY_PRINT_SHEETS.length}
+            <span className="text-[11px] font-extrabold px-2 py-0.5 rounded-full bg-[#e3f3ea] text-[#1f7a4d] shrink-0">
+              {masteredTotal}/{SUMMARY_PRINT_SHEETS.length}
             </span>
           </div>
 
@@ -207,360 +297,451 @@ export const LearningPrintView: React.FC<LearningPrintViewProps> = ({
               setRedSheetOn((v) => !v);
               resetRevealed();
             }}
-            className={`inline-flex items-center gap-1.5 min-h-[44px] px-3.5 py-2 rounded-xl text-xs sm:text-sm font-extrabold border transition shrink-0 ${
+            className={`inline-flex items-center gap-1 min-h-[38px] px-2.5 py-1.5 rounded-xl text-xs font-extrabold border transition shrink-0 ${
               redSheetOn
-                ? 'bg-[#d93838] text-white border-[#a82222] shadow-[0_3px_0_#961c1c]'
-                : 'bg-white text-[#4e4132] border-[#dfd2bc] shadow-[0_2px_0_#e6dccb]'
+                ? 'bg-[#d93838] text-white border-[#a82222] shadow-[0_2px_0_#961c1c]'
+                : 'bg-[#1e3a8a] text-white border-[#1e3a8a] shadow-[0_2px_0_#172554]'
             }`}
+            title="まずは理解モードで理屈と例題を読み、仕上げに赤シートでセルフテスト！"
           >
-            {redSheetOn ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-            <span>{redSheetOn ? '赤シート ON' : '赤シート OFF'}</span>
+            {redSheetOn ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+            <span>{redSheetOn ? '赤シート中' : '理解→赤シート'}</span>
           </button>
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 pt-4 space-y-3.5 pb-12">
-        {/* 5教科タブ */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
-          {SUBJECT_REGISTRY.map((s) => {
-            const active = s.id === subject;
-            const count = SUMMARY_PRINT_SHEETS.filter((p) => p.subject === s.id).length;
-            return (
-              <button
-                key={s.id}
-                type="button"
-                onClick={() => {
-                  onSelectSubject(s.id as SubjectKey);
-                  setSelectedGroup('all');
-                  setSearchQuery('');
-                  const first = SUMMARY_PRINT_SHEETS.find((p) => p.subject === s.id);
-                  if (first) setActiveSheetId(first.id);
-                  resetRevealed();
-                }}
-                style={
-                  active
-                    ? { backgroundColor: s.theme.accent, borderColor: s.theme.accent }
-                    : undefined
-                }
-                className={`min-h-[42px] px-4 py-1.5 rounded-full text-sm font-extrabold whitespace-nowrap border transition inline-flex items-center gap-1.5 ${
-                  active
-                    ? 'text-white shadow-sm'
-                    : 'bg-white text-[#4c4033] border-[#dfd2bc] hover:bg-[#fffaf0]'
-                }`}
-              >
-                <span>{s.label}</span>
-                <span className={`text-[11px] px-1.5 py-0.5 rounded-full ${active ? 'bg-white/25 text-white' : 'bg-[#f4ece0] text-[#6b5c49]'}`}>
-                  {count}枚
-                </span>
-              </button>
-            );
-          })}
+      {/* 2. コンパクト切替バー */}
+      <div className="juken-onescreen-toolbar">
+        <div className="max-w-4xl mx-auto space-y-1.5">
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+            {SUBJECT_REGISTRY.map((s) => {
+              const active = s.id === subject;
+              return (
+                <button
+                  key={s.id}
+                  type="button"
+                  onClick={() => {
+                    onSelectSubject(s.id as SubjectKey);
+                    setSelectedGroup('all');
+                    const first = SUMMARY_PRINT_SHEETS.find((p) => p.subject === s.id);
+                    if (first) setActiveSheetId(first.id);
+                    setItemPage(0);
+                    resetRevealed();
+                  }}
+                  style={active ? { backgroundColor: s.theme.accent, borderColor: s.theme.accent } : undefined}
+                  className={`min-h-[32px] px-3 py-1 rounded-full text-xs font-extrabold whitespace-nowrap border transition ${
+                    active ? 'text-white shadow-sm' : 'bg-white text-[#4c4033] border-[#dfd2bc]'
+                  }`}
+                >
+                  {s.label}
+                </button>
+              );
+            })}
 
-          {subject === 'english' && onOpenWritingDojo && (
-            <button
-              type="button"
-              onClick={onOpenWritingDojo}
-              className="juken-btn-accent ml-auto inline-flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm whitespace-nowrap"
-            >
-              <PenTool className="w-4 h-4" />
-              <span>英作文道場を開く</span>
-            </button>
-          )}
-        </div>
-
-        {/* 分野フィルタ ＆ キーワード検索 */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          {groups.length > 1 && (
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 no-scrollbar">
-              <button
-                type="button"
-                onClick={() => setSelectedGroup('all')}
-                className={`px-3 py-1.5 rounded-xl text-xs font-extrabold whitespace-nowrap border transition ${
-                  selectedGroup === 'all'
-                    ? 'bg-[#2c241b] text-white border-[#2c241b]'
-                    : 'bg-white text-[#574938] border-[#e2d6c3] hover:bg-[#fffaf0]'
-                }`}
-              >
-                すべて（{allSubjectSheets.length}）
-              </button>
-              {groups.map((g) => {
-                const cnt = allSubjectSheets.filter((s) => s.group === g).length;
+            {groups.length > 1 &&
+              groups.map((g) => {
                 const on = selectedGroup === g;
                 return (
                   <button
                     key={g}
                     type="button"
                     onClick={() => {
-                      setSelectedGroup(g);
-                      const firstInGroup = allSubjectSheets.find((s) => s.group === g);
-                      if (firstInGroup) setActiveSheetId(firstInGroup.id);
+                      const nextGroup = on ? 'all' : g;
+                      setSelectedGroup(nextGroup);
+                      const first = allSubjectSheets.find((s) =>
+                        nextGroup === 'all' ? true : s.group === nextGroup,
+                      );
+                      if (first) setActiveSheetId(first.id);
+                      setItemPage(0);
                       resetRevealed();
                     }}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-extrabold whitespace-nowrap border transition ${
+                    className={`min-h-[30px] px-2.5 py-0.5 rounded-lg text-[11px] font-extrabold whitespace-nowrap border transition ${
                       on
                         ? 'bg-[#2c241b] text-white border-[#2c241b]'
-                        : 'bg-white text-[#574938] border-[#e2d6c3] hover:bg-[#fffaf0]'
+                        : 'bg-[#fffaf0] text-[#5c4c39] border-[#e2d6c3]'
                     }`}
                   >
-                    {g}（{cnt}）
+                    {g}
                   </button>
                 );
               })}
+
+            {subject === 'english' && onOpenWritingDojo && (
+              <button
+                type="button"
+                onClick={onOpenWritingDojo}
+                className="ml-auto inline-flex items-center gap-1 min-h-[30px] px-2.5 py-0.5 rounded-lg bg-[#f29a1f] text-[#23180a] text-[11px] font-extrabold whitespace-nowrap shrink-0"
+              >
+                <PenTool className="w-3 h-3" />
+                <span>英作文道場</span>
+              </button>
+            )}
+          </div>
+
+          {activeSheet && (
+            <div className="flex items-center gap-2">
+              <select
+                aria-label="まとめプリントを選択"
+                value={activeSheet.id}
+                onChange={(e) => {
+                  setActiveSheetId(e.target.value);
+                  setItemPage(0);
+                  resetRevealed();
+                }}
+                className="flex-1 min-w-0 min-h-[36px] px-2.5 py-1 rounded-xl border border-[#d8cab2] bg-white text-xs sm:text-sm font-extrabold text-[#1c2a39] truncate"
+              >
+                {sheets.map((s) => (
+                  <option key={s.id} value={s.id}>
+                    {masteredSheets[s.id] ? '✓ ' : ''}
+                    {s.badge}：{s.title}
+                  </option>
+                ))}
+              </select>
+
+              <div className="flex items-center gap-1 shrink-0">
+                {activeItems.map((_, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setItemPage(idx)}
+                    style={
+                      idx === safeItemIdx
+                        ? { backgroundColor: subjectDef.theme.accent, borderColor: subjectDef.theme.accent }
+                        : undefined
+                    }
+                    className={`w-7 h-7 rounded-lg text-xs font-black border transition ${
+                      idx === safeItemIdx
+                        ? 'text-white shadow-sm'
+                        : 'bg-white text-[#4c4033] border-[#dfd2bc]'
+                    }`}
+                    aria-label={`セクション ${idx + 1}`}
+                  >
+                    {idx + 1}
+                  </button>
+                ))}
+              </div>
             </div>
           )}
-
-          <label className="relative flex items-center min-w-[210px]">
-            <Search className="w-4 h-4 text-[#8c7c68] absolute left-3 pointer-events-none" />
-            <input
-              type="search"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="語句・単元名でプリント検索"
-              className="w-full pl-9 pr-3 py-1.5 rounded-xl border border-[#dfd2bc] bg-white text-xs sm:text-sm font-semibold text-[#231d16] placeholder:text-[#9c8c78]"
-            />
-          </label>
         </div>
+      </div>
 
-        {/* プリント選択カード */}
-        {sheets.length === 0 ? (
-          <div className="juken-card p-6 text-center text-sm font-bold text-[#6d5e4c]">
-            該当するまとめプリントが見つかりませんでした。検索語を変えるか「すべて」を押してください。
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-            {sheets.map((sheet) => {
-              const isSelected = activeSheet?.id === sheet.id;
-              const done = !!masteredSheets[sheet.id];
-              return (
-                <button
-                  key={sheet.id}
-                  type="button"
-                  onClick={() => {
-                    setActiveSheetId(sheet.id);
-                    resetRevealed();
-                  }}
-                  className={`juken-card-interactive text-left p-3 min-h-[72px] flex flex-col justify-between ${
-                    isSelected ? 'ring-2 ring-offset-1' : 'opacity-90'
-                  }`}
-                  style={
-                    isSelected
-                      ? { borderColor: subjectDef.theme.accent, ['--tw-ring-color' as string]: subjectDef.theme.accent }
-                      : undefined
-                  }
-                >
-                  <div className="flex items-center justify-between gap-2">
+      {/* 3. メイン1画面授業プリントステージ */}
+      <main className="juken-onescreen-stage">
+        {activeSheet && currentItem ? (
+          <div className="max-w-4xl mx-auto space-y-3">
+            <article className="juken-card p-3.5 sm:p-5 space-y-3.5">
+              {/* 原本プリント見出し帯 */}
+              {richEmphasis ? (
+                <div className="juken-print-black-banner flex items-center justify-between gap-2">
+                  <div className="min-w-0">
+                    <span className="text-[11px] font-extrabold text-[#fde047] block">
+                      {activeSheet.badge}（{safeItemIdx + 1}/{activeItems.length}）｜{activeSheet.subtitle}
+                    </span>
+                    <h2 className="text-sm sm:text-base font-black leading-snug">
+                      ■ {currentItem.heading}
+                    </h2>
+                  </div>
+                  {redSheetOn && currentItemClozeIds.length > 0 && (
+                    <button
+                      type="button"
+                      onClick={
+                        revealedCount < currentItemClozeIds.length
+                          ? revealAllInCurrentCard
+                          : resetRevealed
+                      }
+                      className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white text-[#b91c1c] text-[11px] font-extrabold"
+                    >
+                      <RotateCcw className="w-3 h-3" />
+                      <span>
+                        {revealedCount < currentItemClozeIds.length
+                          ? `全開(${revealedCount}/${currentItemClozeIds.length})`
+                          : '隠す'}
+                      </span>
+                    </button>
+                  )}
+                </div>
+              ) : (
+                <div className="flex items-start justify-between gap-2 pb-2 border-b border-[#ece2d0]">
+                  <div className="min-w-0">
                     <span
-                      className="text-[11px] font-extrabold px-2 py-0.5 rounded-md truncate"
+                      className="inline-block text-[11px] font-extrabold px-2 py-0.5 rounded-md mb-1"
                       style={{
-                        backgroundColor: `${subjectDef.theme.accentSoft}77`,
+                        backgroundColor: `${subjectDef.theme.accentSoft}88`,
                         color: subjectDef.theme.accent,
                       }}
                     >
-                      {sheet.badge}
+                      {activeSheet.badge}｜セクション {safeItemIdx + 1}/{activeItems.length}
                     </span>
-                    <div className="flex items-center gap-0.5 text-[#f29a1f] shrink-0">
-                      {Array.from({ length: sheet.stars }).map((_, i) => (
-                        <Star key={i} className="w-3 h-3 fill-current" />
-                      ))}
-                      {done && <CheckCircle2 className="w-3.5 h-3.5 text-[#1f7a4d] ml-1" />}
-                    </div>
+                    <h2 className="juken-title-font text-sm sm:text-base font-extrabold text-[#1c2a39]">
+                      {currentItem.heading}
+                    </h2>
                   </div>
-                  <p className="mt-1 text-xs sm:text-[13px] font-extrabold text-[#1c2a39] line-clamp-2 leading-snug">
-                    {sheet.title}
-                  </p>
-                </button>
-              );
-            })}
-          </div>
-        )}
-
-        {/* 選択中のプリント本体 */}
-        {activeSheet && (
-          <section className="juken-card overflow-hidden">
-            <div
-              className="px-5 py-4 border-b border-[#e6dccb]"
-              style={{ backgroundColor: subjectDef.theme.surface }}
-            >
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span
-                    className="text-xs font-extrabold px-3 py-1 rounded-full text-white"
-                    style={{ backgroundColor: subjectDef.theme.accent }}
-                  >
-                    {activeSheet.badge} ・ 出題優先度 {'★'.repeat(activeSheet.stars)}
-                  </span>
-                  {sheets.length > 1 && (
-                    <div className="inline-flex items-center gap-1">
-                      <button
-                        type="button"
-                        onClick={() => goPrevNext(-1)}
-                        className="p-1.5 rounded-lg bg-white border border-[#dfd2bc] text-[#4c4033] hover:bg-[#fffaf0]"
-                        aria-label="前のプリントへ"
-                      >
-                        <ChevronLeft className="w-4 h-4" />
-                      </button>
-                      <span className="text-xs font-extrabold text-[#574938] px-1">
-                        {activeIndex + 1} / {sheets.length}
-                      </span>
-                      <button
-                        type="button"
-                        onClick={() => goPrevNext(1)}
-                        className="p-1.5 rounded-lg bg-white border border-[#dfd2bc] text-[#4c4033] hover:bg-[#fffaf0]"
-                        aria-label="次のプリントへ"
-                      >
-                        <ChevronRight className="w-4 h-4" />
-                      </button>
-                    </div>
-                  )}
-                </div>
-
-                {redSheetOn && sheetClozeIds.length > 0 && (
-                  <div className="flex items-center gap-2">
-                    <span className="juken-num text-xs font-extrabold px-2.5 py-1 rounded-full bg-white border border-[#e3d9c8] text-[#3d3222]">
-                      開示済み {revealedCount} / {sheetClozeIds.length} 空欄
-                    </span>
+                  {redSheetOn && currentItemClozeIds.length > 0 && (
                     <button
                       type="button"
-                      onClick={revealedCount < sheetClozeIds.length ? revealAllInSheet : resetRevealed}
-                      className="inline-flex items-center gap-1 min-h-[36px] px-2.5 py-1 rounded-lg bg-white border border-[#dfd2bc] text-xs font-extrabold text-[#b91c1c] hover:bg-[#fff5f5]"
+                      onClick={
+                        revealedCount < currentItemClozeIds.length
+                          ? revealAllInCurrentCard
+                          : resetRevealed
+                      }
+                      className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#fff5f5] border border-[#f2b6b6] text-[#b91c1c] text-[11px] font-extrabold"
                     >
-                      <RotateCcw className="w-3.5 h-3.5" />
+                      <RotateCcw className="w-3 h-3" />
                       <span>
-                        {revealedCount < sheetClozeIds.length ? 'すべて開く' : 'すべて再び隠す'}
+                        {revealedCount < currentItemClozeIds.length
+                          ? `全開(${revealedCount}/${currentItemClozeIds.length})`
+                          : '隠す'}
                       </span>
                     </button>
+                  )}
+                </div>
+              )}
+
+              {/* なぜそうなるか（丸暗記を防ぐ理屈・本質の導入） */}
+              {currentItem.whyCore && (
+                <div className="flex items-start gap-2 rounded-xl border-2 border-[#bfdbfe] bg-[#eff6ff] px-3 py-2 text-xs sm:text-sm text-[#1e3a8a]">
+                  <Lightbulb className="w-4 h-4 text-[#2563eb] shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-black mr-1">【丸暗記ゼロ！なぜそうなる？】</span>
+                    <span className="font-bold">{formatText(currentItem.whyCore)}</span>
                   </div>
-                )}
+                </div>
+              )}
+
+              {/* 原本プリントそのままの因果関係・しくみ図解ボックス（flowBoxes） */}
+              {currentItem.flowBoxes && currentItem.flowBoxes.length > 0 && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {currentItem.flowBoxes.map((fb, fIdx) => {
+                    const st = TONE_STYLES[fb.tone ?? 'blue'] ?? TONE_STYLES.blue;
+                    return (
+                      <div
+                        key={fIdx}
+                        className="rounded-xl p-3 border-2 space-y-2"
+                        style={{ backgroundColor: st.bg, borderColor: st.border }}
+                      >
+                        <div className="flex items-center gap-1.5">
+                          <span
+                            className="text-[10.5px] font-black px-2 py-0.5 rounded text-white shrink-0"
+                            style={{ backgroundColor: st.badgeBg }}
+                          >
+                            {fb.badge}
+                          </span>
+                          <strong className="text-xs sm:text-[13px] font-black text-[#111827]">
+                            {formatText(fb.title)}
+                          </strong>
+                        </div>
+                        <ol className="space-y-1 text-xs leading-relaxed text-[#1f2937] font-semibold">
+                          {fb.steps.map((step, sIdx) => (
+                            <li key={sIdx} className="flex items-start gap-1.5">
+                              <span className="font-black text-[#2563eb] shrink-0">
+                                {sIdx === 0 ? '①' : '↓'}
+                              </span>
+                              <span>{formatText(step)}</span>
+                            </li>
+                          ))}
+                        </ol>
+                        <div
+                          className="rounded-lg px-2.5 py-1.5 text-xs font-black"
+                          style={{ backgroundColor: st.conclBg, color: st.conclText }}
+                        >
+                          ⇒ {formatText(fb.conclusion)}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* 講義本文（理解モードでは重要語句を太字＋マーカー下線で読みやすく表示、赤シートON時のみ隠す） */}
+              <div className="text-[13.5px] sm:text-[15px] leading-7 text-[#231d16] whitespace-pre-line">
+                {parseClozeSegments(currentItem.body).map((seg) => {
+                  if (seg.type === 'text') {
+                    return (
+                      <React.Fragment key={seg.key}>
+                        {renderRichPrintText(seg.content, richEmphasis)}
+                      </React.Fragment>
+                    );
+                  }
+                  const clozeId = `${activeSheet.id}_${safeItemIdx}_${seg.key}`;
+                  const isHidden = redSheetOn && !revealedKeys[clozeId];
+                  return (
+                    <button
+                      key={seg.key}
+                      type="button"
+                      onClick={() => toggleCloze(clozeId)}
+                      className={`inline-flex items-center mx-0.5 px-2 py-0.5 rounded-lg font-extrabold align-baseline transition min-w-[3.6rem] justify-center ${
+                        isHidden
+                          ? 'juken-cloze-hidden'
+                          : redSheetOn
+                            ? 'juken-cloze-revealed'
+                            : richEmphasis
+                              ? 'juken-cloze-off underline decoration-2 decoration-[#d97706] underline-offset-2'
+                              : 'juken-cloze-off'
+                      }`}
+                    >
+                      <span>{formatText(seg.content)}</span>
+                    </button>
+                  );
+                })}
               </div>
 
-              <h2 className="juken-title-font mt-2 text-lg sm:text-xl font-black text-[#1c2a39]">
-                {activeSheet.title}
-              </h2>
-              <p className="mt-0.5 text-xs sm:text-sm font-medium text-[#5a6573]">
-                {activeSheet.subtitle}
-                {redSheetOn ? '（赤い枠をタップすると1語ずつ答えを確認できます）' : ''}
-              </p>
-            </div>
+              {/* 型の整理・対比テーブル */}
+              {currentItem.table && (
+                <div className="juken-table-wrap">
+                  <table className="juken-table">
+                    <thead>
+                      <tr>
+                        {currentItem.table.headers.map((h, hIdx) => (
+                          <th key={hIdx}>{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {currentItem.table.rows.map((row, rIdx) => (
+                        <tr key={rIdx}>
+                          {row.map((cell, cIdx) => (
+                            <td
+                              key={cIdx}
+                              className={cIdx === 0 ? 'font-extrabold text-[#1c4687]' : ''}
+                            >
+                              {renderRichPrintText(cell, richEmphasis)}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
 
-            <div className="p-5 space-y-5">
-              {activeSheet.items.map((item, itemIdx) => {
-                const segments = parseClozeSegments(item.body);
-                return (
-                  <article
-                    key={itemIdx}
-                    className="rounded-2xl border border-[#e8decb] bg-[#fffdf8] p-4 space-y-3"
-                  >
-                    <h3 className="juken-title-font text-sm sm:text-base font-extrabold flex items-center gap-2 text-[#1c2a39]">
-                      <span
-                        className="inline-flex items-center justify-center w-6 h-6 rounded-lg text-xs font-black text-white shrink-0"
-                        style={{ backgroundColor: subjectDef.theme.accent }}
+              {currentItem.imageUrl && (
+                <div className="pt-0.5">
+                  <QuestionFigure src={currentItem.imageUrl} caption={currentItem.imageCaption} />
+                </div>
+              )}
+
+              {/* 原本プリントそのままの「例題・演習 → 考え方と解答」（丸暗記ではなく思考手順を再現） */}
+              {currentItem.workedExamples && currentItem.workedExamples.length > 0 && (
+                <div className="space-y-2 pt-1">
+                  <div className="text-xs font-black text-[#1e293b] flex items-center gap-1.5">
+                    <span className="px-2 py-0.5 rounded bg-[#1e293b] text-[#fde047]">実践例題</span>
+                    <span>プリントの演習で「解き方の筋道」をその場で確認しよう</span>
+                  </div>
+                  {currentItem.workedExamples.map((ex, eIdx) => {
+                    const exKey = `${activeSheet.id}_${safeItemIdx}_ex${eIdx}`;
+                    const isOpen = !!openExamples[exKey];
+                    return (
+                      <div
+                        key={exKey}
+                        className="rounded-xl border-2 border-[#d6c7ae] bg-[#fffdf7] overflow-hidden"
                       >
-                        {itemIdx + 1}
-                      </span>
-                      <span>{item.heading}</span>
-                    </h3>
-
-                    <div className="text-sm sm:text-[15px] leading-8 text-[#231d16] whitespace-pre-line">
-                      {segments.map((seg) => {
-                        if (seg.type === 'text') {
-                          return <React.Fragment key={seg.key}>{formatText(seg.content)}</React.Fragment>;
-                        }
-                        const clozeId = `${activeSheet.id}_${itemIdx}_${seg.key}`;
-                        const isHidden = redSheetOn && !revealedKeys[clozeId];
-                        return (
+                        <div className="px-3 py-2.5 flex items-start justify-between gap-2">
+                          <div className="text-xs sm:text-sm font-bold text-[#1c2a39] leading-relaxed">
+                            <span className="inline-block mr-1.5 px-1.5 py-0.5 rounded bg-[#fef3c7] text-[#92400e] font-black text-[11px]">
+                              {ex.label}
+                            </span>
+                            {formatText(ex.question)}
+                          </div>
                           <button
-                            key={seg.key}
                             type="button"
-                            onClick={() => toggleCloze(clozeId)}
-                            className={`inline-flex items-center mx-1 px-2.5 py-0.5 rounded-lg font-extrabold align-baseline transition min-w-[4.5rem] justify-center ${
-                              isHidden
-                                ? 'juken-cloze-hidden'
-                                : redSheetOn
-                                  ? 'juken-cloze-revealed'
-                                  : 'juken-cloze-off'
-                            }`}
-                            title={isHidden ? 'タップして答えを表示' : 'タップして再び隠す'}
+                            onClick={() =>
+                              setOpenExamples((prev) => ({ ...prev, [exKey]: !prev[exKey] }))
+                            }
+                            className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#1d4ed8] text-white text-[11px] font-extrabold"
                           >
-                            <span>{formatText(seg.content)}</span>
+                            <span>{isOpen ? '閉じる' : '考え方・解答'}</span>
+                            <ChevronDown
+                              className={`w-3.5 h-3.5 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+                            />
                           </button>
-                        );
-                      })}
-                    </div>
-
-                    {item.table && (
-                      <div className="juken-table-wrap mt-2">
-                        <table className="juken-table">
-                          <thead>
-                            <tr>
-                              {item.table.headers.map((h, hIdx) => (
-                                <th key={hIdx}>{h}</th>
-                              ))}
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {item.table.rows.map((row, rIdx) => (
-                              <tr key={rIdx}>
-                                {row.map((cell, cIdx) => (
-                                  <td key={cIdx} className={cIdx === 0 ? 'font-extrabold text-[#1c4687]' : ''}>
-                                    {cell}
-                                  </td>
-                                ))}
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
+                        </div>
+                        {isOpen && (
+                          <div className="px-3 py-2.5 bg-[#f8fafc] border-t border-[#e2e8f0] space-y-1.5 text-xs sm:text-[13px] leading-relaxed">
+                            <p className="text-[#334155] font-semibold">
+                              <strong className="text-[#1d4ed8] font-black">【考え方】</strong>{' '}
+                              {formatText(ex.thinking)}
+                            </p>
+                            <p className="text-[#991b1b] font-black bg-[#fef2f2] px-2.5 py-1 rounded-lg border border-[#fecaca]">
+                              【答】 {formatText(ex.answer)}
+                            </p>
+                          </div>
+                        )}
                       </div>
-                    )}
+                    );
+                  })}
+                </div>
+              )}
 
-                    {item.imageUrl && (
-                      <div className="pt-1">
-                        <QuestionFigure src={item.imageUrl} caption={item.imageCaption} />
-                      </div>
-                    )}
-
-                    {item.tip && (
-                      <div className="flex items-start gap-2 rounded-xl bg-[#f6efe2] px-3.5 py-2.5 text-xs sm:text-sm font-semibold text-[#4e4030]">
-                        <Sparkles className="w-4 h-4 text-[#f29a1f] shrink-0 mt-0.5" />
-                        <span>{item.tip}</span>
-                      </div>
-                    )}
-                  </article>
-                );
-              })}
-            </div>
-
-            {/* フッターアクション：暗記マスター登録 ＆ 直結単元の実戦問題へ */}
-            <div className="px-5 py-4 bg-[#f6efe2] border-t border-[#e3d9c8] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-              <button
-                type="button"
-                onClick={() => toggleMastered(activeSheet.id)}
-                className={
-                  masteredSheets[activeSheet.id]
-                    ? 'inline-flex items-center justify-center gap-2 min-h-[46px] px-4 py-2.5 rounded-xl text-sm font-extrabold bg-[#1f7a4d] text-white shadow-sm transition'
-                    : 'juken-btn-soft inline-flex items-center justify-center gap-2 px-4 py-2.5 text-sm'
-                }
-              >
-                <CheckCircle2 className="w-4 h-4" />
-                <span>
-                  {masteredSheets[activeSheet.id]
-                    ? '暗記マスター済み！（タップで解除）'
-                    : 'このプリントを暗記マスターにする'}
-                </span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => onStartChapter(activeSheet.linkedChapterId, subject)}
-                className="juken-btn-primary inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm"
-                style={{ backgroundColor: subjectDef.theme.accent, borderColor: subjectDef.theme.accent }}
-              >
-                <Play className="w-4 h-4 fill-current" />
-                <span>この単元の入試実戦問題を解く</span>
-              </button>
-            </div>
-          </section>
-        )}
+              {currentItem.tip && (
+                <div
+                  className={
+                    richEmphasis
+                      ? 'juken-em-arrow-line text-xs sm:text-sm'
+                      : 'flex items-start gap-2 rounded-xl bg-[#f6efe2] px-3 py-2 text-xs sm:text-sm font-semibold text-[#4e4030]'
+                  }
+                >
+                  {richEmphasis ? (
+                    <span>⇒ 【入試の決め手】{renderRichPrintText(currentItem.tip, true)}</span>
+                  ) : (
+                    <>
+                      <Sparkles className="w-4 h-4 text-[#f29a1f] shrink-0 mt-0.5" />
+                      <span>{currentItem.tip}</span>
+                    </>
+                  )}
+                </div>
+              )}
+            </article>
+          </div>
+        ) : null}
       </main>
+
+      {/* 4. 固定フッター */}
+      {activeSheet && (
+        <footer className="juken-onescreen-foot">
+          <div className="max-w-4xl mx-auto flex items-center justify-between gap-2">
+            <button
+              type="button"
+              onClick={stepPrev}
+              className="juken-btn-soft inline-flex items-center justify-center gap-1 px-3 min-h-[42px] text-xs sm:text-sm shrink-0"
+            >
+              <ChevronLeft className="w-4 h-4" />
+              <span>前へ</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => toggleMastered(activeSheet.id)}
+              className={`inline-flex items-center justify-center gap-1 px-3 min-h-[42px] rounded-xl text-xs font-extrabold border transition ${
+                masteredSheets[activeSheet.id]
+                  ? 'bg-[#1f7a4d] text-white border-[#175e3a]'
+                  : 'bg-white text-[#3d3222] border-[#dfd2bc]'
+              }`}
+            >
+              <CheckCircle2 className="w-4 h-4 shrink-0" />
+              <span className="truncate">{masteredSheets[activeSheet.id] ? '理解済' : '理解完了'}</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => onStartChapter(activeSheet.linkedChapterId, subject)}
+              className="juken-btn-primary flex-1 inline-flex items-center justify-center gap-1.5 px-3 min-h-[42px] text-xs sm:text-sm truncate"
+              style={{ backgroundColor: subjectDef.theme.accent, borderColor: subjectDef.theme.accent }}
+            >
+              <Play className="w-3.5 h-3.5 fill-current shrink-0" />
+              <span className="truncate">実戦問題でアウトプット</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={stepNext}
+              className="juken-btn-soft inline-flex items-center justify-center gap-1 px-3 min-h-[42px] text-xs sm:text-sm shrink-0"
+            >
+              <span>次へ</span>
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        </footer>
+      )}
     </div>
   );
 };

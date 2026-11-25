@@ -19,6 +19,7 @@ import {
   type WritingTask,
 } from '../data/jukenWritingData';
 import { TobiraBuddy } from './TobiraBuddy';
+import { AiPromptStudioModal } from './AiPromptStudioModal';
 
 interface JukenWritingDojoProps {
   onBack: () => void;
@@ -28,6 +29,7 @@ type TabKey = 'practice' | 'patterns' | 'paraphrase';
 
 export const JukenWritingDojo: React.FC<JukenWritingDojoProps> = ({ onBack }) => {
   const [activeTab, setActiveTab] = useState<TabKey>('practice');
+  const [showPromptStudio, setShowPromptStudio] = useState(false);
   const [groupFilter, setGroupFilter] = useState<'all' | WritingTask['group']>('all');
   const [selectedTaskId, setSelectedTaskId] = useState<string>(
     WRITING_TASKS.find((t) => t.group === 'pref_special')?.id ?? WRITING_TASKS[0].id,
@@ -116,8 +118,20 @@ export const JukenWritingDojo: React.FC<JukenWritingDojoProps> = ({ onBack }) =>
             </h1>
           </div>
 
-          <div className="juken-num text-xs font-extrabold px-3 py-1.5 rounded-full bg-[#e7eef8] text-[#1c4687] shrink-0">
-            クリア {doneCount}/{WRITING_TASKS.length}
+          <div className="flex items-center gap-1.5 shrink-0">
+            <button
+              type="button"
+              onClick={() => setShowPromptStudio(true)}
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-[#0f766e] text-white text-xs font-extrabold hover:opacity-95 transition"
+              title="ChatGPT図版＆ElevenLabs v4リスニング台本プロンプト集"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">AI図版・音源プロンプト</span>
+              <span className="sm:hidden">AI台本</span>
+            </button>
+            <div className="juken-num text-xs font-extrabold px-2.5 py-1.5 rounded-full bg-[#e7eef8] text-[#1c4687]">
+              クリア {doneCount}/{WRITING_TASKS.length}
+            </div>
           </div>
         </div>
       </header>
@@ -478,6 +492,12 @@ export const JukenWritingDojo: React.FC<JukenWritingDojoProps> = ({ onBack }) =>
           </div>
         )}
       </main>
+      {showPromptStudio && (
+        <AiPromptStudioModal
+          initialTab="elevenlabs_v4"
+          onClose={() => setShowPromptStudio(false)}
+        />
+      )}
     </div>
   );
 };

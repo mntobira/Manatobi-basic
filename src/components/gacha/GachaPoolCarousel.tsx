@@ -225,7 +225,11 @@ function PoolSlide({ poolId, active, univId, onOpenUniv, progress, onDetail, onP
       </ul>
       {/* B5：あいていた下の余白に、とびら君がひとこと（目玉をすすめる） */}
       <div className="gacha-banner-buddy">
-        <TobiraBuddy size="sm" input={{ screen: 'gacha', seed: featured.week }} line={`${def.title}の目玉は「${hero.label}」！${gachaRarityOf(hero)}はめったに出ないよ`} />
+        <TobiraBuddy
+          size="sm"
+          input={{ screen: 'gacha', seed: featured.week }}
+          line={selectedUniv ? `${selectedUniv.name}の公立入試PDFが狙えるよ！` : `目玉「${hero.label}」（${gachaRarityOf(hero)}）開催中！`}
+        />
       </div>
       <nav className="gacha-banner-links" aria-label={`${def.title}の案内`}>
         {selectedUniv && (

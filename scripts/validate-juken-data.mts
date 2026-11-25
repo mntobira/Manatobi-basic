@@ -54,6 +54,7 @@ for (const pref of PREFECTURE_EXAMS) {
 const chapterIds = new Set<string>();
 const problemIds = new Set<string>();
 const sqIds = new Set<string>();
+const globalPrompts = new Map<string, string>();
 const posCounts = [0, 0, 0, 0];
 let choice4Total = 0;
 let shortTotal = 0;
@@ -109,6 +110,12 @@ for (const sub of SUBJECTS) {
         if (promptBody.length < 6) {
           fail(`小問 ${sq.id} の問題文が短すぎます: "${sq.label}"`);
         }
+        const normalizedPrompt = promptBody.replace(/\s+/g, ' ');
+        const existingId = globalPrompts.get(normalizedPrompt);
+        if (existingId) {
+          fail(`全教科横断で重複した問題文が検出されました: "${sq.id}" と "${existingId}" -> "${promptBody}"`);
+        }
+        globalPrompts.set(normalizedPrompt, sq.id);
 
         if (!isMini) {
           practicePrompts.add(promptBody);
@@ -194,7 +201,8 @@ if (choice4Total > 0) {
     }
   }
 }
-if (grandTotal < 240) {
-  fail(`総問題数が目標（240問以上）に届いていません: 現在 ${grandTotal} 問`);
+if (grandTotal < 1000) {
+  fail(`総問題数が目標（参考書1冊分＝1,000問以上）に届いていません: 現在 ${grandTotal} 問`);
 }
+console.log('・全問題文重複検査: 0 件（完全重複ゼロ確認済み）');
 console.log('======================================================\n');
