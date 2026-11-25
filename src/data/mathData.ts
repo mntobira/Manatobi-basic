@@ -1,6 +1,7 @@
 import type { Part } from '../types/curriculum';
-import { buildChapter, countSubjectStats } from './juken/problemHelpers';
+import { buildChapter, countSubjectStats, applyChapterExpansions } from './juken/problemHelpers';
 import { EXTRA_MATH_CHAPTERS } from './juken/extraMath';
+import { MATH_BANK_EXPANSION } from './juken/bankExpansionMath';
 
 const mathParts: Part[] = [
   {
@@ -1504,8 +1505,11 @@ const mathParts: Part[] = [
   },
 ];
 
-export const mathData: Part[] = mathParts.map((part) => {
-  const extras = EXTRA_MATH_CHAPTERS.filter((ch) => ch.id.startsWith(part.id.replace('ma_part', 'ma') + '_'));
-  return extras.length ? { ...part, chapters: [...part.chapters, ...extras] } : part;
-});
+export const mathData: Part[] = applyChapterExpansions(
+  mathParts.map((part) => {
+    const extras = EXTRA_MATH_CHAPTERS.filter((ch) => ch.id.startsWith(part.id.replace('ma_part', 'ma') + '_'));
+    return extras.length ? { ...part, chapters: [...part.chapters, ...extras] } : part;
+  }),
+  MATH_BANK_EXPANSION,
+);
 export const MATH_STATS = countSubjectStats(mathData);

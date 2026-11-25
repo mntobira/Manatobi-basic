@@ -1,6 +1,7 @@
 import type { Part } from '../types/curriculum';
-import { buildChapter, countSubjectStats } from './juken/problemHelpers';
+import { buildChapter, countSubjectStats, applyChapterExpansions } from './juken/problemHelpers';
 import { EXTRA_SCIENCE_CHAPTERS } from './juken/extraScience';
+import { SCIENCE_BANK_EXPANSION } from './juken/bankExpansionScience';
 
 const scienceParts: Part[] = [
   {
@@ -1951,8 +1952,11 @@ const scienceParts: Part[] = [
   },
 ];
 
-export const scienceData: Part[] = scienceParts.map((part) => {
-  const extras = EXTRA_SCIENCE_CHAPTERS.filter((ch) => ch.id.startsWith(part.id.replace('sc_part', 'sc') + '_'));
-  return extras.length ? { ...part, chapters: [...part.chapters, ...extras] } : part;
-});
+export const scienceData: Part[] = applyChapterExpansions(
+  scienceParts.map((part) => {
+    const extras = EXTRA_SCIENCE_CHAPTERS.filter((ch) => ch.id.startsWith(part.id.replace('sc_part', 'sc') + '_'));
+    return extras.length ? { ...part, chapters: [...part.chapters, ...extras] } : part;
+  }),
+  SCIENCE_BANK_EXPANSION,
+);
 export const SCIENCE_STATS = countSubjectStats(scienceData);

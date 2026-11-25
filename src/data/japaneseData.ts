@@ -1,6 +1,7 @@
 import type { Part } from '../types/curriculum';
-import { buildChapter, countSubjectStats } from './juken/problemHelpers';
+import { buildChapter, countSubjectStats, applyChapterExpansions } from './juken/problemHelpers';
 import { EXTRA_JAPANESE_CHAPTERS } from './juken/extraJapanese';
+import { JAPANESE_BANK_EXPANSION } from './juken/bankExpansionJapanese';
 
 const japaneseParts: Part[] = [
   {
@@ -1107,8 +1108,11 @@ const japaneseParts: Part[] = [
   },
 ];
 
-export const japaneseData: Part[] = japaneseParts.map((part) => {
-  const extras = EXTRA_JAPANESE_CHAPTERS.filter((ch) => ch.id.startsWith(part.id.replace('ja_part', 'ja') + '_'));
-  return extras.length ? { ...part, chapters: [...part.chapters, ...extras] } : part;
-});
+export const japaneseData: Part[] = applyChapterExpansions(
+  japaneseParts.map((part) => {
+    const extras = EXTRA_JAPANESE_CHAPTERS.filter((ch) => ch.id.startsWith(part.id.replace('ja_part', 'ja') + '_'));
+    return extras.length ? { ...part, chapters: [...part.chapters, ...extras] } : part;
+  }),
+  JAPANESE_BANK_EXPANSION,
+);
 export const JAPANESE_STATS = countSubjectStats(japaneseData);

@@ -115,7 +115,7 @@ export const GACHA_PREVIEWS: Readonly<Record<string, readonly string[]>> = {
   ],
   "print_lr_pref_nara": [
     "/prints/previews/print_lr_pref_nara_p2.webp",
-    "/prints/previews/print_lr_pref_nara_p8.webp"
+    "/prints/previews/print_lr_pref_nara_p7.webp"
   ],
   "print_lr_pref_wakayama": [
     "/prints/previews/print_lr_pref_wakayama_p2.webp",
@@ -163,7 +163,7 @@ export const GACHA_PREVIEWS: Readonly<Record<string, readonly string[]>> = {
   ],
   "print_lr_pref_saga": [
     "/prints/previews/print_lr_pref_saga_p2.webp",
-    "/prints/previews/print_lr_pref_saga_p8.webp"
+    "/prints/previews/print_lr_pref_saga_p7.webp"
   ],
   "print_lr_pref_nagasaki": [
     "/prints/previews/print_lr_pref_nagasaki_p2.webp",
@@ -223,7 +223,7 @@ export const GACHA_PREVIEWS: Readonly<Record<string, readonly string[]>> = {
   ],
   "print_ur_juken_so_hist_civ_complete": [
     "/prints/previews/print_ur_juken_so_hist_civ_complete_p2.webp",
-    "/prints/previews/print_ur_juken_so_hist_civ_complete_p8.webp"
+    "/prints/previews/print_ur_juken_so_hist_civ_complete_p7.webp"
   ],
   "print_ur_juken_writing_complete": [
     "/prints/previews/print_ur_juken_writing_complete_p2.webp",
@@ -231,14 +231,14 @@ export const GACHA_PREVIEWS: Readonly<Record<string, readonly string[]>> = {
   ],
   "print_ur_juken_ma_drill_all": [
     "/prints/previews/print_ur_juken_ma_drill_all_p2.webp",
-    "/prints/previews/print_ur_juken_ma_drill_all_p3.webp"
+    "/prints/previews/print_ur_juken_ma_drill_all_p5.webp"
   ],
   "print_ur_juken_sc_drill_all": [
     "/prints/previews/print_ur_juken_sc_drill_all_p2.webp",
-    "/prints/previews/print_ur_juken_sc_drill_all_p3.webp"
+    "/prints/previews/print_ur_juken_sc_drill_all_p5.webp"
   ],
   "print_ur_juken_so_drill_all": [
     "/prints/previews/print_ur_juken_so_drill_all_p2.webp",
-    "/prints/previews/print_ur_juken_so_drill_all_p4.webp"
+    "/prints/previews/print_ur_juken_so_drill_all_p6.webp"
   ]
 };

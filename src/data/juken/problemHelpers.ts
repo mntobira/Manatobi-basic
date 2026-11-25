@@ -305,6 +305,31 @@ export function buildChapter(spec: ChapterSpec): Chapter {
   };
 }
 
+export interface ChapterExpansionSpec {
+  practice?: ProblemSpec[];
+  miniTest?: ProblemSpec[];
+}
+
+export function applyChapterExpansions(
+  parts: Part[],
+  expansions: Record<string, ChapterExpansionSpec>,
+): Part[] {
+  return parts.map((part) => ({
+    ...part,
+    chapters: part.chapters.map((ch) => {
+      const exp = expansions[ch.id];
+      if (!exp) return ch;
+      const addedPractice = (exp.practice ?? []).map(buildProblem);
+      const addedMini = (exp.miniTest ?? []).map(buildProblem);
+      return {
+        ...ch,
+        practiceProblems: [...ch.practiceProblems, ...addedPractice],
+        miniTest: [...ch.miniTest, ...addedMini],
+      };
+    }),
+  }));
+}
+
 export function countSubjectStats(parts: Part[]) {
   const chapters = parts.flatMap((p) => p.chapters);
   const practiceCount = chapters.reduce(

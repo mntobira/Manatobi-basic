@@ -13,7 +13,7 @@ export const KYOTSU_MOCK_PRINTS: readonly GachaPrintDef[] = [
     "file": "/prints/print_lr_juken_mock_1.pdf",
     "thumb": "/prints/thumbs/print_lr_juken_mock_1.webp",
     "pages": 8,
-    "kb": 100
+    "kb": 167
   },
   {
     "id": "print_lr_juken_mock_2",
@@ -23,7 +23,7 @@ export const KYOTSU_MOCK_PRINTS: readonly GachaPrintDef[] = [
     "file": "/prints/print_lr_juken_mock_2.pdf",
     "thumb": "/prints/thumbs/print_lr_juken_mock_2.webp",
     "pages": 8,
-    "kb": 96
+    "kb": 162
   },
   {
     "id": "print_lr_juken_mock_3",
@@ -33,7 +33,7 @@ export const KYOTSU_MOCK_PRINTS: readonly GachaPrintDef[] = [
     "file": "/prints/print_lr_juken_mock_3.pdf",
     "thumb": "/prints/thumbs/print_lr_juken_mock_3.webp",
     "pages": 8,
-    "kb": 107
+    "kb": 160
   }
 ];
 
