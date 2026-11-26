@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 320" width="520" height="320" style="font-family:system-ui, -apple-system, 'Noto Sans JP', sans-serif;background:#ffffff">
+
+  <line x1="25" y1="276.0" x2="462" y2="276.0" stroke="#334155" stroke-width="2"/>
+  <line x1="190.0" y1="300" x2="190.0" y2="18" stroke="#334155" stroke-width="2"/>
+  <polygon points="190.0,276.0 98.0,222.0 374.0,60.0" fill="#e0e7ff" fill-opacity="0.55" stroke="#4338ca" stroke-width="1.8"/>
+  <polyline points="-3.2,37.9 6.0,60.0 15.2,81.1 24.4,101.0 33.6,119.9 42.8,137.8 52.0,154.5 61.2,170.2 70.4,184.7 79.6,198.2 88.8,210.7 98.0,222.0 107.2,232.3 116.4,241.4 125.6,249.5 134.8,256.6 144.0,262.5 153.2,267.4 162.4,271.1 171.6,273.8 180.8,275.5 190.0,276.0 199.2,275.5 208.4,273.8 217.6,271.1 226.8,267.4 236.0,262.5 245.2,256.6 254.4,249.5 263.6,241.4 272.8,232.3 282.0,222.0 291.2,210.7 300.4,198.2 309.6,184.7 318.8,170.2 328.0,154.5 337.2,137.8 346.4,119.9 355.6,101.0 364.8,81.1 374.0,60.0 383.2,37.9 392.4,14.6" fill="none" stroke="#1e293b" stroke-width="2.4"/>
+  <line x1="52.0" y1="249.0" x2="392.4" y2="49.2" stroke="#1d4ed8" stroke-width="2"/>
+  <circle cx="98.0" cy="222.0" r="4.5" fill="#1e293b"/>
+  <circle cx="374.0" cy="60.0" r="4.5" fill="#1e293b"/>
+  <circle cx="282.0" cy="222.0" r="5" fill="#7c3aed"/>
+  <text x="40.0" y="214.0" font-size="14" font-weight="800" fill="#1e293b">A(-2, 2)</text>
+  <text x="382.0" y="65.0" font-size="14" font-weight="800" fill="#1e293b">B(4, 8)</text>
+  <text x="292.0" y="238.0" font-size="14" font-weight="900" fill="#6d28d9">点P (x&gt;0)</text>
+  <text x="174.0" y="294.0" font-size="14" font-weight="800" fill="#1e293b">O</text>
+  <text x="32" y="38" font-size="14" font-weight="800" fill="#1e293b">y = ½x²（△PAB = △OAB となる点P）</text>
+
+</svg>

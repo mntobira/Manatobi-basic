@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 320" width="520" height="320" style="font-family:system-ui, -apple-system, 'Noto Sans JP', sans-serif;background:#ffffff">
+
+  <!-- Base ABCD -->
+  <line x1="165" y1="186" x2="325" y2="186" stroke="#94a3b8" stroke-width="1.8" stroke-dasharray="5,4"/>
+  <line x1="105" y1="246" x2="165" y2="186" stroke="#94a3b8" stroke-width="1.8" stroke-dasharray="5,4"/>
+  <line x1="105" y1="246" x2="265" y2="246" stroke="#1e293b" stroke-width="2.4"/>
+  <line x1="265" y1="246" x2="325" y2="186" stroke="#1e293b" stroke-width="2.4"/>
+  <!-- Apex O(215, 48) -->
+  <line x1="215" y1="48" x2="165" y2="186" stroke="#94a3b8" stroke-width="1.8" stroke-dasharray="5,4"/>
+  <line x1="215" y1="48" x2="105" y2="246" stroke="#1e293b" stroke-width="2.4"/>
+  <line x1="215" y1="48" x2="265" y2="246" stroke="#1e293b" stroke-width="2.4"/>
+  <line x1="215" y1="48" x2="325" y2="186" stroke="#1e293b" stroke-width="2.4"/>
+  <text x="208" y="38" font-size="15" font-weight="900" fill="#1e293b">O</text>
+  <text x="86" y="254" font-size="14" font-weight="900" fill="#1e293b">A</text>
+  <text x="270" y="256" font-size="14" font-weight="900" fill="#1e293b">B</text>
+  <text x="332" y="190" font-size="14" font-weight="900" fill="#1e293b">C</text>
+  <text x="148" y="182" font-size="14" font-weight="800" fill="#64748b">D</text>
+
+  <!-- Shaded right triangle O-H-A -->
+  <polygon points="215,48 215,216 105,246" fill="#fecdd3" fill-opacity="0.65" stroke="#dc2626" stroke-width="2.4"/>
+  <!-- Diagonal AC -->
+  <line x1="105" y1="246" x2="325" y2="186" stroke="#0284c7" stroke-width="2" stroke-dasharray="5,4"/>
+  <rect x="205" y="206" width="10" height="10" fill="none" stroke="#dc2626" stroke-width="1.6"/>
+  <circle cx="215" cy="216" r="4.5" fill="#dc2626"/>
+  <text x="222" y="224" font-size="14" font-weight="900" fill="#dc2626">H</text>
+  <text x="221" y="142" font-size="13.5" font-weight="900" fill="#dc2626">OH = √7</text>
+  <text x="128" y="232" font-size="12.5" font-weight="900" fill="#0369a1">AH = 3√2</text>
+  <rect x="342" y="56" width="166" height="198" rx="12" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.8"/>
+  <text x="352" y="80" font-size="12.5" font-weight="900" fill="#92400e">✏️ 直角△OAHを取り出す！</text>
+  <text x="352" y="104" font-size="12" font-weight="800" fill="#0369a1">対角線 AC = 6√2 cm</text>
+  <text x="352" y="124" font-size="12" font-weight="800" fill="#0369a1">⇒ 半分 AH = 3√2 cm</text>
+  <text x="352" y="148" font-size="12" font-weight="800" fill="#1e293b">OH² = 5² - (3√2)²</text>
+  <text x="352" y="168" font-size="12.5" font-weight="900" fill="#dc2626">　　= 25 - 18 = 7 ⇒ √7</text>
+  <line x1="352" y1="182" x2="496" y2="182" stroke="#fcd34d" stroke-width="1.5"/>
+  <text x="352" y="204" font-size="12" font-weight="800" fill="#1e293b">体積 = ⅓ × 6² × √7</text>
+  <text x="352" y="228" font-size="13" font-weight="900" fill="#dc2626">　　 = 12√7 cm³</text>
+
+</svg>

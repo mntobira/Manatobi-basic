@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 320" width="520" height="320" style="font-family:system-ui, -apple-system, 'Noto Sans JP', sans-serif;background:#ffffff">
+
+  <!-- 3D Cone on left -->
+  <ellipse cx="145" cy="242" rx="58" ry="20" fill="#f8fafc" stroke="#1e293b" stroke-width="2" stroke-dasharray="5,4"/>
+  <path d="M 87 242 A 58 20 0 0 0 203 242" fill="none" stroke="#1e293b" stroke-width="2.4"/>
+  <line x1="145" y1="48" x2="87" y2="242" stroke="#1e293b" stroke-width="2.4"/>
+  <line x1="145" y1="48" x2="203" y2="242" stroke="#1e293b" stroke-width="2.4"/>
+  <line x1="145" y1="242" x2="203" y2="242" stroke="#0284c7" stroke-width="2"/>
+  <path d="M 203 242 Q 130 190 99 182 Q 145 162 203 242" fill="none" stroke="#7c3aed" stroke-width="2.5"/>
+  <text x="139" y="38" font-size="15" font-weight="900" fill="#1e293b">O</text>
+  <text x="210" y="248" font-size="15" font-weight="900" fill="#1e293b">A</text>
+  <text x="162" y="236" font-size="13" font-weight="800" fill="#0369a1">r=2cm</text>
+  <text x="184" y="142" font-size="13.5" font-weight="800" fill="#1e293b">母線 6cm</text>
+  <rect x="255" y="78" width="240" height="118" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.6"/>
+  <text x="272" y="108" font-size="14" font-weight="900" fill="#1e293b">【問題】円錐の側面の最短距離</text>
+  <text x="272" y="134" font-size="13" font-weight="700" fill="#334155">底面の半径 2cm、母線 6cm の円錐で</text>
+  <text x="272" y="156" font-size="13" font-weight="700" fill="#334155">点Aから側面を1周して点Aに戻る</text>
+  <text x="272" y="178" font-size="13" font-weight="800" fill="#6d28d9">ひもの長さが最も短くなるときは？</text>
+
+</svg>

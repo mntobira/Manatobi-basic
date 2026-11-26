@@ -2,6 +2,7 @@ import type { Part } from '../types/curriculum';
 import { buildChapter, countSubjectStats, applyChapterExpansions } from './juken/problemHelpers';
 import { EXTRA_ENGLISH_CHAPTERS } from './juken/extraEnglish';
 import { ENGLISH_BANK_EXPANSION } from './juken/bankExpansionEnglish';
+import { ENGLISH_V6_EXPANSION } from './juken/v6ExpansionEnglish';
 
 const englishParts: Part[] = [
   {
@@ -1270,10 +1271,13 @@ His words changed my mind completely. Since last summer, my friends and I have h
 ];
 
 export const englishData: Part[] = applyChapterExpansions(
-  englishParts.map((part) => {
-    const extras = EXTRA_ENGLISH_CHAPTERS.filter((ch) => ch.id.startsWith(part.id.replace('en_part', 'en') + '_'));
-    return extras.length ? { ...part, chapters: [...part.chapters, ...extras] } : part;
-  }),
-  ENGLISH_BANK_EXPANSION,
+  applyChapterExpansions(
+    englishParts.map((part) => {
+      const extras = EXTRA_ENGLISH_CHAPTERS.filter((ch) => ch.id.startsWith(part.id.replace('en_part', 'en') + '_'));
+      return extras.length ? { ...part, chapters: [...part.chapters, ...extras] } : part;
+    }),
+    ENGLISH_BANK_EXPANSION,
+  ),
+  ENGLISH_V6_EXPANSION,
 );
 export const ENGLISH_STATS = countSubjectStats(englishData);

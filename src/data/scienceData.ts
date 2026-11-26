@@ -2,6 +2,7 @@ import type { Part } from '../types/curriculum';
 import { buildChapter, countSubjectStats, applyChapterExpansions } from './juken/problemHelpers';
 import { EXTRA_SCIENCE_CHAPTERS } from './juken/extraScience';
 import { SCIENCE_BANK_EXPANSION } from './juken/bankExpansionScience';
+import { SCIENCE_V6_EXPANSION } from './juken/v6ExpansionScience';
 
 const scienceParts: Part[] = [
   {
@@ -1952,11 +1953,23 @@ const scienceParts: Part[] = [
   },
 ];
 
+const EXTRA_SCIENCE_PART_MAP: Record<string, string> = {
+  sc3_3: 'sc_part1', // 植物と動物の分類・神経系・食物連鎖 ⇒ 生物分野
+  sc1_3: 'sc_part2', // 音・光・水圧浮力・電磁誘導 ⇒ 物理分野
+  sc2_3: 'sc_part3', // 気体・水溶液・蒸留・電池 ⇒ 化学分野
+  sc4_3: 'sc_part4', // 日本の四季・大気・太陽系と月・金星 ⇒ 地学分野
+};
+
 export const scienceData: Part[] = applyChapterExpansions(
-  scienceParts.map((part) => {
-    const extras = EXTRA_SCIENCE_CHAPTERS.filter((ch) => ch.id.startsWith(part.id.replace('sc_part', 'sc') + '_'));
-    return extras.length ? { ...part, chapters: [...part.chapters, ...extras] } : part;
-  }),
-  SCIENCE_BANK_EXPANSION,
+  applyChapterExpansions(
+    scienceParts.map((part) => {
+      const extras = EXTRA_SCIENCE_CHAPTERS.filter(
+        (ch) => (EXTRA_SCIENCE_PART_MAP[ch.id] ?? `sc_part${ch.id[2]}`) === part.id,
+      );
+      return extras.length ? { ...part, chapters: [...part.chapters, ...extras] } : part;
+    }),
+    SCIENCE_BANK_EXPANSION,
+  ),
+  SCIENCE_V6_EXPANSION,
 );
 export const SCIENCE_STATS = countSubjectStats(scienceData);

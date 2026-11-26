@@ -2,6 +2,7 @@ import type { Part } from '../types/curriculum';
 import { buildChapter, countSubjectStats, applyChapterExpansions } from './juken/problemHelpers';
 import { EXTRA_MATH_CHAPTERS } from './juken/extraMath';
 import { MATH_BANK_EXPANSION } from './juken/bankExpansionMath';
+import { MATH_V6_EXPANSION } from './juken/v6ExpansionMath';
 
 const mathParts: Part[] = [
   {
@@ -538,6 +539,8 @@ const mathParts: Part[] = [
             category: '関数グラフ融合（大問3）',
             imageUrl: '/juken_figs/math_parabola_oab.svg',
             imageCaption: '放物線 y=ax² と2点 A(-2, 2), B(4, 8) および △OAB',
+            explanationImageUrl: '/juken_figs/v6/math_parabola_split_ans.svg',
+            explanationImageCaption: '✏️ 書き込み解説：y軸の切片C(0,4)で左右に2分割し、共通底辺OC=4×(高さ2+4)×1/2＝12！',
             requiresMathPalette: true,
             leadText: '図のように、関数 $y = ax^2$ のグラフ上に2点 $\\text{A}(-2, 2)$、$\\text{B}(4, 8)$ があり、直線 $\\text{AB}$ と $y$ 軸との交点を $\\text{C}$ とする。全国の公立入試大問3で毎年出る黄金セット(1)〜(4)を解きなさい。',
             explanationSummary: '放物線と直線が作る $\\triangle\\text{OAB}$ は【$y$ 軸（線分 $\\text{OC}$）で左右に真っ二つに割り、共通の底辺 $\\text{OC} \\times (|\\text{Aの}x| + |\\text{Bの}x|) \\times \\frac{1}{2}$】で求めるのが全受験生必修の王道解法です！',
@@ -794,6 +797,8 @@ const mathParts: Part[] = [
             category: '円周角と相似の融合',
             imageUrl: '/juken_figs/math_circle_similarity.svg',
             imageCaption: '円Oの直径ABと弦CDの交点Pにおける円周角の定理と相似な三角形',
+            explanationImageUrl: '/juken_figs/v6/math_circle_sim_ans.svg',
+            explanationImageCaption: '✏️ 書き込み解説：①直径ABに対する円周角90° ②同じ弧の円周角＋対頂角⇒砂時計型の相似！',
             requiresMathPalette: true,
             leadText: '図のように、円 $\\text{O}$ の直径 $\\text{AB}$ と弦 $\\text{CD}$ が点 $\\text{P}$ で交わっている。全国公立入試の図形大問で出題率トップクラスの「円と相似の融合問題」4問に答えなさい。',
             explanationSummary: '①線分 $\\text{AB}$ が直径 ⇔ 半円の弧に対する円周角 $\\angle\\text{ACB} = 90^\\circ$！ ②同じ弧（弧 $\\text{BC}$）に対する円周角 $\\angle\\text{CAP} = \\angle\\text{BDP}$ と対頂角 $\\angle\\text{APC} = \\angle\\text{DPB}$ より【$\\triangle\\text{ACP} \\sim \\triangle\\text{DBP}$】！対応する頂点の順番（A↔D、C↔B、P↔P）をそろえて書き出すのが最大のコツです！',
@@ -930,6 +935,8 @@ const mathParts: Part[] = [
             category: '三平方の定理・空間図形',
             imageUrl: '/juken_figs/math_cone_net.svg',
             imageCaption: '底面半径 r=3cm、母線 R=9cm の円錐と側面展開図の最短の糸 AA\'',
+            explanationImageUrl: '/juken_figs/v6/math_cone_shortest_ans.svg',
+            explanationImageCaption: '✏️ 書き込み解説：側面をおうぎ形（中心角120°）に展開し、AとA\'を一直線に結んで30°-60°-90°を作る！',
             requiresMathPalette: true,
             leadText: '空間図形は「立体をそのまま睨まず、必要な平面（展開図や対角線断面）を切り出して三平方の定理に持ち込む」のが鉄則です！図の円錐問題をはじめ頻出5問を攻略しましょう。',
             explanationSummary: '①円錐の側面展開図の中心角は【$360^\\circ \\times \\dfrac{r}{R}$】、側面積は裏ワザ【$\\pi R r$】で3秒！ ②側面に1周巻いた糸の最短距離は展開図のおうぎ形の弦 $\\text{AA}\'$ であり、中心角 $120^\\circ$ なら頂点から垂線を下ろして $30^\\circ, 60^\\circ, 90^\\circ$（$1:2:\\sqrt{3}$）を2つ作る！ ③ねじれの位置は「平行な辺」と「交わる（同じ頂点をもつ）辺」を全消去して残った辺！',
@@ -1370,6 +1377,8 @@ const mathParts: Part[] = [
             category: '箱ひげ図の比較分析',
             imageUrl: '/juken_figs/math_boxplot_compare.svg',
             imageCaption: '1組（35人）と2組（35人）の1週間の読書時間の箱ひげ図',
+            explanationImageUrl: '/juken_figs/v6/math_boxplot_compare_ans.svg',
+            explanationImageCaption: '✏️ 書き込み解説：4区間それぞれに全体の約25%のデータが入り、箱の横幅＝四分位範囲（Q3-Q1）！',
             requiresMathPalette: true,
             leadText: '図は、ある中学校の3年1組（35人）と3年2組（35人）の生徒について、1週間の読書時間を調べて箱ひげ図に表したものである。全国公立入試の大問1・大問2で必出の「複数箱ひげ図の比較・正誤判定」4問に答えなさい。',
             explanationSummary: '①35人を小さい順に並べると、真ん中の【18番目】が中央値（第2四分位数）、前半17人の真ん中の【9番目】が第1四分位数 $Q_1$、後半17人の真ん中の【27番目（大きい方から9番目）】が第3四分位数 $Q_3$！ ②箱の横幅＝【四分位範囲（$Q_3 - Q_1$）】が小さいほど真ん中付近のデータの散らばりが小さい！',
@@ -1506,10 +1515,13 @@ const mathParts: Part[] = [
 ];
 
 export const mathData: Part[] = applyChapterExpansions(
-  mathParts.map((part) => {
-    const extras = EXTRA_MATH_CHAPTERS.filter((ch) => ch.id.startsWith(part.id.replace('ma_part', 'ma') + '_'));
-    return extras.length ? { ...part, chapters: [...part.chapters, ...extras] } : part;
-  }),
-  MATH_BANK_EXPANSION,
+  applyChapterExpansions(
+    mathParts.map((part) => {
+      const extras = EXTRA_MATH_CHAPTERS.filter((ch) => ch.id.startsWith(part.id.replace('ma_part', 'ma') + '_'));
+      return extras.length ? { ...part, chapters: [...part.chapters, ...extras] } : part;
+    }),
+    MATH_BANK_EXPANSION,
+  ),
+  MATH_V6_EXPANSION,
 );
 export const MATH_STATS = countSubjectStats(mathData);

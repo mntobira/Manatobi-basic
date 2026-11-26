@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 320" width="520" height="320" style="font-family:system-ui, -apple-system, 'Noto Sans JP', sans-serif;background:#ffffff">
+
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#334155"/>
+    </marker>
+    <marker id="arrRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <!-- Grid -->
+  <g stroke="#f1f5f9" stroke-width="1">
+    <line x1="52.0" y1="16" x2="52.0" y2="295"/><line x1="98.0" y1="16" x2="98.0" y2="295"/><line x1="144.0" y1="16" x2="144.0" y2="295"/><line x1="190.0" y1="16" x2="190.0" y2="295"/><line x1="236.0" y1="16" x2="236.0" y2="295"/><line x1="282.0" y1="16" x2="282.0" y2="295"/><line x1="328.0" y1="16" x2="328.0" y2="295"/><line x1="374.0" y1="16" x2="374.0" y2="295"/><line x1="420.0" y1="16" x2="420.0" y2="295"/>
+    <line x1="25" y1="249.0" x2="455" y2="249.0"/><line x1="25" y1="222.0" x2="455" y2="222.0"/><line x1="25" y1="195.0" x2="455" y2="195.0"/><line x1="25" y1="168.0" x2="455" y2="168.0"/><line x1="25" y1="141.0" x2="455" y2="141.0"/><line x1="25" y1="114.0" x2="455" y2="114.0"/><line x1="25" y1="87.0" x2="455" y2="87.0"/><line x1="25" y1="60.0" x2="455" y2="60.0"/><line x1="25" y1="33.0" x2="455" y2="33.0"/>
+  </g>
+  <!-- Axes -->
+  <line x1="25" y1="276.0" x2="462" y2="276.0" stroke="#334155" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="190.0" y1="302" x2="190.0" y2="16" stroke="#334155" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="468" y="281.0" font-size="15" font-weight="800" fill="#1e293b">x</text>
+  <text x="198.0" y="22" font-size="15" font-weight="800" fill="#1e293b">y</text>
+  <text x="174.0" y="294.0" font-size="14" font-weight="800" fill="#1e293b">O</text>
+
+  <polygon points="190.0,276.0 98.0,222.0 374.0,60.0" fill="#dbeafe" fill-opacity="0.45" stroke="#2563eb" stroke-width="1.5"/>
+  <polyline points="-3.2,37.9 6.0,60.0 15.2,81.1 24.4,101.0 33.6,119.9 42.8,137.8 52.0,154.5 61.2,170.2 70.4,184.7 79.6,198.2 88.8,210.7 98.0,222.0 107.2,232.3 116.4,241.4 125.6,249.5 134.8,256.6 144.0,262.5 153.2,267.4 162.4,271.1 171.6,273.8 180.8,275.5 190.0,276.0 199.2,275.5 208.4,273.8 217.6,271.1 226.8,267.4 236.0,262.5 245.2,256.6 254.4,249.5 263.6,241.4 272.8,232.3 282.0,222.0 291.2,210.7 300.4,198.2 309.6,184.7 318.8,170.2 328.0,154.5 337.2,137.8 346.4,119.9 355.6,101.0 364.8,81.1 374.0,60.0 383.2,37.9 392.4,14.6" fill="none" stroke="#1e293b" stroke-width="2.5"/>
+  <line x1="42.8" y1="254.4" x2="397.0" y2="46.5" stroke="#1d4ed8" stroke-width="2.2"/>
+  <circle cx="98.0" cy="222.0" r="4.5" fill="#1e293b"/>
+  <circle cx="374.0" cy="60.0" r="4.5" fill="#1e293b"/>
+  <text x="40.0" y="214.0" font-size="14" font-weight="800" fill="#1e293b">A(-2, a)</text>
+  <text x="382.0" y="65.0" font-size="14" font-weight="800" fill="#1e293b">B(4, 8)</text>
+  <text x="28" y="38" font-size="14" font-weight="800" fill="#0f172a">y = ½x²</text>
+
+</svg>

@@ -186,6 +186,7 @@ export default function App() {
   const [selectedNote, setSelectedNote] = useState<StudyNote | null>(null);
   const [studyHubView, setStudyHubView] = useState<StudyHubView>({ tab: 'today', subjectTab: 'all' });
   const [chapterGroups, setChapterGroups] = useState<Record<string, string>>({});
+  const [initialExpandChapterId, setInitialExpandChapterId] = useState<string | null>(null);
   const [battleActive, setBattleActive] = useState(false);
   const [growthPage, setGrowthPage] = useState<GrowthPage>('overview');
   // 対戦 → 演習 → 対戦に戻る導線とスクロール位置は hooks/useBattleReturn.ts
@@ -301,7 +302,15 @@ export default function App() {
     setStudyLastContent(content.id);
     safeSetItem(STORAGE_KEYS.studyCatalogLast, content.id);
     if (content.action.kind === 'units') {
-      if (isSubjectId(content.action.subject)) openSubjectUnits(content.action.subject, 'study', content.action.mode ?? 'practice');
+      const targetSubject = content.action.subject;
+      if (isSubjectId(targetSubject)) {
+        if (content.action.partId) {
+          const pid = content.action.partId;
+          setChapterGroups(prev => ({ ...prev, [targetSubject]: pid }));
+        }
+        setInitialExpandChapterId(content.action.expandChapterId ?? null);
+        openSubjectUnits(targetSubject, 'study', content.action.mode ?? 'practice');
+      }
       return;
     }
     if (content.action.kind === 'learning') {
@@ -321,9 +330,13 @@ export default function App() {
       return;
     }
   };
-  /** 演習するのカードに出す進捗（ホームの「学習状況」と同じ数え方：解いた大問 / 大問数） */
-  const studyProgressOf = (subject: string) => {
-    const chapters = getUnitIndexOf(subject);
+  /** 演習するのカードに出す進捗（'subject' / 'subject:partId' / 'subject:partId:chapterId' に対応） */
+  const studyProgressOf = (progressKey: string) => {
+    const [subj, partFilter, chapterFilter] = progressKey.split(':');
+    const allChapters = getUnitIndexOf(subj);
+    const chapters = allChapters.filter(
+      (c) => (!partFilter || c.partId === partFilter) && (!chapterFilter || c.id === chapterFilter),
+    );
     const total = chapters.reduce((sum, c) => sum + (c.problemCount || 0), 0);
     if (!total) return undefined;
     const uid = auth.currentUser?.uid || 'guest';
@@ -677,6 +690,7 @@ export default function App() {
                   onBack={() => setAppState(chaptersBackTo === 'study' ? 'study' : studyEntry(selectedSubject) === 'chapters' ? 'home' : 'mode_selection')}
                   backLabel={chaptersBackTo === 'study' ? '演習' : studyEntry(selectedSubject) === 'chapters' ? 'ホーム' : '学習モード'}
                   rememberedGroup={chapterGroups[selectedSubject]}
+                  initialExpandChapterId={initialExpandChapterId}
                   onGroupChange={(group) => setChapterGroups(prev => ({ ...prev, [selectedSubject]: group }))}
                   subject={selectedSubject}
                 />

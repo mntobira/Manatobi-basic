@@ -14,6 +14,9 @@ import { formatText } from '../../utils/textFormatter';
 import { answerCardMarker, splitQuestionLabel } from '../../utils/questionDisplay';
 import { isScriptFirstExplanation, stripScriptBox } from '../../utils/listeningExplanation';
 import { ExplanationBody } from '../ExplanationBody';
+import { JukenMaterialCarousel } from '../JukenMaterialCarousel';
+import { MathAnnotatedFigureToggle } from '../MathAnnotatedFigureToggle';
+import { QuestionFigure } from '../QuestionFigure';
 import { isAttempted, pictureCellOf } from './helpers';
 import type { AudioTrack, Problem, SubQuestion } from '../../types/curriculum';
 
@@ -282,6 +285,39 @@ export function renderSubQuestionCard(ctx: SubQuestionCardContext, sq: SubQuesti
 
         {explanationOpen && (
           <div className={`space-y-3 ${explBodyBaseClass}`}>
+            {/* ★v6：数学の補助線・面積/体積書き込み解説図（元の問題図とワンタップ切替比較可能）★ */}
+            {(sq.explanationImageUrl || question.explanationImageUrl) ? (
+              <MathAnnotatedFigureToggle
+                explanationImageUrl={(sq.explanationImageUrl || question.explanationImageUrl)!}
+                explanationImageCaption={sq.explanationImageCaption || question.explanationImageCaption}
+                originalImageUrl={sq.imageUrl || question.imageUrl}
+                originalImageCaption={sq.imageCaption || question.imageCaption}
+              />
+            ) : sq.imageUrl ? (
+              <div className="rounded-xl border border-[#e3d8c4] bg-white p-2.5">
+                <QuestionFigure
+                  src={sq.imageUrl}
+                  caption={sq.imageCaption}
+                  tone="light"
+                  className="mt-0"
+                  imgClassName="max-h-[30dvh] object-contain"
+                />
+              </div>
+            ) : null}
+
+            {/* ★v6：小問または大問の複数資料カルーセル（スマホ1問解説でもその場で左右矢印確認）★ */}
+            {((Array.isArray(sq.materials) && sq.materials.length > 0) ||
+              (isMobile && Array.isArray(question.materials) && question.materials.length > 0)) && (
+              <JukenMaterialCarousel
+                materials={
+                  Array.isArray(sq.materials) && sq.materials.length > 0
+                    ? sq.materials
+                    : question.materials!
+                }
+                compact
+              />
+            )}
+
             {/* メインの解法解説 */}
             <div className="rounded-xl border border-[#dce8f8] bg-[#f8fbff] p-3.5 md:p-4">
               {sqSlice ? (

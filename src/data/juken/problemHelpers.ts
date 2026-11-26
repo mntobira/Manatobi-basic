@@ -16,7 +16,7 @@
  *    miniTest が未指定の場合でも先頭からの単純コピーはせず、専用チェック問題を構築、
  *    さらに原則として各章に独立した miniTest 大問を持たせる。
  */
-import type { Chapter, Distractor, Part, Problem, SubQuestion } from '../../types/curriculum';
+import type { Chapter, Distractor, Part, Problem, SlideMaterial, SubQuestion } from '../../types/curriculum';
 
 export interface QuestionSpec {
   /** 小問見出し兼問題文（バトルや復習でもこれ1つで意味が通る文面にする） */
@@ -54,6 +54,11 @@ export interface QuestionSpec {
   /** 小問固有の図表URL */
   imageUrl?: string;
   imageCaption?: string;
+  /** 小問の解説書き込み図（補助線・面積分割・空間断面などを書き込んだSVG） */
+  explanationImageUrl?: string;
+  explanationImageCaption?: string;
+  /** 小問固有の複数資料スライド（左右矢印切替） */
+  materials?: SlideMaterial[];
 }
 
 export interface ProblemSpec {
@@ -65,6 +70,13 @@ export interface ProblemSpec {
   /** 大問共通の図版URL（public/juken_figs/*.svg など） */
   imageUrl?: string;
   imageCaption?: string;
+  /** 大問共通の解説書き込み図（補助線・面積分割・空間断面などを書き込んだSVG） */
+  explanationImageUrl?: string;
+  explanationImageCaption?: string;
+  /** 複数資料スライド（社会の第6問B方式：左右矢印・スワイプ・タブで資料1〜資料Nを切替） */
+  materials?: SlideMaterial[];
+  /** ステージ難易度（1: ★基礎 / 2: ★★標準 / 3: ★★★発展・入試実戦） */
+  difficultyLevel?: 1 | 2 | 3;
   requiresMathPalette?: boolean;
   requiresChemicalPalette?: boolean;
   questions: QuestionSpec[];
@@ -255,6 +267,9 @@ export function buildProblem(spec: ProblemSpec): Problem {
       battleTimeLimit: q.battleTimeSec ?? 20,
       imageUrl: q.imageUrl,
       imageCaption: q.imageCaption,
+      explanationImageUrl: q.explanationImageUrl,
+      explanationImageCaption: q.explanationImageCaption,
+      materials: q.materials,
       detailedExplanation: {
         theme: q.oneLine,
         type: q.patternType ?? '入試頻出パターン',
@@ -271,6 +286,14 @@ export function buildProblem(spec: ProblemSpec): Problem {
     `${SQ_SHARED_MARK}\n${spec.explanationSummary}`,
   ].join('\n\n');
 
+  // ステージ難易度（未指定なら想定正答率・小問難易度から ★基礎 / ★★標準 / ★★★実戦 を決定）
+  const avgRate =
+    subQuestions.length > 0
+      ? subQuestions.reduce((s, sq) => s + (sq.correctAnswerRate ?? 64), 0) / subQuestions.length
+      : 64;
+  const computedDiff: 1 | 2 | 3 =
+    spec.difficultyLevel ?? (avgRate >= 72 ? 1 : avgRate >= 58 ? 2 : 3);
+
   return {
     id: spec.id,
     title: spec.title,
@@ -278,6 +301,10 @@ export function buildProblem(spec: ProblemSpec): Problem {
     text: spec.leadText,
     imageUrl: spec.imageUrl,
     imageCaption: spec.imageCaption,
+    explanationImageUrl: spec.explanationImageUrl,
+    explanationImageCaption: spec.explanationImageCaption,
+    materials: spec.materials,
+    difficultyLevel: computedDiff,
     requiresMathPalette: spec.requiresMathPalette,
     requiresChemicalPalette: spec.requiresChemicalPalette,
     subQuestions,

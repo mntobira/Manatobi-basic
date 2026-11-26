@@ -135,3 +135,87 @@
 .lt-body dt::before { content: 'Q. '; color: var(--mt-brand); }
 .lt-body dd { margin: 2px 0 0; }
 .lt-body dd::before { content: 'A. '; font-weight: 800; color: var(--mt-done); }
+
+/* v6：スマホ極小スクロール対応のコンパクト分野タブ ＆ 難易度フィルターバー ＆ ステージバッジ */
+@media (max-width: 639px) {
+  .chapter-route .unit-head { min-height: 46px; margin-bottom: 6px; }
+  .chapter-route .unit-head-title h2 { font-size: 17px !important; }
+  .chapter-route .unit-head-title p { font-size: 11px; }
+  .chapter-route .chapter-index [role=tab].chapter-compact-tab { min-height: 42px; min-width: 7.2rem; padding: 5px 8px; }
+}
+
+.juken-diff-bar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 2px 1px;
+}
+.juken-diff-bar::-webkit-scrollbar { display: none; }
+.juken-diff-label {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font: 800 11.5px/1 var(--mt-font-body);
+  color: #6b5f4b;
+  margin-right: 2px;
+}
+.juken-diff-pill {
+  flex-shrink: 0;
+  min-height: 32px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1.5px solid #e3d8c4;
+  background: #fffdf8;
+  color: #5a5243;
+  font: 800 11.5px/1 var(--mt-font-body);
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+.juken-diff-pill:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.juken-diff-pill[data-active] {
+  border-color: #2c3e50;
+  background: #2c3e50;
+  color: #ffffff;
+  box-shadow: 0 2px 0 rgba(44, 62, 80, 0.25);
+}
+.juken-diff-pill[data-tier="1"][data-active] { border-color: #15803d; background: #15803d; }
+.juken-diff-pill[data-tier="2"][data-active] { border-color: #b45309; background: #b45309; }
+.juken-diff-pill[data-tier="3"][data-active] { border-color: #b91c1c; background: #b91c1c; }
+
+.juken-unit-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 2px;
+}
+.juken-unit-topic-chip {
+  font: 700 11px/1.35 var(--mt-font-body);
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #f7f2e8;
+  border: 1px solid #eadfce;
+  color: #5b5040;
+}
+.juken-stage-badges {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.juken-stage-diff {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 7px;
+  border-radius: 999px;
+  font: 800 11px/1.4 var(--mt-font-body);
+}
+.juken-stage-qcount {
+  font: 800 11px/1.4 var(--mt-font-body);
+  color: #64748b;
+}

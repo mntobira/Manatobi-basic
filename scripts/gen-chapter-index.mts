@@ -8,7 +8,7 @@ import { writeFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { SUBJECTS, getChaptersOfSubject } from '../src/data/allChapters';
+import { SUBJECTS, getPartsOfSubject } from '../src/data/allChapters';
 import { ENGLISH_STATS } from '../src/data/englishData';
 import { MATH_STATS } from '../src/data/mathData';
 import { JAPANESE_STATS } from '../src/data/japaneseData';
@@ -21,10 +21,14 @@ const OUT = resolve(HERE, '../src/data/chapterIndex.generated.ts');
 
 interface ChapterIndexEntry {
   id: string;
+  partId?: string;
+  partTitle?: string;
   title?: string;
   abstractTitle?: string;
   realTitle?: string;
   problemCount: number;
+  practiceProblemCount: number;
+  miniTestProblemCount: number;
   subQuestionCount: number;
   practiceSubQuestionCount: number;
   miniTestSubQuestionCount: number;
@@ -77,32 +81,42 @@ function buildIndex(): SubjectIndexEntry[] {
   const index: SubjectIndexEntry[] = [];
 
   for (const subject of SUBJECTS) {
-    const chapters = getChaptersOfSubject(subject.id).map((chapter) => {
-      const practiceSubQuestionCount = (chapter.practiceProblems || []).reduce(
-        (sum, p) => sum + Math.max(1, (p.subQuestions || []).length),
-        0,
-      );
-      const miniTestSubQuestionCount = (chapter.miniTest || []).reduce(
-        (sum, p) => sum + Math.max(1, (p.subQuestions || []).length),
-        0,
-      );
-      const entry: ChapterIndexEntry = {
-        id: String(chapter.id),
-        problemCount:
-          (chapter.miniTest?.length || 0) + (chapter.practiceProblems?.length || 0),
-        subQuestionCount: practiceSubQuestionCount + miniTestSubQuestionCount,
-        practiceSubQuestionCount,
-        miniTestSubQuestionCount,
-      };
-      if (typeof chapter.title === 'string' && chapter.title) entry.title = chapter.title;
-      if (typeof chapter.abstractTitle === 'string' && chapter.abstractTitle) {
-        entry.abstractTitle = chapter.abstractTitle;
+    const parts = getPartsOfSubject(subject.id);
+    const chapters: ChapterIndexEntry[] = [];
+
+    for (const part of parts) {
+      for (const chapter of part.chapters) {
+        const practiceProblemCount = chapter.practiceProblems?.length || 0;
+        const miniTestProblemCount = chapter.miniTest?.length || 0;
+        const practiceSubQuestionCount = (chapter.practiceProblems || []).reduce(
+          (sum, p) => sum + Math.max(1, (p.subQuestions || []).length),
+          0,
+        );
+        const miniTestSubQuestionCount = (chapter.miniTest || []).reduce(
+          (sum, p) => sum + Math.max(1, (p.subQuestions || []).length),
+          0,
+        );
+        const entry: ChapterIndexEntry = {
+          id: String(chapter.id),
+          partId: part.id,
+          partTitle: part.title,
+          problemCount: practiceProblemCount + miniTestProblemCount,
+          practiceProblemCount,
+          miniTestProblemCount,
+          subQuestionCount: practiceSubQuestionCount + miniTestSubQuestionCount,
+          practiceSubQuestionCount,
+          miniTestSubQuestionCount,
+        };
+        if (typeof chapter.title === 'string' && chapter.title) entry.title = chapter.title;
+        if (typeof chapter.abstractTitle === 'string' && chapter.abstractTitle) {
+          entry.abstractTitle = chapter.abstractTitle;
+        }
+        if (typeof chapter.realTitle === 'string' && chapter.realTitle) {
+          entry.realTitle = chapter.realTitle;
+        }
+        chapters.push(entry);
       }
-      if (typeof chapter.realTitle === 'string' && chapter.realTitle) {
-        entry.realTitle = chapter.realTitle;
-      }
-      return entry;
-    });
+    }
 
     index.push({ id: subject.id, label: subject.label, chapters });
   }
@@ -118,10 +132,14 @@ const HEADER = `/**
 
 export interface ChapterIndexEntry {
   id: string;
+  partId?: string;
+  partTitle?: string;
   title?: string;
   abstractTitle?: string;
   realTitle?: string;
   problemCount: number;
+  practiceProblemCount?: number;
+  miniTestProblemCount?: number;
   subQuestionCount?: number;
   practiceSubQuestionCount?: number;
   miniTestSubQuestionCount?: number;
@@ -142,6 +160,27 @@ export function getChapterIndexOfSubject(
 ): readonly ChapterIndexEntry[] {
   const entry = SUBJECT_INDEX.find((subject) => subject.id === subjectId) ?? SUBJECT_INDEX[0];
   return entry ? entry.chapters : [];
+}
+
+export function getPartIndexStats(
+  subjectId: string | null | undefined,
+  partId: string,
+  chapterId?: string,
+): {
+  chapters: number;
+  sets: number;
+  practiceQuestions: number;
+  miniTestQuestions: number;
+} {
+  const all = getChapterIndexOfSubject(subjectId).filter(
+    (ch) => ch.partId === partId && (!chapterId || ch.id === chapterId),
+  );
+  return {
+    chapters: all.length,
+    sets: all.reduce((s, c) => s + (c.practiceProblemCount ?? 0), 0),
+    practiceQuestions: all.reduce((s, c) => s + (c.practiceSubQuestionCount ?? 0), 0),
+    miniTestQuestions: all.reduce((s, c) => s + (c.miniTestSubQuestionCount ?? 0), 0),
+  };
 }
 `;
 
