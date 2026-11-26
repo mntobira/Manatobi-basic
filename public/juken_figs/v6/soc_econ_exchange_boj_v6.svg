@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 320" width="520" height="320" style="font-family:system-ui, -apple-system, 'Noto Sans JP', sans-serif;background:#ffffff">
+
+  <text x="20" y="28" font-size="14" font-weight="900" fill="#0f172a">為替レートの変動（1ドル＝150円 → A：120円 ／ B：160円）</text>
+  <rect x="22" y="52" width="224" height="196" rx="14" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.8"/>
+  <text x="44" y="80" font-size="14" font-weight="900" fill="#1d4ed8">変動 A：1ドル ＝ 120円</text>
+  <text x="44" y="108" font-size="12.5" font-weight="800" fill="#1e293b">・1ドルの品物が150円→120円で買える</text>
+  <text x="44" y="132" font-size="12.5" font-weight="800" fill="#1e293b">・円の価値が上がった状態</text>
+  <text x="44" y="160" font-size="12.5" font-weight="900" fill="#0369a1">⇒ 輸入企業・海外旅行に【有利】</text>
+  <text x="44" y="184" font-size="12.5" font-weight="900" fill="#b91c1c">⇒ 輸出企業の価格競争力は【不利】</text>
+
+  <rect x="272" y="52" width="226" height="196" rx="14" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.8"/>
+  <text x="292" y="80" font-size="14" font-weight="900" fill="#b45309">変動 B：1ドル ＝ 160円</text>
+  <text x="292" y="108" font-size="12.5" font-weight="800" fill="#1e293b">・1ドルの品物に160円必要になる</text>
+  <text x="292" y="132" font-size="12.5" font-weight="800" fill="#1e293b">・円の価値が下がった状態</text>
+  <text x="292" y="160" font-size="12.5" font-weight="900" fill="#15803d">⇒ 輸出企業・訪日外国人観光に【有利】</text>
+  <text x="292" y="184" font-size="12.5" font-weight="900" fill="#b91c1c">⇒ 原油や食料の輸入価格は【上昇】</text>
+  <text x="26" y="282" font-size="12" font-weight="800" fill="#475569">※資料2（日銀の公開市場操作・財政政策の表）と組み合わせて考えよう！</text>
+
+</svg>

@@ -19,7 +19,7 @@
  * このファイルは ★試合が終わってリザルト画面が出たときだけ★ 読み込む。
  *
  * -------------------------------------------------------------------
- * ■ 収録数: 188 問（oneLine を持つ問題だけ）
+ * ■ 収録数: 198 問（oneLine を持つ問題だけ）
  * -------------------------------------------------------------------
  * 機械生成の問題は元データに1行解答が無いので入っていない。
  * 画面側は「無い問題は答えの行を出さない」作りにしてある。
@@ -73,6 +73,11 @@ export const ANSWERS: readonly (readonly [string, string])[] = [
   ["q:en1_2:en1_2_p1:en1_2_p1_q4","lake ＝ 比較級 ＋ than any other ＋【単数名詞】＝「他のどの〜よりも…だ」！"],
   ["q:en1_2:en1_2_p1:en1_2_p1_q5","what ＝ buy の目的語「何を」が空いているので what to buy（何を買うべきか）！"],
   ["q:en1_2:en1_2_p1:en1_2_p1_q6","much ＝ 比較級を「ずっと〜」と強めるときは much / a lot / far / even！（very は絶対NG）"],
+  ["q:en1_2:en1_2_v6_p1:en1_2_v6_p1_q1","doing ＝ enjoy / finish / stop / practice の後ろは必ず【~ing（動名詞）】！"],
+  ["q:en1_2:en1_2_v6_p1:en1_2_v6_p1_q2","is ＝ 「もし〜なら」の if 節の中では未来のことでも will を使わず【現在形（is / rains 等）】！"],
+  ["q:en1_2:en1_2_v6_p1:en1_2_v6_p1_q3","the oldest ＝ of all ＋ 複数名詞 ／ in ＋ 場所（単数）が後ろにあれば【the ＋ 最上級】！"],
+  ["q:en1_2:en1_2_v6_p1:en1_2_v6_p1_q4","for ＝ It is ＋ 形容詞 ＋【for 人】＋ to 動詞の原形！（kind / nice のときだけ of 人）"],
+  ["q:en1_2:en1_2_v6_p1:en1_2_v6_p1_q5","faster ＝ than があれば比較級 faster！ 比較級の前の強調「ずっと〜」は very ではなく【much】！"],
   ["q:en1_3:en1_3_exp_m1:en1_3_exp_m1_q1","yourself ＝ Help yourself to ~. ＝「どうぞ〜をご自由に取って召し上がれ」！"],
   ["q:en1_3:en1_3_exp_m1:en1_3_exp_m1_q2","How ＝ How ＋ 形容詞/副詞 ＋ S ＋ V!（名詞がなければ How！）"],
   ["q:en1_3:en1_3_exp_m1:en1_3_exp_m1_q3","and ＝ 道案内の定番：Turn left [Go straight], and you will see ~!"],
@@ -139,6 +144,11 @@ export const ANSWERS: readonly (readonly [string, string])[] = [
   ["q:en2_2:en2_2_p1:en2_2_p1_q4","had ＝ now（今）の話なのに主節が would go！ 現在の事実に反する仮定は【過去形 had】を使う！"],
   ["q:en2_2:en2_2_p1:en2_2_p1_q5","that ＝ 先行詞が「人＋動物（the girl and her dog）」のときは関係代名詞【that】を選ぶ！"],
   ["q:en2_2:en2_2_p1:en2_2_p1_q6","the library opens ＝ does が消えて肯定文語順に戻るとき、the library に合わせて opens と【-s を復活】させる！"],
+  ["q:en2_2:en2_2_v6_p1:en2_2_v6_p1_q1","taken ＝ 「〜によって撮られた写真」＝ 受動関係なので【過去分詞 taken】で後ろから修飾！"],
+  ["q:en2_2:en2_2_v6_p1:en2_2_v6_p1_q2","when the next bus leaves ＝ 間接疑問文 ＝【疑問詞 ＋ 主語 ＋ 動詞】の語順！（does が消えるので三単現の -s「leaves」を忘れない！）"],
+  ["q:en2_2:en2_2_v6_p1:en2_2_v6_p1_q3","whose ＝ 先行詞 ＋【whose ＋ 名詞（冠詞なし）】＋ V 〜 ＝「その…の［名詞］が〜」！"],
+  ["q:en2_2:en2_2_v6_p1:en2_2_v6_p1_q4","were ＝ 現在の事実に反する仮定 ＝【If ＋ S ＋ 過去形（be動詞は were / was）, S ＋ would / could ＋ 原形】！"],
+  ["q:en2_2:en2_2_v6_p1:en2_2_v6_p1_q5","Since ＝ since ＋ 過去の起点（S ＋ 過去形）＝「〜して以来ずっと」！（for ＋ 期間の長さ と区別！）"],
   ["q:en3_1:en3_1_exp_m1:en3_1_exp_m1_q1","arrived at ＝ arrive at 駅 [in 都市] ＝ get to 場所 ＝ reach 場所！"],
   ["q:en3_1:en3_1_exp_m1:en3_1_exp_m1_q2","use ＝ その場で借りて使う ＝ May I use ~? ／ 図書館から借り出す ＝ borrow！"],
   ["q:en3_1:en3_1_exp_m1:en3_1_exp_m1_q3","to finish ＝ It takes ＋ 人 ＋ 時間 ＋ to 原形 ＝「人が〜するのに時間がかかる」！"],

@@ -47,6 +47,11 @@ export interface SubQuestion {
   detailedExplanation?: DetailedExplanation | null;
   imageUrl?: string;
   imageCaption?: string;
+  /** 解説用の書き込み図（数学の補助線・高さ・底面積・断面図書き込みSVGなど） */
+  explanationImageUrl?: string;
+  explanationImageCaption?: string;
+  /** 小問固有の複数資料スライド（左右矢印切替） */
+  materials?: SlideMaterial[];
   /** 選択肢の本文（options と同じ並び） */
   optionTexts?: string[];
   /** 選択肢が図そのもののときの画像パス（options と同じ並び） */
@@ -90,6 +95,31 @@ export interface TrackMaterial {
   sections?: { heading?: string; rows: string[] }[];
   table?: { headers: string[]; rows: string[][] };
   images?: { src: string; caption: string; minWidth?: number }[];
+}
+
+/**
+ * 社会・理科・総合問題などの複数資料スライド（マナトビリスニング第6問B方式で左右矢印切替）
+ */
+export interface SlideMaterial {
+  id: string;
+  /** タブに出す短い名前（例：'資料1 雨温図', '資料2 統計表'） */
+  label: string;
+  /** スライド上部のタイトル */
+  title: string;
+  /** 種別バッジ（例：'地図', '統計表', '雨温図', '史料', '年表', 'グラフ'） */
+  badge?: string;
+  /** SVG・画像のパス */
+  imageUrl?: string;
+  imageCaption?: string;
+  /** コンパクト表データ（タップで○/×メモ対応） */
+  table?: {
+    headers: string[];
+    rows: string[][];
+  };
+  /** 史料・リード箇条書き */
+  lines?: string[];
+  /** 注釈（出典・単位など） */
+  note?: string;
 }
 
 /** 決め手になる語句 */
@@ -143,6 +173,13 @@ export interface Problem {
   // ---- 汎用処理が読む任意項目（現行データには無い） ----
   imageUrl?: string;
   imageCaption?: string;
+  /** 大問共通の解説書き込み図（補助線・面積分割・空間断面などを書き込んだSVG） */
+  explanationImageUrl?: string;
+  explanationImageCaption?: string;
+  /** 複数資料スライド（社会の第6問B方式：左右矢印・スワイプ・タブで資料1〜資料Nを切替） */
+  materials?: SlideMaterial[];
+  /** ステージ難易度（1: ★基礎 / 2: ★★標準 / 3: ★★★発展・入試実戦） */
+  difficultyLevel?: 1 | 2 | 3;
   requiresMathPalette?: boolean;
   requiresChemicalPalette?: boolean;
   /**

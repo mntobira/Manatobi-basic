@@ -45,6 +45,12 @@ export function getGrammarPartGroups(): ChapterGroup[] {
   return getChapterGroups('english');
 }
 
+export function findGroupTitleByPartId(subject: string, partId?: string): string | undefined {
+  if (!partId) return undefined;
+  const groups = getChapterGroups(subject);
+  return groups.find((g) => g.partId === partId)?.title;
+}
+
 export function collectAudioSets(
   chapter: Chapter,
 ): { id: string; title: string; readCount: 1 | 2; tracks: ListeningAudioTrack[] }[] {

@@ -15,9 +15,11 @@ import { QuestionFigure } from './QuestionFigure';
 import { ListeningAudioPlayer } from './ListeningAudioPlayer';
 import { ExplanationBody } from './ExplanationBody';
 import { renderListeningMaterialPane } from './quiz/ListeningMaterialPane';
+import { JukenMaterialCarousel } from './JukenMaterialCarousel';
 
 /**
  * 大問リード文・図表として独立ペインを出すべきか判定する。
+ * - 複数資料カルーセル（materials）がある
  * - 図版（imageUrl）がある
  * - Markdown 表（|）がある
  * - 長文・会話文・史料（135文字超 または 3行以上）
@@ -29,6 +31,7 @@ export function hasSubstantialLeadMaterial(
 ): boolean {
   if (!question) return false;
   if (listeningUnified) return true;
+  if (Array.isArray(question.materials) && question.materials.length > 0) return true;
   if (question.imageUrl) return true;
   const cleaned = cleanQuestionText(question.text || '').trim();
   if (!cleaned) return false;
@@ -173,26 +176,32 @@ export function ProblemPane({
                   ? 'h-auto max-h-[44dvh] relative z-20'
                   : listeningMobileSplit
                     ? 'relative z-20'
-                    : 'max-h-[43%] h-auto relative z-20'
+                    : 'max-h-[42%] h-auto relative z-20'
       }
     `}
     >
-      {/* 見出しバー */}
+      {/* 見出しバー（スマホは高さを抑えて1画面の情報量を最大化） */}
       <div
-        className={`flex items-center justify-between px-3 py-2 md:px-5 md:py-3 border-b border-[#ece2cf] bg-[#faf4e6] ${
+        className={`flex items-center justify-between px-2.5 py-1.5 md:px-5 md:py-3 border-b border-[#ece2cf] bg-[#faf4e6] ${
           !isDesktop && keyboardVisible ? 'hidden' : ''
         }`}
       >
         <div className="flex items-center gap-2 min-w-0">
           <span
-            className="inline-flex items-center justify-center rounded-lg px-2.5 py-1 text-xs font-extrabold text-white shrink-0"
+            className="inline-flex items-center justify-center rounded-lg px-2 py-0.5 text-[11px] md:text-xs font-extrabold text-white shrink-0"
             style={{ backgroundColor: accent }}
           >
-            大問 {currentQuestionIndex + 1}
+            ステージ {currentQuestionIndex + 1}
           </span>
           <span className="inline-flex items-center gap-1 font-extrabold text-[#3d3222] text-xs md:text-sm truncate">
-            <BookOpen size={15} style={{ color: accent }} className="shrink-0" />
-            <span>{currentQuestion.imageUrl ? '問題文・図表' : '問題文・資料'}</span>
+            <BookOpen size={14} style={{ color: accent }} className="shrink-0" />
+            <span>
+              {Array.isArray(currentQuestion.materials) && currentQuestion.materials.length > 0
+                ? `スライド資料（全${currentQuestion.materials.length}枚）`
+                : currentQuestion.imageUrl
+                  ? 'グラフ・図形・問題'
+                  : '問題文・資料'}
+            </span>
           </span>
 
           {highlights.length > 0 && (
@@ -257,8 +266,8 @@ export function ProblemPane({
         ref={problemScrollRef}
         className={`${
           !isDesktop && !isProblemExpanded && isProblemCollapsed ? 'hidden' : ''
-        } flex-1 min-h-0 overflow-y-auto md:p-6 text-[15px] leading-[1.85] md:text-[15.5px] md:leading-[1.9] text-[#1c2a39] break-words [overflow-wrap:anywhere] ${
-          listeningMobileSplit ? 'flex flex-col px-3 pt-2 pb-3' : 'p-3.5 sm:p-5'
+        } flex-1 min-h-0 overflow-y-auto md:p-6 text-[14.5px] leading-[1.7] md:text-[15.5px] md:leading-[1.9] text-[#1c2a39] break-words [overflow-wrap:anywhere] ${
+          listeningMobileSplit ? 'flex flex-col px-3 pt-2 pb-3' : 'p-2.5 sm:p-5'
         } ${questionNeedsMathPalette ? 'font-math math-content' : 'font-modern'}`}
         onMouseUp={handleTextSelection}
         onTouchEnd={handleTextSelection}
@@ -371,6 +380,34 @@ export function ProblemPane({
               );
             })()}
 
+          {/* ★v6：社会の複数資料カルーセル（第6問B方式・左右矢印＆タブ切替）を最上部に表示★ */}
+          {!listeningUnified &&
+            Array.isArray(currentQuestion.materials) &&
+            currentQuestion.materials.length > 0 && (
+              <JukenMaterialCarousel
+                materials={currentQuestion.materials}
+                accent={accent}
+                compact={!isDesktop && !isProblemExpanded}
+                className="mb-2.5"
+              />
+            )}
+
+          {/* ★v6：数学のグラフ・図形・実験図をスマホでもスクロールなしで前面に出すため上部に配置★ */}
+          {!listeningUnified &&
+            (!currentQuestion.materials || currentQuestion.materials.length === 0) &&
+            currentQuestion.imageUrl && (
+              <div className="mb-2.5 rounded-2xl border border-[#e3d8c4] bg-white p-2 sm:p-3 shadow-2xs">
+                <QuestionFigure
+                  src={currentQuestion.imageUrl}
+                  caption={currentQuestion.imageCaption}
+                  figureNumber={getFigureNumber(figureNumberMap, currentQuestion.id)}
+                  tone="light"
+                  className="mt-0"
+                  imgClassName="max-h-[26dvh] md:max-h-[44dvh] object-contain"
+                />
+              </div>
+            )}
+
           {!listeningUnified &&
             (inlineQuestionRows ? (
               <div className="flex flex-col gap-1.5">
@@ -399,26 +436,16 @@ export function ProblemPane({
                 </ul>
               </div>
             ) : (
-              <div className="rounded-2xl border border-[#eae0ce] bg-white p-4 shadow-2xs">
-                <ExplanationBody
-                  text={cleanQuestionText(currentQuestion.text)}
-                  highlights={combinedHighlights}
-                  boxedSections
-                />
-              </div>
+              cleanQuestionText(currentQuestion.text).trim().length > 0 && (
+                <div className="rounded-2xl border border-[#eae0ce] bg-white p-2.5 sm:p-4 shadow-2xs">
+                  <ExplanationBody
+                    text={cleanQuestionText(currentQuestion.text)}
+                    highlights={combinedHighlights}
+                    boxedSections
+                  />
+                </div>
+              )
             ))}
-
-          {currentQuestion.imageUrl && (
-            <div className="mt-4 rounded-2xl border border-[#e3d8c4] bg-white p-3 shadow-2xs">
-              <QuestionFigure
-                src={currentQuestion.imageUrl}
-                caption={currentQuestion.imageCaption}
-                figureNumber={getFigureNumber(figureNumberMap, currentQuestion.id)}
-                tone="light"
-                className="mt-0"
-              />
-            </div>
-          )}
 
           {/* 小問自体に本文がない形式の問題のみ設問一覧を補助表示 */}
           {!listeningUnified &&

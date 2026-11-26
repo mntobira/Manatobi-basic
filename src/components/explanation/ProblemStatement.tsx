@@ -4,6 +4,8 @@ import { formatText } from '../../utils/textFormatter';
 import { ExplanationBody } from '../ExplanationBody';
 import { QuestionFigure } from '../QuestionFigure';
 import { ListeningAudioPlayer } from '../ListeningAudioPlayer';
+import { JukenMaterialCarousel } from '../JukenMaterialCarousel';
+import { MathAnnotatedFigureToggle } from '../MathAnnotatedFigureToggle';
 import { getFigureNumber } from '../../utils/figureNumbering';
 import { buildSubQuestionList, isSubQuestionListRedundant, extractInlineQuestionRows, extractListeningQuestionRows, cleanQuestionText, findSubQuestionSentence } from '../../utils/questionDisplay';
 import type { Problem } from '../../types/curriculum';
@@ -238,15 +240,34 @@ export function ProblemStatement({ question, qIndex, scorePercentage, singleQues
                           </div>
                         );
                       })()}
-                      {/* 問題に付随する図・イラスト（PDF由来の図版など） */}
-                      {question.imageUrl && (
-                        <QuestionFigure
-                          src={question.imageUrl}
-                          caption={question.imageCaption}
-                          figureNumber={getFigureNumber(figureNumberMap, question.id)}
-                          tone={'light'}
+                      {/* 社会の複数資料カルーセル（解説画面でも左右矢印で見直せる） */}
+                      {Array.isArray(question.materials) && question.materials.length > 0 && (
+                        <JukenMaterialCarousel
+                          materials={question.materials}
+                          compact={reorderMobile}
+                          className="mt-3"
+                        />
+                      )}
+
+                      {/* 数学などの書き込み解説図（大問共通）または通常の図 */}
+                      {question.explanationImageUrl ? (
+                        <MathAnnotatedFigureToggle
+                          explanationImageUrl={question.explanationImageUrl}
+                          explanationImageCaption={question.explanationImageCaption}
+                          originalImageUrl={question.imageUrl}
+                          originalImageCaption={question.imageCaption}
                           className="mt-4"
                         />
+                      ) : (
+                        question.imageUrl && (
+                          <QuestionFigure
+                            src={question.imageUrl}
+                            caption={question.imageCaption}
+                            figureNumber={getFigureNumber(figureNumberMap, question.id)}
+                            tone={'light'}
+                            className="mt-4"
+                          />
+                        )
                       )}
 
                       {/*

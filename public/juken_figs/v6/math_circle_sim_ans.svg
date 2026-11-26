@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 320" width="520" height="320" style="font-family:system-ui, -apple-system, 'Noto Sans JP', sans-serif;background:#ffffff">
+
+  <circle cx="175" cy="160" r="108" fill="#f8fafc" stroke="#1e293b" stroke-width="2.4"/>
+  <polygon points="67,160 283,160 229,66.5" fill="#bae6fd" fill-opacity="0.45"/>
+  <line x1="67" y1="160" x2="283" y2="160" stroke="#1e293b" stroke-width="2.5"/>
+  <line x1="67" y1="160" x2="229" y2="66.5" stroke="#dc2626" stroke-width="2.4"/>
+  <line x1="283" y1="160" x2="229" y2="66.5" stroke="#dc2626" stroke-width="2.4"/>
+  <line x1="229" y1="66.5" x2="121" y2="253.5" stroke="#0284c7" stroke-width="2.2"/>
+  <line x1="67" y1="160" x2="121" y2="253.5" stroke="#0284c7" stroke-width="2"/>
+  <circle cx="175" cy="160" r="4" fill="#1e293b"/>
+  <text x="48" y="165" font-size="15" font-weight="900" fill="#1e293b">A</text>
+  <text x="290" y="165" font-size="15" font-weight="900" fill="#1e293b">B</text>
+  <text x="232" y="58" font-size="15" font-weight="900" fill="#dc2626">C(90°!)</text>
+  <text x="104" y="272" font-size="15" font-weight="900" fill="#0369a1">D</text>
+  <text x="172" y="180" font-size="13" font-weight="800" fill="#1e293b">O</text>
+  <rect x="312" y="54" width="194" height="206" rx="12" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.8"/>
+  <text x="322" y="79" font-size="12.5" font-weight="900" fill="#92400e">✏️ 円と相似 2大チェック！</text>
+  <text x="322" y="105" font-size="12" font-weight="900" fill="#dc2626">① 直径ABに対する円周角</text>
+  <text x="322" y="124" font-size="12" font-weight="800" fill="#1e293b">　⇒ ∠ACB = 90° を即記入！</text>
+  <text x="322" y="154" font-size="12" font-weight="900" fill="#0369a1">② 同じ弧に対する円周角</text>
+  <text x="322" y="173" font-size="12" font-weight="800" fill="#1e293b">　⇒ 弧ADの円周角が等しい</text>
+  <text x="322" y="198" font-size="12" font-weight="900" fill="#15803d">③ 対頂角と合わせて2組の角が</text>
+  <text x="322" y="217" font-size="12" font-weight="900" fill="#15803d">　等しい ⇒ 砂時計型の相似！</text>
+
+</svg>

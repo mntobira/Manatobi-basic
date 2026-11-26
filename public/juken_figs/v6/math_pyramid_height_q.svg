@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 320" width="520" height="320" style="font-family:system-ui, -apple-system, 'Noto Sans JP', sans-serif;background:#ffffff">
+
+  <!-- Base ABCD -->
+  <line x1="165" y1="186" x2="325" y2="186" stroke="#94a3b8" stroke-width="1.8" stroke-dasharray="5,4"/>
+  <line x1="105" y1="246" x2="165" y2="186" stroke="#94a3b8" stroke-width="1.8" stroke-dasharray="5,4"/>
+  <line x1="105" y1="246" x2="265" y2="246" stroke="#1e293b" stroke-width="2.4"/>
+  <line x1="265" y1="246" x2="325" y2="186" stroke="#1e293b" stroke-width="2.4"/>
+  <!-- Apex O(215, 48) -->
+  <line x1="215" y1="48" x2="165" y2="186" stroke="#94a3b8" stroke-width="1.8" stroke-dasharray="5,4"/>
+  <line x1="215" y1="48" x2="105" y2="246" stroke="#1e293b" stroke-width="2.4"/>
+  <line x1="215" y1="48" x2="265" y2="246" stroke="#1e293b" stroke-width="2.4"/>
+  <line x1="215" y1="48" x2="325" y2="186" stroke="#1e293b" stroke-width="2.4"/>
+  <text x="208" y="38" font-size="15" font-weight="900" fill="#1e293b">O</text>
+  <text x="86" y="254" font-size="14" font-weight="900" fill="#1e293b">A</text>
+  <text x="270" y="256" font-size="14" font-weight="900" fill="#1e293b">B</text>
+  <text x="332" y="190" font-size="14" font-weight="900" fill="#1e293b">C</text>
+  <text x="148" y="182" font-size="14" font-weight="800" fill="#64748b">D</text>
+
+  <text x="155" y="268" font-size="13.5" font-weight="800" fill="#2563eb">底面1辺 6cm の正方形</text>
+  <text x="278" y="116" font-size="13.5" font-weight="800" fill="#2563eb">側面の辺 OC = 5cm</text>
+  <rect x="352" y="76" width="154" height="110" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="364" y="104" font-size="13" font-weight="900" fill="#1e293b">正四角錐 O-ABCD</text>
+  <text x="364" y="130" font-size="12.5" font-weight="700" fill="#334155">① 高さ OH の長さ</text>
+  <text x="364" y="154" font-size="12.5" font-weight="700" fill="#334155">② 正四角錐の体積</text>
+
+</svg>

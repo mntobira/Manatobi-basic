@@ -60,6 +60,8 @@ let choice4Total = 0;
 let shortTotal = 0;
 let withDistractors = 0;
 let withFigures = 0;
+let withAnnotatedFigures = 0;
+let withMaterials = 0;
 
 const subjectSummary: Record<string, { chapters: number; practiceQs: number; miniQs: number; totalQs: number }> = {};
 
@@ -94,6 +96,27 @@ for (const sub of SUBJECTS) {
         withFigures += 1;
       }
 
+      if (pr.explanationImageUrl) {
+        const diskPath = resolve(PUBLIC_DIR, pr.explanationImageUrl.replace(/^\//, ''));
+        if (!existsSync(diskPath)) {
+          fail(`大問 ${pr.id} の書き込み解説図が存在しません: ${pr.explanationImageUrl} -> ${diskPath}`);
+        }
+        withAnnotatedFigures += 1;
+      }
+
+      if (pr.materials && pr.materials.length > 0) {
+        withMaterials += 1;
+        for (const mat of pr.materials) {
+          if (mat.imageUrl) {
+            const diskPath = resolve(PUBLIC_DIR, mat.imageUrl.replace(/^\//, ''));
+            if (!existsSync(diskPath)) {
+              fail(`大問 ${pr.id} のスライド資料画像が存在しません: ${mat.imageUrl} -> ${diskPath}`);
+            }
+            withFigures += 1;
+          }
+        }
+      }
+
       for (const sq of pr.subQuestions) {
         if (sqIds.has(sq.id)) fail(`重複した小問ID: ${sq.id}`);
         sqIds.add(sq.id);
@@ -104,6 +127,31 @@ for (const sub of SUBJECTS) {
             fail(`小問 ${sq.id} の画像ファイルが存在しません: ${sq.imageUrl}`);
           }
           withFigures += 1;
+        }
+
+        if (sq.explanationImageUrl) {
+          const diskPath = resolve(PUBLIC_DIR, sq.explanationImageUrl.replace(/^\//, ''));
+          if (!existsSync(diskPath)) {
+            fail(`小問 ${sq.id} の書き込み解説図が存在しません: ${sq.explanationImageUrl}`);
+          }
+          withAnnotatedFigures += 1;
+        }
+
+        if (sq.materials && sq.materials.length > 0) {
+          withMaterials += 1;
+          for (const mat of sq.materials) {
+            if (mat.imageUrl) {
+              const diskPath = resolve(PUBLIC_DIR, mat.imageUrl.replace(/^\//, ''));
+              if (!existsSync(diskPath)) {
+                fail(`小問 ${sq.id} のスライド資料画像が存在しません: ${mat.imageUrl}`);
+              }
+              withFigures += 1;
+            }
+          }
+        }
+
+        if (sub.id === 'social' && sq.type !== 'multiple_choice') {
+          fail(`社会の小問 ${sq.id} が4択（multiple_choice）になっていません: ${sq.type}`);
         }
 
         const promptBody = sq.label.replace(/^\(\d+\)\s*/, '').trim();
@@ -188,7 +236,9 @@ for (const [subId, st] of Object.entries(subjectSummary)) {
   );
 }
 console.log(`・総問題数      : ${grandTotal} 問（4択 ${choice4Total}問 ／ 短答 ${shortTotal}問）`);
-console.log(`・誤答解説付き  : ${withDistractors} 問 ／ 図版付き要素: ${withFigures} 件`);
+console.log(
+  `・誤答解説付き  : ${withDistractors} 問 ／ 図版要素: ${withFigures} 件 ／ 数学書き込み解説図: ${withAnnotatedFigures} 件 ／ スライド資料群: ${withMaterials} 組`,
+);
 if (choice4Total > 0) {
   const ratios = posCounts.map((c) => ((c / choice4Total) * 100).toFixed(1));
   console.log(

@@ -12,7 +12,7 @@
  * を実行すること。
  *
  * -------------------------------------------------------------------
- * ■ 収録数: 188 問
+ * ■ 収録数: 198 問
  * -------------------------------------------------------------------
  *
  * ■ 中身は「タプルの配列」であって、読みやすさを捨てている。
@@ -70,6 +70,11 @@ export const POOL: readonly unknown[][] = [
   ["q:en1_2:en1_2_p1:en1_2_p1_q4","en1_2","en1_2_p1","en1_2_p1_q4",0,"","Lake Biwa is larger than any other ( ) in Japan.",["the lakes","lake","lakes","a lake"],1,[],20,""],
   ["q:en1_2:en1_2_p1:en1_2_p1_q5","en1_2","en1_2_p1","en1_2_p1_q5",0,"","I didn't know ( ) to buy as a birthday present for my mother, so I asked my father.",["where","when","how","what"],3,[],20,""],
   ["q:en1_2:en1_2_p1:en1_2_p1_q6","en1_2","en1_2_p1","en1_2_p1_q6",0,"","This riverside park is ( ) more popular among families than it was five years ago.",["many","much","very","so"],1,[],20,""],
+  ["q:en1_2:en1_2_v6_p1:en1_2_v6_p1_q1","en1_2","en1_2_v6_p1","en1_2_v6_p1_q1",0,"","My sister finished ( ) her math homework ten minutes ago.",["did","done","doing","to do"],2,[],20,""],
+  ["q:en1_2:en1_2_v6_p1:en1_2_v6_p1_q2","en1_2","en1_2_v6_p1","en1_2_v6_p1_q2",0,"","If it ( ) sunny tomorrow, we will have a barbecue by the river.",["be","will be","is","was"],2,[],20,""],
+  ["q:en1_2:en1_2_v6_p1:en1_2_v6_p1_q3","en1_2","en1_2_v6_p1","en1_2_v6_p1_q3",0,"","This library is ( ) of all the buildings in our town.",["oldest","as old","the oldest","older"],2,[],20,""],
+  ["q:en1_2:en1_2_v6_p1:en1_2_v6_p1_q4","en1_2","en1_2_v6_p1","en1_2_v6_p1_q4",0,"","It is very important ( ) us to save water and electricity.",["with","to","for","of"],2,[],20,""],
+  ["q:en1_2:en1_2_v6_p1:en1_2_v6_p1_q5","en1_2","en1_2_v6_p1","en1_2_v6_p1_q5",0,"","Ken runs much ( ) than I could run three years ago.",["more fast","fastest","faster","very faster"],2,[],20,""],
   ["q:en1_3:en1_3_exp_m1:en1_3_exp_m1_q1","en1_3","en1_3_exp_m1","en1_3_exp_m1_q1",0,"感嘆文・命令文＋and・再帰代名詞の慣用表現をテンポよく確認します。","A: Please help ( ) to these cookies, Tom. — B: Thank you! They look delicious.",["you","yours","yourselves","yourself"],3,[],20,""],
   ["q:en1_3:en1_3_exp_m1:en1_3_exp_m1_q2","en1_3","en1_3_exp_m1","en1_3_exp_m1_q2",0,"感嘆文・命令文＋and・再帰代名詞の慣用表現をテンポよく確認します。","( ) beautifully Emma plays the piano!",["What","How","What a","Which"],1,[],20,""],
   ["q:en1_3:en1_3_exp_m1:en1_3_exp_m1_q3","en1_3","en1_3_exp_m1","en1_3_exp_m1_q3",0,"感嘆文・命令文＋and・再帰代名詞の慣用表現をテンポよく確認します。","Turn left at the next corner, ( ) you will see the post office on your right.",["so","but","or","and"],3,[],20,""],
@@ -136,6 +141,11 @@ export const POOL: readonly unknown[][] = [
   ["q:en2_2:en2_2_p1:en2_2_p1_q4","en2_2","en2_2_p1","en2_2_p1_q4",0,"語順整序問題やマークシート問題で最も差がつく中3後半の4大文法テーマを徹底攻略します。","I don't have enough time today. If I ( ) more free time now, I would go to the art museum with you.",["will have","am having","had","have"],2,[],20,""],
   ["q:en2_2:en2_2_p1:en2_2_p1_q5","en2_2","en2_2_p1","en2_2_p1_q5",0,"語順整序問題やマークシート問題で最も差がつく中3後半の4大文法テーマを徹底攻略します。","Look at the girl and her dog ( ) are running together along the river.",["whose","who","that","which"],2,[],20,""],
   ["q:en2_2:en2_2_p1:en2_2_p1_q6","en2_2","en2_2_p1","en2_2_p1_q6",0,"語順整序問題やマークシート問題で最も差がつく中3後半の4大文法テーマを徹底攻略します。","Do you know what time ( ) every morning?",["the library open","opens the library","the library opens","does the library open"],2,[],20,""],
+  ["q:en2_2:en2_2_v6_p1:en2_2_v6_p1_q1","en2_2","en2_2_v6_p1","en2_2_v6_p1_q1",0,"中3英文法の山場である「現在分詞 vs 過去分詞」「関係代名詞」「間接疑問文の語順」「仮定法過去」を5問で総点検します！","Look at the picture ( ) by my grandfather fifty years ago.",["took","taken","was taken","taking"],1,[],20,""],
+  ["q:en2_2:en2_2_v6_p1:en2_2_v6_p1_q2","en2_2","en2_2_v6_p1","en2_2_v6_p1_q2",0,"中3英文法の山場である「現在分詞 vs 過去分詞」「関係代名詞」「間接疑問文の語順」「仮定法過去」を5問で総点検します！","Could you tell me ( )?",["when does the next bus leave","when will the next bus leave","when leaves the next bus","when the next bus leaves"],3,[],20,""],
+  ["q:en2_2:en2_2_v6_p1:en2_2_v6_p1_q3","en2_2","en2_2_v6_p1","en2_2_v6_p1_q3",0,"中3英文法の山場である「現在分詞 vs 過去分詞」「関係代名詞」「間接疑問文の語順」「仮定法過去」を5問で総点検します！","I have a friend ( ) mother is a famous pianist in Vienna.",["which","whose","whom","who"],1,[],20,""],
+  ["q:en2_2:en2_2_v6_p1:en2_2_v6_p1_q4","en2_2","en2_2_v6_p1","en2_2_v6_p1_q4",0,"中3英文法の山場である「現在分詞 vs 過去分詞」「関係代名詞」「間接疑問文の語順」「仮定法過去」を5問で総点検します！","I am very busy today. If I ( ) free today, I could go to the museum with you.",["am","have been","will be","were"],3,[],20,""],
+  ["q:en2_2:en2_2_v6_p1:en2_2_v6_p1_q5","en2_2","en2_2_v6_p1","en2_2_v6_p1_q5",0,"中3英文法の山場である「現在分詞 vs 過去分詞」「関係代名詞」「間接疑問文の語順」「仮定法過去」を5問で総点検します！","A: How long have you known Ms. Green? — B: ( ) I entered this junior high school.",["For","Since","During","When"],1,[],20,""],
   ["q:en3_1:en3_1_exp_m1:en3_1_exp_m1_q1","en3_1","en3_1_exp_m1","en3_1_exp_m1_q1",0,"前置詞・語法ミスを一瞬で見抜く3問です。","We ( ) Tokyo Station at nine thirty this morning.",["arrived to","got at","reached to","arrived at"],3,[],20,""],
   ["q:en3_1:en3_1_exp_m1:en3_1_exp_m1_q2","en3_1","en3_1_exp_m1","en3_1_exp_m1_q2",0,"前置詞・語法ミスを一瞬で見抜く3問です。","A: Excuse me, may I ( ) your phone? Mine is out of battery. — B: Sure, go ahead.",["borrow","use","lend","bring"],1,[],20,""],
   ["q:en3_1:en3_1_exp_m1:en3_1_exp_m1_q3","en3_1","en3_1_exp_m1","en3_1_exp_m1_q3",0,"前置詞・語法ミスを一瞬で見抜く3問です。","It took me about two hours ( ) making dinner for everyone.",["finishing","finished","for finish","to finish"],3,[],20,""],

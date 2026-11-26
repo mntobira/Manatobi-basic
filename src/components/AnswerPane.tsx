@@ -6,6 +6,8 @@ import { formatText } from '../utils/textFormatter';
 import { answerCardMarker, cleanQuestionText, splitQuestionLabel } from '../utils/questionDisplay';
 import { handleInputFocusScroll } from '../utils/quizInputScroll';
 import { hasSubstantialLeadMaterial } from './ProblemPane';
+import { QuestionFigure } from './QuestionFigure';
+import { JukenMaterialCarousel } from './JukenMaterialCarousel';
 
 const isLongBlankHint = (hint: unknown) => {
   const t = String(hint ?? '');
@@ -431,7 +433,7 @@ export function AnswerPane({
                 {/* 設問本文をカード内に直接表示（左右や上下の別枠を探し回るストレスをゼロにする） */}
                 {!listeningUnified && sqPromptBody.trim().length > 0 && (
                   <div
-                    className={`rounded-xl bg-[#faf6ee] border border-[#ede3d1] px-3.5 py-3 text-[15.5px] md:text-[16px] font-bold leading-[1.78] text-[#1c2a39] break-words [overflow-wrap:anywhere] ${
+                    className={`rounded-xl bg-[#faf6ee] border border-[#ede3d1] px-3 py-2.5 text-[15px] md:text-[16px] font-bold leading-[1.68] text-[#1c2a39] break-words [overflow-wrap:anywhere] ${
                       questionNeedsMathPalette ? 'font-math math-content' : 'font-modern'
                     }`}
                   >
@@ -440,6 +442,28 @@ export function AnswerPane({
                     })}
                   </div>
                 )}
+
+                {/* ★v6：小問固有の複数資料カルーセル（社会など）またはグラフ・図形（数学など）を前面表示★ */}
+                {!listeningUnified && Array.isArray(sq.materials) && sq.materials.length > 0 && (
+                  <JukenMaterialCarousel
+                    materials={sq.materials}
+                    accent={accent}
+                    compact={!isDesktop}
+                  />
+                )}
+                {!listeningUnified &&
+                  (!sq.materials || sq.materials.length === 0) &&
+                  sq.imageUrl && (
+                    <div className="rounded-xl border border-[#e3d8c4] bg-white p-2 shadow-2xs">
+                      <QuestionFigure
+                        src={sq.imageUrl}
+                        caption={sq.imageCaption}
+                        tone="light"
+                        className="mt-0"
+                        imgClassName="max-h-[26dvh] md:max-h-[38dvh] object-contain"
+                      />
+                    </div>
+                  )}
 
                 {/* リスニング複数欄見出し */}
                 {listeningUnified &&

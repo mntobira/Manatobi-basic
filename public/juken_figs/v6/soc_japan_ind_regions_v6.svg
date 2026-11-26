@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 320" width="520" height="320" style="font-family:system-ui, -apple-system, 'Noto Sans JP', sans-serif;background:#ffffff">
+
+  <text x="20" y="28" font-size="14" font-weight="900" fill="#0f172a">日本の主な工業地帯・地域の出荷額内訳（割合）</text>
+  <!-- Bars X (Chukyo - Machinery ~70%), Y (Keihin/Setouchi - Chemical high), Z (Hanshin - Metal + Misc) -->
+  <g font-size="12.5" font-weight="800">
+    <!-- X -->
+    <text x="20" y="86" fill="#1e293b">地域 X</text>
+    <rect x="82" y="64" width="272" height="32" fill="#2563eb"/><text x="182" y="85" fill="#fff">機械 68%</text>
+    <rect x="354" y="64" width="44" height="32" fill="#64748b"/>
+    <rect x="398" y="64" width="36" height="32" fill="#f59e0b"/>
+    <rect x="434" y="64" width="56" height="32" fill="#94a3b8"/>
+
+    <!-- Y -->
+    <text x="20" y="156" fill="#1e293b">地域 Y</text>
+    <rect x="82" y="134" width="144" height="32" fill="#2563eb"/><text x="122" y="155" fill="#fff">機械 36%</text>
+    <rect x="226" y="134" width="60" height="32" fill="#64748b"/><text x="234" y="155" fill="#fff">金属15%</text>
+    <rect x="286" y="134" width="120" height="32" fill="#f59e0b"/><text x="314" y="155" fill="#fff">化学 30%</text>
+    <rect x="406" y="134" width="84" height="32" fill="#94a3b8"/><text x="424" y="155" fill="#fff">他19%</text>
+
+    <!-- Z -->
+    <text x="20" y="226" fill="#1e293b">地域 Z</text>
+    <rect x="82" y="204" width="160" height="32" fill="#2563eb"/><text x="130" y="225" fill="#fff">機械 40%</text>
+    <rect x="242" y="204" width="84" height="32" fill="#64748b"/><text x="256" y="225" fill="#fff">金属21%</text>
+    <rect x="326" y="204" width="68" height="32" fill="#f59e0b"/><text x="336" y="225" fill="#fff">化学17%</text>
+    <rect x="394" y="204" width="96" height="32" fill="#10b981"/><text x="404" y="225" fill="#fff">食料・他22%</text>
+  </g>
+  <text x="82" y="276" font-size="12" font-weight="800" fill="#475569">凡例：■青＝機械　■灰＝金属　■橙＝化学　■緑/薄灰＝食料品・その他</text>
+
+</svg>
