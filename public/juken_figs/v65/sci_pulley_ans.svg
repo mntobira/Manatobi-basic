@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 290" width="520" height="290" font-family="'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr-slate" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="520" height="290" rx="14" fill="#ffffff"/>
+
+  <text x="18" y="26" font-size="13" font-weight="800" fill="#0f172a">動滑車を使って重さ 20N の物体を 0.5m 引き上げる実験</text>
+  <!-- 天井 -->
+  <rect x="85" y="42" width="190" height="10" fill="#cbd5e1"/>
+  <line x1="85" y1="52" x2="275" y2="52" stroke="#334155" stroke-width="2.5"/>
+  <!-- 左ひも・右ひも -->
+  <line x1="158" y1="52" x2="158" y2="162" stroke="#475569" stroke-width="2.5"/>
+  <line x1="222" y1="62" x2="222" y2="162" stroke="#475569" stroke-width="2.5"/>
+  <!-- 手で引く矢印 -->
+  <line x1="222" y1="78" x2="222" y2="56" stroke="#0f172a" stroke-width="2.5" marker-end="url(#arr-slate)"/>
+  <text x="252" y="68" font-size="12" font-weight="800" fill="#0f172a">手で引く F</text>
+  <!-- 動滑車 -->
+  <circle cx="190" cy="162" r="32" fill="#e2e8f0" stroke="#334155" stroke-width="3"/>
+  <circle cx="190" cy="162" r="6" fill="#334155"/>
+  <line x1="190" y1="162" x2="190" y2="215" stroke="#334155" stroke-width="3"/>
+  <!-- 物体 20N -->
+  <rect x="150" y="215" width="80" height="50" rx="6" fill="#fed7aa" stroke="#c2410c" stroke-width="2.4"/>
+  <text x="190" y="238" font-size="13" font-weight="800" fill="#9a3412" text-anchor="middle">物体 20N</text>
+  <text x="190" y="256" font-size="11" font-weight="700" fill="#9a3412" text-anchor="middle">↑ 0.5m 上昇</text>
+  
+  <!-- 左右2本の張力 -->
+  <line x1="158" y1="145" x2="158" y2="85" stroke="#dc2626" stroke-width="3" marker-end="url(#arr-red)"/>
+  <line x1="222" y1="145" x2="222" y2="85" stroke="#dc2626" stroke-width="3" marker-end="url(#arr-red)"/>
+  <text x="112" y="112" font-size="12" font-weight="800" fill="#dc2626" text-anchor="middle">左ひも 10N</text>
+  <text x="282" y="112" font-size="12" font-weight="800" fill="#dc2626" text-anchor="middle">右ひも F＝10N</text>
+  <!-- 右パネルまとめ -->
+  <rect x="305" y="65" width="198" height="165" rx="10" fill="#f8fafc" stroke="#2563eb" stroke-width="2"/>
+  <text x="404" y="90" font-size="12.5" font-weight="800" fill="#1e40af" text-anchor="middle">✏️ 動滑車の鉄則（摩擦・重さなし）</text>
+  <text x="318" y="118" font-size="12" font-weight="700" fill="#dc2626">① 引く力 F ＝ 半分（20÷2＝10N）</text>
+  <text x="318" y="146" font-size="12" font-weight="700" fill="#2563eb">② 引く距離 ＝ 2倍（0.5×2＝1.0m）</text>
+  <text x="318" y="176" font-size="12" font-weight="800" fill="#15803d">③ 仕事 W ＝ 10N × 1.0m ＝ 10J</text>
+  <text x="318" y="200" font-size="11" font-weight="700" fill="#475569">（直接持ち上げる 20N×0.5m＝10J</text>
+  <text x="318" y="216" font-size="11" font-weight="700" fill="#475569">　と【仕事の原理】で完全に等しい！）</text>
+
+
+</svg>

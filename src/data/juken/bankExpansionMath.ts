@@ -29,7 +29,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$-4^2=-16$ と $(-2)^3=-8$ を先に確定！",
             "skill": "正負の四則",
             "rate": 74,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$-4^2$ を $+16$ と誤って $(+16)\\div(-8)+5 = -2+5 = 3$ と計算した典型的な符号ミス！",
+              "$(-16)\\div(-8)=+2$ を $-2$ と誤り、さらに計算を崩したミス。",
+              "$(-16)\\div(-8)$ より先に足し算をしたり $-(-8)=+8$ を足してしまった四則順序ミス。"
+            ]
           },
           {
             "prompt": "$\\dfrac{2x - 3y}{4} - \\dfrac{x - 5y}{6}$ を計算しなさい。",
@@ -43,7 +48,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "分母12を残し $-2\\times(-5y)=+10y$ に注意！",
             "skill": "分数文字式通分",
             "rate": 68,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "後ろの分子 $-2(x-5y)$ を展開するとき $-2\\times(-5y)$ を $-10y$ とした最頻出の符号ミス！",
+              "方程式ではない文字式の計算なのに、勝手に12倍して分母を消してしまった0点ミス！",
+              "$3(2x)-2(x)=4x$ の計算で係数を誤り $2x$ にしたミス。"
+            ]
           },
           {
             "prompt": "$\\dfrac{6}{\\sqrt{3}} - \\sqrt{27} + \\sqrt{12}$ を計算しなさい。",
@@ -57,7 +67,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "有理化と $a\\sqrt{b}$ 変形で $\\sqrt{3}$ に統一！",
             "skill": "平方根の加減",
             "rate": 78,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$\\dfrac{6}{\\sqrt{3}}=2\\sqrt{3}$ を $4\\sqrt{3}$ と誤るなど係数の加減を誤ったミス。",
+              "符号を逆にして $2\\sqrt{3}-3\\sqrt{3}-2\\sqrt{3}$ のように引いてしまったミス。",
+              "$-\\sqrt{27}=-3\\sqrt{3}$ を $+3\\sqrt{3}$ として足してしまった符号ミス。"
+            ]
           },
           {
             "prompt": "$x = \\sqrt{6} + \\sqrt{2},\\ y = \\sqrt{6} - \\sqrt{2}$ のとき、$x^2 + xy + y^2$ の値を求めなさい。",
@@ -90,7 +105,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "最初に共通因数 $2$ でくくる！",
             "skill": "因数分解",
             "rate": 79,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "最初の括弧 $(2x-6)$ の中にまだ共通因数 $2$ が残っており、最後までくくり切れていない減点答案！",
+              "$x^2-6x+9$ は $(x-3)^2$ であり、和と差の積 $(x+3)(x-3)=x^2-9$ ではない。",
+              "かけて $+9$、足して $-6$ になるペアは $-3$ と $-3$ であり $-9$ と $-1$（和が $-10$）ではない。"
+            ]
           },
           {
             "prompt": "二次方程式 $(x - 3)^2 = 7$ を解きなさい。",
@@ -104,7 +124,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "展開せず平方根の考え方で即解！",
             "skill": "二次方程式",
             "rate": 81,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$-3$ を右辺に移項するとき符号をプラスに変えるのを忘れたミス。",
+              "平方根をとるとき右辺の $7$ にルートをつけ忘れたミス。",
+              "左辺の $-3$ を二乗と混ぜて $\\sqrt{3+7}$ のように誤処理したミス。"
+            ]
           },
           {
             "prompt": "二次方程式 $x^2 + ax - 18 = 0$ の解の1つが $x = -6$ のとき、$a$ の値ともう1つの解を求めなさい。",
@@ -118,7 +143,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "解を代入して定数 $a$ を先に求める！",
             "skill": "二次方程式の定数決定",
             "rate": 75,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$36-6a-18=0 \\Rightarrow -6a=-18$ で両辺を $-6$ で割るとき符号を誤り $a=-3$ としたミス。",
+              "$x^2+3x-18=(x+6)(x-3)=0$ から解を出すとき符号を反転し忘れたミス。",
+              "$36-18$ を $54$ と誤算して $6a=54 \\Rightarrow a=9$ とした計算ミス。"
+            ]
           },
           {
             "prompt": "$\\sqrt{7}$ の小数部分を $a$ とするとき、$a(a + 4)$ の値を求めなさい。",
@@ -132,7 +162,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$a=\\sqrt{7}-2$ より和と差の積で $3$！",
             "skill": "平方根の小数部分",
             "rate": 58,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "$(\\sqrt{7}-2)(\\sqrt{7}+2)=7-4$ で $-4$ を引き忘れたミス。",
+              "小数部分 $a=\\sqrt{7}-2$ だけを答えてしまい $a(a+4)$ を計算していないミス。",
+              "$(\\sqrt{7})^2 - 2^2 = 7 - 2 = 5$ のように $2^2=4$ を $2$ と誤ったミス。"
+            ]
           },
           {
             "prompt": "$-3^2 + (-2)^3 \\div \\dfrac{4}{3}$ を計算しなさい。",
@@ -189,7 +224,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$9<n<16$ より $10〜15$ の6個！",
             "skill": "平方根の大小",
             "rate": 72,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "不等号に $=$ がないので片端を含めて $16-9=7$ 個とした個数ミス（$10〜15$ の6個）。",
+              "両端の $9$ と $16$ まで含めてしまったミス。",
+              "$15 - 10 = 5$ と引き算だけして $+1$ を忘れた典型ミス！"
+            ]
           },
           {
             "prompt": "等式 $3x - 2y = 6$ を $y$ について解きなさい。",
@@ -203,7 +243,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$-2$ で割るとき定数項も $-3$ になる！",
             "skill": "等式変形",
             "rate": 79,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$-2y = -3x + 6$ の両辺を $+2$ で割ったままにして符号反転を忘れたミス。",
+              "定数項 $+6$ を $-2$ で割るときに符号を変え忘れたミス。",
+              "両辺を $-2$ で割らずに移項だけで止めたミス。"
+            ]
           },
           {
             "prompt": "連続する2つの正の偶数の積が $48$ のとき、この2つの偶数の和を求めなさい。",
@@ -217,7 +262,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "正の偶数 $6, 8$ の和＝$14$！",
             "skill": "二次方程式の応用",
             "rate": 77,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$4\\times 6=24$ のペアや片方の数と混同したミス。",
+              "$8$ の2倍 $16$ を答えてしまったミス。",
+              "$4+6=10$（積が $24$ の組）と誤ったミス。"
+            ]
           }
         ]
       }
@@ -250,7 +300,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$x+y=11,\\ y-x=3 \\Rightarrow 47$！",
             "skill": "2けたの自然数",
             "rate": 76,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$74$ は十の位と一の位を入れ替えたあとの数であり、「もとの自然数」は $47$ である！",
+              "$3+8=11$ だが入れ替えると $83-38=45$ 大きい数になり条件（$27$ 大きい）に合わない。",
+              "$5+6=11$ だが入れ替えると $65-56=9$ 大きい数になり条件に合わない。"
+            ]
           },
           {
             "prompt": "シャツ1枚とズボン1本を定価で買うと合計 $6,500$ 円だが、シャツが $20\\%$ 引き、ズボンが $10\\%$ 引きで合計 $5,550$ 円だった。シャツ1枚の【定価】はいくらか。",
@@ -264,7 +319,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$0.8x+0.9y=5550 \\Rightarrow$ 定価 $3,000$円！",
             "skill": "定価と割引",
             "rate": 67,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$3,500$ 円はズボン1本の定価であり、聞かれているシャツの定価ではない！",
+              "$2,400$ 円は割引後のシャツの代金（$3000\\times 0.8$）であり【定価】ではない引っかけ！",
+              "割引率 $20\\%$ と $10\\%$ を逆に対応させて立式したミス。"
+            ]
           },
           {
             "prompt": "家から $2,140\\text{m}$ 離れた駅まで、はじめは分速 $60\\text{m}$ で歩き、途中から分速 $140\\text{m}$ で走ったら全体で $25$ 分かかった。走った道のりは何 $\\text{m}$ か。",
@@ -278,7 +338,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "走った時間8分×分速140m＝1,120m！",
             "skill": "速さの切り替え",
             "rate": 64,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "$1,020\\text{m}$ は「歩いた道のり（$60\\times 17$）」であり、問われている「走った道のり」と逆！",
+              "走った時間を $7$ 分と1分ずらして計算したミス。",
+              "走った時間を $9$ 分と誤算したミス。"
+            ]
           },
           {
             "prompt": "大人2人と中学生3人の入館料合計は $3,100$ 円、大人3人と中学生2人では $3,400$ 円である。中学生1人の入館料はいくらか。",
@@ -292,7 +357,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "2式の和から $x+y=1300 \\Rightarrow y=500$円！",
             "skill": "個数と代金",
             "rate": 84,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$800$ 円は大人1人の入館料であり、中学生1人の入館料（$500$円）と取り違えている！",
+              "$3100\\div 5$ などの概算で誤って出した金額。",
+              "加減法の引き算で計算ミスをした値。"
+            ]
           },
           {
             "prompt": "$8\\%$ の食塩水と $13\\%$ の食塩水を混ぜて、$10\\%$ の食塩水を $500\\text{g}$ 作りたい。$8\\%$ の食塩水は何 $\\text{g}$ 必要か。",
@@ -306,7 +376,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "食塩の和 $0.08x+0.13y=50 \\Rightarrow 300\\text{g}$！",
             "skill": "食塩水の混合",
             "rate": 73,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$200\\text{g}$ は $13\\%$ の食塩水の重さであり、聞かれている $8\\%$ の重さ（$300\\text{g}$）と逆！",
+              "濃度の差の比（$3:2$）を無視して半分ずつにしたミス。",
+              "内分比 $3:2$ の計算で誤った値。"
+            ]
           },
           {
             "prompt": "ある工場で先月は製品AとBを合わせて $500$ 個生産した。今月はAが $10\\%$ 増え、Bが $5\\%$ 減って全体で $20$ 個増えた。【今月の製品A】は何個か。",
@@ -320,7 +395,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "先月 $x=300$ から今月 $1.1x=330$ 個を出す！",
             "skill": "割合増減",
             "rate": 56,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "$300$ 個は【先月】の製品Aの個数であり、【今月】のA（$300\\times 1.1=330$個）に直すのを忘れた最頻出ミス！",
+              "$200$ 個は先月の製品Bの個数である。",
+              "$190$ 個は今月の製品Bの個数（$200\\times 0.95$）である。"
+            ]
           },
           {
             "prompt": "連立方程式 $\\begin{cases} 3x + 2y = 13 \\\\ 5x - 3y = 9 \\end{cases}$ を解いたときの $x$ の値を答えなさい。",
@@ -376,7 +456,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$x+y=200,\\ x-y=40 \\Rightarrow x=120$！",
             "skill": "池の周回",
             "rate": 70,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "分速 $80\\text{m}$ は遅い方のBの速さであり、追いつく側であるAの速さ（$120\\text{m/分}$）ではない！",
+              "和 $200$ をそのまま2で割っただけのミス。",
+              "速さの差 $40$ を足し間違えた計算ミス。"
+            ]
           },
           {
             "prompt": "折り紙を1人に $5$ 枚ずつ配ると $12$ 枚余り、$7$ 枚ずつ配ると $8$ 枚足りない。子どもは何人か。",
@@ -390,7 +475,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$5x+12=7x-8 \\Rightarrow 10$人！",
             "skill": "過不足問題",
             "rate": 81,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$62$ は折り紙の枚数（$5\\times 10+12$）であり、聞かれている子どもの人数（$10$人）ではない！",
+              "$5x+12=7x+8$ のように「足りない」の符号を誤ったミス。",
+              "移項時に $12-8=4$ と誤算したミス。"
+            ]
           },
           {
             "prompt": "原価 $1,500$ 円の品物に $x\\%$ の利益を見込んで定価をつけ、定価の $20\\%$ 引きで売ったら利益が $60$ 円だった。$x$ を求めなさい。",
@@ -404,7 +494,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "定価の8割＝1560円 $\\Rightarrow$ 定価1950円（30%増）！",
             "skill": "原価・定価・利益",
             "rate": 59,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "売価 $1,560$ 円から逆算するとき $0.8$ で割らず $+20\\%$ を足した概算ミス。",
+              "定価の $20\\%$ 引きと原価の $20\\%$ 増しが相殺されると勘違いした典型ミス（$1.2\\times 0.8=0.96$ で損になる！）。",
+              "利益 $60$ 円の計算で桁や割合を取り違えたミス。"
+            ]
           }
         ]
       }
@@ -437,7 +532,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "角4個の重複を引いて $4n-4$ 個！",
             "skill": "規則性（正方形枠）",
             "rate": 75,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "4つの角の碁石を縦と横で2回ずつ二重カウントしており $-4$ を引き忘れた最頻出ミス！",
+              "角の重複が4か所あるのに2か所しか引かなかったミス。",
+              "$n^2$ 個は中までぎっしり敷き詰めた正方形の総数であり、中空の枠ではない。"
+            ]
           },
           {
             "prompt": "1段目に1枚、2段目に3枚、3段目に5枚…と奇数の枚数で色板を $n$ 段目まで並べたときの【合計枚数】はどれか。",
@@ -451,7 +551,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$1+3+5+\\dots+(2n-1)=n^2$！",
             "skill": "規則性（奇数の和）",
             "rate": 65,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "$(2n-1)$ 枚は「$n$ 段目1列だけ」の枚数であり、1段目から $n$ 段目までの【合計枚数】ではない！",
+              "$\\frac{1}{2}n(n+1)$ は $1+2+3+\\dots+n$ の和であり、奇数の和（$n^2$）ではない。",
+              "$(2n+1)$ 枚は $(n+1)$ 段目の枚数である。"
+            ]
           },
           {
             "prompt": "カレンダーで縦2マス×横2マスの4つの数を囲むとき、左上の数を $n$ とすると4つの数の和はどう表されるか。",
@@ -465,7 +570,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "1週間下は $+7$！和は $4n+16$！",
             "skill": "カレンダー文字式",
             "rate": 82,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "真下の数を $n+7$ ではなく $n+2$ や $n+3$ と誤ったカレンダー周期ミス（1週間は7日！）。",
+              "右下の数を $n+8$ ではなく $n+6$ と取り違えたミス。",
+              "4つの数を $n, n+1, n+8, n+9$ と誤って置いたミス。"
+            ]
           },
           {
             "prompt": "連続する3つの奇数の真ん中を $2n+1$（$n$ は整数）と置いたとき、3つの奇数の和を表した式はどれか。",
@@ -479,7 +589,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "真ん中を $2n+1$ と置くと定数が綺麗にまとまる！",
             "skill": "文字式証明",
             "rate": 80,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "奇数の間隔は $2$ ずつなのに $+1$ を足し忘れた変形ミス。",
+              "偶数の整数 $n$ そのままの連続3整数 $n, n+1, n+2$ の式と混同している。",
+              "最も小さい奇数を $2n+1$ と置いたときの式であり、「真ん中を $2n+1$」という条件とずれている！"
+            ]
           },
           {
             "prompt": "1番目に5本、2番目に8本、3番目に11本と3本ずつ棒を増やすとき、ちょうど $80$ 本になるのは何番目か。",
@@ -493,7 +608,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$3n+2=80 \\Rightarrow 26$番目！",
             "skill": "等差の逆算",
             "rate": 77,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$80-5=75\\div 3=25$ として最初の1番目を足し忘れた植木算ミス（$25+1=26$番目！）。",
+              "$3n-2=80$ のように初項の定数を誤ったミス。",
+              "計算途中で1つずらしてしまったミス。"
+            ]
           },
           {
             "prompt": "$\\sqrt{\\dfrac{180}{n}}$ の値が自然数となるような自然数 $n$ は全部で何個あるか。",
@@ -507,7 +627,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$180=6^2\\times 5 \\Rightarrow n=5,20,45,180$ の4個！",
             "skill": "平方根（商の個数）",
             "rate": 62,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "$n=180$（$\\sqrt{1}=1$ も立派な自然数！）を数え忘れた最頻出ミス！",
+              "素因数 $5$ と $180$ だけを考えて中間の $20, 45$ を見落としたミス。",
+              "$180=2^2\\times 3^2\\times 5$ の指数組み合わせ（$2\\times 2=4$通り）を超えて余分に数えたミス。"
+            ]
           },
           {
             "prompt": "$x = \\sqrt{5} + 2,\\ y = \\sqrt{5} - 2$ のとき、式の値 $x^2 - y^2$ を求めなさい。",
@@ -563,7 +688,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$72=6^2\\times 2 \\Rightarrow 4$個！",
             "skill": "平方根（商）",
             "rate": 66,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$n=72$（$\\sqrt{1}=1$）を入れ忘れた典型ミス！",
+              "$n=2$ と $n=72$ だけ数えて $n=8, 18$ を見落としたミス。",
+              "$72$ の約数の個数と混同したミス。"
+            ]
           },
           {
             "prompt": "凸八角形の対角線は全部で何本引けるか。",
@@ -577,7 +707,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$\\dfrac{8\\times 5}{2}=20$本！",
             "skill": "対角線の本数",
             "rate": 74,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "1頂点から引ける $5$ 本に8をかけたあと、両端の重複で $\\div 2$ するのを中途半端にしたミス。",
+              "重複の $\\div 2$ を忘れて $8\\times 5 = 40$ 本としてしまった最頻出ミス！",
+              "$8\\times(8-4)\\div 2=16$ のように $n-3$ を $n-4$ と誤記したミス。"
+            ]
           },
           {
             "prompt": "連続する2つの整数の2乗の差 $(n+1)^2 - n^2$ は常にどのような数になるか。",
@@ -591,7 +726,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$(n+1)^2-n^2 = n+(n+1)$！",
             "skill": "整数の性質",
             "rate": 78,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$n=1$ のとき $2^2-1^2=3$ であり4の倍数にはならない。",
+              "$n=2$ のとき $3^2-2^2=5$ だが積は $2\\times 3=6$ なので一致しない。",
+              "$2n+1$ は常に奇数であり偶数にはならない。"
+            ]
           }
         ]
       }
@@ -624,7 +764,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$a<0$ の0またぎ＝最大値 $0$、最小値 $-18$！",
             "skill": "変域（a<0）",
             "rate": 63,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "両端の $x=-1$（$y=-2$）と $x=3$（$y=-18$）だけを代入し、間にある原点（最大値 $0$）を忘れた最大頻出の罠！",
+              "$a=-2$（負）の符号を見落として正の変域にしてしまったミス。",
+              "$x=3$ のときの最小値 $-18$ ではなく $x=-1$ の値を使ったミス。"
+            ]
           },
           {
             "prompt": "関数 $y = ax^2$（$a > 0$）で $x$ の変域が $-4 \\le x \\le 2$ のとき $y$ の変域が $0 \\le y \\le 8$ であった。$a$ を求めなさい。",
@@ -638,7 +783,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$16a=8 \\Rightarrow a=\\dfrac{1}{2}$！",
             "skill": "変域から定数決定",
             "rate": 69,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$x=2$ で最大値 $8$ をとると勘違いして $4a=8 \\Rightarrow a=2$ としたミス（絶対値が大きい $x=-4$ で最大！）。",
+              "$16a=4$ のように最大値を誤って代入したミス。",
+              "$8\\div 8=1$ のように2乗を忘れたミス。"
+            ]
           },
           {
             "prompt": "関数 $y = 3x^2$ で $x$ が $a$ から $a + 2$ まで増加するときの変化の割合が $18$ であった。$a$ を求めなさい。",
@@ -652,7 +802,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$a(p+q)$ 公式より $3(2a+2)=18 \\Rightarrow a=2$！",
             "skill": "変化の割合の逆算",
             "rate": 71,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "裏ワザ $a(p+q)=3(a+a+2)=18$ で $+2$ を忘れて $6a=18 \\Rightarrow a=3$ としたミス。",
+              "$2a+2=6$ の移項で $2a=8$ や $2a=2$ と誤算したミス。",
+              "$3(a+2)=18$ と誤った式を立てたミス。"
+            ]
           },
           {
             "prompt": "関数 $y = -x^2$ で $x$ が $-5$ から $-1$ まで増加するときの変化の割合を求めなさい。",
@@ -666,7 +821,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$-1\\times(-6)=+6$！",
             "skill": "変化の割合",
             "rate": 72,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "先頭の比例定数 $-1$ と括弧内の $-6$ の積 $(-1)\\times(-6)=+6$ の符号をマイナスにしたミス！",
+              "$-5$ と $-1$ の差 $-4$ を足し算と取り違えたミス。",
+              "符号と和の両方を取り違えたミス。"
+            ]
           },
           {
             "prompt": "斜面を転がる球の $x$ 秒間の距離が $y = 2x^2$（$\\text{m}$）のとき、$2$ 秒後から $5$ 秒後までの平均の速さを求めなさい。",
@@ -680,7 +840,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "平均の速さ $= 2(2+5)=14\\text{m/s}$！",
             "skill": "平均の速さ",
             "rate": 77,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$x=5$ の値から引く計算で $2\\times 5=10$ と2乗を忘れたミス。",
+              "$2+5=7$ に比例定数 $2$ を掛け忘れたミス。",
+              "移動距離 $50-8=42\\text{m}$ を経過時間 $3$ 秒ではなく $2$ 秒で割ったミス。"
+            ]
           },
           {
             "prompt": "反比例 $y = -\\dfrac{12}{x}$ で $x$ の変域が $2 \\le x \\le 6$ のときの $y$ の変域を求めなさい。",
@@ -694,7 +859,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "両端代入で $-6 \\le y \\le -2$！",
             "skill": "反比例の変域",
             "rate": 76,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "マイナス符号を見落として正の変域にしたミス。",
+              "$x=1$ の値を混ぜてしまった代入ミス。",
+              "反比例のグラフは $x>0$ で $0$ には到達しない（$x=6$ で $y=-2$）。"
+            ]
           },
           {
             "prompt": "反比例 $y = \\dfrac{12}{x}$ について、$x$ の変域が $-6 \\leqq x \\leqq -2$ のときの $y$ の変域を選びなさい。",
@@ -757,7 +927,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "左端 $(-1, 7)$ を通り $b=5$！",
             "skill": "一次関数の変域",
             "rate": 67,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "傾きがマイナス（右下がり）なのに、$x=-1$ で最小値 $-3$ をとると逆に対応させた典型ミス！",
+              "$x$ と $y$ の対応を取り違えた計算ミス。",
+              "符号の移項ミス。"
+            ]
           },
           {
             "prompt": "速さの2乗に比例する制動距離が時速 $40\\text{km}$ で $8\\text{m}$ のとき、時速 $60\\text{km}$ では何 $\\text{m}$ か。",
@@ -771,7 +946,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$8\\times(\\frac{3}{2})^2 = 18\\text{m}$！",
             "skill": "制動距離",
             "rate": 73,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "速さに単純比例すると勘違いして $8\\times\\frac{3}{2}=12\\text{m}$ とした引っかけミス（2乗に比例するので $\\frac{9}{4}$ 倍！）。",
+              "単純に2倍して $16\\text{m}$ としたミス。",
+              "3倍して $24\\text{m}$ としたミス。"
+            ]
           },
           {
             "prompt": "点 $(-3, -18)$ を通る放物線 $y = ax^2$ の式を求めなさい。",
@@ -785,7 +965,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$9a=-18 \\Rightarrow y=-2x^2$！",
             "skill": "放物線の式",
             "rate": 88,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$(-3)^2=+9$ なのに $-9a=-18 \\Rightarrow a=2$ と2乗の符号を誤ったミス。",
+              "$x^2$ ではなく $3a=-18$ と2乗し忘れたミス。",
+              "割り算の分母・分子を逆にしたミス。"
+            ]
           }
         ]
       }
@@ -818,7 +1003,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "裏ワザ公式で傾き1・切片4 $\\Rightarrow y=x+4$！",
             "skill": "2交点の直線",
             "rate": 78,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "切片の公式 $-apq = -\\frac{1}{2}(-2)(4)=+4$ を $+6$ と誤算したミス。",
+              "傾き計算で比例定数 $\\frac{1}{2}$ を掛け忘れて $(-2+4)=2$ としたミス。",
+              "2点の座標を逆に代入して傾きと切片をずらしたミス。"
+            ]
           },
           {
             "prompt": "$\\text{A}(-2,2),\\ \\text{B}(4,8)$、直線AB：$y=x+4$ のとき、$\\triangle\\text{OAB}$ の面積を求めなさい。",
@@ -832,7 +1022,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$\\frac{1}{2}\\times 4\\times 6 = 12$！",
             "skill": "三角形OABの面積",
             "rate": 76,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "三角形の面積公式の $\\dfrac{1}{2}$ を掛け忘れて $4\\times 6=24$ とした超頻出ミス！",
+              "横幅 $4-(-2)=6$ を $8$ と取り違えたミス。",
+              "切片を誤って計算した値。"
+            ]
           },
           {
             "prompt": "$\\text{A}(-2,2),\\ \\text{B}(4,8)$ に対し、放物線 $y=\\dfrac{1}{2}x^2$ の原点 $\\text{O}$ と点 $\\text{B}$ の間に $\\triangle\\text{PAB}=\\triangle\\text{OAB}$ となる点 $\\text{P}$ をとる。点 $\\text{P}$ の座標はどれか。",
@@ -846,7 +1041,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "平行線 $y=x$ との交点 $\\Rightarrow (2,2)$！",
             "skill": "等積変形",
             "rate": 54,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "傾き1の平行線 $y=x$ ではなく別の直線との交点を求めたミス。",
+              "$x=3$ を代入した放物線上の点であり等積変形の平行線上にはない。",
+              "$x=2$ を直線AB（$y=x+4$）や $y=x^2$ に誤代入した点。"
+            ]
           },
           {
             "prompt": "点 $\\text{B}(4, 8)$ を通り、$\\triangle\\text{OAB}$（$\\text{A}(-2,2)$）の面積を二等分する直線の式を求めなさい。",
@@ -860,7 +1060,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "OAの中点 $(-1,1)$ と $\\text{B}(4,8)$ を通る直線！",
             "skill": "面積二等分線",
             "rate": 60,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "OAの中点 $(-1,1)$ ではなく別の点を通る直線を求めたミス。",
+              "原点OとBを結ぶ直線であり、面積は二等分されない（底辺比が $2:4=1:2$ になる）。",
+              "傾きの分数 $\\frac{8-1}{4-(-1)}=\\frac{7}{5}$ の縦横を混同したミス。"
+            ]
           },
           {
             "prompt": "放物線 $y = x^2$ の第1象限上の点 $\\text{P}$ から両軸に垂線を下ろしてできる長方形が正方形になった。点 $\\text{P}$ の座標はどれか。",
@@ -874,7 +1079,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$t = t^2\\ (t>0) \\Rightarrow (1,1)$！",
             "skill": "文字座標の活用",
             "rate": 74,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$t=2$ のときは横 $2$・縦 $4$ の長方形になり正方形にならない。",
+              "$t=\\frac{1}{2}$ のときは横 $\\frac{1}{2}$・縦 $\\frac{1}{4}$ で一致しない。",
+              "$t=4$ のときは横 $4$・縦 $16$ になる。"
+            ]
           },
           {
             "prompt": "3点 $\\text{O}(0,0),\\ \\text{A}(2, 5),\\ \\text{B}(6, 3)$ に対し、$\\text{OC}$ を対角線とする平行四辺形 $\\text{OACB}$ の頂点 $\\text{C}$ の座標を求めなさい。",
@@ -888,7 +1098,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "対角の座標の和一致 $\\Rightarrow (8,8)$！",
             "skill": "座標と平行四辺形",
             "rate": 72,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "OCではなくABを対角線と読み違えて $\\text{A}-\\text{B}$ を計算した点。",
+              "$y$ 座標を引き算 $5-3=2$ にしてしまったミス。",
+              "$x$ 座標を引き算 $6-2=4$ にしてしまったミス。"
+            ]
           },
           {
             "prompt": "関数 $y = \\dfrac{1}{2}x^2$ について、$x$ の値が $2$ から $6$ まで増加するときの変化の割合を求めなさい。",
@@ -943,7 +1158,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "足して2で割り $(-1,2)$！",
             "skill": "中点座標",
             "rate": 86,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "和ではなく差をとって2で割ってしまったミス。",
+              "$x$ 座標の $-4+2=-2$ の符号を逆にしたミス。",
+              "$y$ 座標の $6+(-2)=4$ を2で割り忘れたミス。"
+            ]
           },
           {
             "prompt": "直線 $y = -\\dfrac{3}{4}x + 6$ と $x$ 軸との交点の座標を求めなさい。",
@@ -957,7 +1177,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$y=0$ 代入で $(8,0)$！",
             "skill": "x軸との交点",
             "rate": 83,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "切片の $6$ をそのまま $x$ 座標にしてしまったミス。",
+              "移項時の符号を誤り $-8$ にしたミス。",
+              "$(0,6)$ は $y$ 軸との交点（切片）であり、$x$ 軸との交点ではない！"
+            ]
           },
           {
             "prompt": "放物線 $y = \\dfrac{1}{3}x^2$ 上の点 $(-6, 12)$ と $y$ 軸について対称な点の座標を求めなさい。",
@@ -971,7 +1196,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$y$ 軸対称 $\\Rightarrow (6,12)$！",
             "skill": "放物線の対称性",
             "rate": 88,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$(6,-12)$ は原点について対称な点の座標である！",
+              "$(-6,-12)$ は $x$ 軸について対称な点の座標である！",
+              "$x$ 座標と $y$ 座標を入れ替えてしまったミス。"
+            ]
           }
         ]
       }
@@ -1004,7 +1234,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$20x = 10x + 600 \\Rightarrow 60$分超！",
             "skill": "料金プラン比較",
             "rate": 61,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "基本料 $900$ 円だけで $20x=900 \\Rightarrow 45$ 分と計算し、30分超の加算を忘れたミス。",
+              "$30$ 分の控除 $(x-30)$ を足し算 $(x+30)$ に誤ったミス。",
+              "$10x=900$ と誤って解いたミス。"
+            ]
           },
           {
             "prompt": "縦 $6\\text{cm}$・横 $8\\text{cm}$ の長方形 $\\text{ABCD}$ で、点 $\\text{P}$ が $\\text{A}$ から毎秒 $1\\text{cm}$ で $\\text{AB}\\to\\text{BC}\\to\\text{CD}$ 上を $\\text{D}$ まで動く。$\\triangle\\text{APD}$ の面積が $24\\text{cm}^2$ で一定になる $x$ の変域はどれか。",
@@ -1018,7 +1253,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "B到着6秒〜C到着14秒！",
             "skill": "動点の一定区間",
             "rate": 73,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$0\\le x\\le 6$ は辺AB上を動いて面積が増えていく区間である。",
+              "辺BCの長さは $8\\text{cm}$ なので終点は $x=8$ ではなく $6+8=14$ 秒後になる！",
+              "始点は $x=8$ ではなく頂点Bに着く $x=6$ 秒後である。"
+            ]
           },
           {
             "prompt": "上の長方形動点問題で、点 $\\text{P}$ が辺 $\\text{CD}$ 上にあるとき（$14 \\le x \\le 20$）、$\\triangle\\text{APD}$ の面積 $y\\text{cm}^2$ を $x$ の式で表しなさい。",
@@ -1032,7 +1272,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "残り長さ $(20-x)$ を使い $y=-4x+80$！",
             "skill": "動点の減少区間",
             "rate": 57,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "全長 $6+8+6=20\\text{cm}$ ではなく $14-x$ を使ってしまった典型ミス！",
+              "時間とともに面積が減る（傾きマイナス）のに傾きをプラスにしたミス。",
+              "底辺 $\\text{AD}=8\\text{cm}$ ではなく縦の $6\\text{cm}$ を掛けてしまったミス。"
+            ]
           },
           {
             "prompt": "$50\\text{L}$ 水が入った水槽に、最初の $5$ 分間は毎分 $4\\text{L}$ 給水のみ行い、その後は給水したまま毎分 $9\\text{L}$ で排水も行った。最初から数えて何分後に水槽は空になるか。",
@@ -1046,7 +1291,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "5分後70Lから毎分5L減少で14分 $\\Rightarrow 5+14=19$分後！",
             "skill": "水槽の給排水",
             "rate": 64,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "空になるまでの後半の $14$ 分間だけを答え、最初の【5分間】を足し忘れた最頻出ミス！",
+              "最初の5分間の給水 $20\\text{L}$ を足し忘れて $50\\div 5+5=15$ 分としたミス。",
+              "計算途中で端数を誤った値。"
+            ]
           },
           {
             "prompt": "傾きが $-2$ で点 $(3, -1)$ を通る直線の式を求めなさい。",
@@ -1060,7 +1310,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$-1 = -6 + b \\Rightarrow b=5$！",
             "skill": "直線の式決定",
             "rate": 87,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$-1 = -6 + b$ の移項で $-1-6=-7$ とした符号ミス。",
+              "点 $(3,-1)$ の $x, y$ を逆に代入したミス。",
+              "$-2\\times 3=-6$ の移項で $-1$ を忘れたミス。"
+            ]
           },
           {
             "prompt": "2直線 $y = 2x - 1$ と $y = -x + 8$ の交点を通り、直線 $y = 4x + 1$ に平行な直線の式を求めなさい。",
@@ -1074,7 +1329,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "交点 $(3,5)$・傾き $4 \\Rightarrow y = 4x - 7$！",
             "skill": "交点と平行条件",
             "rate": 72,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "交点 $(3,5)$ の $x, y$ を逆に $3=4\\times 5+b$ と代入したり符号を誤ったミス。",
+              "$b=5-12=-7$ を $-17$ と誤算したミス。",
+              "平行なので傾きは $+4$ のままなのに $-4$ に変えてしまったミス。"
+            ]
           }
         ]
       }
@@ -1105,7 +1365,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$20 - 0.5x = 12 \\Rightarrow 16$分後！",
             "skill": "一次関数の利用",
             "rate": 85,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "減った長さ $20-12=8\\text{cm}$ を $7\\text{cm}$ と誤算したミス。",
+              "残り $12\\text{cm}$ の方を $0.5$ で割って $24$ 分後とした引っかけミス（減ったのは $8\\text{cm}$！）。",
+              "減った長さ $8\\text{cm}$ に $0.5$ を掛けてしまったミス（$8\\div 0.5=16$）。"
+            ]
           },
           {
             "prompt": "点 $(2, 7)$ を通り、直線 $y = 3x - 5$ に平行な直線の式を求めなさい。",
@@ -1119,7 +1384,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "平行＝傾き $3$、$(2,7)$ 代入で $y=3x+1$！",
             "skill": "平行な直線",
             "rate": 84,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$7 = 6 + b \\Rightarrow b = 1$ の移項で $-1$ としたミス。",
+              "平行なのに傾きの符号をマイナスに変えてしまったミス。",
+              "通る点の $y$ 座標 $7$ をそのまま切片にしたミス。"
+            ]
           },
           {
             "prompt": "兄が分速 $60\\text{m}$ で家を出発してから $8$ 分後に、弟が自転車で分速 $180\\text{m}$ で追いかけた。弟が出発してから何分後に兄に追いつくか。",
@@ -1133,7 +1403,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$60(x+8) = 180x \\Rightarrow x = 4$分後！",
             "skill": "追いつきの一次関数",
             "rate": 75,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "先行距離 $480\\text{m}$ を速さの差 $120$ ではなく $80$ などで割ったミス。",
+              "$12$ 分後は「兄が家を出発してから」の時間であり、「弟が出発してから」は $4$ 分後！",
+              "$480\\div 180$ のように兄が止まっていると誤解して割ったミス。"
+            ]
           }
         ]
       }
@@ -1180,7 +1455,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "円に内接する四角形の対角の和 $= 180^\\circ$！",
             "skill": "円周角の応用",
             "rate": 82,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "平行四辺形の対角の性質と混同して同じ $72^\\circ$ としたミス（円に内接する四角形は対角の和が $180^\\circ$！）。",
+              "中心角と円周角の2倍関係と混同したミス。",
+              "$180-72=108$ の引き算で十の位を誤ったケアレスミス。"
+            ]
           },
           {
             "prompt": "$\\text{AD} \\parallel \\text{BC}$ の台形 $\\text{ABCD}$ で $\\text{AD} = 4\\text{cm},\\ \\text{BC} = 6\\text{cm}$、対角線 $\\text{AC}$ と $\\text{BD}$ の交点を $\\text{O}$ とする。$\\triangle\\text{AOD}$ の面積が $8\\text{cm}^2$ のとき、$\\triangle\\text{BOC}$ の面積は何 $\\text{cm}^2$ か。",
@@ -1194,7 +1474,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "相似比 $2:3 \\Rightarrow$ 面積比 $4:9 \\Rightarrow 18\\text{cm}^2$！",
             "skill": "相似と面積比",
             "rate": 71,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "面積比は相似比 $2:3$ の【2乗（$4:9$）】なのに、そのまま $\\frac{3}{2}$ 倍して $12\\text{cm}^2$ とした最頻出ミス！",
+              "3倍してしまったミス。",
+              "2倍してしまったミス。"
+            ]
           },
           {
             "prompt": "上の台形 $\\text{ABCD}$（$\\text{AD}:\\text{BC}=2:3$、$\\triangle\\text{AOD}=8\\text{cm}^2$）において、【台形 $\\text{ABCD}$ 全体】の面積は何 $\\text{cm}^2$ か。",
@@ -1208,7 +1493,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$a^2:ab:ab:b^2 = 4:6:6:9$ より合計 $25$ 比 $= 50\\text{cm}^2$！",
             "skill": "台形4分割の面積比",
             "rate": 56,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "横の $\\triangle\\text{AOB}, \\triangle\\text{DOC}$ を $12$ ではなく $9$ と誤算したミス。",
+              "$8+18+12=38$ と片側の三角形を足し忘れたミス。",
+              "台形全体を単純に三角形の比で誤算した値。"
+            ]
           },
           {
             "prompt": "$\\triangle\\text{ABC}$ で $\\text{AB} = 8\\text{cm},\\ \\text{AC} = 6\\text{cm},\\ \\text{BC} = 7\\text{cm}$ とする。$\\angle\\text{A}$ の二等分線と辺 $\\text{BC}$ の交点を $\\text{D}$ とするとき、線分 $\\text{BD}$ の長さを求めなさい。",
@@ -1222,7 +1512,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "角の二等分線定理 $\\text{BD}:\\text{DC} = 8:6 = 4:3 \\Rightarrow 4\\text{cm}$！",
             "skill": "角の二等分線と比",
             "rate": 70,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$\\text{DC}=3\\text{cm}$ の方（短い側）を答えてしまった取り違えミス！",
+              "二等分線が辺BCの中点を通ると勘違いしたミス（二等辺三角形でない限り中点は通らない！）。",
+              "$7$ ではなく $8$ を比例配分してしまったミス。"
+            ]
           },
           {
             "prompt": "$\\text{AB} \\parallel \\text{EF} \\parallel \\text{CD}$ の平行線と交わる図形（両端の縦線 $\\text{AB}=6\\text{cm},\\ \\text{CD}=12\\text{cm}$、$\\text{AD}$ と $\\text{BC}$ の交点 $\\text{E}$ から下した平行線 $\\text{EF}$）において、線分 $\\text{EF}$ の長さは何 $\\text{cm}$ か。",
@@ -1236,7 +1531,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "砂時計＋ピラミッド融合の公式 $\\dfrac{ab}{a+b} = \\dfrac{6\\times 12}{6+12} = 4\\text{cm}$！",
             "skill": "平行線と比（和分の積）",
             "rate": 61,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "平均 $\\frac{6+12}{2}$ 関連の感覚で誤算した値。",
+              "$6$ の半分 $3\\text{cm}$ と決めつけたミス（中点連結定理ではない）。",
+              "相似比 $1:2$ を全体の $\\frac{1}{2}$ や $\\frac{5}{12}$ と取り違えたミス。"
+            ]
           },
           {
             "prompt": "正八角形の1つの内角の大きさは何度か。半角数字で答えなさい。",
@@ -1293,7 +1593,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "中点連結定理 $\\text{MN}=\\frac{1}{2}\\text{BC}=7\\text{cm}$！",
             "skill": "中点連結定理",
             "rate": 89,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$14\\div 2=7$ の計算以外で誤った値。",
+              "長さを半分より大きく見積もったミス。",
+              "4で割ってしまったミス。"
+            ]
           },
           {
             "prompt": "円 $\\text{O}$ の外部の点 $\\text{P}$ から円に2本の接線を引き、接点を $\\text{A}, \\text{B}$ とする。$\\angle\\text{APB} = 50^\\circ$ のとき、中心角 $\\angle\\text{AOB}$ の大きさは何度か。",
@@ -1307,7 +1612,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$180^\\circ - 50^\\circ = 130^\\circ$（接点角は $90^\\circ$）！",
             "skill": "円の接線と角",
             "rate": 77,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$180^\\circ - 50^\\circ$ ではなく $2\\times 50^\\circ=100^\\circ$ と円周角の定理と混同したミス。",
+              "接線の直角 $90^\\circ$ の引き算を $190-50=140$ と誤ったミス。",
+              "$(360-110)\\div 2$ のように二等辺三角形の底角と混同したミス。"
+            ]
           },
           {
             "prompt": "半径 $6\\text{cm}$、弧の長さ $5\\pi\\text{cm}$ のおうぎ形の面積を求めなさい。",
@@ -1321,7 +1631,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$S = \\dfrac{1}{2}lr = \\dfrac{1}{2}\\times 5\\pi\\times 6 = 15\\pi\\text{cm}^2$！",
             "skill": "おうぎ形の面積",
             "rate": 78,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "公式 $S=\\frac{1}{2}lr$ の $\\dfrac{1}{2}$ を掛け忘れて $5\\pi\\times 6=30\\pi$ とした最頻出ミス！",
+              "中心角の換算を誤った値。",
+              "$\\frac{1}{3}$ を掛けてしまったミス。"
+            ]
           }
         ]
       }
@@ -1354,7 +1669,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "正三角形の高さ $3\\sqrt{3} \\Rightarrow$ 面積 $9\\sqrt{3}\\text{cm}^2$！",
             "skill": "正三角形の面積",
             "rate": 76,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "三角形の面積の $\\dfrac{1}{2}$ を掛け忘れて $6\\times 3\\sqrt{3}=18\\sqrt{3}$ としたミス！",
+              "$1:2:\\sqrt{3}$ と直角二等辺三角形の $1:1:\\sqrt{2}$ を混同したミス。",
+              "高さを $4\\sqrt{3}$ と誤算したミス。"
+            ]
           },
           {
             "prompt": "半径 $5\\text{cm}$ の円 $\\text{O}$ で、中心 $\\text{O}$ からの距離が $3\\text{cm}$ である弦 $\\text{AB}$ の長さを求めなさい。",
@@ -1368,7 +1688,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "半分が $4\\text{cm}$ なので2倍して弦 $\\text{AB}=8\\text{cm}$！",
             "skill": "円の弦と三平方",
             "rate": 72,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "直角三角形の底辺の半分 $\\text{AM}=4\\text{cm}$ で安心してしまい、2倍して弦 $\\text{AB}=8\\text{cm}$ にするのを忘れた最頻出ミス！",
+              "半径 $5$ と距離 $3$ から感覚で $6$ としたミス。",
+              "斜辺 $5$ なのに $5^2+3^2=34$ と足してしまった三平方の逆向きミス！"
+            ]
           },
           {
             "prompt": "1辺の長さが $6\\text{cm}$ の正四面体 $\\text{OABC}$ の体積を求めなさい。",
@@ -1401,7 +1726,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$6:8:10$（$3:4:5$ の2倍）より距離は $10$！",
             "skill": "座標の2点間距離",
             "rate": 83,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "横 $6$＋縦 $8＝14$ と道のりの和にしてしまったミス。",
+              "$-2$ と $4$ の差を $4-2=2$ と符号を誤って $\\sqrt{2^2+8^2}=2\\sqrt{17}$ 付近と混同したミス。",
+              "縦の差 $8$ だけを見たミス。"
+            ]
           },
           {
             "prompt": "半径 $3\\text{cm}$ の球の【体積】と【表面積】の組み合わせとして正しいものを選びなさい。",
@@ -1415,7 +1745,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$r=3$ のとき $\\frac{4}{3}\\pi r^3$ も $4\\pi r^2$ も数値は $36\\pi$！",
             "skill": "球の体積と表面積",
             "rate": 77,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "体積公式 $\\dfrac{4}{3}\\pi r^3$ の分母 $3$ で割り忘れたミス。",
+              "表面積公式 $4\\pi r^2$ の $4$ を忘れ $\\pi r^2$ 等と混同したミス。",
+              "$\\frac{4}{3}$ を掛け忘れて $\\pi r^3=27\\pi$ としたミス。"
+            ]
           },
           {
             "prompt": "底面の半径が $3\\text{cm}$、母線の長さが $5\\text{cm}$ の円錐の【体積】を求めなさい。",
@@ -1429,7 +1764,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "母線5・半径3 $\\Rightarrow$ 高さ $4\\text{cm} \\Rightarrow \\frac{1}{3}\\times 9\\pi\\times 4 = 12\\pi\\text{cm}^3$！",
             "skill": "円錐の高さと体積",
             "rate": 69,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "円錐の高さ $4\\text{cm}$ ではなく【母線 $5\\text{cm}$】を高さとして掛けてしまった超頻出ミス！",
+              "錐体の $\\dfrac{1}{3}$ を掛け忘れて円柱の体積 $36\\pi$ にしたミス！",
+              "高さや半径の2乗を取り違えたミス。"
+            ]
           },
           {
             "prompt": "相似比が $2 : 3$ である相似な2つの立体P、Qについて、Pの体積が $16\\text{ cm}^3$ のときQの体積は何 $\\text{cm}^3$ か。半角数字で答えなさい。",
@@ -1485,7 +1825,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "側面積 $36\\pi$ ＋ 底面積 $16\\pi ＝ 52\\pi\\text{cm}^2$！",
             "skill": "円錐の表面積",
             "rate": 74,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "側面積 $\\pi rl = 36\\pi$ だけを答え、【底面積 $16\\pi$】を足し忘れた最頻出ミス！",
+              "底面積を $12\\pi$ と誤算したミス。",
+              "底面積を2つ分（円柱のように）足してしまったミス。"
+            ]
           },
           {
             "prompt": "$\\angle\\text{A}=90^\\circ,\\ \\angle\\text{B}=60^\\circ,\\ \\text{BC}=10\\text{cm}$ の直角三角形 $\\text{ABC}$ で、辺 $\\text{AC}$ の長さを求めなさい。",
@@ -1499,7 +1844,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$1:2:\\sqrt{3}$ より斜辺10の半分 $\\times\\sqrt{3} = 5\\sqrt{3}\\text{cm}$！",
             "skill": "特別角の直角三角形",
             "rate": 80,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$5\\text{cm}$ は $60^\\circ$ をはさむ短い辺 $\\text{AB}$ の長さであり、$\\text{AC}=5\\sqrt{3}\\text{cm}$ である。",
+              "$45^\\circ$ の直角二等辺三角形の比 $1:1:\\sqrt{2}$ と混同したミス。",
+              "斜辺ではなく直角の隣辺を $10$ と置いて $\\sqrt{3}$ で割ってしまったミス。"
+            ]
           },
           {
             "prompt": "縦 $4\\text{cm}$、横 $3\\text{cm}$ の長方形を、縦の辺を軸として1回転させてできる円柱の体積を求めなさい。",
@@ -1513,7 +1863,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "半径3・高さ4の円柱 $\\Rightarrow 9\\pi\\times 4 = 36\\pi\\text{cm}^3$！",
             "skill": "回転体の体積",
             "rate": 84,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "縦と横を逆に（横の辺を軸に）回転させた円柱の体積 $\\pi\\times 4^2\\times 3=48\\pi$ と取り違えたミス！",
+              "円柱なのに円錐の $\\dfrac{1}{3}$ を掛けてしまったミス。",
+              "$\\pi\\times 2\\times 3\\times 4=24\\pi$ と半径の2乗を2倍にしたミス。"
+            ]
           }
         ]
       }
@@ -1546,7 +1901,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "相似比 $2:3 \\Rightarrow$ 体積比 $8:27 \\Rightarrow 54\\pi\\text{cm}^3$！",
             "skill": "相似な立体の体積比",
             "rate": 75,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "体積比（3乗の比 $8:27$）ではなく【面積比（2乗の比 $4:9$）】を使って $16\\pi\\times\\frac{9}{4}=36\\pi$ とした最頻出ミス！",
+              "相似比そのまま $2:3$ を掛けてしまったミス。",
+              "倍率を誤算した値。"
+            ]
           },
           {
             "prompt": "逆さまにした円錐形の容器に深さのちょうど半分まで水を入れたところ、水の体積が $15\\text{mL}$ であった。この容器を満水にするには【あと何 $\\text{mL}$】の水を入れればよいか。",
@@ -1560,7 +1920,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "満水 $120\\text{mL}$ から既に入っている $15\\text{mL}$ を引いて【あと105mL】！",
             "skill": "円錐容器の水量（差の罠）",
             "rate": 55,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "$120\\text{mL}$ は容器全体の満水容量であり、「あと何 $\\text{mL}$ 入れるか」なので既に入っている $15\\text{mL}$ を引き忘れた引っかけミス！",
+              "2乗の比（$1:4$）で満水 $60-15=45\\text{mL}$ と誤算したミス。",
+              "満水を4倍の $60\\text{mL}$ と誤ったミス。"
+            ]
           },
           {
             "prompt": "1辺 $6\\text{cm}$ の立方体 $\\text{ABCD-EFGH}$ で、3つの頂点 $\\text{A, C, F}$ を通る平面で切り取ったときにできる三角錐 $\\text{B-ACF}$ の体積を求めなさい。",
@@ -1574,7 +1939,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "直角が集まる頂点Bから見て $\\frac{1}{3}\\times 18\\times 6 = 36\\text{cm}^3$！",
             "skill": "立方体の角切り体積",
             "rate": 73,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "三角錐の体積公式の $\\dfrac{1}{3}$ を掛け忘れたミス。",
+              "底面積 $\\triangle\\text{ABC}=\\frac{1}{2}\\times 6\\times 6=18$ にさらに $\\frac{1}{2}$ を掛けてしまったミス。",
+              "立方体の体積 $216$ の $\\frac{1}{4}$ と誤解したミス。"
+            ]
           },
           {
             "prompt": "上の1辺 $6\\text{cm}$ の立方体で、切り口である $\\triangle\\text{ACF}$ の面積を求めなさい。",
@@ -1588,7 +1958,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "1辺 $6\\sqrt{2}$ の正三角形 $\\Rightarrow \\frac{\\sqrt{3}}{4}\\times 72 = 18\\sqrt{3}\\text{cm}^2$！",
             "skill": "切り口正三角形の面積",
             "rate": 58,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "直角二等辺三角形と勘違いして $\\frac{1}{2}\\times 6\\times 6\\sqrt{2}$ としたミス（切り口は1辺 $6\\sqrt{2}$ の【正三角形】！）。",
+              "三角形の $\\frac{1}{2}$ を掛け忘れたミス。",
+              "1辺を $6\\text{cm}$ のまま正三角形の面積を出したミス（実際の1辺は対角線 $6\\sqrt{2}\\text{cm}$）。"
+            ]
           },
           {
             "prompt": "縦 $3\\text{cm}$・横 $5\\text{cm}$・高さ $4\\text{cm}$ の直方体 $\\text{ABCD-EFGH}$（$\\text{AB}=3,\\ \\text{BC}=5,\\ \\text{AE}=4$）で、頂点 $\\text{A}$ から辺 $\\text{BC}$ を通って頂点 $\\text{G}$ まで表面にピンと糸を張ったときの最短の長さを求めなさい。",
@@ -1602,7 +1977,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "展開図で横5・縦(3+4)=7の直角三角形 $\\Rightarrow \\sqrt{5^2+7^2}=\\sqrt{74}\\text{cm}$！",
             "skill": "立体表面の最短距離",
             "rate": 63,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "別の辺（たとえば辺EFや辺CD）を通る展開経路と混同したり計算を誤った値。",
+              "縦 $4$ と横 $3+5=8$ の組（辺CGを通る経路 $\\sqrt{4^2+8^2}=\\sqrt{80}$）を選んでしまい最短になっていないミス！",
+              "展開図の対角線ではなく辺に沿って折れ曲がった距離 $3+5$ 等と混同した値。"
+            ]
           },
           {
             "prompt": "座標平面上の2点 $\\text{A}(-1,\\ 2)$、$\\text{B}(5,\\ 10)$ 間の距離 $\\text{AB}$ を求めなさい。",
@@ -1658,7 +2038,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "表面積比 ＝ 相似比の2乗 $= 9:25$！",
             "skill": "相似な立体の表面積比",
             "rate": 83,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "相似比そのままの $3:5$ を答えたミス（表面積の比は2乗の比！）。",
+              "$27:125$ は3乗の比なので【体積比】であり、表面積の比ではない！",
+              "2乗ではなく2倍にしてしまったミス。"
+            ]
           },
           {
             "prompt": "立方体 $\\text{ABCD-EFGH}$ において、辺 $\\text{AB}$ と【ねじれの位置】にある辺は全部で何本あるか。",
@@ -1672,7 +2057,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "全12本 − 自身1 − 平行3 − 交わる4 ＝ 4本！",
             "skill": "ねじれの位置",
             "rate": 76,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "平行な辺や交わる辺の除外数を1本数え間違えたミス。",
+              "平行な辺（EFやGHなど）を1本ねじれの位置に混ぜてしまったミス。",
+              "反対側の面の辺をすべてねじれと誤解したミス（CD, EF, GH は AB と平行なのでねじれではない！）。"
+            ]
           },
           {
             "prompt": "底面が1辺 $4\\text{cm}$ の正方形で、他の辺（側稜）がすべて $6\\text{cm}$ である正四角錐の高さは何 $\\text{cm}$ か。",
@@ -1686,7 +2076,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$\\sqrt{6^2 - (2\\sqrt{2})^2} = \\sqrt{28} = 2\\sqrt{7}\\text{cm}$！",
             "skill": "正四角錐の高さ",
             "rate": 66,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "底面の対角線 $4\\sqrt{2}$ を半分にせずそのまま使って計算を崩したミス。",
+              "底面の辺の半分 $2\\text{cm}$ を使って $\\sqrt{6^2-2^2}$ と誤算したミス（斜面の高さと立体の高さの混同）！",
+              "三平方の引き算を足し算 $\\sqrt{36+8}=\\sqrt{44}=2\\sqrt{11}$ にしたミス。"
+            ]
           }
         ]
       }
@@ -1719,7 +2114,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "角だけ等しくても相似どまり！合同には必ず辺の条件が必要！",
             "skill": "直角三角形の合同条件",
             "rate": 82,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "「斜辺と1つの鋭角がそれぞれ等しい」は正しい直角三角形の合同条件である。",
+              "「斜辺と他の1辺がそれぞれ等しい」も正しい直角三角形の合同条件である。",
+              "「直角をはさむ2辺がそれぞれ等しい」は通常の「2組の辺とその間の角」にあたり正しい合同条件である。"
+            ]
           },
           {
             "prompt": "四角形 $\\text{ABCD}$ が平行四辺形であるための条件として【正しくない（等脚台形などの反例がある）】ものはどれか。",
@@ -1733,7 +2133,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "等脚台形の反例がある引っかけ選択肢に要注意！",
             "skill": "平行四辺形になる条件",
             "rate": 65,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "平行四辺形の定義そのものであり正しい条件。",
+              "平行である同じ1組の対辺の長さが等しければ必ず平行四辺形になる（正しい条件）。",
+              "平行四辺形の対角線の性質の逆であり正しい条件。"
+            ]
           },
           {
             "prompt": "$\\triangle\\text{ABC}$ の3つの頂点 $\\text{A, B, C}$ すべてを通る円（外接円）の中心 $\\text{O}$ を作図したい。どの作図を2回組み合わせれば中心 $\\text{O}$ が求まるか。",
@@ -1747,7 +2152,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "3頂点から等距離＝辺の垂直二等分線の交点！3辺から等距離＝角の二等分線の交点！",
             "skill": "作図の原理（外心と内心）",
             "rate": 74,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "角の二等分線の交点は3辺からの距離が等しい【内接円の中心】であり、外接円の中心ではない！",
+              "各頂点からの垂線の交点は垂心であり外接円の中心ではない。",
+              "中線の交点は重心であり外接円の中心ではない。"
+            ]
           },
           {
             "prompt": "$\\angle\\text{C} = 90^\\circ$ の直角三角形 $\\text{ABC}$ で頂点 $\\text{C}$ から斜辺 $\\text{AB}$ に垂線 $\\text{CD}$ を下ろしたとき、$\\triangle\\text{ABC}$ と相似になる三角形と相似条件の組み合わせとして正しいものはどれか。",
@@ -1761,7 +2171,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "対応する頂点の順番（A-B-C と A-C-D）まで厳密に揃える！",
             "skill": "直角三角形の垂線相似",
             "rate": 68,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "頂点の対応順が $\\triangle\\text{ABC}$（$A\\to B\\to C(90^\\circ)$）に対し $\\triangle\\text{ADC}$（$A\\to D(90^\\circ)\\to C$）で食い違っており減点される！",
+              "辺の長さは一切与えられていないため3組の辺の比は使えない。",
+              "「斜辺と1つの鋭角」は直角三角形の【合同条件】であり相似条件ではない！"
+            ]
           },
           {
             "prompt": "コンパスと定規だけを使って作図できる角度として適切なものを1つ選びなさい。",
@@ -1775,7 +2190,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$60^\\circ$ と $90^\\circ$ の半分半分で作れる角度（$15^\\circ, 30^\\circ, 45^\\circ, 75^\\circ, 105^\\circ, 135^\\circ$）！",
             "skill": "特別角の作図",
             "rate": 67,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "一般角の三等分（$60^\\circ\\div 3=20^\\circ$）は定規とコンパスだけでは作図不可能であることが証明されている！",
+              "$40^\\circ$ も $20^\\circ$ と同じく三等分が必要になり作図できない。",
+              "$50^\\circ$ も定規とコンパスだけでは作図できない。"
+            ]
           }
         ]
       }
@@ -1806,7 +2226,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "相似条件は「2組の辺の【比】とその間の角がそれぞれ等しい」！",
             "skill": "三角形の相似条件",
             "rate": 81,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "角が1組（$50^\\circ$）しかわかっていないため「2組の角」は使えない。",
+              "残りの辺AC, DFの長さが与えられていないため「3組の辺の比」は使えない。",
+              "「比」という言葉が抜けているため【合同条件】の文言になっており相似の証明ではバツになる！"
+            ]
           },
           {
             "prompt": "頂角が $36^\\circ$ である二等辺三角形の1つの底角の大きさは何度か。",
@@ -1820,7 +2245,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$(180-36)\\div 2 = 72^\\circ$！",
             "skill": "二等辺三角形の底角",
             "rate": 90,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$90^\\circ - 36^\\circ = 54^\\circ$ と直角三角形の余角を計算してしまったミス。",
+              "$180-36=144$ を半分にするとき $72$ ではなく $68$ と誤算したミス。",
+              "$180^\\circ - 36^\\circ = 144^\\circ$ を2で割り忘れたミス（底角2つ分の和）。"
+            ]
           },
           {
             "prompt": "円周上の1点 $\\text{P}$ を通る円の【接線】を作図するとき、中心 $\\text{O}$ と $\\text{P}$ を結ぶ半直線 $\\text{OP}$ を引いたあとに行う操作はどれか。",
@@ -1834,7 +2264,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "円周上の点Pを通る接線 ＝ 直線OPに対する点Pでの垂線！",
             "skill": "接線の作図",
             "rate": 79,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "線分OPの垂直二等分線はOPの中点を通るため、円周上の点Pを通る接線にはならない！",
+              "中心角を二等分しても点Pにおける接線は引けない。",
+              "正三角形を作図すると $60^\\circ$ の線になり、接線の条件である $90^\\circ$ にならない。"
+            ]
           }
         ]
       }
@@ -1867,7 +2302,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "余事象 $1 - \\frac{1}{8} = \\frac{7}{8}$！",
             "skill": "確率（余事象）",
             "rate": 78,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "硬貨3枚の出方を4通りと誤解して $1-\\frac{1}{4}=\\frac{3}{4}$ としたミス（実際は $2^3=8$ 通り！）。",
+              "表と裏で半分と直感で決めてしまったミス。",
+              "表がちょうど1枚または2枚のケースだけを数えて数え漏らしたミス。"
+            ]
           },
           {
             "prompt": "$0, 1, 2, 3$ の4枚のカードから2枚を取り出して並べ、2けたの整数を作るとき、それが【偶数】になる確率を求めなさい。",
@@ -1881,7 +2321,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "十の位に0不可で全9通り、偶数は5通り $\\Rightarrow \\frac{5}{9}$！",
             "skill": "0を含むカードの確率",
             "rate": 54,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "十の位に $0$ が置けない条件を忘れて偶数2枚・奇数2枚だから半分としたミス。",
+              "一の位が $0$ のケース（$10, 20, 30$）と $2$ のケース（$12, 32$）の合計5通りを4通りと数え漏らしたミス。",
+              "十の位に $0$ を置いた「$02$」なども含めて分母を $12$ にしてしまった典型ミス！"
+            ]
           },
           {
             "prompt": "大小2つのさいころを同時に投げるとき、出る目の和が【素数】になる確率を求めなさい。",
@@ -1895,7 +2340,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "和が2(1), 3(2), 5(4), 7(6), 11(2)の計15通り $\\Rightarrow \\frac{15}{36}=\\frac{5}{12}$！",
             "skill": "さいころと素数",
             "rate": 65,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "素数 $2$（偶数だが唯一の偶素数！）を素数から外してしまった最頻出の引っかけミス（$15$通り→$14$通りや$11$通りに減少）！",
+              "目の和 $2$（1通り）を素数から抜いて $\\frac{14}{36}=\\frac{7}{18}$ とした典型ミス！",
+              "$9$（$=3\\times 3$ で合成数）を素数に混ぜて $\\frac{16}{36}=\\frac{4}{9}$ としたミス。"
+            ]
           },
           {
             "prompt": "A, B, C の3人が1回じゃんけんをするとき、【Aだけが勝つ】確率を求めなさい。",
@@ -1909,7 +2359,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "全27通りのうちAの勝ち手3通り $\\Rightarrow \\frac{3}{27}=\\frac{1}{9}$！",
             "skill": "3人のじゃんけん確率",
             "rate": 63,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "Aがグーで勝つ1通りだけを見て3手分（グー・チョキ・パーの3通り）を掛けたり分母 $27$ を $9$ と誤ったミス。",
+              "Aがグーで勝つ $\\frac{1}{27}$ だけを計算し、チョキ・パーで勝つ場合（×3倍）を忘れたミス！",
+              "Aが勝つ（BとCのどちらかにも勝つ＝2人勝ち含む）を混ぜてしまったミス。"
+            ]
           },
           {
             "prompt": "$9$ 人の生徒の小テスト得点が低い順に $3, 4, 5, 6, 7, 8, 8, 9, 10$（点）であった。このデータの【四分位範囲】を求めなさい。",
@@ -1923,7 +2378,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$Q_3(8.5) - Q_1(4.5) = 4$ 点！",
             "skill": "四分位範囲の計算",
             "rate": 68,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "下位・上位の組分けに中央値の $7$ を混ぜて計算してしまったミス。",
+              "最大値と最小値や別の位置の差をとってしまったミス。",
+              "$7$ 点は中央値（第2四分位数）であり、四分位範囲（$Q_3-Q_1=8.5-4.5=4$）ではない！"
+            ]
           },
           {
             "prompt": "生徒40人のハンドボール投げの記録の箱ひげ図で、最小値 $12\\text{m}$、第1四分位数 $18\\text{m}$、中央値 $23\\text{m}$、第3四分位数 $29\\text{m}$、最大値 $36\\text{m}$ であった。【必ず正しい】といえるものを選びなさい。",
@@ -1937,7 +2397,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "40人の $Q_1$ 以上には少なくとも $40\\times\\frac{3}{4}=30$ 人含まれる！",
             "skill": "箱ひげ図の正誤判定",
             "rate": 58,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "箱ひげ図からは【平均値】は読み取れない（中央値 $23\\text{m}$ と平均値は別物）！",
+              "データ数が偶数（40人）のとき、中央値は20番目と21番目の平均値なので $23\\text{m}$ ちょうどの生徒がいるとは限らない超頻出の罠！",
+              "$36-12=24\\text{m}$ はデータの【範囲（レンジ）】であり、四分位範囲は $29-18=11\\text{m}$ である。"
+            ]
           },
           {
             "prompt": "35人のハンドボール投げの箱ひげ図において、【第1四分位数から第3四分位数までの箱の部分】には全体の約何割のデータが含まれているか。",
@@ -2000,7 +2465,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "1 −（奇数×奇数 $\\frac{1}{4}$）＝ $\\frac{3}{4}$！",
             "skill": "積が偶数の確率",
             "rate": 74,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "偶数と奇数が半々だから積も $\\frac{1}{2}$ と直感で誤答した最大頻出の罠（偶数×奇数も偶数になるので $\\frac{3}{4}$！）。",
+              "余事象の計算を誤った値。",
+              "和ではなく積の偶数条件を数え間違えた値。"
+            ]
           },
           {
             "prompt": "当たり2本、はずれ3本の計5本のくじから同時に2本引くとき、少なくとも1本が当たる確率を求めなさい。",
@@ -2014,7 +2484,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "全10通り − はずれ2本(3通り) ＝ $\\frac{7}{10}$！",
             "skill": "くじ引きと余事象",
             "rate": 76,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "はずれ2本の確率 $\\frac{3}{10}$ と混同したり分子を誤った値。",
+              "当たり1本目だけを見て $\\frac{2}{5}$ としたミス。",
+              "全事象 $\\frac{5\\times 4}{2}=10$ 通りのはずれ組数を2通りと数え間違えたミス。"
+            ]
           },
           {
             "prompt": "あるデータの最小値が $14$、第1四分位数が $21$、第3四分位数が $33$、最大値が $42$ のとき、【データの範囲】と【四分位範囲】の組み合わせとして正しいものはどれか。",
@@ -2028,7 +2503,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "範囲 $=42-14=28$、四分位範囲 $=33-21=12$！",
             "skill": "範囲と四分位範囲",
             "rate": 86,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "「範囲（最大−最小＝28）」と「四分位範囲（$Q_3 - Q_1＝12$）」を逆に答えてしまったミス。",
+              "四分位範囲を2で割った「四分位偏差（$6$）」を答えてしまったミス。",
+              "最大値 $42$ をそのまま範囲として答えてしまったミス。"
+            ]
           }
         ]
       }
@@ -2061,7 +2541,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "最頻値 ＝ 最大度数階級の真ん中（階級値）$= 47.5\\text{kg}$！",
             "skill": "最頻値（階級値）",
             "rate": 79,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$17$ 人はその階級の【度数】であり、最頻値（階級値 $47.5\\text{kg}$）ではない！",
+              "階級の下端 $45\\text{kg}$ ではなく真ん中の階級値 $47.5\\text{kg}$ で答えるのがルール。",
+              "階級の上端 $50\\text{kg}$ ではなく階級値 $47.5\\text{kg}$ で答える。"
+            ]
           },
           {
             "prompt": "生徒40人の通学時間の度数分布表で、0〜10分が5人、10〜20分が12人、20〜30分が14人、30〜40分が9人であった。【中央値（メジアン）】が含まれる階級はどれか。",
@@ -2075,7 +2560,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "40人の中央値は20・21番目！累積度数17人の次なので20〜30分！",
             "skill": "中央値の階級",
             "rate": 77,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "20分未満までは累計 $5+12=17$ 人しかおらず、20・21番目はまだ入っていない！",
+              "30〜40分は32番目〜40番目の生徒の階級である。",
+              "0〜10分は1番目〜5番目の生徒の階級である。"
+            ]
           },
           {
             "prompt": "上の40人の表（0〜10分：5人、10〜20分：12人、20〜30分：14人、30〜40分：9人）において、「30分未満」までの【累積相対度数】を小数第3位まで求めなさい。",
@@ -2089,7 +2579,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "累積度数 $31 \\div 40 = 0.775$！",
             "skill": "累積相対度数",
             "rate": 73,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$14\\div 40 = 0.350$ は「20〜30分単独の相対度数」であり、0分からの【累積】相対度数ではない！",
+              "$17\\div 40 = 0.425$ は「20分未満まで」の累積相対度数である。",
+              "分子を33人と足し間違えた計算ミス。"
+            ]
           },
           {
             "prompt": "池にいるコイの総数を調べるため、$60$ 匹を捕まえて印をつけて池に戻した。数日後、無作為に $50$ 匹を捕まえたところ印のついたコイが $4$ 匹いた。池のコイはおよそ何匹と推定されるか。",
@@ -2103,7 +2598,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "比例式 $x : 60 = 50 : 4 \\Rightarrow x = 750$ 匹！",
             "skill": "標本調査（捕獲再捕獲）",
             "rate": 78,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "$60\\times 50 \\div 5$ のように印の数を誤って割った値。",
+              "概算で端数を丸め違えた値。",
+              "比例式 $x:60 = 50:4$ の内項・外項の掛け合わせを逆にしたミス。"
+            ]
           },
           {
             "prompt": "工場で作られた電球 $12,000$ 個から無作為に $300$ 個を抽出して検査したところ、不良品が $5$ 個見つかった。$12,000$ 個全体に含まれる不良品はおよそ何個と推測されるか。",
@@ -2117,7 +2617,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$12000 \\div 300 = 40$ 倍 $\\Rightarrow 5\\times 40 = 200$ 個！",
             "skill": "標本調査（不良品推定）",
             "rate": 86,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "比率計算で $30\\times 5=150$ と桁や商を誤ったミス。",
+              "$12000\\div 250$ のように割り算を誤ったミス。",
+              "抽出数 $300$ と不良品 $5$ の掛け算・割り算を取り違えたミス。"
+            ]
           },
           {
             "prompt": "全校生徒の読書時間を調べる調査において、【全数調査】ではなく【標本調査】を行うのが適切な事例を1つ選びなさい。",
@@ -2131,7 +2636,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "製品を壊す検査・視聴率調査 ＝ 標本調査！国勢調査・健康診断 ＝ 全数調査！",
             "skill": "全数調査と標本調査",
             "rate": 88,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "学校の健康診断は生徒一人ひとりの健康状態を把握するため必ず【全数調査】を行う。",
+              "国勢調査は日本に住むすべての人・世帯を対象とする代表的な【全数調査】である。",
+              "飛行機の手荷物検査は安全確保のため1人も漏らさず【全数調査】を行う！"
+            ]
           }
         ]
       }
@@ -2162,7 +2672,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "人数が異なる集団の比較 ＝【相対度数】を使う！",
             "skill": "相対度数の活用",
             "rate": 89,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "階級の幅を揃えることは前提だが、人数差を補正する指標は【相対度数】である。",
+              "最大値と最小値の和では分布の比較はできない。",
+              "度数の合計そのものが120人と160人で異なるためそのままでは比較できない。"
+            ]
           },
           {
             "prompt": "度数分布表で、全体の人数が $50$ 人、ある階級の相対度数が $0.24$ であった。この階級の度数（人数）は何人か。",
@@ -2176,7 +2691,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "$50 \\times 0.24 = 12$ 人！",
             "skill": "相対度数から度数計算",
             "rate": 87,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "総度数 $100$ 人のときと勘違いして $0.24\\times 100 = 24$ 人とした引っかけミス（全体は50人！）。",
+              "半分にしすぎた計算ミス。",
+              "$50\\times 0.3=15$ と見誤ったミス。"
+            ]
           },
           {
             "prompt": "母集団からかたよりなく標本を選び出すことを何というか。",
@@ -2190,7 +2710,12 @@ export const MATH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "偏りなく標本を選ぶこと ＝【無作為抽出】！",
             "skill": "標本調査の用語",
             "rate": 92,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "全数調査は母集団すべてを調べる調査であり標本の選び方ではない。",
+              "「四分位抽出」という用語は存在しない（箱ひげ図の四分位数との造語ひっかけ）。",
+              "比例配分は比に応じて分ける計算であり無作為抽出とは異なる。"
+            ]
           }
         ]
       }

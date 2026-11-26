@@ -19,7 +19,7 @@
  * このファイルは ★試合が終わってリザルト画面が出たときだけ★ 読み込む。
  *
  * -------------------------------------------------------------------
- * ■ 収録数: 198 問（oneLine を持つ問題だけ）
+ * ■ 収録数: 208 問（oneLine を持つ問題だけ）
  * -------------------------------------------------------------------
  * 機械生成の問題は元データに1行解答が無いので入っていない。
  * 画面側は「無い問題は答えの行を出さない」作りにしてある。
@@ -144,6 +144,11 @@ export const ANSWERS: readonly (readonly [string, string])[] = [
   ["q:en2_2:en2_2_p1:en2_2_p1_q4","had ＝ now（今）の話なのに主節が would go！ 現在の事実に反する仮定は【過去形 had】を使う！"],
   ["q:en2_2:en2_2_p1:en2_2_p1_q5","that ＝ 先行詞が「人＋動物（the girl and her dog）」のときは関係代名詞【that】を選ぶ！"],
   ["q:en2_2:en2_2_p1:en2_2_p1_q6","the library opens ＝ does が消えて肯定文語順に戻るとき、the library に合わせて opens と【-s を復活】させる！"],
+  ["q:en2_2:en2_2_v65_p1:en2_2_v65_p1_q1","wearing ＝ 「赤い帽子をかぶっている少年」＝ 能動の後置修飾 the boy【wearing】a red cap！"],
+  ["q:en2_2:en2_2_v65_p1:en2_2_v65_p1_q2","made ＝ 机は「作られた」受動側（かつ後ろに本動詞 is あり）$\\Rightarrow$ 過去分詞【made】by my grandfather！"],
+  ["q:en2_2:en2_2_v65_p1:en2_2_v65_p1_q3","Which team do you think ＝ Yes/No で答えられない思考の疑問文 ＝【疑問詞（Which team）＋ do you think ＋ V ~?】！"],
+  ["q:en2_2:en2_2_v65_p1:en2_2_v65_p1_q4","which ... in（＝in which / where）：選択肢のうち in which ＝ live は自動詞（live【in】the house）！ だから which 単独ではなく前置詞つきの関係詞表現が必要！"],
+  ["q:en2_2:en2_2_v65_p1:en2_2_v65_p1_q5","had ＝ 現在の事実に反する仮定 ＋ 主節 could help $\\Rightarrow$ if節は過去形【had】！"],
   ["q:en2_2:en2_2_v6_p1:en2_2_v6_p1_q1","taken ＝ 「〜によって撮られた写真」＝ 受動関係なので【過去分詞 taken】で後ろから修飾！"],
   ["q:en2_2:en2_2_v6_p1:en2_2_v6_p1_q2","when the next bus leaves ＝ 間接疑問文 ＝【疑問詞 ＋ 主語 ＋ 動詞】の語順！（does が消えるので三単現の -s「leaves」を忘れない！）"],
   ["q:en2_2:en2_2_v6_p1:en2_2_v6_p1_q3","whose ＝ 先行詞 ＋【whose ＋ 名詞（冠詞なし）】＋ V 〜 ＝「その…の［名詞］が〜」！"],
@@ -191,6 +196,11 @@ export const ANSWERS: readonly (readonly [string, string])[] = [
   ["q:en3_2:en3_2_p1:en3_2_p1_q3","This box is too heavy for me to carry. ＝ too ＋ 形容詞 ＋ (for 人) ＋ to 原形！（文末に it をつけないのが超重要ポイント！）"],
   ["q:en3_2:en3_2_p1:en3_2_p1_q4","My grandfather takes a walk with his dog every morning. ＝ 原稿補充の「〜ということ」に That は絶対不要！ 三単現の takes をつけた完全な平叙文にする！"],
   ["q:en3_2:en3_2_p1:en3_2_p1_q5","you showed me yesterday ＝ The picture [which/that] you showed me yesterday ＝ 名詞の直後に S + V を置いて後ろから修飾！"],
+  ["q:en3_2:en3_2_v65_p1:en3_2_v65_p1_q1","it goes in the opposite direction. ＝ 直後の「反対側のバス停で5番バスに乗って」とつながる【it goes in the opposite direction.（逆方向へ行きます）】！"],
+  ["q:en3_2:en3_2_v65_p1:en3_2_v65_p1_q2","80人 ＝ a quarter（$\\dfrac{1}{4}$）$= 160 \\div 4 = 40$人 $\\Rightarrow$ twice as many（その2倍）$= 40 \\times 2 = 80$人！"],
+  ["q:en3_2:en3_2_v65_p1:en3_2_v65_p1_q3","a library ＝ borrow books for free（無料で本を借りる）＋ return（返却する）＝【a library（図書館）】！"],
+  ["q:en3_2:en3_2_v65_p1:en3_2_v65_p1_q4","No, thank you. ＝ Would you like ~? を断るとき ＝【No, thank you.】（もらうとき＝ Yes, please.）！"],
+  ["q:en3_2:en3_2_v65_p1:en3_2_v65_p1_q5","My brother has lived in Kyoto for three years. ＝ 過去から今までずっと住んでいる ＝【has lived（または has been living）in ~ for 期間】！"],
   ["q:en4_1:en4_1_exp_m1:en4_1_exp_m1_q1","in case of ＝ in case of rain ＝「雨天の場合には」！"],
   ["q:en4_1:en4_1_exp_m1:en4_1_exp_m1_q2","More than ＝ more than half of ~ ＝「半数以上の〜」 ／ less than half of ~ ＝「半数未満の〜」！"],
   ["q:en4_1:en4_1_exp_m1:en4_1_exp_m1_q3","whether ＝ whether S V (or not) ＝「SがVするかどうか」！"],

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 290" width="520" height="290" font-family="'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr-slate" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="520" height="290" rx="14" fill="#ffffff"/>
+
+  <text x="18" y="26" font-size="13.5" font-weight="800" fill="#0f172a">戦後日本の実質経済成長率の推移と転換点（1955〜2000年頃）</text>
+  <!-- 0%ライン -->
+  <line x1="60" y1="205" x2="485" y2="205" stroke="#475569" stroke-width="2"/>
+  <line x1="60" y1="50" x2="60" y2="245" stroke="#334155" stroke-width="2"/>
+  <text x="48" y="90" font-size="11" font-weight="700" fill="#334155" text-anchor="end">10%</text>
+  <line x1="60" y1="86" x2="485" y2="86" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="4,4"/>
+  <text x="48" y="148" font-size="11" font-weight="700" fill="#334155" text-anchor="end">5%</text>
+  <text x="48" y="210" font-size="11" font-weight="700" fill="#334155" text-anchor="end">0%</text>
+  <!-- 高度経済成長ハイライト -->
+  <rect x="70" y="55" width="160" height="150" fill="#dbeafe" fill-opacity="0.5"/>
+  <text x="150" y="72" font-size="12" font-weight="800" fill="#1d4ed8" text-anchor="middle">期間P（年平均10%前後）</text>
+  <!-- 折れ線 -->
+  <polyline points="75,95 110,78 150,88 190,68 225,92 252,218 285,152 330,156 375,142 415,198 460,195" fill="none" stroke="#dc2626" stroke-width="3"/>
+  <!-- 1974マイナス成長丸印 -->
+  <circle cx="252" cy="218" r="6" fill="#dc2626"/>
+  <text x="252" y="242" font-size="11.5" font-weight="800" fill="#b91c1c" text-anchor="middle">出来事Q(1973-74)</text>
+  <text x="252" y="256" font-size="10.5" font-weight="700" fill="#b91c1c" text-anchor="middle">戦後初のマイナス成長！</text>
+  <text x="80" y="272" font-size="11" font-weight="700" fill="#475569">1955</text>
+  <text x="235" y="272" font-size="11" font-weight="700" fill="#475569">1973</text>
+  <text x="380" y="272" font-size="11" font-weight="700" fill="#475569">1991</text>
+
+</svg>

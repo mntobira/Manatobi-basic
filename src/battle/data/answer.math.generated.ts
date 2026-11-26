@@ -19,7 +19,7 @@
  * このファイルは ★試合が終わってリザルト画面が出たときだけ★ 読み込む。
  *
  * -------------------------------------------------------------------
- * ■ 収録数: 238 問（oneLine を持つ問題だけ）
+ * ■ 収録数: 253 問（oneLine を持つ問題だけ）
  * -------------------------------------------------------------------
  * 機械生成の問題は元データに1行解答が無いので入っていない。
  * 画面側は「無い問題は答えの行を出さない」作りにしてある。
@@ -144,6 +144,11 @@ export const ANSWERS: readonly (readonly [string, string])[] = [
   ["q:ma2_3:ma2_3_p1:ma2_3_p1_q3","$x$ の値にかかわらずつねに $24\\text{cm}^2$ で一定 ＝ 辺 $BC \\parallel AD$ より、底辺 $AD = 8\\text{cm}$・高さ $AB = 6\\text{cm}$ で一定 $\\Rightarrow y = \\dfrac{1}{2}\\times 8 \\times 6 = 24\\text{cm}^2$！"],
   ["q:ma2_3:ma2_3_p1:ma2_3_p1_q4","22 ＝ $8 \\times 6$ の長方形から周囲3つの直角三角形（$6 + 12 + 8 = 26$）を引いて $48 - 26 = 22$！（裏ワザ $\\dfrac{1}{2}|2\\cdot 2 - 6\\cdot 8| = 22$）"],
   ["q:ma2_3:ma2_3_p1:ma2_3_p1_q5","$y = \\dfrac{4}{5}x$ ＝ 頂点を通る面積二等分線は【対辺の中点】を通る！ 辺 $AB$ の中点 $M\\left(\\dfrac{2+8}{2}, \\dfrac{6+2}{2}\\right) = (5, 4)$ と原点を結ぶ！"],
+  ["q:ma2_3:ma2_3_v65_p1:ma2_3_v65_p1_q1","$y = 4x$ ＝ 底辺 $\\text{AD}=8\\text{cm}$、高さ $\\text{AP}=x\\text{cm}$ より $y = \\dfrac{1}{2} \\times 8 \\times x = 4x$！"],
+  ["q:ma2_3:ma2_3_v65_p1:ma2_3_v65_p1_q2","$\\text{AD} \\parallel \\text{BC}$ であるため、点 $\\text{P}$ が辺 $\\text{BC}$ 上のどこにあっても底辺 $\\text{AD}=8\\text{cm}$ に対する高さが $6\\text{cm}$ で変わらないから ＝ $\\text{AD} \\parallel \\text{BC}$ より底辺 $8\\text{cm}$・高さ $6\\text{cm}$ が一定（等積変形）だから！"],
+  ["q:ma2_3:ma2_3_v65_p1:ma2_3_v65_p1_q3","$(20 - x)\\text{cm}$ ＝ $\\text{A}\\to\\text{B}\\to\\text{C}\\to\\text{D}$ の全長は $6 + 8 + 6 = 20\\text{cm}$！ だから残り $\\text{PD} = (20 - x)\\text{cm}$！"],
+  ["q:ma2_3:ma2_3_v65_p1:ma2_3_v65_p1_q4","$4$ 秒後と $16$ 秒後 ＝ ① $4x = 16 \\Rightarrow x = 4$ 秒後 と ③ $-4x + 80 = 16 \\Rightarrow x = 16$ 秒後 の【2回】！"],
+  ["q:ma2_3:ma2_3_v65_p1:ma2_3_v65_p1_q5","最大値：$24\\text{cm}^2$（変わらない） ／ 到着時刻：$10$ 秒後 ＝ 速さ2倍 $\\Rightarrow$ かかる時間は半分（$10$秒後）だが、図形の大きさは不変なので最大面積は $24\\text{cm}^2$！"],
   ["q:ma2_3:ma2_3_v6_p1:ma2_3_v6_p1_q1","分速 $60\\text{m}$ ／ $y = 60x$ ＝ $20$ 分で $1200\\text{m}$ 進むので分速 $60\\text{m}$、式は $y = 60x$！"],
   ["q:ma2_3:ma2_3_v6_p1:ma2_3_v6_p1_q2","$y = -120x + 1800$ ＝ $10$ 分で $1200\\text{m}$ 減るので傾き $-120$！ $(15, 0)$ を代入して $b = 1800$！"],
   ["q:ma2_3:ma2_3_v6_p1:ma2_3_v6_p1_q3","$10$ 分後、家から $600\\text{m}$ の地点 ＝ $60x = -120x + 1800 \\Rightarrow x = 10$ 分後、$y = 600\\text{m}$！"],
@@ -166,6 +171,11 @@ export const ANSWERS: readonly (readonly [string, string])[] = [
   ["q:ma3_1:ma3_1_p2:ma3_1_p2_q1","$\\angle\\text{BAC} = 32^\\circ$　／　$\\angle\\text{BDC} = 32^\\circ$ ＝ $\\text{AB}$ は直径だから $\\angle\\text{ACB} = 90^\\circ \\Rightarrow \\angle\\text{BAC} = 90^\\circ - 58^\\circ = 32^\\circ$！ 同じ弧 $\\text{BC}$ の円周角 $\\angle\\text{BDC}$ も $32^\\circ$！"],
   ["q:ma3_1:ma3_1_p2:ma3_1_p2_q2","$4\\text{cm}$ ＝ $\\triangle\\text{ACP} \\sim \\triangle\\text{DBP}$ の文字順そのままに $\\text{AP} : \\text{DP} = \\text{CP} : \\text{BP} \\Rightarrow 8 : x = 6 : 3$ より $6x = 24 \\Rightarrow x = 4\\text{cm}$！"],
   ["q:ma3_1:ma3_1_p2:ma3_1_p2_q3","$16 : 9$ ＝ 対応する辺 $\\text{AP} : \\text{DP} = 8 : 6 = 4 : 3$ が相似比！ よって面積比は2乗して $4^2 : 3^2 = 16 : 9$！"],
+  ["q:ma3_1:ma3_1_v65_p1:ma3_1_v65_p1_q1","頂点 $\\text{D}$ を通り、対角線 $\\text{AC}$ に平行な直線を引いて辺 $\\text{BC}$ の延長との交点を $\\text{E}$ とする ＝ 対角線 $\\text{AC}$ を共通底辺にし、頂点 $\\text{D}$ を通り【$\\text{AC} \\parallel \\text{DE}$】を引く！"],
+  ["q:ma3_1:ma3_1_v65_p1:ma3_1_v65_p1_q2","$\\triangle\\text{ACD} = \\triangle\\text{ACE}$ であり、そこから共通部分 $\\triangle\\text{ACP}$ を引いた $\\triangle\\text{APD} = \\triangle\\text{CPE}$ も成り立つ ＝ $\\triangle\\text{ACD} = \\triangle\\text{ACE}$ から共通部分を引いた【ちょうちょの羽 $\\triangle\\text{APD} = \\triangle\\text{CPE}$】も等積！"],
+  ["q:ma3_1:ma3_1_v65_p1:ma3_1_v65_p1_q3","$33\\text{cm}^2$ ＝ 四角形 $\\text{ABCD} = \\triangle\\text{ABE} = \\dfrac{1}{2} \\times 11 \\times 6 = 33\\text{cm}^2$！"],
+  ["q:ma3_1:ma3_1_v65_p1:ma3_1_v65_p1_q4","$12\\text{cm}^2$ ＝ まず対角線で半分 $\\triangle\\text{ABD} = 20\\text{cm}^2$ $\\Rightarrow$ 底辺比 $\\dfrac{3}{3+2}$ 倍で $20 \\times \\dfrac{3}{5} = 12\\text{cm}^2$！"],
+  ["q:ma3_1:ma3_1_v65_p1:ma3_1_v65_p1_q5","$(6, 0)$ ＝ 対角線 $\\text{AC}$ の傾きは $\\dfrac{0-4}{2-0} = -2$！ 点 $\\text{D}(3,6)$ を通り傾き $-2$ の直線 $y = -2x + 12$ と $x$ 軸の交点 $(6, 0)$！"],
   ["q:ma3_1:ma3_1_v6_p1:ma3_1_v6_p1_q1","相似比 $2 : 3$ ／ $\\text{AO} : \\text{OC} = 2 : 3$ ＝ $\\triangle\\text{OAD} \\sim \\triangle\\text{OCB}$ より相似比も対応辺の比も $4 : 6 = 2 : 3$！"],
   ["q:ma3_1:ma3_1_v6_p1:ma3_1_v6_p1_q2","$4 : 9$ ＝ 相似比 $2 : 3 \\Rightarrow$ 面積比は $2^2 : 3^2 = 4 : 9$！"],
   ["q:ma3_1:ma3_1_v6_p1:ma3_1_v6_p1_q3","$12\\text{cm}^2$ ＝ 頂点 $\\text{A}$ 共通で高さが等しいので底辺比 $\\text{OD} : \\text{OB} = 2 : 3 \\Rightarrow 12\\text{cm}^2$！"],
@@ -208,6 +218,11 @@ export const ANSWERS: readonly (readonly [string, string])[] = [
   ["q:ma3_3:ma3_3_p1:ma3_3_p1_q3","$12\\pi\\text{cm}^3$ ＝ 軸 $\\text{AC} = 4\\text{cm}$ が【高さ】、垂直な $\\text{BC} = 3\\text{cm}$ が【底面の半径】！ $\\dfrac{1}{3} \\times \\pi \\times 3^2 \\times 4 = 12\\pi$！"],
   ["q:ma3_3:ma3_3_p1:ma3_3_p1_q5","表面積：$90\\text{cm}^2$　／　体積：$108\\text{cm}^3$ ＝ 相似比 $1 : 3 \\Rightarrow$ 表面積比 $1^2 : 3^2 = 1 : 9$（$90\\text{cm}^2$）、体積比 $1^3 : 3^3 = 1 : 27$（$4 \\times 27 = 108\\text{cm}^3$）！"],
   ["q:ma3_3:ma3_3_p1:ma3_3_p1_q6","2個（頂点Eと頂点G） ＝ 面の対角線の長さはすべて $6\\sqrt{2}\\text{cm}$ で等しい！ $\\text{BD}$ と正三角形を作るのは $\\triangle\\text{BDE}$ と $\\triangle\\text{BDG}$ の【2個】！"],
+  ["q:ma3_3:ma3_3_v65_p1:ma3_3_v65_p1_q1","$1 : 2 : 3$ ＝ $\\dfrac{2}{3}\\pi r^3 : \\dfrac{4}{3}\\pi r^3 : 2\\pi r^3 = 1 : 2 : 3$！"],
+  ["q:ma3_3:ma3_3_v65_p1:ma3_3_v65_p1_q2","$18\\pi\\text{cm}^3$ ＝ 円柱 $54\\pi$ − 球 $36\\pi = 18\\pi\\text{cm}^3$（$1:2:3$ より円柱の $\\dfrac{1}{3}$ が残る！）"],
+  ["q:ma3_3:ma3_3_v65_p1:ma3_3_v65_p1_q3","$2\\text{cm}$ ＝ 底面積が同じ円柱で体積が $\\dfrac{1}{3}$ になったので、深さも $6\\text{cm} \\times \\dfrac{1}{3} = 2\\text{cm}$！"],
+  ["q:ma3_3:ma3_3_v65_p1:ma3_3_v65_p1_q4","円柱の側面積も $2\\pi r \\times 2r = 4\\pi r^2$ となり、球の表面積と【まったく等しい】 ＝ 円柱の側面積 $= (\\text{円周 }2\\pi r) \\times (\\text{高さ }2r) = 4\\pi r^2 =$【球の表面積と完全一致】！"],
+  ["q:ma3_3:ma3_3_v65_p1:ma3_3_v65_p1_q5","$108\\pi\\text{cm}^2$ ＝ 曲面（半分）$72\\pi$ ＋【切り口の平らな円 $36\\pi$】$= 108\\pi\\text{cm}^2$（$3\\pi r^2$）！"],
   ["q:ma3_3:ma3_3_v6_p1:ma3_3_v6_p1_q1","1辺の長さが $6\\sqrt{2}\\text{cm}$ の正三角形 ＝ 3辺とも正方形の対角線なので、1辺 $6\\sqrt{2}\\text{cm}$ の【正三角形】！"],
   ["q:ma3_3:ma3_3_v6_p1:ma3_3_v6_p1_q2","$36\\text{cm}^3$ ＝ $\\triangle\\text{ABD} = 18\\text{cm}^2$ × 高さ $\\text{AE}=6 \\times \\dfrac{1}{3} = 36\\text{cm}^3$！"],
   ["q:ma3_3:ma3_3_v6_p1:ma3_3_v6_p1_q3","$\\dfrac{5}{6}$ ＝ $216\\text{cm}^3$ から $36\\text{cm}^3$（$= \\frac{1}{6}$）を引くので残りは $\\dfrac{5}{6}$！"],

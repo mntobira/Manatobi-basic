@@ -3,6 +3,7 @@ import { buildChapter, countSubjectStats, applyChapterExpansions } from './juken
 import { EXTRA_JAPANESE_CHAPTERS } from './juken/extraJapanese';
 import { JAPANESE_BANK_EXPANSION } from './juken/bankExpansionJapanese';
 import { JAPANESE_V6_EXPANSION } from './juken/v6ExpansionJapanese';
+import { JAPANESE_V65_QUALITY } from './juken/v65QualityPack';
 
 const japaneseParts: Part[] = [
   {
@@ -1111,12 +1112,15 @@ const japaneseParts: Part[] = [
 
 export const japaneseData: Part[] = applyChapterExpansions(
   applyChapterExpansions(
-    japaneseParts.map((part) => {
-      const extras = EXTRA_JAPANESE_CHAPTERS.filter((ch) => ch.id.startsWith(part.id.replace('ja_part', 'ja') + '_'));
-      return extras.length ? { ...part, chapters: [...part.chapters, ...extras] } : part;
-    }),
-    JAPANESE_BANK_EXPANSION,
+    applyChapterExpansions(
+      japaneseParts.map((part) => {
+        const extras = EXTRA_JAPANESE_CHAPTERS.filter((ch) => ch.id.startsWith(part.id.replace('ja_part', 'ja') + '_'));
+        return extras.length ? { ...part, chapters: [...part.chapters, ...extras] } : part;
+      }),
+      JAPANESE_BANK_EXPANSION,
+    ),
+    JAPANESE_V6_EXPANSION,
   ),
-  JAPANESE_V6_EXPANSION,
+  JAPANESE_V65_QUALITY,
 );
 export const JAPANESE_STATS = countSubjectStats(japaneseData);

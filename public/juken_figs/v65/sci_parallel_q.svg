@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 290" width="520" height="290" font-family="'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr-slate" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="520" height="290" rx="14" fill="#ffffff"/>
+
+  <text x="18" y="26" font-size="13" font-weight="800" fill="#0f172a">並列回路（電源 6.0V・電熱線R₁＝20Ω / R₂＝30Ω）</text>
+  <!-- 外周導線 -->
+  <rect x="75" y="105" width="280" height="145" fill="none" stroke="#334155" stroke-width="2.5"/>
+  <!-- 並列の上段・中段 -->
+  <line x1="140" y1="105" x2="140" y2="195" stroke="#334155" stroke-width="2.5"/>
+  <line x1="355" y1="105" x2="355" y2="195" stroke="#334155" stroke-width="2.5"/>
+  <line x1="140" y1="195" x2="355" y2="195" stroke="#334155" stroke-width="2.5"/>
+  <circle cx="140" cy="105" r="4" fill="#0f172a"/><circle cx="355" cy="105" r="4" fill="#0f172a"/>
+  <!-- 抵抗 R1 (top: y=105) -->
+  <rect x="205" y="92" width="100" height="26" fill="#ffffff" stroke="#0f172a" stroke-width="2.2"/>
+  <text x="255" y="110" font-size="13" font-weight="800" fill="#0f172a" text-anchor="middle">R₁ ＝ 20Ω</text>
+  <!-- 抵抗 R2 (mid: y=195) -->
+  <rect x="205" y="182" width="100" height="26" fill="#ffffff" stroke="#0f172a" stroke-width="2.2"/>
+  <text x="255" y="200" font-size="13" font-weight="800" fill="#0f172a" text-anchor="middle">R₂ ＝ 30Ω</text>
+  <!-- 電源 (bottom: y=250) -->
+  <rect x="205" y="236" width="52" height="28" fill="#ffffff"/>
+  <line x1="224" y1="234" x2="224" y2="266" stroke="#0f172a" stroke-width="3.2"/>
+  <line x1="238" y1="241" x2="238" y2="259" stroke="#0f172a" stroke-width="5"/>
+  <text x="231" y="282" font-size="13" font-weight="800" fill="#b91c1c" text-anchor="middle">電源 6.0V</text>
+  <!-- 電流計A -->
+  <circle cx="75" cy="178" r="16" fill="#fef9c3" stroke="#ca8a04" stroke-width="2.2"/>
+  <text x="75" y="183" font-size="14" font-weight="800" fill="#854d0e" text-anchor="middle">A</text>
+  
+
+</svg>
