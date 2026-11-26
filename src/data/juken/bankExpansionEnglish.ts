@@ -86,7 +86,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "when 節が過去形 were なので主節も過去形 taught！",
             "skill": "過去形と時制の一致",
             "rate": 79,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "三単現の現在形であり、過去の when 節と時制が一致しない。",
+              "現在完了形は when we were ~ のような過去の特定の時を表す節とは共起できない。",
+              "進行形の分詞だけでは文の述語動詞になれない（be動詞もない）。"
+            ]
           },
           {
             "prompt": "A: (　　) is it from this bus stop to the city museum? — B: About three kilometers.",
@@ -100,7 +105,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "距離（〜 kilometers）を尋ねる表現 ＝ How far is it from A to B?",
             "skill": "疑問詞 How far",
             "rate": 80,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "How long は所要時間や期間（About twenty minutes. 等）を尋ねる表現。",
+              "How many の直後には複数名詞が必要で is it とは続かない。",
+              "How high は山や建物の高さを尋ねる表現であり距離には使わない。"
+            ]
           },
           {
             "prompt": "You (　　) use a dictionary during this English test. Please put it in your bag.",
@@ -114,7 +124,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "テスト中の禁止ルール ＝ must not ＋動詞の原形！",
             "skill": "助動詞（禁止）",
             "rate": 83,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "don't have to は「〜しなくてもよい（不必要）」になり、テスト中の禁止ルールにならない。",
+              "would like to は「〜したい」という願望で命令・禁止の文脈に合わない。",
+              "were able to は「〜できた」という過去形で現在の指示に合わない。"
+            ]
           },
           {
             "prompt": "A: Could you open the window, Ken? It's hot in here. — B: (　　)",
@@ -128,7 +143,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "Could [Will] you ~?（依頼）への快諾 ＝ Sure. / Certainly. / All right.",
             "skill": "助動詞の対話応答",
             "rate": 82,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "依頼に対して Yes, thank you. は「頼まれた側がお礼を言う」不自然な応答になる。",
+              "Could you ~? に No, I don't. と一般動詞現在形で答えることはできない。",
+              "That's right.（その通りです）は事実への同意であり依頼への返答にならない。"
+            ]
           },
           {
             "prompt": "Take your coat with you. It (　　) get cold tonight.",
@@ -142,7 +162,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "推量「〜かもしれない」＝ may ＋動詞の原形！",
             "skill": "助動詞 may",
             "rate": 77,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "does get は強調表現になり「今夜寒くなるかもしれない」という推量を表せない。",
+              "is の直後に動詞の原形 get を置くことはできない。",
+              "has の直後に動詞の原形 get は置けない（過去分詞が必要）。"
+            ]
           },
           {
             "prompt": "A: (　　) does it take from this station to the airport by bus? — B: About forty minutes.",
@@ -211,7 +236,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "過去の1点（at eight last night）で進行中 ＝ 過去進行形 were ~ing！",
             "skill": "過去進行形",
             "rate": 75,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "did の後ろに現在分詞 doing を置くことはできない（原形 do が必要）。",
+              "are は現在進行形であり last night（昨夜）と時制が矛盾する。",
+              "have の後ろは過去分詞 done になり、かつ last night とは一緒に使えない。"
+            ]
           },
           {
             "prompt": "You look pale. You (　　) stay up late tonight.",
@@ -225,7 +255,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "「〜しないほうがよい」の語順 ＝ had better not ＋原形！",
             "skill": "助動詞的表現 had better",
             "rate": 62,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "had better は1つの助動詞相当語句なので don't を前につける否定形は存在しない。",
+              "had not to という語順は誤り（過去不必要なら didn't have to）。",
+              "主語の直後に動詞のない better not to を置くことはできない。"
+            ]
           },
           {
             "prompt": "A: (　　) is your sister's birthday? — B: It's October 12th.",
@@ -239,7 +274,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "日付・曜日・時期を尋ねる疑問詞 ＝ When！",
             "skill": "疑問詞 When",
             "rate": 88,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "What time は時刻（7:30など）を尋ねる表現で、月日（10月12日）には使わない。",
+              "How old は年齢を尋ねる表現。",
+              "Where は場所を尋ねる表現。"
+            ]
           }
         ]
       }
@@ -273,7 +313,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "a pen to write with（ペンで書く）／ paper to write on（紙の上に書く）！",
             "skill": "不定詞（形容詞的用法＋前置詞）",
             "rate": 55,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "write on ~ は「（紙などの上に）書く」であり、a pen（道具）には on ではなく with を使う。",
+              "write in ~ は「（インク・鉛筆・英語などの言語・材料で）書く」ときに使う表現。",
+              "write about ~ は「〜について書く」になり、ペンが話題になってしまう。"
+            ]
           },
           {
             "prompt": "All of us are looking forward to (　　) your hometown next month.",
@@ -287,7 +332,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "look forward to ＋ 動名詞（~ing）＝「〜するのを楽しみにしている」！",
             "skill": "動名詞（前置詞 to）",
             "rate": 63,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "look forward to の to は前置詞なので動詞の原形 visit は置けない！",
+              "過去形・過去分詞 visited は前置詞 to の目的語になれない。",
+              "「訪れる」側なので受動態にする必要はなく、前置詞の後ろに原形 be も置けない。"
+            ]
           },
           {
             "prompt": "Hokkaido is (　　) larger than Shikoku.",
@@ -301,7 +351,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "比較級の強調「ずっと〜」＝ much [far / a lot] ＋比較級（× very は不可）！",
             "skill": "比較級の強調",
             "rate": 74,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "very は原級（large）しか修飾できず、比較級 larger の前には置けない最頻出の罠！",
+              "larger はすでに -er がついた比較級なので more を重ねる二重比較は誤り。",
+              "most は最上級をつくる語であり than がある比較級の文には使えない。"
+            ]
           },
           {
             "prompt": "Please run as fast as you (　　) to catch the first bus.",
@@ -315,7 +370,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "as 原級 as possible ⇔ as 原級 as 主語 ＋ can [could]！",
             "skill": "原級慣用表現",
             "rate": 76,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "as ~ as possible なら正しいが、主語 you があるのに as you possible とは言えない。",
+              "命令文（現在）なので過去形の could ではなく現在形の can に揃える。",
+              "能力の「できるだけ」を表す慣用句では will ではなく can を用いる。"
+            ]
           },
           {
             "prompt": "My father went to the bookstore (　　) a travel magazine.",
@@ -329,7 +389,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "動作の目的「〜するために」＝ to ＋動詞の原形！",
             "skill": "不定詞（副詞的用法）",
             "rate": 81,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "go ~ing（買い物に行く等）以外の一般動作で「〜するために行った」を buying だけでは表せない。",
+              "目的「〜するために」を for ~ing で表すのは誤り（用途の説明にしか使えない）。",
+              "過去形 bought を動詞 went と並べることはできない。"
+            ]
           },
           {
             "prompt": "(　　) my grandfather is seventy-five years old, he swims every morning.",
@@ -343,7 +408,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "逆接「〜だけれども」＝ Although [Though] ＋ S ＋ V！",
             "skill": "接続詞（譲歩）",
             "rate": 78,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "Because にすると「75歳だから毎朝泳いでいる」と因果が逆になってしまう。",
+              "So は「だから」という順接で文頭で従属節をつくる使い方はしない。",
+              "Unless は「〜でない限り」という条件であり文意が通らない。"
+            ]
           },
           {
             "prompt": "Lake Biwa is larger than (　　) in Japan.",
@@ -357,7 +427,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "最上級の書き換え ＝ 比較級 ＋ than any other ＋ 単数名詞！",
             "skill": "比較（最上級の書き換え）",
             "rate": 61,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "all the lakes にすると琵琶湖自身も含まれてしまい「自分より大きい」という矛盾が生じる。",
+              "any other の後ろは【単数名詞】にする鉄則があり、複数形 lakes は不可。",
+              "no other lake を than の後ろに置くと「どの湖よりも大きくない」と逆の意味になる。"
+            ]
           },
           {
             "prompt": "Thank you very much for (　　) me with my science report.",
@@ -371,7 +446,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "前置詞（for / without / before / after / by）の直後は必ず動名詞 -ing！",
             "skill": "前置詞＋動名詞",
             "rate": 85,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "前置詞 for の後ろに動詞の原形 help をそのまま置くことはできない。",
+              "前置詞 for の直後に to 不定詞を続けることはできない。",
+              "過去形・過去分詞 helped は前置詞の目的語になれない。"
+            ]
           },
           {
             "prompt": "My sister went to the library (　　) borrow some books about Japanese history.",
@@ -440,7 +520,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "too ＋ 形容詞 ＋ for A ＋ to 原形 ＝「Aにとって〜すぎて…できない」！",
             "skill": "too ~ to 構文",
             "rate": 77,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "too ~ to 原形 の構文なので動名詞 carrying は不可。",
+              "過去分詞 carried では「運ぶには重すぎた」の不定詞構文にならない。",
+              "so heavy that I couldn't carry it なら正しいが too ~ that とは言えない。"
+            ]
           },
           {
             "prompt": "I didn't know (　　) to get off the train, so I asked the station staff.",
@@ -454,7 +539,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "where to ＋原形 ＝「どこで（どこへ）〜すべきか」！",
             "skill": "疑問詞＋to不定詞",
             "rate": 79,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "get off は自動詞句で後ろに the train があるため目的語をとる what は入らない。",
+              "「誰が降りるか」ではなく主語 I が「どこで降りるか」なので who は不適。",
+              "駅員に尋ねて解決するのは「理由（why）」ではなく「降車駅（where）」である。"
+            ]
           },
           {
             "prompt": "A: Which season do you like (　　), spring or autumn? — B: I like autumn better.",
@@ -468,7 +558,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "2者比較は比較級 better、3者以上は最上級 the best！",
             "skill": "比較級と最上級の使い分け",
             "rate": 80,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "best は3つ以上を比べるときに使い、2択（A or B）では比較級 better を使う。",
+              "比較の疑問文 Which ~ or ~? で原級の well は使えない。",
+              "like ~ better が熟語であり、単独で like ~ more とは言わない（better を使う）。"
+            ]
           }
         ]
       }
@@ -521,7 +616,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "不特定の「もう1つ・おかわり」＝ another ＋単数名詞！",
             "skill": "不定代名詞 another",
             "rate": 72,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "the other は「（2つのうちの）残りもう一方」と特定されるときにしか使えない。",
+              "others は複数形「他のものたち」であり単数名詞 cup の前には置けない。",
+              "it cup と代名詞 it を名詞の前に置くことはできない。"
+            ]
           },
           {
             "prompt": "Listening to classical music always makes me (　　).",
@@ -535,7 +635,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "人が主語・目的語の感情状態 ＝ relaxed / excited / interested（過去分詞形）！",
             "skill": "第5文型 SVOC",
             "rate": 62,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "relaxing は「（音楽などが）人をリラックスさせるような」という能動側で、人（me）の状態には使わない。",
+              "make O C の補語 C に副詞 happily は置けない（形容詞 happy が必要）！",
+              "副詞 calmly も補語 C にはなれない。"
+            ]
           },
           {
             "prompt": "My uncle sent a nice birthday card (　　) me from Canada.",
@@ -549,7 +654,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "send / give / show / tell / teach / lend は 物 ＋ to ＋ 人！",
             "skill": "第4文型の書き換え",
             "rate": 82,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "for を使うのは buy / make / cook / find など「相手のために手に入れる・作る」動詞のとき。",
+              "send B of A という語法はない。",
+              "at は点への狙いを表し send の授与書き換えには使わない。"
+            ]
           },
           {
             "prompt": "Please keep the classroom door (　　) while the air conditioner is on.",
@@ -563,7 +673,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "keep the door closed（閉じた状態）／ keep the window open（開いた状態）！",
             "skill": "第5文型 keep O C",
             "rate": 64,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "形容詞の close［klóus］は「近い」という意味になってしまい、「閉まった」は closed！",
+              "ドアは「閉められる」対象なので現在分詞 closing ではなく過去分詞 closed を使う。",
+              "副詞 closely（密接に・注意深く）は keep O C の補語になれない。"
+            ]
           },
           {
             "prompt": "(　　) three hundred students in our school thirty years ago.",
@@ -577,7 +692,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "過去の複数存在 ＝ There were ＋ 複数名詞！",
             "skill": "There is/are 構文",
             "rate": 84,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "thirty years ago（30年前）という過去の語句があるため現在形 There are は不可。",
+              "They were の後ろに直接名詞だけを続けて「〜に…がいた」とは言えない。",
+              "英語で「〜に…がある」を主語なしの It had で表すことはできない。"
+            ]
           },
           {
             "prompt": "I lost my watch yesterday, so I have to buy a new (　　).",
@@ -591,7 +711,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "その物自体 ＝ it ／ 同じ種類の別の1つ ＝ one！",
             "skill": "代名詞 it と one の識別",
             "rate": 75,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "it にすると「昨日失くしたその同じ時計」を買い直すという不合理な意味になってしまう！",
+              "a new ~ と単数冠詞 a があるので複数形の them は入らない。",
+              "a new that と指示代名詞 that に冠詞・形容詞をつけることはできない。"
+            ]
           },
           {
             "prompt": "Everyone in the club calls (　　) \"Captain.\"",
@@ -605,7 +730,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "call ＋ 目的格（him / her / us）＋ 名前 ＝「Oを〜と呼ぶ」！",
             "skill": "第5文型 call O C",
             "rate": 86,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "動詞 calls の目的語の位置なので主格の he は置けない。",
+              "所有格の his だけでは目的語になれない。",
+              "主語は Everyone であり同一人物ではないため再帰代名詞 himself は不適。"
+            ]
           },
           {
             "prompt": "A: Would you mind opening the window a little? — B: (　　) It's getting warm in this room.",
@@ -674,7 +804,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "Help yourself to ~. ＝「どうぞ〜をご自由に取って召し上がれ」！",
             "skill": "再帰代名詞の慣用表現",
             "rate": 71,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "命令文の主語は「あなた（you）」なので同一人物が目的語になるときは再帰代名詞 yourself が必須。",
+              "所有代名詞 yours は「あなたのもの」であり慣用句にならない。",
+              "呼びかけが Tom（1人）なので複数形の yourselves ではなく単数形 yourself を使う。"
+            ]
           },
           {
             "prompt": "(　　) beautifully Emma plays the piano!",
@@ -688,7 +823,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "How ＋ 形容詞/副詞 ＋ S ＋ V!（名詞がなければ How！）",
             "skill": "感嘆文",
             "rate": 76,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "What 感嘆文は What (a/an) ＋ 形容詞 ＋【名詞】！ のときしか使えず、副詞 beautifully には不可。",
+              "後ろに単数名詞がないため What a は置けない。",
+              "Which は疑問詞であり感嘆文は作れない。"
+            ]
           },
           {
             "prompt": "Turn left at the next corner, (　　) you will see the post office on your right.",
@@ -702,7 +842,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "道案内の定番：Turn left [Go straight], and you will see ~!",
             "skill": "命令文＋and",
             "rate": 85,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "命令文, or ~ は「〜しなさい、さもないと…（悪い結果）」になるときに使う。",
+              "「左に曲がれば郵便局が見える」は順当な結果なので逆接の but は不適。",
+              "命令文の後ろをカンマ＋so でつなぐ定型構文は標準的ではない（命令文, and ~ を使う）。"
+            ]
           }
         ]
       }
@@ -736,7 +881,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "be covered with ~ ＝「〜に覆われている」（× by は不可）！",
             "skill": "by以外の受動態",
             "rate": 78,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "be covered with ~ が熟語であり、行為者を表す by は使わない引っかけの定番！",
+              "富士山は雪で「覆われている」側なので能動の covering にはならない。",
+              "was の後ろに原形 cover は置けない。"
+            ]
           },
           {
             "prompt": "A: Have you finished your math homework (　　)? — B: No, not yet.",
@@ -750,7 +900,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "現在完了の疑問文「もう」・否定文「まだ」＝ 文末の yet！",
             "skill": "現在完了（完了用法）",
             "rate": 79,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "already（すでに）は原則として肯定文で使い、通常の現在完了疑問文の文末には yet を使う。",
+              "ever（これまでに）は経験用法の疑問文で過去分詞の直前に置く語で、文末には置かない。",
+              "just（ちょうど今）は肯定文で have [has] の直後に置く副詞。"
+            ]
           },
           {
             "prompt": "It (　　) raining since yesterday morning, so we cannot play baseball outside.",
@@ -764,7 +919,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "動作の継続「ずっと〜し続けている」＝ have [has] been ＋ ~ing！",
             "skill": "現在完了進行形",
             "rate": 72,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "since yesterday morning（過去の起点から今まで）があるため現在進行形 is raining は不可！",
+              "過去進行形 was raining では「今も外で野球ができない」現在の状況とつながらない。",
+              "過去完了進行形なら had been が必要で had raining という形は文法的に誤り。"
+            ]
           },
           {
             "prompt": "My mother told me (　　) play video games after ten at night.",
@@ -778,7 +938,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "tell [ask] ＋ 人 ＋ not to 原形 ＝「人に〜しないように言う［頼む］」！",
             "skill": "不定詞の否定位置",
             "rate": 65,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "不定詞の否定は必ず to の【直前】に not を置くため to not play の語順は誤り。",
+              "told me の後ろに直接助動詞 don't を続けることはできない。",
+              "同じく told me didn't play のように節なしで過去否定は続けられない。"
+            ]
           },
           {
             "prompt": "Cheese and butter are made (　　) milk.",
@@ -792,7 +957,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "化学変化・加工で元の姿が見えない原料 ＝ be made from ~！",
             "skill": "be made of/from の識別",
             "rate": 71,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "be made of ~ は「木の机（a desk made of wood）」のように見た目で元の材質がわかる物理変化のときに使う。",
+              "by は行為者や手段を表し、原料には使わない。",
+              "be made into ~ は逆に「（牛乳が）チーズに加工される（Milk is made into cheese.）」の順で使う。"
+            ]
           },
           {
             "prompt": "Mr. Green has lived in Mie (　　) he came to Japan five years ago.",
@@ -806,7 +976,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "since ＋ 過去の起点（名詞 または S＋過去形）！",
             "skill": "現在完了（for と since）",
             "rate": 76,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "for の後ろは「期間の長さ（for five years）」しか置けず、S＋Vの文は続けられない！",
+              "現在完了形で過去の起点に from を使うことはできない（since を使う）。",
+              "現在完了形の主節に when 節（過去の1点）を組み合わせることはできない。"
+            ]
           },
           {
             "prompt": "The Olympic Games will (　　) in that city four years from now.",
@@ -820,7 +995,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "助動詞 ＋ be ＋ 過去分詞（will be held ＝ 開催されるだろう）！",
             "skill": "助動詞＋受動態",
             "rate": 74,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "オリンピックは「開催される」受動関係なので能動の will hold は不可。",
+              "助動詞 will の直後に過去分詞 held を直接置くことはできない（be が必要）。",
+              "will have held は未来完了の能動態であり受動の意味にならない。"
+            ]
           },
           {
             "prompt": "Let me (　　) your tablet for a few minutes to check the train schedule.",
@@ -834,7 +1014,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "make / let ＋ 人 ＋ 動詞の原形（to を絶対につけない）！",
             "skill": "使役動詞 let",
             "rate": 77,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "allow 人 to 原形 とは異なり、使役動詞 let / make / have の後ろに to をつけるのは誤り！",
+              "let O ~ing という形はとらない。",
+              "「私が使う」という能動関係なので過去分詞 used にはならない。"
+            ]
           },
           {
             "prompt": "Mt. Fuji is (　　) than any other mountain in Japan.",
@@ -903,7 +1088,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "「〜へ行ったことがある」＝ have [has] been to 場所！",
             "skill": "現在完了（経験）",
             "rate": 75,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "have gone to ~ は「〜へ行ってしまって今ここにいない（結果）」になり、目の前の相手 you には使えない！",
+              "have の後ろは過去分詞なので過去形 went は置けない。",
+              "visit は他動詞なので後ろに前置詞 to がある空欄には入れられない（visited Kyoto なら可）。"
+            ]
           },
           {
             "prompt": "I heard someone (　　) my name from behind at the station.",
@@ -917,7 +1107,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "知覚動詞 see / hear / watch / feel ＋ O ＋ 原形 [~ing]！",
             "skill": "知覚動詞",
             "rate": 69,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "知覚動詞 hear / see / watch / feel ＋ O の後ろに to 不定詞は置けない！",
+              "自分の名前が「誰かが呼ぶ」能動関係（someone が私の名前を呼ぶ）なので過去分詞 called は不適。",
+              "補語の位置に三単現の calls を置くことはできない。"
+            ]
           },
           {
             "prompt": "When (　　) this wooden bridge built across the river?",
@@ -931,7 +1126,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "When 疑問文は現在完了と共起不可 → 過去の受動態 When was ~ built?",
             "skill": "受動態の疑問文",
             "rate": 68,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "疑問詞 When は過去の1点を尋ねるため現在完了（has）とは絶対に一緒に使えない超頻出の罠！",
+              "did にすると後ろが過去分詞 built なので文法的に破綻する。",
+              "過去の建設時期を尋ねているため現在形 is ではなく過去形 was を使う。"
+            ]
           }
         ]
       }
@@ -966,7 +1166,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "名詞 ＋ 現在分詞句（〜している…）＋ 本動詞 is！",
             "skill": "現在分詞の後置修飾",
             "rate": 66,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "先行詞 The girl は単数なので関係代名詞節の動詞が複数形 are になっている時点で誤り。",
+              "「立っている少女」は能動・進行なので過去分詞 stood ではなく現在分詞 standing を使う。",
+              "後ろに本動詞 is my cousin があるため、ここにもう1つ is を入れると1文に動詞が2つ重なり不可。"
+            ]
           },
           {
             "prompt": "I have a friend (　　) father works as a pilot at an international airport.",
@@ -980,7 +1185,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "先行詞 ＋ whose ＋ 無冠詞名詞 ＝「その〜の…」（所有格関係代名詞）！",
             "skill": "関係代名詞 whose",
             "rate": 58,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "主格 who の直後に無冠詞名詞 father＋動詞 works を続けることはできない。",
+              "目的格 whom の後ろは S＋V になるが、father works に目的語の欠けがないため不可。",
+              "先行詞 a friend は人であり、かつ所有関係なので which は不可。"
+            ]
           },
           {
             "prompt": "Look at the mountain (　　) top is covered with snow.",
@@ -994,7 +1204,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "whose は先行詞が物（the house whose roof ~ / the mountain whose top ~）でも使える！",
             "skill": "関係代名詞 whose（物）",
             "rate": 52,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "物の所有格にも whose を使う！「which ＋ 無冠詞名詞 top」という形は存在しない。",
+              "関係代名詞 that には所有格の用法がないため that top とは言えない。",
+              "主格の who は先行詞が物のときにも所有関係にも使えない。"
+            ]
           },
           {
             "prompt": "The pictures (　　) Tom took in Okinawa last summer were very beautiful.",
@@ -1008,7 +1223,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "先行詞（物）＋ which [that] ＋ S ＋ V（目的語欠け）！",
             "skill": "関係代名詞（目的格）",
             "rate": 79,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "先行詞 The pictures は「物」なので人専用の who は使えない。",
+              "後ろが Tom took と「主語＋他動詞（目的語欠け）」であり所有格 whose の形ではない。",
+              "先行詞 The pictures が前にあるため、先行詞を含む what は絶対に置けない！"
+            ]
           },
           {
             "prompt": "Could you tell me what time (　　) tomorrow morning?",
@@ -1022,7 +1242,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "間接疑問文は【疑問詞 ＋ 主語 ＋ 動詞】の肯定文語順！（does を消して三単現 -s を戻す！）",
             "skill": "間接疑問文",
             "rate": 61,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "間接疑問文の語順は「疑問詞＋S＋V」であり、疑問文語順 does the library open は誤り！",
+              "同じく助動詞 will を主語の前に出した疑問文語順なので誤り。",
+              "英語では疑問詞の直後に一般動詞 opens＋主語と倒置しない。"
+            ]
           },
           {
             "prompt": "If I (　　) wings like a bird, I would fly to see you right now.",
@@ -1036,7 +1261,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "現在の事実に反する仮定（仮定法過去）＝ If S ＋ 過去形 (were / had), S would [could] ＋ 原形！",
             "skill": "仮定法過去",
             "rate": 70,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "現在の事実に反する仮定（仮定法過去）なので現在形 have ではなく過去形 had を使う。",
+              "if節の中に will は入れず、かつ仮定法過去なので had が必要。",
+              "現在進行形では反事実の仮定を表せない。"
+            ]
           },
           {
             "prompt": "I wish I (　　) speak Spanish as fluently as Maria.",
@@ -1050,7 +1280,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "「〜できたらなあ」＝ I wish ＋ S ＋ could ＋ 原形！",
             "skill": "仮定法 I wish",
             "rate": 73,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "I wish の後ろは仮定法過去にするため現在形の can は使えず過去形 could にする！",
+              "実現可能な未来の希望（hope）ではなく現在の反事実の願望なので will は不可。",
+              "am の後ろに動詞の原形 speak は置けない。"
+            ]
           },
           {
             "prompt": "This is (　　) I wanted to buy for my mother's birthday.",
@@ -1064,7 +1299,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "前に名詞（先行詞）がなく「〜するもの・こと」＝ 関係代名詞 what！",
             "skill": "関係代名詞 what",
             "rate": 60,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "空欄の前に先行詞（名詞）がないため which は使えない！",
+              "この位置で「〜するもの・こと」を表す関係代名詞として that 単独（先行詞なし）は使えない。",
+              "「母の誕生日に買いたかったもの」は物であり先行詞もないので who は不可。"
+            ]
           },
           {
             "prompt": "Mr. Brown (　　) in Kyoto since he came to Japan five years ago.",
@@ -1133,7 +1373,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "主格関係代名詞の直後の動詞は【先行詞の単複】に一致させる！",
             "skill": "関係代名詞と三単現",
             "rate": 67,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "先行詞 a book が単数なので原形 tell ではなく三単現の tells に一致させる必要がある。",
+              "関係代名詞 which の直後には述語動詞が必要であり分詞 telling だけでは文にならない。",
+              "辞書は意味を「教えてくれる（能動）」側なので受動態 is told は逆になる。"
+            ]
           },
           {
             "prompt": "The car (　　) in Japan is very popular in many foreign countries.",
@@ -1147,7 +1392,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "名詞 ＋ 過去分詞句（made in ~ / written by ~ / spoken in ~）！",
             "skill": "過去分詞の後置修飾",
             "rate": 78,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "車は「作られる（受動）」側なので現在分詞 making ではなく過去分詞 made で修飾する。",
+              "関係代名詞なしで動詞 makes を名詞の後ろに並べることはできない。",
+              "後ろに本動詞 is very popular があるため was made を入れると動詞が2つになり不可。"
+            ]
           },
           {
             "prompt": "If I (　　) you, I would talk to the teacher about the problem.",
@@ -1161,7 +1411,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "「もし私があなたなら」＝ If I were you, I would ~!",
             "skill": "仮定法 If I were you",
             "rate": 81,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "「私があなたなら（あり得ない仮定）」は仮定法過去なので現在形 am は使えない。",
+              "if節に未来の will be は使えず、反事実なので were にする。",
+              "現代口語で If I be you とは言わず were を用いる。"
+            ]
           }
         ]
       }
@@ -1195,7 +1450,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "talk about ~ ＝ discuss ~（discuss に about は絶対につけない）！",
             "skill": "英作文の減点回避（他動詞）",
             "rate": 63,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "discuss は他動詞なので後ろに前置詞 about をつけると減点される最頻出ミス！",
+              "talk は自動詞なので前置詞なしに the problem を目的語にはできない（talk about が必要）。",
+              "「私たちが議論された」という受動態になってしまい意味が破綻する。"
+            ]
           },
           {
             "prompt": "留学生に「日本で訪れるべき場所がたくさんある」と伝える英文として【最も適切な】ものを選びなさい。",
@@ -1209,7 +1469,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "「訪れるべき場所がたくさんある」＝ There are a lot of places to visit ~!",
             "skill": "英作文必須パターン（There構文＋不定詞）",
             "rate": 76,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "英語で「〜がある」を There have ~ とは言わず（There is/are ~）、かつ visit の後ろに to は不要。",
+              "have（持っている・ある）は状態動詞なので is having と進行形にはできず語法も誤り。",
+              "a lot of の後ろが単数形 place になっており、主語 It も不自然。"
+            ]
           },
           {
             "prompt": "友人に「次の土曜日に私たちの野球の練習に参加しませんか」と誘う英文として【正しい】ものを選びなさい。",
@@ -1223,7 +1488,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "next / last / this / every ＋ 曜日・月 の前には前置詞（on / in）をつけない！",
             "skill": "英作文（勧誘と時表現）",
             "rate": 71,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "Why not ＋原形?（主語 you なし）なら使えるが Why not you ~ は誤り、また join に to も next に on も不要！",
+              "Shall I ~? は「私が参加しましょうか」になり相手を誘う文にならない。",
+              "前置詞 about の後ろは動名詞 joining にしなければならず原形 join は不可。"
+            ]
           },
           {
             "prompt": "スピーチ原稿で「私は祖母が私の誕生日にそれをくれたということを伝えたい（＝祖母が誕生日にそれをくれた）」と書くときの正しい1文を選びなさい。",
@@ -1237,7 +1507,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "「〜ということ」を英作するとき文頭に That は書かない！ 代名詞 it は give it to 人 の語順！",
             "skill": "英作文（代名詞の語順）",
             "rate": 65,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "That節（名詞節）だけでは主節の動詞がない「文の断片」になり英作文では大幅減点される！",
+              "give の後ろに to me it の語順はとれない（give it to me の順にする）。",
+              "「祖母がそれを与えられた」という受動態になり送り主が逆転している。"
+            ]
           },
           {
             "prompt": "「もし春にひかり山に登れば、美しい花を見ることができます。」を表す正しい英文を選びなさい。",
@@ -1251,7 +1526,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "条件の if 節（現在形）＋ 主節（can / will ＋ 原形）は英作文5年連続頻出！",
             "skill": "英作文（条件のif文）",
             "rate": 80,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "「時・条件を表す副詞節（if / when ~）」の中では未来のことでも will を使わず現在形にする鉄則！",
+              "条件節が過去形 climbed なのに主節が未来形 will see で時制がねじれている。",
+              "主節の主語が beautiful flowers なのに分詞構文の主語と一致せず「花が自分で見る」文になっている。"
+            ]
           },
           {
             "prompt": "「私は夕食を食べる前に、家族のためにバイオリンを演奏しました。」を表す正しい英文を選びなさい。",
@@ -1265,7 +1545,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "play ＋ the ＋ 楽器名 ／ play ＋ 無冠詞 ＋ スポーツ名 ／ 食事名（breakfast/lunch/dinner）は無冠詞！",
             "skill": "冠詞の使い分け",
             "rate": 73,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "楽器には the が必須（play the violin）、誰かのためには to ではなく for、dinner に冠詞 a は不要！",
+              "過去の出来事なので before 節の中も現在形 eat ではなく過去形 ate に揃える。",
+              "I was played にすると「私が演奏された」という受動態になってしまう。"
+            ]
           },
           {
             "prompt": "「私の町は美しい海とおいしい魚で有名です。」を表す正しい英文を選びなさい。",
@@ -1279,7 +1564,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "特産品や名所で有名 ＝ be famous for ~！",
             "skill": "重要熟語 be famous for",
             "rate": 79,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "be famous as ~ は「（人物や都市が）〜という立場・肩書きとして有名だ」のときに使う表現。",
+              "know は「知っている」という能動動詞であり「有名だ」なら be known for ~ にする必要がある。",
+              "There is famous ~ という構文は英語に存在しない（主語を My town にする）。"
+            ]
           },
           {
             "prompt": "「彼が私たちのチームの誰よりも速く走る選手だ」を最もシンプルで減点リスクゼロの英語に言い換えた文はどれか。",
@@ -1293,7 +1583,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "「走るのが速い選手だ」→ He runs fast. / He runs the fastest ~. に言い換える！",
             "skill": "和文和訳スキル",
             "rate": 77,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "fast runner に冠詞 a がなく、また比較級（faster）になっていないのに than を使っている。",
+              "助動詞 can の後ろに ~ing は置けず、比較対象も any other player とする必要がある。",
+              "fast の最上級は most fast ではなく fastest である。"
+            ]
           },
           {
             "prompt": "Look at the boy (　　) under that big tree with a white dog.",
@@ -1381,7 +1676,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "arrive at 駅 [in 都市] ＝ get to 場所 ＝ reach 場所！",
             "skill": "到着を表す熟語",
             "rate": 74,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "arrive to ~ という語法はない（狭い地点には arrive at、都市・国には arrive in を使う）！",
+              "reach は他動詞なので後ろに前置詞 to をつけると誤り（reached Tokyo Station なら可）。",
+              "get で到着を表すときは got at ではなく got to Tokyo Station とする。"
+            ]
           },
           {
             "prompt": "A: Excuse me, may I (　　) your phone? Mine is out of battery. — B: Sure, go ahead.",
@@ -1395,7 +1695,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "その場で借りて使う ＝ May I use ~? ／ 図書館から借り出す ＝ borrow！",
             "skill": "語法 borrow / lend / use",
             "rate": 70,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "borrow は「（本などを無料で外へ）借り出す」ニュアンスが強く、その場で電話を使うときは use が適切。",
+              "lend は「貸す」なので May I lend ~? にすると「私があなたの電話を貸しましょうか」と逆になる！",
+              "bring は「持ってくる」であり文意に合わない。"
+            ]
           },
           {
             "prompt": "It took me about two hours (　　) making dinner for everyone.",
@@ -1409,7 +1714,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "It takes ＋ 人 ＋ 時間 ＋ to 原形 ＝「人が〜するのに時間がかかる」！",
             "skill": "形式主語 It takes 構文",
             "rate": 75,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "It took 人 時間 の後ろは to 不定詞（to finish）をとるのが標準構文である。",
+              "過去分詞 finished を続けることはできない。",
+              "for の後ろに動詞の原形 finish を置くことはできない。"
+            ]
           }
         ]
       }
@@ -1443,7 +1753,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "10:00 の twenty minutes earlier（20分前）＝ 9:40！",
             "skill": "リスニング時刻計算",
             "rate": 71,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "10:10発のバス基準で20分前と勘違いしたミス（元の待ち合わせ提案 10:00 の20分前なので 9:40！）。",
+              "最初に少年が提案した時刻であり、その後の変更を聞き逃した引っかけ選択肢。",
+              "20 minutes later（20分遅く）と聞き間違えたうえバス発車後になってしまう時刻。"
+            ]
           },
           {
             "prompt": "【リスニング台本演習】\nClerk: Welcome! One notebook is 200 yen, or you can buy a set of three for 500 yen.\nStudent: I need four notebooks, please. Oh, and this 100-yen eraser, too.\n生徒が支払う合計金額はいくらか。",
@@ -1457,7 +1772,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "3冊セット500円 ＋ 1冊200円 ＋ 消しゴム100円 ＝ 800円！",
             "skill": "リスニング料金計算",
             "rate": 69,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "ノート4冊すべてを単品200円（200×4＋100＝900円）で計算しセット割引を忘れたミス。",
+              "ノート4冊分（500＋200＝700円）だけで100円の消しゴムを足し忘れたミス。",
+              "3冊セットを2組（1,000円）買ったと誤解した金額。"
+            ]
           },
           {
             "prompt": "【整序】「これは私が今まで見た中で最も美しい湖です。」\nThis is [ ① ever / ② the most / ③ I / ④ lake / ⑤ beautiful / ⑥ seen / ⑦ have ].\n正しい順に並べたとき、3番目と6番目に来る番号の組み合わせを選びなさい。",
@@ -1471,7 +1791,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "the ＋ 最上級 ＋ 名詞 ＋ (that) ＋ S ＋ have ever ＋ 過去分詞！",
             "skill": "整序（最上級＋現在完了）",
             "rate": 62,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "the most beautiful の直後に名詞 lake（④）を置かず形容詞で切ってしまった語順ミス。",
+              "関係節の終わりが I have seen ever になってしまい ever の位置（過去分詞の直前）が誤り。",
+              "名詞 lake が抜けて the most beautiful I have ~ となってしまうミス。"
+            ]
           },
           {
             "prompt": "【整序】「あなたに何か温かい飲み物を持ってきましょうか。」\nShall I [ ① hot / ② to / ③ something / ④ bring / ⑤ you / ⑥ drink ]?\n正しい順に並べたとき、2番目と4番目に来る語の組み合わせを選びなさい。",
@@ -1485,7 +1810,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "bring 人 something ＋ 形容詞 ＋ to 原形！",
             "skill": "整序（SVOO＋不定詞）",
             "rate": 60,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "bring something hot to you なら to が余分に必要になるが選択肢の to は to drink 用なので you を先に置く。",
+              "形容詞 hot は -thing で終わる代名詞 something の直後に置く（something hot to drink）。",
+              "Shall I の直後は動詞の原形④(bring)が1番目に来るため2番目にはならない。"
+            ]
           },
           {
             "prompt": "【対話応答】\nA: Do you mind if I sit next to you?\nB: (　　) Please go ahead.",
@@ -1499,7 +1829,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "Do you mind ~? に OK を出す返答 ＝ Not at all. / Of course not.（No系で答える！）",
             "skill": "対話応答 Do you mind",
             "rate": 54,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "Do you mind ~? に Yes, I do. と答えると「はい、気にします（＝座らないで）」と拒絶になり後半と矛盾する！",
+              "Yes, please. は依頼や勧めへの返答であり Do you mind ~? には使えない。",
+              "You're welcome.（どういたしまして）はお礼に対する返答である。"
+            ]
           },
           {
             "prompt": "【整序】「このコンピュータの使い方を私に教えてくれませんか。」\nCould you [ ① how / ② use / ③ me / ④ tell / ⑤ to / ⑥ this computer ]?\n正しい順に並べたとき、3番目と5番目に来る語の組み合わせを選びなさい。",
@@ -1513,7 +1848,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "tell [show / teach] ＋ 人 ＋ how to 原形！",
             "skill": "整序（SV＋人＋疑問詞to）",
             "rate": 74,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "tell の直後に目的語の人③(me)を置かないと tell how to ~ となり me の行き場がなくなる。",
+              "5番目は to の後ろの動詞の原形②(use)であり、5番目が⑤(to)にはならない。",
+              "1番目が④(tell)、2番目が③(me)なので3番目に me は来ない。"
+            ]
           },
           {
             "prompt": "Could you tell me (　　) the next train leaves for Nagoya?",
@@ -1601,7 +1941,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "伝言を預かる ＝ take a message ／ 伝言を残す ＝ leave a message！",
             "skill": "電話の対話表現",
             "rate": 68,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "leave a message は電話を【かけた側】が「伝言を残す」ときに使う表現なので立場が逆！",
+              "make a message という定型表現は電話応対では使わない。",
+              "電話を受けている側が「預かる」ときは give ではなく take a message を使う。"
+            ]
           },
           {
             "prompt": "A: What's the (　　), Riku? You don't look well. — B: I have a headache.",
@@ -1615,7 +1960,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "What's the matter? ＝ What's wrong?（the の有無に注意！）",
             "skill": "体調を尋ねる表現",
             "rate": 76,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "wrong は形容詞なので冠詞 the はつけず What's wrong (with you)? とする。",
+              "動詞の原形 happen の前に冠詞 the は置けない（What happened? とする）。",
+              "後ろにピリオドしかなく前置詞 with の目的語がないため不可（What's the trouble? なら可）。"
+            ]
           },
           {
             "prompt": "A: How long will you stay in Osaka? — B: (　　) Friday.",
@@ -1629,7 +1979,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "継続「〜までずっと」＝ until ／ 期限「〜までに（1回完了）」＝ by！",
             "skill": "前置詞 until と by",
             "rate": 65,
-            "difficulty": 4
+            "difficulty": 4,
+            "wrongReasons": [
+              "by Friday は「金曜日までに（1回完了する期限）」を表し、stay（ずっと滞在する継続）には until を使う！",
+              "since Friday は「金曜日からずっと」で現在完了形とともに使い、未来の will stay とは合わない。",
+              "during の後ろは「期間を表す名詞（during the vacation 等）」を置き特定の曜日1点には使わない。"
+            ]
           }
         ]
       }
@@ -1663,7 +2018,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "except national holidays（祝日を除いて）＋ up to 3 hours a day（1日最大3時間まで）！",
             "skill": "実用文の条件照合",
             "rate": 82,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "except national holidays（祝日を除く）と up to 3 hours a day（予約制・最大3時間）に反する。",
+              "休館日は火曜日ではなく月曜日であり、40人は自習室の総席数である。",
+              "月曜休館であり、利用料が1時間100円という記述は本文にない（図書カードで無料予約）。"
+            ]
           },
           {
             "prompt": "3月第2土曜日の午後2時から開かれる Weekend Reading Event に参加したい場合、ウェブサイトから申し込む期限はいつか。",
@@ -1677,7 +2037,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "at least two days before Saturday ＝ 木曜日までに要申込！",
             "skill": "日時条件の読み取り",
             "rate": 76,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "at least two days before the event（少なくとも2日前まで）という条件を見落としている。",
+              "1日前（前日金曜）では「少なくとも2日前」の期限に間に合わない。",
+              "前の月の最終月曜日までという制限は本文に書かれていない。"
+            ]
           },
           {
             "prompt": "アンケートに回答した中学生200人のうち、「より多くの静かな自習席」を望んだ生徒は、「開館時間の延長」を望んだ生徒より【何人多い】か。",
@@ -1691,7 +2056,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "%のまま答えず実人数（200人 × 30%差 ＝ 60人）に換算する！",
             "skill": "英文統計の計算",
             "rate": 74,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "割合の差 45% − 15% ＝ 30% をそのまま30人と答えてしまった典型的な引っかけミス（母数は200人！）。",
+              "「静かな自習席」を望んだ生徒数そのもの（200×45%＝90人）であり、差ではない。",
+              "45%という数値だけを人数と取り違えたミス。"
+            ]
           },
           {
             "prompt": "本文中の \"sign up\" に最も近い意味を持つ英語表現を選びなさい。",
@@ -1705,7 +2075,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "sign up (for ~) ＝（イベントや講座に）申し込む・登録する！",
             "skill": "実用熟語 sign up",
             "rate": 75,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "読書感想文を書くことではなくイベントへの「参加申し込み・登録」を意味する。",
+              "本文に Free（無料）とある通り支払いの意味ではない。",
+              "部屋の掃除をするという意味はない。"
+            ]
           },
           {
             "prompt": "英作文で『日本の夏はオーストラリアの夏よりも蒸し暑い』と書くとき、比較の対象を誤らずに表した英文として最も適切なものを選びなさい。",
@@ -1774,7 +2149,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "in case of rain ＝「雨天の場合には」！",
             "skill": "掲示物の重要熟語",
             "rate": 77,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "instead of rain（雨の代わりに体育館で）では意味が不自然になる。",
+              "because は接続詞なので名詞 rain だけを後ろに置くことはできない（because of rain なら文法上可だが未然の備えは in case of）。",
+              "as well as（〜と同様に）では文意が通らない。"
+            ]
           },
           {
             "prompt": "アンケート結果の説明文 \"(　　) half of the students use a bicycle to go to school.\" で「半数以上の生徒（50%超）」を表す語句はどれか。",
@@ -1788,7 +2168,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "more than half of ~ ＝「半数以上の〜」 ／ less than half of ~ ＝「半数未満の〜」！",
             "skill": "グラフ読解表現",
             "rate": 83,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "「半数超（50%より多い）」を表す問題なので Less than（〜未満）は逆の意味になる。",
+              "half は単数扱い・量概念として比較するため Fewer half とは言わない（Fewer than ~ が必要かつ意味も逆）。",
+              "As much as half なら「半数もの〜」だが than も as も足りず「半数超」にならない。"
+            ]
           },
           {
             "prompt": "Eメールの結び \"Please let me know (　　) you can come or not.\" の空欄に入る最も適切な接続詞を選びなさい。",
@@ -1802,7 +2187,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "whether S V (or not) ＝「SがVするかどうか」！",
             "skill": "名詞節 whether",
             "rate": 74,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "後ろに or not があるため「〜ということ」の that は使えない！",
+              "know の目的語として完全文 you can come が続いており疑問代名詞 what は入らない。",
+              "選択肢が提示されておらず「来るか来ないか（whether ~ or not）」なので which は不適。"
+            ]
           }
         ]
       }
@@ -1837,7 +2227,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "because の後ろの原因節を正確に特定する！",
             "skill": "長文理由把握",
             "rate": 86,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "台風で建物が壊れたという記述は本文に一切ない。",
+              "農家は栽培を続けており、形が不揃いな野菜をカフェに提供している。",
+              "パン屋の移転ではなく高速道路近くの大型モール開店が原因である。"
+            ]
           },
           {
             "prompt": "下線部 **such vegetables** が指している具体的な内容を最も適切に表しているものを選びなさい。",
@@ -1851,7 +2246,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "such ＋ 名詞 は必ず直前の1〜2文の具体説明を指す！",
             "skill": "指示語把握",
             "rate": 82,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "海外からの高価な輸入野菜ではなく、地元農家が育てた形が少し不揃いな野菜である。",
+              "高校生の水耕栽培ではなく地元農家（local farmers）から安く仕入れた野菜である。",
+              "味は同じようにおいしい（taste just as good）新鮮な規格外野菜であり、腐敗したものではない。"
+            ]
           },
           {
             "prompt": "Emma は高校生と地元農家の週末カフェの取り組みにはどのような2つの良い効果があると述べているか。",
@@ -1865,7 +2265,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "reduce food waste（食品ロス削減）＋ bring young people back（若者を呼び戻す）！",
             "skill": "長文要点把握",
             "rate": 84,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "バス増便や宿泊費に関する話題は本文に登場しない。",
+              "図書館の混雑ではなく商店街の活性化と食品ロス削減の話である。",
+              "電気代やプラスチックごみについての記述はない。"
+            ]
           },
           {
             "prompt": "来月カフェの中に新しく設置される予定のものとその目的として、本文の内容と【一致する】ものを選びなさい。",
@@ -1879,7 +2284,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "Next month, we are going to ~（今後の計画）と so that S can ~（目的）をセットで読む！",
             "skill": "内容一致判定",
             "rate": 83,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "有料の料理教室ではなく無料の学習・本シェアコーナー（free study and book-sharing corner）である。",
+              "野菜のネット発送センターという記述はない。",
+              "無料の自転車修理スペースという記述はない。"
+            ]
           },
           {
             "prompt": "We should take care of our health (　　) we can enjoy our school trip next week.",
@@ -1948,7 +2358,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "原因 → 結果をつなぐ接続副詞 ＝ Therefore / As a result！",
             "skill": "長文の論理接続",
             "rate": 79,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "要望を受けて開館時間を延長した順当な結果なので逆接の However（しかしながら）は逆になる。",
+              "具体例ではなく結論・対応を述べているため For example は不適。",
+              "Instead of は前置詞句なのでカンマだけで文頭副詞のようには使えない（副詞なら Instead）。"
+            ]
           },
           {
             "prompt": "This eco-bag is not only light (　　) very strong, so I use it every day.",
@@ -1962,7 +2377,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "not only A but (also) B ＝「AだけでなくBも」（＝ B as well as A）！",
             "skill": "長文頻出相関表現",
             "rate": 85,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "not only A の相方は and ではなく but (also) B が鉄則！",
+              "not only A or B という形は存在しない（either A or B と混同しない）。",
+              "as well は文末に置く副詞句であり空欄の位置には入らない。"
+            ]
           },
           {
             "prompt": "I turned on the light (　　) I could read the map clearly in the tent.",
@@ -1976,7 +2396,12 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "oneLine": "目的節をつくる接続詞 ＝ so that ＋ S ＋ can [could] ＋ 原形！",
             "skill": "目的構文 so that",
             "rate": 76,
-            "difficulty": 3
+            "difficulty": 3,
+            "wrongReasons": [
+              "in order の後ろに直接 S＋V の節は続けられない（in order that S may ~ または in order to 原形）。",
+              "even if（たとえ〜でも）では「地図を読むために明かりをつけた」目的の意味にならない。",
+              "as soon as（〜するとすぐに）では could read と時制・意味がつながらない。"
+            ]
           }
         ]
       }

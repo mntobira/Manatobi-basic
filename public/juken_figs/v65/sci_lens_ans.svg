@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 290" width="520" height="290" font-family="'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr-slate" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="520" height="290" rx="14" fill="#ffffff"/>
+
+  <text x="18" y="26" font-size="13" font-weight="800" fill="#0f172a">凸レンズ（焦点距離 f＝10cm）と物体の位置</text>
+  <!-- 方眼目盛り -->
+  <line x1="30" y1="155" x2="490" y2="155" stroke="#475569" stroke-width="1.8"/>
+  <!-- 凸レンズ -->
+  <ellipse cx="260" cy="155" rx="11" ry="95" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
+  <line x1="260" y1="52" x2="260" y2="258" stroke="#0284c7" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <text x="260" y="45" font-size="12" font-weight="800" fill="#0369a1" text-anchor="middle">凸レンズ O</text>
+  <!-- 焦点 F(190, 330) と 2f(120, 400) -->
+  <circle cx="190" cy="155" r="4" fill="#0f172a"/><text x="190" y="174" font-size="11.5" font-weight="700" fill="#334155" text-anchor="middle">F(10cm)</text>
+  <circle cx="120" cy="155" r="4" fill="#0f172a"/><text x="120" y="174" font-size="11.5" font-weight="700" fill="#334155" text-anchor="middle">2f(20cm)</text>
+  <circle cx="330" cy="155" r="4" fill="#0f172a"/><text x="330" y="174" font-size="11.5" font-weight="700" fill="#334155" text-anchor="middle">F(10cm)</text>
+  <circle cx="400" cy="155" r="4" fill="#0f172a"/><text x="400" y="174" font-size="11.5" font-weight="700" fill="#334155" text-anchor="middle">2f(20cm)</text>
+  <!-- 物体（ろうそく矢印）at x=120 (2f) -->
+  <line x1="120" y1="155" x2="120" y2="92" stroke="#ea580c" stroke-width="4.5"/>
+  <polygon points="120,85 113,97 127,97" fill="#ea580c"/>
+  <text x="82" y="115" font-size="12" font-weight="800" fill="#c2410c" text-anchor="middle">物体</text>
+  
+  <!-- 光線① 平行→焦点F -->
+  <line x1="120" y1="85" x2="260" y2="85" stroke="#dc2626" stroke-width="2.6" marker-end="url(#arr-red)"/>
+  <line x1="260" y1="85" x2="435" y2="232" stroke="#dc2626" stroke-width="2.6" marker-end="url(#arr-red)"/>
+  <!-- 光線② 中心Oを直進 -->
+  <line x1="120" y1="85" x2="435" y2="232" stroke="#2563eb" stroke-width="2.6" marker-end="url(#arr-blue)"/>
+  <!-- 倒立実像（2f = 400 の位置で同じ大きさ） -->
+  <line x1="400" y1="155" x2="400" y2="218" stroke="#16a34a" stroke-width="4.5"/>
+  <polygon points="400,225 393,213 407,213" fill="#16a34a"/>
+  <rect x="330" y="242" width="175" height="36" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="417" y="258" font-size="11.5" font-weight="800" fill="#15803d" text-anchor="middle">2f（20cm）で同じ大きさの</text>
+  <text x="417" y="273" font-size="11.5" font-weight="800" fill="#15803d" text-anchor="middle">倒立実像（上下・左右逆！）</text>
+  <text x="190" y="75" font-size="11" font-weight="700" fill="#dc2626" text-anchor="middle">①光軸に平行 → 焦点Fへ</text>
+  <text x="200" y="138" font-size="11" font-weight="700" fill="#2563eb" transform="rotate(22 200 138)">②中心Oはそのまま直進</text>
+
+
+</svg>

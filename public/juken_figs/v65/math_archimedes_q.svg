@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 290" width="520" height="290" font-family="'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr-slate" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="520" height="290" rx="14" fill="#ffffff"/>
+
+  <text x="18" y="24" font-size="13" font-weight="800" fill="#0f172a">底面の半径 r・高さ 2r の円柱にぴったり入る球と円錐</text>
+  <!-- 円柱 -->
+  <ellipse cx="145" cy="70" rx="70" ry="18" fill="#f1f5f9" stroke="#334155" stroke-width="2.2"/>
+  <line x1="75" y1="70" x2="75" y2="210" stroke="#334155" stroke-width="2.2"/>
+  <line x1="215" y1="70" x2="215" y2="210" stroke="#334155" stroke-width="2.2"/>
+  <ellipse cx="145" cy="210" rx="70" ry="18" fill="#e2e8f0" stroke="#334155" stroke-width="2.2"/>
+  <!-- 球 -->
+  <circle cx="145" cy="140" r="70" fill="#fee2e2" fill-opacity="0.55" stroke="#dc2626" stroke-width="2.4"/>
+  <!-- 円錐 -->
+  <polygon points="145,70 75,210 215,210" fill="#dcfce7" fill-opacity="0.45" stroke="#16a34a" stroke-width="2" stroke-dasharray="5,3"/>
+  <!-- 寸法 -->
+  <line x1="145" y1="140" x2="215" y2="140" stroke="#0f172a" stroke-width="1.8"/>
+  <text x="180" y="134" font-size="12.5" font-weight="800" fill="#0f172a" text-anchor="middle">r</text>
+  <line x1="48" y1="70" x2="48" y2="210" stroke="#475569" stroke-width="1.8"/>
+  <text x="32" y="145" font-size="12.5" font-weight="800" fill="#334155" text-anchor="middle">2r</text>
+  
+
+</svg>

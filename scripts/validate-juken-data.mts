@@ -194,6 +194,8 @@ for (const sub of SUBJECTS) {
           choice4Total += 1;
           if (sq.distractors && sq.distractors.length > 0) {
             withDistractors += 1;
+          } else {
+            fail(`小問 ${sq.id} に誤答選択肢別の解説 (distractors / wrongReasons) が設定されていません！`);
           }
         } else if (sq.type === 'short_answer') {
           if (!sq.correctAnswer.trim()) {
