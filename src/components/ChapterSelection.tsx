@@ -36,6 +36,13 @@ function inferProblemDifficulty(p: Problem): 1 | 2 | 3 {
   return avgRate >= 72 ? 1 : avgRate >= 58 ? 2 : 3;
 }
 
+function hasVisualFeature(p: Problem): boolean {
+  if (p.explanationImageUrl || p.imageUrl || (p.materials && p.materials.length > 0)) return true;
+  return (p.subQuestions || []).some(
+    (sq) => Boolean(sq.explanationImageUrl || sq.imageUrl || (sq.materials && sq.materials.length > 0)),
+  );
+}
+
 const DIFF_META: Record<1 | 2 | 3, { label: string; short: string; color: string; bg: string }> = {
   1: { label: '★基礎', short: '★基礎', color: '#15803d', bg: '#dcfce7' },
   2: { label: '★★標準', short: '★★標準', color: '#b45309', bg: '#fef3c7' },
@@ -93,6 +100,8 @@ export function ChapterSelection({
   const [expandedChapterId, setExpandedChapterId] = useState<string | null>(initialExpandChapterId ?? null);
   const [openAudioSetId, setOpenAudioSetId] = useState<string | null>(null);
   const [difficultyFilter, setDifficultyFilter] = useState<DifficultyFilter>(0);
+  const [visualOnly, setVisualOnly] = useState(false);
+  const [unclearedOnly, setUnclearedOnly] = useState(false);
   const [activeGroupTitle, setActiveGroupTitle] = useState(() => resolveGroupTitle(rememberedGroup));
   const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 
@@ -140,15 +149,16 @@ export function ChapterSelection({
     return m;
   }, [unitSections]);
 
-  // 選択中の分野内の難易度別ステージ数
+  // 選択中の分野内の難易度別・図解別ステージ数
   const diffCounts = useMemo(() => {
-    const counts = { 0: 0, 1: 0, 2: 0, 3: 0 };
+    const counts = { 0: 0, 1: 0, 2: 0, 3: 0, visual: 0 };
     for (const ch of orderedChapters) {
       const qs = mode === 'mini_test' ? ch.miniTest || [] : ch.practiceProblems || [];
       for (const q of qs) {
         const d = inferProblemDifficulty(q);
         counts[0] += 1;
         counts[d] += 1;
+        if (hasVisualFeature(q)) counts.visual += 1;
       }
     }
     return counts;
@@ -286,6 +296,28 @@ export function ChapterSelection({
               </button>
             );
           })}
+          {diffCounts.visual > 0 && (
+            <button
+              type="button"
+              aria-pressed={visualOnly}
+              onClick={() => setVisualOnly((v) => !v)}
+              className="juken-diff-pill"
+              data-active={visualOnly || undefined}
+              title="書き込み図解・スライド資料・図表つきのステージだけに絞り込む"
+            >
+              ✨図解・資料({diffCounts.visual})
+            </button>
+          )}
+          <button
+            type="button"
+            aria-pressed={unclearedOnly}
+            onClick={() => setUnclearedOnly((v) => !v)}
+            className="juken-diff-pill"
+            data-active={unclearedOnly || undefined}
+            title="まだクリアしていないステージだけに絞り込む"
+          >
+            🎯未クリア
+          </button>
         </div>
 
         {activeGroup && (
@@ -338,12 +370,20 @@ export function ChapterSelection({
               <div className="chapter-route-list unit-card-list">
                 {orderedChapters.map((chapter, routeIndex) => {
                   const allQuestions = mode === 'mini_test' ? chapter.miniTest || [] : chapter.practiceProblems || [];
-                  // 難易度フィルターに合致するインデックス一覧
+                  const roundCleared = allQuestions.map((q) =>
+                    isStageCleared(stageRecords[stageKey(chapter.id, q.id)]),
+                  );
+                  // 難易度・図解・未クリアフィルターに合致するインデックス一覧
                   const matchingIndices = allQuestions
                     .map((q, idx) => ({ q, idx, diff: inferProblemDifficulty(q) }))
-                    .filter((entry) => difficultyFilter === 0 || entry.diff === difficultyFilter);
+                    .filter((entry) => {
+                      if (difficultyFilter !== 0 && entry.diff !== difficultyFilter) return false;
+                      if (visualOnly && !hasVisualFeature(entry.q)) return false;
+                      if (unclearedOnly && roundCleared[entry.idx]) return false;
+                      return true;
+                    });
 
-                  if (difficultyFilter !== 0 && matchingIndices.length === 0) {
+                  if ((difficultyFilter !== 0 || visualOnly || unclearedOnly) && matchingIndices.length === 0) {
                     return null;
                   }
 
@@ -368,9 +408,6 @@ export function ChapterSelection({
                   const stat = unitStats[chapter.id];
 
                   // ★まなとび英文法方式：1セット（約5問）＝1ステージ★
-                  const roundCleared = allQuestions.map((q) =>
-                    isStageCleared(stageRecords[stageKey(chapter.id, q.id)]),
-                  );
                   const clearedRounds = matchingIndices.filter((e) => roundCleared[e.idx]).length;
                   const firstUnclearedMatch =
                     matchingIndices.find((e) => !roundCleared[e.idx])?.idx ?? matchingIndices[0]?.idx ?? 0;

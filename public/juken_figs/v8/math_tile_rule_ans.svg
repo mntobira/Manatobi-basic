@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 300" width="540" height="300" font-family="'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#16a34a"/>
+    </marker>
+    <marker id="arr-slate" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="540" height="300" rx="14" fill="#ffffff"/>
+
+  <text x="18" y="25" font-size="13" font-weight="800" fill="#0f172a">同じ長さのマッチ棒を並べて正方形を横に n 個つくる規則性（n＝4の例）</text>
+  <line x1="85" y1="82" x2="85" y2="149" stroke="#2563eb" stroke-width="6" stroke-linecap="round"/>
+  
+  <line x1="89" y1="78" x2="156" y2="78" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
+  <line x1="89" y1="153" x2="156" y2="153" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
+  <line x1="160" y1="82" x2="160" y2="149" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
+<rect x="93" y="66" width="73" height="99" rx="8" fill="none" stroke="#dc2626" stroke-width="1.6" stroke-dasharray="4,3"/><text x="129" y="121" font-size="12" font-weight="800" fill="#dc2626" text-anchor="middle">＋3本</text>
+  <line x1="164" y1="78" x2="231" y2="78" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
+  <line x1="164" y1="153" x2="231" y2="153" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
+  <line x1="235" y1="82" x2="235" y2="149" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
+<rect x="168" y="66" width="73" height="99" rx="8" fill="none" stroke="#dc2626" stroke-width="1.6" stroke-dasharray="4,3"/><text x="204" y="121" font-size="12" font-weight="800" fill="#dc2626" text-anchor="middle">＋3本</text>
+  <line x1="239" y1="78" x2="306" y2="78" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
+  <line x1="239" y1="153" x2="306" y2="153" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
+  <line x1="310" y1="82" x2="310" y2="149" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
+<rect x="243" y="66" width="73" height="99" rx="8" fill="none" stroke="#dc2626" stroke-width="1.6" stroke-dasharray="4,3"/><text x="279" y="121" font-size="12" font-weight="800" fill="#dc2626" text-anchor="middle">＋3本</text>
+  <line x1="314" y1="78" x2="381" y2="78" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
+  <line x1="314" y1="153" x2="381" y2="153" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
+  <line x1="385" y1="82" x2="385" y2="149" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
+<rect x="318" y="66" width="73" height="99" rx="8" fill="none" stroke="#dc2626" stroke-width="1.6" stroke-dasharray="4,3"/><text x="354" y="121" font-size="12" font-weight="800" fill="#dc2626" text-anchor="middle">＋3本</text>
+  <text x="435" y="120" font-size="16" font-weight="900" fill="#475569">・・・</text>
+  
+  <text x="52" y="118" font-size="11.5" font-weight="900" fill="#2563eb" text-anchor="middle">最初の1本</text>
+  <rect x="28" y="196" width="484" height="86" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+  <text x="270" y="218" font-size="12" font-weight="900" fill="#1e40af" text-anchor="middle">規則性の最強解法：【最初の左端1本】＋【コの字（3本）× nセット】＝ 3n ＋ 1（本）！</text>
+  <text x="270" y="242" font-size="11" font-weight="800" fill="#0f172a" text-anchor="middle">別解：最初の正方形4本 ＋ 2個目以降3本ずつ (n−1)回 ⇒ 4 ＋ 3(n − 1) ＝ 3n ＋ 1（一致！）</text>
+  <text x="270" y="264" font-size="11" font-weight="800" fill="#dc2626" text-anchor="middle">⚠️ 「4n本」にすると重なる縦棒 (n−1)本を二重カウントしてしまうので 4n − (n − 1) ＝ 3n ＋ 1！</text>
+
+
+</svg>

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 300" width="540" height="300" font-family="'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#16a34a"/>
+    </marker>
+    <marker id="arr-slate" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="540" height="300" rx="14" fill="#ffffff"/>
+
+  <text x="18" y="25" font-size="13.5" font-weight="800" fill="#0f172a">Green City Library — New Floor Guide &amp; Rules</text>
+  <!-- 1st Floor -->
+  <rect x="24" y="48" width="236" height="175" rx="10" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+  <text x="142" y="72" font-size="13" font-weight="900" fill="#065f46" text-anchor="middle">1st Floor (Talking OK Area)</text>
+  <rect x="40" y="86" width="204" height="36" rx="6" fill="#ffffff" stroke="#10b981"/>
+  <text x="142" y="109" font-size="11.5" font-weight="800" fill="#0f172a" text-anchor="middle">Book Cafe (Drinks with lids OK)</text>
+  <rect x="40" y="132" width="204" height="36" rx="6" fill="#ffffff" stroke="#10b981"/>
+  <text x="142" y="155" font-size="11.5" font-weight="800" fill="#0f172a" text-anchor="middle">Children's Room (Story Time)</text>
+  <text x="142" y="198" font-size="11" font-weight="700" fill="#065f46" text-anchor="middle">Open: Tue–Sun 9:00–19:00</text>
+  <text x="142" y="214" font-size="10.5" font-weight="800" fill="#dc2626" text-anchor="middle">Closed: Every Monday</text>
+
+  <!-- 2nd Floor -->
+  <rect x="280" y="48" width="236" height="175" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="398" y="72" font-size="13" font-weight="900" fill="#1e40af" text-anchor="middle">2nd Floor (Quiet Zone)</text>
+  <rect x="296" y="86" width="204" height="36" rx="6" fill="#ffffff" stroke="#2563eb"/>
+  <text x="398" y="109" font-size="11.5" font-weight="800" fill="#0f172a" text-anchor="middle">Silent Study Room (40 seats)</text>
+  <rect x="296" y="132" width="204" height="36" rx="6" fill="#ffffff" stroke="#2563eb"/>
+  <text x="398" y="155" font-size="11.5" font-weight="800" fill="#0f172a" text-anchor="middle">PC &amp; History Archive Corner</text>
+  <text x="398" y="198" font-size="11" font-weight="800" fill="#b91c1c" text-anchor="middle">No Talking / No Food on 2F</text>
+  <text x="398" y="214" font-size="10.5" font-weight="700" fill="#1e40af" text-anchor="middle">Borrow up to 8 books for 2 weeks</text>
+
+  <rect x="24" y="238" width="492" height="46" rx="8" fill="#fef3c7" stroke="#d97706"/>
+  <text x="270" y="258" font-size="11.5" font-weight="800" fill="#92400e" text-anchor="middle">Special Saturday Event: English Picture Book Reading (14:00–14:45, 1F Children's Room)</text>
+  <text x="270" y="276" font-size="11" font-weight="700" fill="#78350f" text-anchor="middle">Sign up at the 1F counter by 13:30 on the day! (Free for all students)</text>
+
+</svg>

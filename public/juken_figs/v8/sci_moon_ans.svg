@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 300" width="540" height="300" font-family="'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#16a34a"/>
+    </marker>
+    <marker id="arr-slate" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="540" height="300" rx="14" fill="#ffffff"/>
+
+  <text x="18" y="22" font-size="13" font-weight="800" fill="#0f172a">北極側から見た地球と月の公転軌道（右から太陽の光）</text>
+  <!-- 太陽光矢印 -->
+  <line x1="515" y1="85" x2="435" y2="85" stroke="#f59e0b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <line x1="515" y1="142" x2="435" y2="142" stroke="#f59e0b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <line x1="515" y1="199" x2="435" y2="199" stroke="#f59e0b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <text x="478" y="68" font-size="12" font-weight="800" fill="#d97706" text-anchor="middle">太陽の光☀️</text>
+
+  <!-- 公転軌道 -->
+  <circle cx="230" cy="142" r="78" fill="none" stroke="#94a3b8" stroke-width="1.8" stroke-dasharray="5,4"/>
+  <!-- 地球 -->
+  <circle cx="230" cy="142" r="22" fill="#3b82f6" stroke="#1e3a8a" stroke-width="2"/>
+  <path d="M230,120 A22,22 0 0,0 230,164 Z" fill="#1e293b" opacity="0.7"/>
+  <text x="230" y="146" font-size="11" font-weight="800" fill="#ffffff" text-anchor="middle">地球</text>
+
+  
+  <circle cx="308" cy="142" r="14" fill="#334155" stroke="#0f172a" stroke-width="1.5"/>
+  <path d="M308,128 A14,14 0 0,1 308,156 Z" fill="#fde047"/>
+  <text x="334" y="147" font-size="12.5" font-weight="900" fill="#0f172a" text-anchor="middle">ア</text>
+
+  
+  <circle cx="230" cy="64" r="14" fill="#334155" stroke="#0f172a" stroke-width="1.5"/>
+  <path d="M230,50 A14,14 0 0,1 230,78 Z" fill="#fde047"/>
+  <text x="254" y="68" font-size="12.5" font-weight="900" fill="#0f172a" text-anchor="middle">イ</text>
+
+  
+  <circle cx="152" cy="142" r="14" fill="#334155" stroke="#0f172a" stroke-width="1.5"/>
+  <path d="M152,128 A14,14 0 0,1 152,156 Z" fill="#fde047"/>
+  <text x="126" y="147" font-size="12.5" font-weight="900" fill="#0f172a" text-anchor="middle">ウ</text>
+
+  
+  <circle cx="230" cy="220" r="14" fill="#334155" stroke="#0f172a" stroke-width="1.5"/>
+  <path d="M230,206 A14,14 0 0,1 230,234 Z" fill="#fde047"/>
+  <text x="254" y="226" font-size="12.5" font-weight="900" fill="#0f172a" text-anchor="middle">エ</text>
+
+  
+  <text x="308" y="114" font-size="11" font-weight="900" fill="#dc2626" text-anchor="middle">ア：新月(日食側)</text>
+  <text x="230" y="34" font-size="11" font-weight="900" fill="#1e40af" text-anchor="middle">イ：上弦の月（右半分光る・夕方18時南中）</text>
+  <text x="86" y="146" font-size="11" font-weight="900" fill="#dc2626" text-anchor="middle">ウ：満月(月食)</text>
+  <text x="230" y="254" font-size="11" font-weight="900" fill="#15803d" text-anchor="middle">エ：下弦の月（左半分光る・明け方6時南中）</text>
+  <rect x="20" y="262" width="500" height="30" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.4"/>
+  <text x="270" y="281" font-size="10.8" font-weight="800" fill="#1e40af" text-anchor="middle">地球の時刻配置（反時計回り自転）：右(昼12時)→上(夕方18時)→左(真夜中0時)→下(朝6時)！</text>
+
+
+</svg>

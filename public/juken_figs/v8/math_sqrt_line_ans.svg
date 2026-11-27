@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 300" width="540" height="300" font-family="'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#16a34a"/>
+    </marker>
+    <marker id="arr-slate" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="540" height="300" rx="14" fill="#ffffff"/>
+
+  <text x="18" y="25" font-size="13" font-weight="800" fill="#0f172a">数直線上の区間 ア〜エ と 3√5 の大きさ・整数部分</text>
+  <line x1="35" y1="138" x2="508" y2="138" stroke="#0f172a" stroke-width="2.4" marker-end="url(#arr-slate)"/>
+  
+  <line x1="60" y1="128" x2="60" y2="148" stroke="#0f172a" stroke-width="2.4"/>
+  <text x="60" y="170" font-size="14" font-weight="800" fill="#0f172a" text-anchor="middle">4</text>
+<line x1="112.5" y1="133" x2="112.5" y2="143" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="165" y1="128" x2="165" y2="148" stroke="#0f172a" stroke-width="2.4"/>
+  <text x="165" y="170" font-size="14" font-weight="800" fill="#0f172a" text-anchor="middle">5</text>
+<line x1="217.5" y1="133" x2="217.5" y2="143" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="270" y1="128" x2="270" y2="148" stroke="#0f172a" stroke-width="2.4"/>
+  <text x="270" y="170" font-size="14" font-weight="800" fill="#0f172a" text-anchor="middle">6</text>
+<line x1="322.5" y1="133" x2="322.5" y2="143" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="375" y1="128" x2="375" y2="148" stroke="#0f172a" stroke-width="2.4"/>
+  <text x="375" y="170" font-size="14" font-weight="800" fill="#0f172a" text-anchor="middle">7</text>
+<line x1="427.5" y1="133" x2="427.5" y2="143" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="480" y1="128" x2="480" y2="148" stroke="#0f172a" stroke-width="2.4"/>
+  <text x="480" y="170" font-size="14" font-weight="800" fill="#0f172a" text-anchor="middle">8</text>
+
+  <!-- 区間ラベル ア(4-5), イ(5-6), ウ(6-7), エ(7-8) -->
+  <text x="112" y="196" font-size="13" font-weight="800" fill="#475569" text-anchor="middle">区間ア</text>
+  <text x="217" y="196" font-size="13" font-weight="800" fill="#475569" text-anchor="middle">区間イ</text>
+  <text x="322" y="196" font-size="13" font-weight="800" fill="#475569" text-anchor="middle">区間ウ</text>
+  <text x="427" y="196" font-size="13" font-weight="800" fill="#475569" text-anchor="middle">区間エ</text>
+  
+  <!-- 平方数ラベル √16 .. √64 -->
+  <text x="60" y="115" font-size="11.5" font-weight="800" fill="#2563eb" text-anchor="middle">√16</text>
+  <text x="165" y="115" font-size="11.5" font-weight="800" fill="#2563eb" text-anchor="middle">√25</text>
+  <text x="270" y="115" font-size="12" font-weight="900" fill="#dc2626" text-anchor="middle">√36</text>
+  <text x="375" y="115" font-size="12" font-weight="900" fill="#dc2626" text-anchor="middle">√49</text>
+  <text x="480" y="115" font-size="11.5" font-weight="800" fill="#2563eb" text-anchor="middle">√64</text>
+  <!-- 区間 C をハイライト -->
+  <rect x="270" y="126" width="105" height="24" rx="4" fill="#fee2e2" opacity="0.65"/>
+  <circle cx="344" cy="138" r="6.5" fill="#dc2626"/>
+  <line x1="344" y1="132" x2="344" y2="76" stroke="#dc2626" stroke-width="2.2"/>
+  <rect x="235" y="44" width="220" height="32" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.6"/>
+  <text x="345" y="64" font-size="11.5" font-weight="800" fill="#b91c1c" text-anchor="middle">3√5 ＝ √(9×5) ＝ √45 （区間ウ！）</text>
+  <rect x="42" y="218" width="456" height="62" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="270" y="240" font-size="11.5" font-weight="800" fill="#1e40af" text-anchor="middle">鉄則：外の数を2乗してルートの中へ！ 3√5 ＝ √45</text>
+  <text x="270" y="262" font-size="11" font-weight="800" fill="#0f172a" text-anchor="middle">√36(＝6) ＜ √45 ＜ √49(＝7) ⇒ 整数部分 a＝6、小数部分 b＝3√5 − 6！</text>
+
+
+</svg>
