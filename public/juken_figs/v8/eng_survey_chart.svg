@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 300" width="540" height="300" font-family="'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#16a34a"/>
+    </marker>
+    <marker id="arr-slate" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="540" height="300" rx="14" fill="#ffffff"/>
+
+  <text x="18" y="25" font-size="13.5" font-weight="800" fill="#0f172a">Survey: What Do Students Want to Do Using English? (200 Students)</text>
+  <text x="18" y="45" font-size="11" fill="#475569">Midori Junior High School — 3rd Grade Survey Results</text>
+  <!-- 横棒グラフ (100% = 340px) -->
+  <!-- 1. Travel abroad: 45% (90 students) -> 153px -->
+  <text x="22" y="84" font-size="12" font-weight="800" fill="#0f172a">Travel abroad</text>
+  <rect x="185" y="67" width="225" height="24" rx="5" fill="#2563eb"/>
+  <text x="418" y="84" font-size="12" font-weight="800" fill="#1e40af">45% (90)</text>
+
+  <!-- 2. Watch movies / music: 25% (50 students) -> 125px -->
+  <text x="22" y="128" font-size="12" font-weight="800" fill="#0f172a">Enjoy movies &amp; music</text>
+  <rect x="185" y="111" width="125" height="24" rx="5" fill="#10b981"/>
+  <text x="318" y="128" font-size="12" font-weight="800" fill="#065f46">25% (50)</text>
+
+  <!-- 3. Help foreign visitors: 20% (40 students) -> 100px -->
+  <text x="22" y="172" font-size="12" font-weight="800" fill="#0f172a">Help foreign visitors</text>
+  <rect x="185" y="155" width="100" height="24" rx="5" fill="#f59e0b"/>
+  <text x="293" y="172" font-size="12" font-weight="800" fill="#92400e">20% (40)</text>
+
+  <!-- 4. Study abroad: 10% (20 students) -> 50px -->
+  <text x="22" y="216" font-size="12" font-weight="800" fill="#0f172a">Study abroad</text>
+  <rect x="185" y="199" width="50" height="24" rx="5" fill="#8b5cf6"/>
+  <text x="243" y="216" font-size="12" font-weight="800" fill="#5b21b6">10% (20)</text>
+
+  <rect x="22" y="244" width="496" height="40" rx="8" fill="#eff6ff" stroke="#2563eb"/>
+  <text x="270" y="269" font-size="11.5" font-weight="800" fill="#1e40af" text-anchor="middle">Key Point: "Travel abroad" (45%) is more than twice as popular as "Help foreign visitors" (20%).</text>
+
+</svg>

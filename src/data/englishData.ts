@@ -4,6 +4,7 @@ import { EXTRA_ENGLISH_CHAPTERS } from './juken/extraEnglish';
 import { ENGLISH_BANK_EXPANSION } from './juken/bankExpansionEnglish';
 import { ENGLISH_V6_EXPANSION } from './juken/v6ExpansionEnglish';
 import { ENGLISH_V65_QUALITY } from './juken/v65QualityPack';
+import { ENGLISH_V8_CAROUSELS } from './juken/v8LangCarousels';
 
 const englishParts: Part[] = [
   {
@@ -1274,14 +1275,17 @@ His words changed my mind completely. Since last summer, my friends and I have h
 export const englishData: Part[] = applyChapterExpansions(
   applyChapterExpansions(
     applyChapterExpansions(
-      englishParts.map((part) => {
-        const extras = EXTRA_ENGLISH_CHAPTERS.filter((ch) => ch.id.startsWith(part.id.replace('en_part', 'en') + '_'));
-        return extras.length ? { ...part, chapters: [...part.chapters, ...extras] } : part;
-      }),
-      ENGLISH_BANK_EXPANSION,
+      applyChapterExpansions(
+        englishParts.map((part) => {
+          const extras = EXTRA_ENGLISH_CHAPTERS.filter((ch) => ch.id.startsWith(part.id.replace('en_part', 'en') + '_'));
+          return extras.length ? { ...part, chapters: [...part.chapters, ...extras] } : part;
+        }),
+        ENGLISH_BANK_EXPANSION,
+      ),
+      ENGLISH_V6_EXPANSION,
     ),
-    ENGLISH_V6_EXPANSION,
+    ENGLISH_V65_QUALITY,
   ),
-  ENGLISH_V65_QUALITY,
+  ENGLISH_V8_CAROUSELS,
 );
 export const ENGLISH_STATS = countSubjectStats(englishData);

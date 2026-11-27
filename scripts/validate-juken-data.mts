@@ -222,6 +222,15 @@ for (const sub of SUBJECTS) {
         fail(`社会の単元 ${ch.id} (${ch.title}) に第6問B式スライド資料カルーセルが設定されていません`);
       }
     }
+
+    if (sub.id === 'math' || sub.id === 'science') {
+      const hasAnnotatedInChapter = [...ch.practiceProblems, ...ch.miniTest].some(
+        (pr) => Boolean(pr.explanationImageUrl) || pr.subQuestions.some((sq) => Boolean(sq.explanationImageUrl)),
+      );
+      if (!hasAnnotatedInChapter) {
+        fail(`${sub.id} の単元 ${ch.id} (${ch.title}) に書き込み解説図 (explanationImageUrl) が設定されていません`);
+      }
+    }
   }
 
   subjectSummary[sub.id] = {

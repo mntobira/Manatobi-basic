@@ -5,6 +5,7 @@ import { SCIENCE_BANK_EXPANSION } from './juken/bankExpansionScience';
 import { SCIENCE_V6_EXPANSION } from './juken/v6ExpansionScience';
 import { SCIENCE_V65_QUALITY } from './juken/v65QualityPack';
 import { SCIENCE_V7_VISUALS } from './juken/v7ScienceVisuals';
+import { SCIENCE_V8_COMPLETE_VISUALS } from './juken/v8ScienceCompleteVisuals';
 
 const scienceParts: Part[] = [
   {
@@ -1966,18 +1967,21 @@ export const scienceData: Part[] = applyChapterExpansions(
   applyChapterExpansions(
     applyChapterExpansions(
       applyChapterExpansions(
-        scienceParts.map((part) => {
-          const extras = EXTRA_SCIENCE_CHAPTERS.filter(
-            (ch) => (EXTRA_SCIENCE_PART_MAP[ch.id] ?? `sc_part${ch.id[2]}`) === part.id,
-          );
-          return extras.length ? { ...part, chapters: [...part.chapters, ...extras] } : part;
-        }),
-        SCIENCE_BANK_EXPANSION,
+        applyChapterExpansions(
+          scienceParts.map((part) => {
+            const extras = EXTRA_SCIENCE_CHAPTERS.filter(
+              (ch) => (EXTRA_SCIENCE_PART_MAP[ch.id] ?? `sc_part${ch.id[2]}`) === part.id,
+            );
+            return extras.length ? { ...part, chapters: [...part.chapters, ...extras] } : part;
+          }),
+          SCIENCE_BANK_EXPANSION,
+        ),
+        SCIENCE_V6_EXPANSION,
       ),
-      SCIENCE_V6_EXPANSION,
+      SCIENCE_V65_QUALITY,
     ),
-    SCIENCE_V65_QUALITY,
+    SCIENCE_V7_VISUALS,
   ),
-  SCIENCE_V7_VISUALS,
+  SCIENCE_V8_COMPLETE_VISUALS,
 );
 export const SCIENCE_STATS = countSubjectStats(scienceData);

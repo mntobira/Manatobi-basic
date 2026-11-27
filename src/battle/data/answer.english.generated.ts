@@ -19,7 +19,7 @@
  * このファイルは ★試合が終わってリザルト画面が出たときだけ★ 読み込む。
  *
  * -------------------------------------------------------------------
- * ■ 収録数: 208 問（oneLine を持つ問題だけ）
+ * ■ 収録数: 218 問（oneLine を持つ問題だけ）
  * -------------------------------------------------------------------
  * 機械生成の問題は元データに1行解答が無いので入っていない。
  * 画面側は「無い問題は答えの行を出さない」作りにしてある。
@@ -220,6 +220,11 @@ export const ANSWERS: readonly (readonly [string, string])[] = [
   ["q:en4_1:en4_1_p2:en4_1_p2_q1","午前10時15分 ＝ 開始 10:30 a.m. の 15 minutes before start（15分前）だから【10:15 a.m.】に開場！"],
   ["q:en4_1:en4_1_p2:en4_1_p2_q2","Bus No. 2（9:50発） ＝ 開場 10:15 a.m. にホール着 → 徒歩5分を引いて【10:10 a.m.】までにバス停に着く【Bus No. 2（9:50発 → 10:10着）】が正解！"],
   ["q:en4_1:en4_1_p2:en4_1_p2_q3","$26 ＝ 父・母・高校生のTomの3人が大人料金（$8×3＝$24）＋ 中学生のSaki（$4）＝ $28！ 4人以上割引で $2 引いて【$26】！"],
+  ["q:en4_1:en4_1_v8_p1:en4_1_v8_p1_q1","More than twice as many students chose \"Travel abroad\" as \"Help foreign visitors.\" ＝ Travel abroad（$45\\% = 90$人）は Help foreign visitors（$20\\% = 40$人）の2倍（$80$人）より多い ⇒ `More than twice as many ~ as ...`！"],
+  ["q:en4_1:en4_1_v8_p1:en4_1_v8_p1_q2","the number ＝ 比較文の `that of B` ＝ 前に出た単数名詞【`the number`（や `the population` / `the climate`）】の繰り返し回避！"],
+  ["q:en4_1:en4_1_v8_p1:en4_1_v8_p1_q3","Program A (City Guide Volunteer) ／ 7月25日までに申し込む必要があり、参加費は無料である ＝ 条件①観光客案内 ＋ 条件②午前中のみ（午後部活）⇒ **Program A**（10:00–12:00、`by July 25` までに申込）！"],
+  ["q:en4_1:en4_1_v8_p1:en4_1_v8_p1_q4","1,200 yen ＝ 英語の人数計算の鉄則：`Mai and her three friends` ＝ **合計4人**！ 事前料金 $300\\text{円} \\times 4 = 1,200\\text{円}$！"],
+  ["q:en4_1:en4_1_v8_p1:en4_1_v8_p1_q5","English helps us connect with people around the world. ＝ `help + 人 + 動詞の原形（または to 原形）` ＝「人が〜するのを助ける」！ `connect with ~` ＝「〜とつながる」！"],
   ["q:en4_2:en4_2_exp_m1:en4_2_exp_m1_q1","Therefore ＝ 原因 → 結果をつなぐ接続副詞 ＝ Therefore / As a result！"],
   ["q:en4_2:en4_2_exp_m1:en4_2_exp_m1_q2","but also ＝ not only A but (also) B ＝「AだけでなくBも」（＝ B as well as A）！"],
   ["q:en4_2:en4_2_exp_m1:en4_2_exp_m1_q3","so that ＝ 目的節をつくる接続詞 ＝ so that ＋ S ＋ can [could] ＋ 原形！"],
@@ -237,4 +242,9 @@ export const ANSWERS: readonly (readonly [string, string])[] = [
   ["q:en4_2:en4_2_p1:en4_2_p1_q3","年配の女性が、泣いている赤ちゃんの優しい抱き方を若い母親に教え、母親がほっとして微笑んでいた。 ＝ showed the mother how to hold the crying baby gently, and the mother smiled with relief.！"],
   ["q:en4_2:en4_2_p1:en4_2_p1_q4","月に2回、そのスペースで小学生向けに「宿題＆英語カフェ」を開いている。 ＝ Since last summer ... held a \"Homework & English Cafe\" for elementary school children ... twice a month.！"],
   ["q:en4_2:en4_2_p1:en4_2_p1_q5","地域には世代を超えて人々がつながる場所が大切であり、生徒の小さな行動でも地域に新しい活気をもたらすことができる。 ＝ 最終文 I realized that even small actions by students can bring new life to our community. が主題！"],
+  ["q:en4_2:en4_2_v8_p1:en4_2_v8_p1_q1","2階の自習室では静かに勉強でき、1人あたり最大8冊の本を2週間借りることができる ＝ 2階＝`Quiet Zone`（私語・飲食禁止）、休館＝`Every Monday`、貸出上限＝`up to 8 books for 2 weeks`！"],
+  ["q:en4_2:en4_2_v8_p1:en4_2_v8_p1_q2","2F Silent Study Room → 1F Book Cafe → 1F Children's Room ＝ 午前：静かに数学＝**2F Silent Study Room** → 昼：会話＆お茶＝**1F Book Cafe** → 午後：絵本イベント＝**1F Children's Room**！"],
+  ["q:en4_2:en4_2_v8_p1:en4_2_v8_p1_q3","当日の 13:30 までに 1階のカウンターで申し込む必要がある ＝ イベントは `14:00–14:45` だが、`Sign up at the 1F counter by 13:30 on the day!`（当日13:30までに1階カウンターで受付）！"],
+  ["q:en4_2:en4_2_v8_p1:en4_2_v8_p1_q4","「〜するために（目的）」を表すので、不定詞を用いた `in order to sign up ~`（または `to sign up ~`）に近い意味になる ＝ 間に形容詞がない **`so that S can ~` ＝「Sが〜できるように（目的）」**！（`so 形容詞 that ~`＝「とても…なので〜」と区別！）"],
+  ["q:en4_2:en4_2_v8_p1:en4_2_v8_p1_q5","Let's meet at the entrance of the library at 10:00 a.m. It is closed on Mondays, but it is open until 7:00 p.m. on Saturdays. ＝ 超重要語法：形容詞 `be open until 7:00`（7時までずっと開いている：継続） vs `sign up by 1:30`（1時半までに申し込む：期限）！"],
 ];
