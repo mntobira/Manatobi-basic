@@ -559,11 +559,12 @@ export function Explanation({ mode: initialMode, chapter, answers, onBack, onRet
         <ResultStage resultTotalJudgeable={resultTotalJudgeable} resultTotalCorrect={resultTotalCorrect} studyReward={studyReward} isGuest={isGuest} />
       )}
 
-      {/* ★結果（1画面目）の下のバー：「詳しい解説を見る」1つだけ（必ず詳しい解説へ）★ */}
+      {/* ★結果（1画面目）の下のバー：「詳しい解説を見る」＋間違いがある時は「間違えた問題だけすぐ解き直す」も即選択可能★ */}
       {isResultView && resultStep === 'summary' && (
         <ResultSummaryActions
           onOpenDetail={() => { setResultStep('detail'); setResultPage(firstWrongPage >= 0 ? firstWrongPage : 0); }}
           wrongCount={wrongCount}
+          onRetryWrong={wrongTargets.length > 0 && onRetryWrong ? () => onRetryWrong(wrongTargets) : undefined}
         />
       )}
 

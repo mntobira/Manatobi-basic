@@ -10,10 +10,12 @@ import {
   Eye,
   EyeOff,
   Lightbulb,
+  Maximize2,
   PenTool,
   Play,
   RotateCcw,
   Sparkles,
+  X,
 } from 'lucide-react';
 import { SUBJECT_REGISTRY, type SubjectKey, subjectDefinitionOf } from '../data/subjects';
 import { SUMMARY_PRINT_SHEETS, type SummaryPrintSheet } from '../data/summaryPrintsData';
@@ -148,6 +150,7 @@ export const LearningPrintView: React.FC<LearningPrintViewProps> = ({
   const [openExamples, setOpenExamples] = useState<Record<string, boolean>>({});
   const [selectedGroup, setSelectedGroup] = useState<string>('all');
   const [itemPage, setItemPage] = useState<number>(0);
+  const [zoomImage, setZoomImage] = useState<{ src: string; caption?: string } | null>(null);
   const [masteredSheets, setMasteredSheets] = useState<Record<string, boolean>>(() => {
     try {
       const raw = localStorage.getItem('mntb_juken_mastered_prints');
@@ -185,7 +188,17 @@ export const LearningPrintView: React.FC<LearningPrintViewProps> = ({
 
   useEffect(() => {
     setItemPage(0);
+    setZoomImage(null);
   }, [activeSheet?.id]);
+
+  useEffect(() => {
+    if (!zoomImage) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setZoomImage(null);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [zoomImage]);
 
   const subjectDef = subjectDefinitionOf(subject) ?? SUBJECT_REGISTRY[0];
   const richEmphasis = activeSheet ? isPrintEmphasisEnabled(activeSheet) : false;
@@ -615,7 +628,22 @@ export const LearningPrintView: React.FC<LearningPrintViewProps> = ({
               )}
 
               {currentItem.imageUrl && (
-                <div className="pt-0.5">
+                <div className="pt-0.5 space-y-1.5">
+                  <div className="flex items-center justify-end">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setZoomImage({
+                          src: currentItem.imageUrl!,
+                          caption: currentItem.imageCaption || currentItem.heading,
+                        })
+                      }
+                      className="inline-flex items-center gap-1 rounded-full border border-[#c7dcf7] bg-white px-2.5 py-1 text-[11px] font-extrabold text-[#1d4ed8] hover:bg-[#eff6ff] cursor-pointer"
+                    >
+                      <Maximize2 className="w-3 h-3" />
+                      <span>図を拡大して見る</span>
+                    </button>
+                  </div>
                   <QuestionFigure src={currentItem.imageUrl} caption={currentItem.imageCaption} />
                 </div>
               )}
@@ -741,6 +769,43 @@ export const LearningPrintView: React.FC<LearningPrintViewProps> = ({
             </button>
           </div>
         </footer>
+      )}
+
+      {/* 5. 図解フルスクリーン拡大モーダル */}
+      {zoomImage && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="まとめプリント図解の拡大表示"
+          className="fixed inset-0 z-[120] flex flex-col bg-slate-950/88 p-3 sm:p-6 backdrop-blur-xs"
+          onClick={() => setZoomImage(null)}
+        >
+          <div
+            className="mx-auto flex w-full max-w-4xl flex-1 min-h-0 flex-col rounded-2xl bg-white p-3 sm:p-4 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="mb-2 flex items-center justify-between gap-2 border-b border-slate-200 pb-2">
+              <span className="text-xs sm:text-sm font-extrabold text-[#1c2a39] truncate">
+                {zoomImage.caption || '要点図解の拡大表示'}
+              </span>
+              <button
+                type="button"
+                onClick={() => setZoomImage(null)}
+                className="inline-flex items-center gap-1 rounded-full bg-slate-800 px-3 py-1.5 text-xs font-extrabold text-white hover:bg-slate-700 cursor-pointer shrink-0"
+              >
+                <X className="w-3.5 h-3.5" />
+                <span>閉じる</span>
+              </button>
+            </div>
+            <div className="flex flex-1 min-h-0 items-center justify-center overflow-auto rounded-xl bg-slate-50 p-2">
+              <img
+                src={zoomImage.src}
+                alt={zoomImage.caption || '要点図解'}
+                className="max-h-[76dvh] w-auto max-w-full object-contain"
+              />
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
