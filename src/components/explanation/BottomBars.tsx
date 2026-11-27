@@ -14,24 +14,24 @@ export function MobileAnswerNav({
   isLastQuestion?: boolean;
 }) {
   return (
-    <div className="order-4 fixed left-0 right-0 bottom-0 z-50 bg-[#fcf5e9]/96 backdrop-blur-md border-t border-[#e3d9c8] shadow-[0_-6px_18px_rgba(60,40,15,0.08)] px-3 pt-2.5 pb-[calc(0.6rem+env(safe-area-inset-bottom))]">
-      <div className="max-w-2xl mx-auto flex items-center justify-between gap-3">
+    <div className="order-4 fixed left-0 right-0 bottom-0 z-50 bg-[#fcf5e9]/96 backdrop-blur-md border-t border-[#e3d9c8] shadow-[0_-4px_14px_rgba(60,40,15,0.08)] px-2.5 pt-1.5 pb-[calc(0.38rem+env(safe-area-inset-bottom))]">
+      <div className="max-w-2xl mx-auto flex items-center justify-between gap-2">
         <button
           type="button"
           onClick={onNextQuestion}
-          className="flex min-h-[48px] flex-1 items-center justify-center gap-2 rounded-2xl px-5 py-3 text-[15px] font-extrabold transition-transform active:translate-y-0.5 cursor-pointer"
+          className="flex min-h-[42px] flex-1 items-center justify-center gap-2 rounded-xl px-4 py-2 text-[14px] font-extrabold transition-transform active:translate-y-0.5 cursor-pointer"
           style={{
             backgroundColor: isLastQuestion ? '#f29a1f' : '#2458a6',
             color: isLastQuestion ? '#23180a' : '#ffffff',
             border: isLastQuestion ? '1.5px solid #c97808' : '1.5px solid #1a4482',
             boxShadow: isLastQuestion
-              ? '0 3px 0 #b86c05, 0 6px 14px rgba(242,154,31,0.22)'
-              : '0 3px 0 #183d75, 0 6px 14px rgba(36,88,166,0.2)',
+              ? '0 2.5px 0 #b86c05, 0 5px 12px rgba(242,154,31,0.2)'
+              : '0 2.5px 0 #183d75, 0 5px 12px rgba(36,88,166,0.18)',
             fontFamily: 'var(--mt-font-display)',
           }}
         >
           <span>{isLastQuestion ? '結果サマリーを見る！' : 'つぎの問題へすすむ'}</span>
-          <ArrowLeft size={17} className="rotate-180 stroke-[2.5]" />
+          <ArrowLeft size={16} className="rotate-180 stroke-[2.5]" />
         </button>
       </div>
     </div>

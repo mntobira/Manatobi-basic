@@ -35,33 +35,33 @@ export function ExplanationHeader({
 
   return (
     <div
-      className={`px-3.5 py-2.5 md:px-6 md:py-3.5 pt-[calc(0.65rem+env(safe-area-inset-top,0px))] md:pt-3.5 border-b z-30 flex items-center justify-between gap-3 flex-none ${
+      className={`px-2.5 py-1.5 md:px-5 md:py-2.5 pt-[calc(0.35rem+env(safe-area-inset-top,0px))] md:pt-2.5 border-b z-30 flex items-center justify-between gap-2 flex-none ${
         reorderMobile ? 'flex-row' : 'flex-col md:flex-row md:items-center'
       } ${isResultView ? 'sticky top-0 backdrop-blur-md' : 'relative'} bg-[#fcf5e9]/96 border-[#e3d9c8]`}
     >
       <div
         className={`flex flex-1 min-w-0 ${
           reorderMobile
-            ? 'flex-row items-center justify-between gap-2 w-full'
-            : 'flex-col sm:flex-row sm:items-center gap-3 w-full md:w-auto'
+            ? 'flex-row items-center justify-between gap-1.5 w-full'
+            : 'flex-col sm:flex-row sm:items-center gap-2.5 w-full md:w-auto'
         }`}
       >
-        <div className="flex items-center gap-2.5 min-w-0">
+        <div className="flex items-center gap-2 min-w-0">
           <span
-            className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-extrabold text-white shrink-0 shadow-2xs"
+            className="inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-extrabold text-white shrink-0 shadow-2xs"
             style={{ backgroundColor: theme.accent }}
           >
             {theme.label}
           </span>
-          <div className="min-w-0">
+          <div className="min-w-0 flex items-baseline gap-2">
             <h3
               className={`juken-title-font font-extrabold tracking-tight truncate ${
-                reorderMobile ? 'text-sm sm:text-base' : 'text-base md:text-lg'
+                reorderMobile ? 'text-[13.5px] sm:text-base' : 'text-sm md:text-base'
               } text-[#1c2a39]`}
             >
-              答え合わせ・解説
+              答え合わせ
             </h3>
-            <div className="text-[11px] md:text-xs font-bold text-[#665947] truncate">
+            <div className="hidden sm:block text-[11px] md:text-xs font-bold text-[#665947] truncate">
               {chapter.realTitle}
             </div>
           </div>

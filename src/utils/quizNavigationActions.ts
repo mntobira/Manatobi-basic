@@ -142,7 +142,7 @@ export type QuizStepDeps = {
   isLastQuestion: boolean;
   safeStepIndex: number;
   showingExplanation: boolean;
-  scoreCurrentQuestionIfNeeded: () => Scored;
+  scoreCurrentQuestionIfNeeded: (overrideAnswers?: Record<string, string>) => Scored;
   setScoreAnimationData: (d: { breakdown: ScoreBreakdown; totalScore: number }) => void;
   setShowScoreAnimation: (v: boolean) => void;
   setShowingExplanation: (v: boolean) => void;
@@ -180,10 +180,14 @@ export function createQuizStepActions({
     }
   };
 
-  const handleNext = () => {
+  const handleNext = (overrideAnswers?: Record<string, string>) => {
+    const effectiveAnswers =
+      overrideAnswers && typeof overrideAnswers === 'object' && !('nativeEvent' in overrideAnswers)
+        ? overrideAnswers
+        : undefined;
     if (!showingExplanation) {
       // 解答提出 → 採点して解説へ
-      const scored = scoreCurrentQuestionIfNeeded();
+      const scored = scoreCurrentQuestionIfNeeded(effectiveAnswers);
       
       // スコアアニメーションのデータを取得
       if (scored) {

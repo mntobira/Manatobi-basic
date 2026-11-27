@@ -102,8 +102,9 @@ export function createScoreCurrentQuestion({
   isGuest,
   currentQuestionIndex,
   onScored,
-}: QuizScoringDeps): () => QuizScoringResult | null {
-  const scoreCurrentQuestionIfNeeded = () => {
+}: QuizScoringDeps): (overrideAnswers?: Record<string, string>) => QuizScoringResult | null {
+  const scoreCurrentQuestionIfNeeded = (overrideAnswers?: Record<string, string>) => {
+    const effectiveAnswers = overrideAnswers ?? answers;
     if (!currentQuestion) return null;
 
     // ────────────────────────────────────────────────────────────────
@@ -135,8 +136,8 @@ export function createScoreCurrentQuestion({
       ? (activeStepSubs && activeStepSubs.length > 0 ? activeStepSubs : [activeStepSub])
       : (currentQuestion.subQuestions || []);
     const timeUsed = Math.max(0, Math.round(timeUsedRef.current));
-    const maxCombo = calcMaxCombo(subQuestions, answers);
-    const breakdown = scoreProblem(subQuestions, answers, {
+    const maxCombo = calcMaxCombo(subQuestions, effectiveAnswers);
+    const breakdown = scoreProblem(subQuestions, effectiveAnswers, {
       timeLimit: questionTimeLimit,
       timeUsed,
       maxCombo,
@@ -222,7 +223,7 @@ export function createScoreCurrentQuestion({
         const questionIndex = currentQuestionIndex + 1;
         const wrongInputs: WrongAnswerInput[] = subQuestions
           .filter((sq) => !isDescriptive(sq))
-          .filter((sq) => !isAnswerCorrect(sq, answers[sq.id]))
+          .filter((sq) => !isAnswerCorrect(sq, effectiveAnswers[sq.id]))
           .map((sq) => ({
             chapterId: chapter.id,
             chapterTitle: chapter.title,
@@ -232,12 +233,12 @@ export function createScoreCurrentQuestion({
             subLabel: sq.label,
             questionText: currentQuestion.text,
             correctAnswer: sq.correctAnswer,
-            wrongAnswer: (answers[sq.id] || '').trim(),
+            wrongAnswer: (effectiveAnswers[sq.id] || '').trim(),
           }));
         if (wrongInputs.length > 0) captureWrongAnswers(uid, wrongInputs);
         // F9：ノートに入っている小問に正解したら「正解した」の印（予定は動かさない）
         noteCorrectAnswers(uid, subQuestions
-          .filter((sq) => !isDescriptive(sq) && isAnswerCorrect(sq, answers[sq.id]))
+          .filter((sq) => !isDescriptive(sq) && isAnswerCorrect(sq, effectiveAnswers[sq.id]))
           .map((sq) => reviewKeyOf(chapter.id, currentQuestion.id, String(sq.id))));
       }
     } catch (e) {
@@ -256,7 +257,7 @@ export function createScoreCurrentQuestion({
           kind: 'study', at: Date.now(), chapterId: chapter.id, questionId: currentQuestion.id,
           title: unit, sub: round,
           items: judged.map((sq, i: number) => {
-            const ok = isAnswerCorrect(sq, answers[sq.id]);
+            const ok = isAnswerCorrect(sq, effectiveAnswers[sq.id]);
             const m = String(sq.label || '').match(/問\s*\d+/u);
             return { id: String(sq.id), label: m ? m[0].replace(/\s+/g, '') : (sq.label ? String(sq.label).slice(0, 12) : `(${i + 1})`), correct: ok, answer: ok ? undefined : String(sq.correctAnswer ?? '') };
           }),
@@ -266,7 +267,7 @@ export function createScoreCurrentQuestion({
         if (focusIds) {
           applyReviewRetry(uid, chapter.id, currentQuestion.id,
             judged.filter((sq) => focusIds.includes(String(sq.id)))
-              .map((sq) => ({ subQuestionId: String(sq.id), correct: isAnswerCorrect(sq, answers[sq.id]) })));
+              .map((sq) => ({ subQuestionId: String(sq.id), correct: isAnswerCorrect(sq, effectiveAnswers[sq.id]) })));
         }
       }
     } catch { /* 記録できなくても学習は止めない */ }

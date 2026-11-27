@@ -68,17 +68,20 @@ export function MobileFloatingBar({
   return (
     <>
       {!isDesktop && !isProblemExpanded && !focusedSub && (
-        <div className="fixed left-0 right-0 bottom-0 z-50 bg-[#fffdf7] border-t-2 border-[#e4d9c5] shadow-[0_-4px_18px_rgba(60,45,20,0.10)] px-3 pt-2.5 pb-[calc(0.6rem+env(safe-area-inset-bottom))]">
+        <div
+          data-mobile-floating-bar
+          className="fixed left-0 right-0 bottom-0 z-50 bg-[#fffdf7]/96 backdrop-blur-xs border-t border-[#e4d9c5] shadow-[0_-3px_14px_rgba(60,45,20,0.08)] px-2.5 pt-1.5 pb-[calc(0.38rem+env(safe-area-inset-bottom))]"
+        >
           <div className="max-w-2xl mx-auto flex items-center justify-between gap-2">
-            {/* 左ボタン：小問2問目以降なら「前の小問」、先頭なら「前の大問」 */}
+            {/* 左ボタン：小問2問目以降なら「前の小問」、先頭なら「前の問題」 */}
             {hasMultiSubPager && !isAtFirstSub ? (
               <button
                 type="button"
                 onClick={() => goMobileAns!(-1)}
                 aria-label="前の小問へ"
-                className="inline-flex min-h-[46px] items-center justify-center gap-0.5 px-3 rounded-xl font-extrabold text-xs border-2 border-[#dfd4c0] text-[#3d3222] bg-white shadow-[0_2px_0_#e6dccb] active:translate-y-0.5 shrink-0 cursor-pointer"
+                className="inline-flex min-h-[42px] items-center justify-center gap-0.5 px-2.5 rounded-xl font-extrabold text-xs border border-[#dfd4c0] text-[#3d3222] bg-white shadow-[0_1.5px_0_#e6dccb] active:translate-y-0.5 shrink-0 cursor-pointer"
               >
-                <ChevronLeft size={16} className="stroke-[2.5]" aria-hidden="true" />
+                <ChevronLeft size={15} className="stroke-[2.5]" aria-hidden="true" />
                 <span>前の問</span>
               </button>
             ) : (
@@ -88,13 +91,13 @@ export function MobileFloatingBar({
                 disabled={!canGoPrevious}
                 title="前の問題へ"
                 aria-label="前の問題へ"
-                className={`inline-flex min-h-[46px] items-center justify-center gap-0.5 px-3 rounded-xl font-extrabold text-xs border-2 shrink-0 cursor-pointer ${
+                className={`inline-flex min-h-[42px] items-center justify-center gap-0.5 px-2.5 rounded-xl font-extrabold text-xs border shrink-0 cursor-pointer ${
                   !canGoPrevious
                     ? 'border-[#ebe4d7] text-[#c2b9aa] cursor-not-allowed bg-[#f7f3ea]'
-                    : 'border-[#dfd4c0] text-[#3d3222] bg-white shadow-[0_2px_0_#e6dccb] active:translate-y-0.5'
+                    : 'border-[#dfd4c0] text-[#3d3222] bg-white shadow-[0_1.5px_0_#e6dccb] active:translate-y-0.5'
                 }`}
               >
-                <ChevronLeft size={16} className="stroke-[2.5]" aria-hidden="true" />
+                <ChevronLeft size={15} className="stroke-[2.5]" aria-hidden="true" />
                 <span>前へ</span>
               </button>
             )}
@@ -105,23 +108,23 @@ export function MobileFloatingBar({
                 <button
                   type="button"
                   onClick={() => goMobileAns!(1)}
-                  className="flex flex-1 min-h-[48px] items-center justify-center gap-1.5 px-4 rounded-xl font-extrabold text-sm text-white active:translate-y-0.5 transition-all cursor-pointer"
+                  className="flex flex-1 min-h-[42px] items-center justify-center gap-1 px-3 rounded-xl font-extrabold text-[13.5px] text-white active:translate-y-0.5 transition-all cursor-pointer"
                   style={{
                     fontFamily: 'var(--mt-font-display)',
                     backgroundColor: accent,
                     border: `1.5px solid color-mix(in srgb, ${accent} 78%, #000 22%)`,
-                    boxShadow: `0 3px 0 color-mix(in srgb, ${accent} 68%, #000 25%)`,
+                    boxShadow: `0 2.5px 0 color-mix(in srgb, ${accent} 68%, #000 25%)`,
                   }}
                 >
                   <span>
                     つぎの問へ（{safeMobileAnsIdx + 2}/{mobileAnswerSubs.length}）
                   </span>
-                  <ChevronRight size={17} className="stroke-[2.75]" />
+                  <ChevronRight size={16} className="stroke-[2.75]" />
                 </button>
                 <button
                   type="button"
-                  onClick={handleNext}
-                  className="inline-flex min-h-[46px] items-center justify-center px-3 rounded-xl font-extrabold text-xs border-2 border-[#e3c888] bg-[#fff8e4] text-[#8a5600] shadow-[0_2px_0_#e6d099] active:translate-y-0.5 shrink-0 cursor-pointer"
+                  onClick={() => handleNext()}
+                  className="inline-flex min-h-[42px] items-center justify-center px-2.5 rounded-xl font-extrabold text-xs border border-[#e3c888] bg-[#fff8e4] text-[#8a5600] shadow-[0_1.5px_0_#e6d099] active:translate-y-0.5 shrink-0 cursor-pointer"
                 >
                   採点へ
                 </button>
@@ -133,26 +136,36 @@ export function MobileFloatingBar({
                     type="button"
                     onClick={() => goMobileAns!(1)}
                     aria-label="次の小問へ"
-                    className="inline-flex min-h-[46px] items-center justify-center gap-0.5 px-3 rounded-xl font-extrabold text-xs border-2 border-[#dfd4c0] text-[#3d3222] bg-white shadow-[0_2px_0_#e6dccb] active:translate-y-0.5 shrink-0 cursor-pointer"
+                    className="inline-flex min-h-[42px] items-center justify-center gap-0.5 px-2.5 rounded-xl font-extrabold text-xs border border-[#dfd4c0] text-[#3d3222] bg-white shadow-[0_1.5px_0_#e6dccb] active:translate-y-0.5 shrink-0 cursor-pointer"
                   >
                     <span>次の問</span>
-                    <ChevronRight size={16} className="stroke-[2.5]" aria-hidden="true" />
+                    <ChevronRight size={15} className="stroke-[2.5]" aria-hidden="true" />
                   </button>
                 )}
                 <button
                   type="button"
-                  onClick={handleNext}
-                  className="flex flex-1 min-h-[48px] items-center justify-center gap-1.5 px-4 rounded-xl font-extrabold text-sm active:translate-y-0.5 transition-all cursor-pointer"
-                  style={{
-                    fontFamily: 'var(--mt-font-display)',
-                    backgroundColor: '#f29a1f',
-                    color: '#23180a',
-                    border: '1.5px solid #c47406',
-                    boxShadow: '0 3px 0 #a86204',
-                  }}
+                  onClick={() => handleNext()}
+                  className="flex flex-1 min-h-[42px] items-center justify-center gap-1.5 px-3.5 rounded-xl font-extrabold text-[13.5px] active:translate-y-0.5 transition-all cursor-pointer"
+                  style={
+                    allSubsAnswered
+                      ? {
+                          fontFamily: 'var(--mt-font-display)',
+                          backgroundColor: '#f29a1f',
+                          color: '#23180a',
+                          border: '1.5px solid #c47406',
+                          boxShadow: '0 2.5px 0 #a86204',
+                        }
+                      : {
+                          fontFamily: 'var(--mt-font-display)',
+                          backgroundColor: accent,
+                          color: '#ffffff',
+                          border: `1.5px solid color-mix(in srgb, ${accent} 78%, #000 22%)`,
+                          boxShadow: `0 2.5px 0 color-mix(in srgb, ${accent} 68%, #000 25%)`,
+                        }
+                  }
                 >
-                  <CheckCircle2 size={17} aria-hidden="true" />
-                  <span>答え合わせ・解説を見る！</span>
+                  <CheckCircle2 size={16} aria-hidden="true" />
+                  <span>{allSubsAnswered ? '答え合わせ・解説を見る！' : '答え合わせを見る'}</span>
                 </button>
               </>
             )}

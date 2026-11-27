@@ -27,6 +27,26 @@ import {
 } from './listeningSteps';
 import type { Problem, SubQuestion } from '../types/curriculum';
 
+export const INSTANT_GRADE_STORAGE_KEY = 'juken_instant_grade_v1';
+
+export function readInstantGradePref(): boolean {
+  try {
+    return typeof window !== 'undefined' && window.localStorage.getItem(INSTANT_GRADE_STORAGE_KEY) === 'true';
+  } catch {
+    return false;
+  }
+}
+
+export function writeInstantGradePref(enabled: boolean): void {
+  try {
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem(INSTANT_GRADE_STORAGE_KEY, enabled ? 'true' : 'false');
+    }
+  } catch {
+    /* ignore storage failures */
+  }
+}
+
 export interface QuizStepInput {
   /** いま表示している大問（範囲外なら undefined） */
   currentQuestion: Problem | undefined;

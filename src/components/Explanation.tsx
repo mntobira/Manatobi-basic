@@ -15,6 +15,7 @@ import { ResultInsight } from './explanation/ResultInsight';
 import { renderExplanationAnswerItem } from './explanation/ExplanationAnswerItem';
 import { ExplanationHeader } from './explanation/ExplanationHeader';
 import { ProblemStatement } from './explanation/ProblemStatement';
+import { hasSubstantialLeadMaterial } from './ProblemPane';
 
 
 import { ReviewTopNav } from './explanation/ReviewTopNav';
@@ -625,31 +626,37 @@ export function Explanation({ mode: initialMode, chapter, answers, onBack, onRet
           }>
             
             {/* LEFT COLUMN: Problem statements
-                結果表示では独自スクロール（lg:h-full/overflow-y-auto）を付けず、
-                ページ全体のスクロールに任せる。
-                ★スマホの1問ごとの答え合わせ（reorderMobile）では、演習画面と同じ
-                  「上＝問題文ペイン」として sticky で画面上部に固定する。
-                  下の解説をスクロールしても問題文が常に見える（ご要望
-                  「解答と解説・問題は一緒に一画面で見える状態で出したい」）。 */}
+                ★1画面完結改善：スマホの1問ごとの答え合わせ（reorderMobile && singleQuestionIndex !== undefined）で
+                  図表・スライド資料・長文がない単問（203ステージ）の場合は、下の SubQuestionCard 内に
+                  設問文がそのまま表示されているため、上部ペインの重複表示を省いて1画面に正誤＋解説を収める。 */}
+            {!(
+              reorderMobile &&
+              singleQuestionIndex !== undefined &&
+              questions.length === 1 &&
+              !hasSubstantialLeadMaterial(
+                questions[0],
+                Array.isArray(questions[0]?.audioTracks) && questions[0].audioTracks.length > 0,
+              )
+            ) && (
             <div className={reorderMobile
-              ? `sticky ${reviewNav ? 'top-[calc(57px+env(safe-area-inset-top,0px))]' : 'top-[env(safe-area-inset-top,0px)]'} z-20 min-w-0 bg-[#fffefb] border-b-2 border-[#e3d9c8] shadow-xs flex flex-col`
+              ? `sticky ${reviewNav ? 'top-[calc(50px+env(safe-area-inset-top,0px))]' : 'top-[env(safe-area-inset-top,0px)]'} z-20 min-w-0 bg-[#fffefb] border-b border-[#e3d9c8] shadow-2xs flex flex-col`
               : `space-y-6 pb-8 min-w-0 ${isResultView ? 'lg:pr-4' : 'lg:overflow-y-auto lg:h-full lg:pr-4'}`}>
               {/* スマホ：問題文ペインのヘッダー（演習画面と同じ「たたむ」付き） */}
               {reorderMobile && (
-                <div className="lx-problem-head flex items-center justify-between px-3.5 py-1.5 border-b border-[#efe7d8] bg-[#faf5ea]">
-                  <span className="font-extrabold text-[#3d3222] text-xs flex items-center gap-1.5">
-                    <BookOpen size={14} className="text-[#2458a6]" />
+                <div className="lx-problem-head flex items-center justify-between px-2.5 py-1 border-b border-[#efe7d8] bg-[#faf5ea]">
+                  <span className="font-extrabold text-[#3d3222] text-[11.5px] flex items-center gap-1">
+                    <BookOpen size={13} className="text-[#2458a6]" />
                     問題・資料
                   </span>
                   <button
                     onClick={() => setMobileProblemCollapsed(v => !v)}
                     aria-expanded={!mobileProblemCollapsed}
-                    className="flex min-h-[38px] items-center gap-0.5 rounded-lg px-2.5 text-xs font-extrabold text-[#5c4f3d] active:bg-[#f2ebde] whitespace-nowrap cursor-pointer"
+                    className="flex min-h-[28px] items-center gap-0.5 rounded-full border border-[#dfd4c0] bg-white px-2 text-[11px] font-extrabold text-[#5c4f3d] active:bg-[#f2ebde] whitespace-nowrap cursor-pointer"
                   >
                     {mobileProblemCollapsed ? (
-                      <>問題文をひらく<ChevronDown size={13} /></>
+                      <>ひらく<ChevronDown size={12} /></>
                     ) : (
-                      <>たたむ<ChevronUp size={13} /></>
+                      <>たたむ<ChevronUp size={12} /></>
                     )}
                   </button>
                 </div>
@@ -662,9 +669,7 @@ export function Explanation({ mode: initialMode, chapter, answers, onBack, onRet
               )}
               
               <div className={reorderMobile
-                // 問題文本体：高さ上限つきの独自スクロール。演習画面の問題文と
-                // 同じ文字サイズ（15px・行間1.85）で表示する。
-                ? `${mobileProblemCollapsed ? 'hidden' : ''} max-h-[34dvh] overflow-y-auto overscroll-contain p-3 text-[15px] leading-[1.85]`
+                ? `${mobileProblemCollapsed ? 'hidden' : ''} max-h-[25dvh] overflow-y-auto overscroll-contain px-2.5 py-2 text-[14px] leading-[1.65]`
                 : "space-y-8 md:space-y-12"}>
               {questions.length > 0 ? (
                 questions.map((question, qIndex: number) => {
@@ -677,14 +682,13 @@ export function Explanation({ mode: initialMode, chapter, answers, onBack, onRet
               </div>
               
             </div>
+            )}
 
             {/* RIGHT COLUMN: Answers, grading, and explanations
                 （スマホの1問ごとの答え合わせでは問題文ペインの下＝下ペインとして表示） */}
-            <div className={`space-y-6 lg:pl-4 lg:pr-4 min-w-0 ${reorderMobile
-              // 下部固定ナビ（問題に戻る/次の問題へ）に最後のカードが隠れない
-              // よう、下余白を大きめに取る。
-              ? 'order-2 px-3 pt-3 pb-[calc(6rem+env(safe-area-inset-bottom))]'
-              : 'pb-8'} ${isResultView ? '' : 'lg:overflow-y-auto lg:h-full'}${pcListening ? ' lx-pc-right' : ''}`}>
+            <div className={`space-y-4 lg:pl-4 lg:pr-4 min-w-0 ${reorderMobile
+              ? 'order-2 px-2.5 pt-2 pb-[calc(4.2rem+env(safe-area-inset-bottom))]'
+              : 'pb-6'} ${isResultView ? '' : 'lg:overflow-y-auto lg:h-full'}${pcListening ? ' lx-pc-right' : ''}`}>
               {questions.length > 0 ? (
                 questions.map((question, qIndex: number) => {
                 return (

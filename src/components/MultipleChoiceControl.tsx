@@ -3,14 +3,39 @@ import { Check, RotateCcw, X } from 'lucide-react';
 import type { SubQuestion } from '../types/curriculum';
 import { formatText } from '../utils/textFormatter';
 import { optionCircledMark } from '../utils/questionDisplay';
+import { readInstantGradePref } from '../utils/quizStepState';
 import './quiz-compact.css';
 
 const KATAKANA_LABELS = ['ア', 'イ', 'ウ', 'エ', 'オ', 'カ', 'キ', 'ク'];
+
+/**
+ * LaTeX コマンド（\text{...}, \sqrt{...}, \pi 等）を視覚上の文字幅に換算し、
+ * スマホでも 2×2 グリッドに美しく収まる短い選択肢かを正確に判定する。
+ */
+function estimateOptionVisualWidth(raw: string): number {
+  const s = String(raw || '')
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/\\text\{([^}]*)\}/g, '$1')
+    .replace(/\\sqrt\{([^}]*)\}/g, '√$1')
+    .replace(
+      /\\(?:pi|theta|alpha|beta|triangle|angle|pm|times|div|le|ge|neq|equiv|sim|parallel|perp|circ)/g,
+      'X',
+    )
+    .replace(/\\[a-zA-Z]+/g, '')
+    .replace(/[$^{}_]/g, '')
+    .trim();
+  let width = 0;
+  for (const ch of s) {
+    width += ch.charCodeAt(0) <= 0x7f ? 0.56 : 1.0;
+  }
+  return width;
+}
 
 export interface MultipleChoiceControlProps {
   sq: SubQuestion;
   answers: Record<string, string>;
   onSelect: (sqId: string, option: string) => void;
+  onInstantSubmit?: (sqId: string, option: string) => void;
   eliminated: Record<string, string[]>;
   isEliminated: (sqId: string, opt: string) => void | boolean;
   restoreOption: (sqId: string, opt: string) => void;
@@ -33,6 +58,7 @@ export function MultipleChoiceControl({
   sq,
   answers,
   onSelect,
+  onInstantSubmit,
   eliminated,
   isEliminated,
   restoreOption,
@@ -47,6 +73,12 @@ export function MultipleChoiceControl({
   listeningMaterialsMobile = false,
 }: MultipleChoiceControlProps) {
   const handleOptionSelect = onSelect;
+  const triggerSelect = (sqId: string, nextVal: string) => {
+    handleOptionSelect(sqId, nextVal);
+    if (nextVal && !isMultiple && onInstantSubmit && readInstantGradePref()) {
+      onInstantSubmit(sqId, nextVal);
+    }
+  };
 
   const optionSet = new Set(sq.options.map((o: string) => o.trim()));
   const detectMulti = (sep: string) => {
@@ -77,12 +109,18 @@ export function MultipleChoiceControl({
       ? sq.optionImages
       : undefined;
 
-  // 選択肢がすべて短い語句（12文字以下）ならPC/タブレットで2列、それ以外は読みやすい縦1列
-  const allVeryShort =
-    !optionImages &&
-    !optionTexts &&
-    sq.options.length === 4 &&
-    sq.options.every((opt) => opt.length <= 12 && !opt.includes('\\dfrac'));
+  const hasStackedFraction = sq.options.some(
+    (opt) => opt.includes('\\dfrac') || opt.includes('\\frac'),
+  );
+  const maxVisualWidth =
+    !optionImages && !optionTexts && sq.options.length === 4
+      ? Math.max(...sq.options.map(estimateOptionVisualWidth))
+      : 999;
+
+  // 視覚幅 7.8 以下（和文7〜8文字・英数式13文字程度まで）ならスマホでも 2×2 グリッドで1画面に凝縮！
+  const mobileCompact2Col = !hasStackedFraction && maxVisualWidth <= 7.8;
+  // 視覚幅 16.5 以下ならタブレット・PC（sm以上）で 2×2 グリッド表示
+  const allVeryShort = !hasStackedFraction && maxVisualWidth <= 16.5;
 
   const marksOnlyCompact =
     !optionImages &&
@@ -92,10 +130,11 @@ export function MultipleChoiceControl({
   return (
     <div
       data-listening-compact-options={listeningMaterialsMobile || undefined}
-      className="flex w-full flex-col gap-2"
+      data-mc-grid={mobileCompact2Col ? '2x2' : allVeryShort ? 'sm-2x2' : '1col'}
+      className="flex w-full flex-col gap-1.5"
     >
       {isMultiple && (
-        <p className="text-xs font-extrabold text-[#2458a6] bg-[#eaf2fc] border border-[#c3d9f7] rounded-lg px-2.5 py-1 w-fit">
+        <p className="text-[11px] font-extrabold text-[#2458a6] bg-[#eaf2fc] border border-[#c3d9f7] rounded-lg px-2 py-0.5 w-fit">
           ※ あてはまるものをすべて選ぼう
         </p>
       )}
@@ -103,12 +142,14 @@ export function MultipleChoiceControl({
       <div
         className={
           optionImages
-            ? 'grid grid-cols-2 gap-2.5 w-full'
+            ? 'grid grid-cols-2 gap-2 w-full'
             : marksOnlyCompact
-              ? `grid gap-2 w-full ${listeningMobileWithFigure ? 'grid-cols-4' : 'grid-cols-2 sm:grid-cols-4'}`
-              : allVeryShort
-                ? 'grid grid-cols-1 sm:grid-cols-2 gap-2.5 w-full'
-                : 'grid grid-cols-1 gap-2.5 w-full'
+              ? `grid gap-1.5 w-full ${listeningMobileWithFigure ? 'grid-cols-4' : 'grid-cols-2 sm:grid-cols-4'}`
+              : mobileCompact2Col
+                ? 'grid grid-cols-2 gap-1.5 sm:gap-2 w-full'
+                : allVeryShort
+                  ? 'grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2 w-full'
+                  : 'grid grid-cols-1 gap-1.5 sm:gap-2 w-full'
         }
       >
         {sq.options.map((opt: string, optIdx: number) => {
@@ -142,9 +183,9 @@ export function MultipleChoiceControl({
                     restoreOption(sq.id, opt);
                     return;
                   }
-                  handleOptionSelect(sq.id, isSelected ? '' : opt);
+                  triggerSelect(sq.id, isSelected ? '' : opt);
                 }}
-                className={`relative flex flex-col items-stretch gap-1.5 rounded-2xl border-2 p-2 shadow-xs cursor-pointer transition-all ${
+                className={`relative flex flex-col items-stretch gap-1 rounded-xl border-2 p-1.5 shadow-xs cursor-pointer transition-all ${
                   struck
                     ? 'bg-[#f4f1ea] border-[#d5cec2] border-dashed opacity-60'
                     : isSelected
@@ -188,7 +229,7 @@ export function MultipleChoiceControl({
                     restoreOption(sq.id, opt);
                     return;
                   }
-                  handleOptionSelect(sq.id, isSelected ? '' : opt);
+                  triggerSelect(sq.id, isSelected ? '' : opt);
                 }}
                 className="juken-choice-btn justify-center text-center"
               >
@@ -200,7 +241,10 @@ export function MultipleChoiceControl({
 
           // 標準の中学生向け4択カード（左＝解答ボタン、右＝独立した「消去メモ×」ボタンで絶対に文字と重ならない）
           return (
-            <div key={opt} className="juken-choice-row">
+            <div
+              key={opt}
+              className={`juken-choice-row ${mobileCompact2Col ? 'juken-choice-row--compact2' : ''}`}
+            >
               <button
                 type="button"
                 aria-pressed={isSelected}
@@ -222,7 +266,6 @@ export function MultipleChoiceControl({
                     longPressFired.current = false;
                     return;
                   }
-                  // 消去メモ中の選択肢をタップしたら、消去を解除してそのまま選べる（中学生が迷わない直感動作）
                   if (struck) {
                     restoreOption(sq.id, opt);
                   }
@@ -239,19 +282,18 @@ export function MultipleChoiceControl({
                     handleOptionSelect(sq.id, ordered.join(separator));
                     return;
                   }
-                  // 単一選択：未選択→選択、選択中を再タップ→選択解除（勝手に斜線消去にならないので誤タップ事故ゼロ）
-                  handleOptionSelect(sq.id, isSelected ? '' : opt);
+                  triggerSelect(sq.id, isSelected ? '' : opt);
                 }}
                 className={`juken-choice-btn ${strikeAnimating ? 'animate-strike-out' : ''}`}
               >
                 {badgeLabel && (
                   <span className="juken-choice-mark" aria-hidden="true">
-                    {isSelected ? <Check size={16} className="stroke-[3]" /> : badgeLabel}
+                    {isSelected ? <Check size={14} className="stroke-[3]" /> : badgeLabel}
                   </span>
                 )}
 
                 <span
-                  className={`min-w-0 flex-1 text-left leading-relaxed break-words [overflow-wrap:anywhere] ${
+                  className={`min-w-0 flex-1 text-left leading-[1.36] sm:leading-[1.45] break-words [overflow-wrap:anywhere] ${
                     struck ? 'line-through decoration-2 decoration-[#d97b6c]' : ''
                   }`}
                 >
@@ -260,9 +302,9 @@ export function MultipleChoiceControl({
                     : formatText(opt, [], { prose: isEnglishProse })}
                 </span>
 
-                {isSelected && (
+                {isSelected && !mobileCompact2Col && (
                   <span
-                    className="shrink-0 rounded-full px-2 py-0.5 text-[11px] font-extrabold text-white hidden sm:inline-block"
+                    className="shrink-0 rounded-full px-2 py-0.5 text-[10.5px] font-extrabold text-white hidden sm:inline-block"
                     style={{ backgroundColor: 'var(--quiz-accent, #2458a6)' }}
                   >
                     選択中
@@ -289,13 +331,13 @@ export function MultipleChoiceControl({
                 >
                   {struck ? (
                     <>
-                      <RotateCcw size={13} aria-hidden="true" />
-                      <span className="mt-0.5">戻す</span>
+                      <RotateCcw size={12} aria-hidden="true" />
+                      {!mobileCompact2Col && <span className="mt-0.5 hidden sm:inline">戻す</span>}
                     </>
                   ) : (
                     <>
-                      <X size={14} aria-hidden="true" />
-                      <span className="mt-0.5">消去</span>
+                      <X size={13} aria-hidden="true" />
+                      {!mobileCompact2Col && <span className="mt-0.5 hidden sm:inline">消去</span>}
                     </>
                   )}
                 </button>
