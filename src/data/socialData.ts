@@ -4,6 +4,7 @@ import { EXTRA_SOCIAL_CHAPTERS } from './juken/extraSocial';
 import { SOCIAL_BANK_EXPANSION } from './juken/bankExpansionSocial';
 import { SOCIAL_V6_EXPANSION } from './juken/v6ExpansionSocial';
 import { SOCIAL_V65_QUALITY } from './juken/v65QualityPack';
+import { SOCIAL_V7_CAROUSELS } from './juken/v7SocialCarousels';
 
 const socialParts: Part[] = [
   {
@@ -1619,14 +1620,17 @@ const socialParts: Part[] = [
 export const socialData: Part[] = applyChapterExpansions(
   applyChapterExpansions(
     applyChapterExpansions(
-      socialParts.map((part) => {
-        const extras = EXTRA_SOCIAL_CHAPTERS.filter((ch) => ch.id.startsWith(part.id.replace('so_part', 'so') + '_'));
-        return extras.length ? { ...part, chapters: [...part.chapters, ...extras] } : part;
-      }),
-      SOCIAL_BANK_EXPANSION,
+      applyChapterExpansions(
+        socialParts.map((part) => {
+          const extras = EXTRA_SOCIAL_CHAPTERS.filter((ch) => ch.id.startsWith(part.id.replace('so_part', 'so') + '_'));
+          return extras.length ? { ...part, chapters: [...part.chapters, ...extras] } : part;
+        }),
+        SOCIAL_BANK_EXPANSION,
+      ),
+      SOCIAL_V6_EXPANSION,
     ),
-    SOCIAL_V6_EXPANSION,
+    SOCIAL_V65_QUALITY,
   ),
-  SOCIAL_V65_QUALITY,
+  SOCIAL_V7_CAROUSELS,
 );
 export const SOCIAL_STATS = countSubjectStats(socialData);

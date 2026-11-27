@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 300" width="540" height="300" font-family="'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#16a34a"/>
+    </marker>
+    <marker id="arr-slate" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="540" height="300" rx="14" fill="#ffffff"/>
+
+  <text x="18" y="25" font-size="13.5" font-weight="800" fill="#0f172a">【資料1】日本と中国・朝鮮半島の外交2000年タイムライン</text>
+  <line x1="30" y1="145" x2="510" y2="145" stroke="#1e293b" stroke-width="3" marker-end="url(#arr-slate)"/>
+  <!-- 上段マーカー -->
+  <circle cx="65" cy="145" r="6" fill="#2563eb"/><line x1="65" y1="145" x2="65" y2="85" stroke="#2563eb" stroke-width="1.8"/>
+  <rect x="20" y="45" width="95" height="42" rx="6" fill="#eff6ff" stroke="#2563eb"/>
+  <text x="67" y="62" font-size="10.5" font-weight="800" fill="#1e40af" text-anchor="middle">57年 漢委奴国王金印</text>
+  <text x="67" y="78" font-size="10" fill="#334155" text-anchor="middle">239年 卑弥呼→魏</text>
+
+  <circle cx="165" cy="145" r="6" fill="#dc2626"/><line x1="165" y1="145" x2="165" y2="195" stroke="#dc2626" stroke-width="1.8"/>
+  <rect x="112" y="195" width="110" height="46" rx="6" fill="#fef2f2" stroke="#dc2626"/>
+  <text x="167" y="213" font-size="10.5" font-weight="800" fill="#b91c1c" text-anchor="middle">607 遣隋使(小野妹子)</text>
+  <text x="167" y="230" font-size="10" fill="#334155" text-anchor="middle">630〜894 遣唐使(菅原道真)</text>
+
+  <circle cx="265" cy="145" r="6" fill="#d97706"/><line x1="265" y1="145" x2="265" y2="85" stroke="#d97706" stroke-width="1.8"/>
+  <rect x="205" y="45" width="122" height="42" rx="6" fill="#fffbeb" stroke="#d97706"/>
+  <text x="266" y="62" font-size="10.5" font-weight="800" fill="#92400e" text-anchor="middle">平清盛：日宋貿易(大輪田泊)</text>
+  <text x="266" y="78" font-size="10" fill="#334155" text-anchor="middle">足利義満：勘合貿易(明)</text>
+
+  <circle cx="365" cy="145" r="6" fill="#059669"/><line x1="365" y1="145" x2="365" y2="195" stroke="#059669" stroke-width="1.8"/>
+  <rect x="308" y="195" width="118" height="46" rx="6" fill="#ecfdf5" stroke="#059669"/>
+  <text x="367" y="213" font-size="10.5" font-weight="800" fill="#065f46" text-anchor="middle">江戸4つの窓口</text>
+  <text x="367" y="230" font-size="9.8" fill="#0f172a" text-anchor="middle">長崎(オ・中)/対馬/薩摩/松前</text>
+
+  <circle cx="465" cy="145" r="6" fill="#7c3aed"/><line x1="465" y1="145" x2="465" y2="85" stroke="#7c3aed" stroke-width="1.8"/>
+  <rect x="398" y="45" width="126" height="42" rx="6" fill="#f5f3ff" stroke="#7c3aed"/>
+  <text x="461" y="62" font-size="10.5" font-weight="800" fill="#5b21b6" text-anchor="middle">1972 日中共同声明(田中角栄)</text>
+  <text x="461" y="78" font-size="10" fill="#334155" text-anchor="middle">1978 日中平和友好条約</text>
+
+  <text x="270" y="275" font-size="11" font-weight="800" fill="#1e40af" text-anchor="middle">⚠️ 1965年＝日韓基本条約（佐藤栄作） ／ 1972年＝日中共同声明（国交正常化） ／ 1978年＝日中平和友好条約！</text>
+
+</svg>

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 300" width="540" height="300" font-family="'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#16a34a"/>
+    </marker>
+    <marker id="arr-slate" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="540" height="300" rx="14" fill="#ffffff"/>
+
+  <text x="18" y="25" font-size="13.5" font-weight="800" fill="#0f172a">【資料1】三権分立と抑制・均衡（チェック・アンド・バランス）</text>
+  <!-- 国会(上) -->
+  <rect x="195" y="42" width="150" height="52" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2.2"/>
+  <text x="270" y="64" font-size="13" font-weight="900" fill="#1e40af" text-anchor="middle">国会（立法権）</text>
+  <text x="270" y="82" font-size="10.5" font-weight="700" fill="#334155" text-anchor="middle">国権の最高機関・唯一の立法機関</text>
+  <!-- 内閣(左下) -->
+  <rect x="36" y="182" width="160" height="54" rx="10" fill="#ecfdf5" stroke="#10b981" stroke-width="2.2"/>
+  <text x="116" y="204" font-size="13" font-weight="900" fill="#065f46" text-anchor="middle">内閣（行政権）</text>
+  <text x="116" y="223" font-size="10.5" font-weight="700" fill="#334155" text-anchor="middle">議院内閣制（国会に連帯責任）</text>
+  <!-- 裁判所(右下) -->
+  <rect x="344" y="182" width="160" height="54" rx="10" fill="#fef2f2" stroke="#dc2626" stroke-width="2.2"/>
+  <text x="424" y="204" font-size="13" font-weight="900" fill="#991b1b" text-anchor="middle">裁判所（司法権）</text>
+  <text x="424" y="223" font-size="10.5" font-weight="700" fill="#334155" text-anchor="middle">憲法の番人（違憲審査権）</text>
+
+  <!-- 矢印: 国会 <-> 内閣 -->
+  <line x1="205" y1="95" x2="115" y2="178" stroke="#2563eb" stroke-width="2.2" marker-end="url(#arr-blue)"/>
+  <text x="102" y="128" font-size="10.5" font-weight="800" fill="#1d4ed8" text-anchor="middle">首相の指名</text>
+  <text x="102" y="142" font-size="10.5" font-weight="800" fill="#1d4ed8" text-anchor="middle">内閣不信任決議(衆のみ)</text>
+  <line x1="145" y1="180" x2="232" y2="97" stroke="#16a34a" stroke-width="2.2" marker-end="url(#arr-green)"/>
+  <text x="220" y="156" font-size="10.5" font-weight="800" fill="#15803d" text-anchor="middle">衆議院の解散</text>
+
+  <!-- 矢印: 国会 <-> 裁判所 -->
+  <line x1="335" y1="95" x2="422" y2="178" stroke="#2563eb" stroke-width="2.2" marker-end="url(#arr-blue)"/>
+  <text x="438" y="130" font-size="10.5" font-weight="800" fill="#1d4ed8" text-anchor="middle">弾劾裁判所の設置</text>
+  <line x1="395" y1="180" x2="308" y2="97" stroke="#dc2626" stroke-width="2.2" marker-end="url(#arr-red)"/>
+  <text x="326" y="156" font-size="10.5" font-weight="800" fill="#b91c1c" text-anchor="middle">法律の違憲審査</text>
+
+  <!-- 矢印: 内閣 <-> 裁判所 -->
+  <line x1="200" y1="202" x2="340" y2="202" stroke="#16a34a" stroke-width="2.2" marker-end="url(#arr-green)"/>
+  <text x="270" y="195" font-size="10.5" font-weight="800" fill="#15803d" text-anchor="middle">最高裁長官の指名・他裁判官の任命</text>
+  <line x1="340" y1="220" x2="200" y2="220" stroke="#dc2626" stroke-width="2.2" marker-end="url(#arr-red)"/>
+  <text x="270" y="236" font-size="10.5" font-weight="800" fill="#b91c1c" text-anchor="middle">命令・処分の違憲・違法審査</text>
+
+  <text x="270" y="276" font-size="11" font-weight="800" fill="#0f172a" text-anchor="middle">主権者＝国民（選挙 ／ 最高裁裁判官の国民審査 ／ 憲法改正の国民投票）</text>
+
+</svg>

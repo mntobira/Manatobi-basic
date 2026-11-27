@@ -219,9 +219,9 @@ export const SOCIAL_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "rate": 91,
             "difficulty": 1,
             "wrongReasons": [
-              "12海里までの範囲。",
-              "どの国にも属さない海。",
-              "湾内などの水域。"
+              "基線から12海里までは国の主権が完全に及ぶ「領海」である。",
+              "どこの国にも属さず自由航行が認められる200海里の外側の海は「公海」である。",
+              "内水は瀬戸内海や東京湾のように領海の基線より陸側にある水域のことである。"
             ]
           }
         ]

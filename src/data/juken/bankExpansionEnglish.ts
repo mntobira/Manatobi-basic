@@ -1623,8 +1623,8 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "rate": 85,
             "difficulty": 2,
             "wrongReasons": [
-              "先行詞が「人」のときに使う。",
-              "所有格。",
+              "先行詞が「人」のときに使う関係代名詞であり、先行詞 smartphone（物）には使えない。",
+              "whose は「〜の…」を表す所有格であり、後ろに無冠詞の名詞が続くときに使う。",
               "関係副詞であり目的語になれない。"
             ]
           },
@@ -1643,7 +1643,7 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "difficulty": 3,
             "wrongReasons": [
               "主格であり後ろに mother is と続かない。",
-              "目的格。",
+              "whom は目的格（「〜を／〜に」）であり、直後に無冠詞名詞 mother を続けて所有関係は表せない。",
               "先行詞が人なので不可。"
             ]
           }
@@ -2324,9 +2324,9 @@ export const ENGLISH_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "rate": 90,
             "difficulty": 1,
             "wrongReasons": [
-              "後ろの段落ではない。",
-              "誤り。",
-              "誤り。"
+              "後ろの段落ではなく、原則として直前の1〜2文をさかのぼって指示対象を探す。",
+              "本文中に書かれていない自分の感想や一般論を補うのではなく、直前の具体的語句を代入する。",
+              "最終段落の結論ではなく、下線部の直前にある単数・複数の一致する名詞句を追跡する。"
             ]
           }
         ]

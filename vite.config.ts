@@ -81,6 +81,7 @@ export default defineConfig(({mode}) => {
      *   なお sourcemap: false は Vite の既定値と同じなので、明示せず削除した。
      */
     reportCompressedSize: false,
+    minify: env.VITE_FAST_BUILD === 'true' || process.env.VITE_FAST_BUILD === 'true' ? false : 'esbuild',
     rollupOptions: {
       // ★入口は2つ★ アプリ本体（/）と、宣伝用の理念ページ（/message・アプリ本体を読み込まない軽いページ）
       input: { main: path.resolve(__dirname, 'index.html'), message: path.resolve(__dirname, 'message/index.html') },

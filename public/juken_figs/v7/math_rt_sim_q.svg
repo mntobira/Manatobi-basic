@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 300" width="540" height="300" font-family="'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#16a34a"/>
+    </marker>
+    <marker id="arr-slate" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="540" height="300" rx="14" fill="#ffffff"/>
+
+  <text x="18" y="24" font-size="13" font-weight="800" fill="#0f172a">直角三角形の頂点Aから斜辺BCにおろした垂線AH（3重相似）</text>
+  <polygon points="176,101 75,235 355,235" fill="#f8fafc" stroke="#0f172a" stroke-width="2.5"/>
+  <line x1="176" y1="101" x2="176" y2="235" stroke="#dc2626" stroke-width="2.2" stroke-dasharray="5,3"/>
+  <!-- 直角マーク A と H -->
+  <polyline points="166,114 179,124 189,111" fill="none" stroke="#0f172a" stroke-width="1.6"/>
+  <polyline points="176,223 188,223 188,235" fill="none" stroke="#dc2626" stroke-width="1.6"/>
+  <text x="176" y="91" font-size="13" font-weight="800" fill="#0f172a" text-anchor="middle">A (90°)</text>
+  <text x="60" y="242" font-size="13" font-weight="800" fill="#0f172a">B</text>
+  <text x="364" y="242" font-size="13" font-weight="800" fill="#0f172a">C</text>
+  <text x="176" y="253" font-size="12.5" font-weight="800" fill="#dc2626" text-anchor="middle">H</text>
+  <text x="108" y="162" font-size="12" font-weight="800" fill="#334155">6 cm</text>
+  <text x="275" y="160" font-size="12" font-weight="800" fill="#334155">8 cm</text>
+  <text x="215" y="274" font-size="12" font-weight="800" fill="#334155" text-anchor="middle">BC ＝ 10 cm</text>
+  
+
+</svg>

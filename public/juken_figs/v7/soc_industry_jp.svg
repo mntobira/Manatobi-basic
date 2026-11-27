@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 300" width="540" height="300" font-family="'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#16a34a"/>
+    </marker>
+    <marker id="arr-slate" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="540" height="300" rx="14" fill="#ffffff"/>
+
+  <text x="18" y="25" font-size="13.5" font-weight="800" fill="#0f172a">【資料1】日本の主な工業地帯・地域の製造品出荷額内訳の特徴</text>
+  <text x="18" y="45" font-size="11" font-weight="700" fill="#475569">凡例：■青＝機械工業 ／ ■橙＝化学工業 ／ ■黄＝金属工業 ／ ■緑＝食料品・その他</text>
+  <!-- ア 中京 (機械約68%・全国1位) -->
+  <text x="24" y="84" font-size="12" font-weight="800" fill="#0f172a">ア（出荷額1位）</text>
+  <rect x="135" y="67" width="258" height="26" fill="#2563eb"/><rect x="393" y="67" width="35" height="26" fill="#f97316"/><rect x="428" y="67" width="42" height="26" fill="#eab308"/><rect x="470" y="67" width="45" height="26" fill="#22c55e"/>
+  <text x="264" y="85" font-size="11.5" font-weight="800" fill="#ffffff" text-anchor="middle">機械 約68%（自動車：豊田市）</text>
+
+  <!-- イ 阪神 (金属・化学バランス) -->
+  <text x="24" y="132" font-size="12" font-weight="800" fill="#0f172a">イ（中小工場多）</text>
+  <rect x="135" y="115" width="145" height="26" fill="#2563eb"/><rect x="280" y="115" width="65" height="26" fill="#f97316"/><rect x="345" y="115" width="88" height="26" fill="#eab308"/><rect x="433" y="115" width="82" height="26" fill="#22c55e"/>
+  <text x="207" y="133" font-size="11" font-weight="800" fill="#ffffff" text-anchor="middle">機械 38%</text><text x="389" y="133" font-size="11" font-weight="800" fill="#713f12" text-anchor="middle">金属 23%</text>
+
+  <!-- ウ 京葉・瀬戸内 (化学割合高い) -->
+  <text x="24" y="180" font-size="12" font-weight="800" fill="#0f172a">ウ（臨海コンビナート）</text>
+  <rect x="135" y="163" width="95" height="26" fill="#2563eb"/><rect x="230" y="163" width="145" height="26" fill="#f97316"/><rect x="375" y="163" width="65" height="26" fill="#eab308"/><rect x="440" y="163" width="75" height="26" fill="#22c55e"/>
+  <text x="302" y="181" font-size="11.5" font-weight="800" fill="#ffffff" text-anchor="middle">石油化学 約38%突出！</text>
+
+  <!-- エ 北海道 (食料品突出) -->
+  <text x="24" y="228" font-size="12" font-weight="800" fill="#0f172a">エ（酪農・畑作圏）</text>
+  <rect x="135" y="211" width="60" height="26" fill="#2563eb"/><rect x="195" y="211" width="42" height="26" fill="#f97316"/><rect x="237" y="211" width="48" height="26" fill="#eab308"/><rect x="285" y="211" width="230" height="26" fill="#22c55e"/>
+  <text x="400" y="229" font-size="11.5" font-weight="800" fill="#ffffff" text-anchor="middle">食料品 約42%突出！</text>
+
+  <rect x="24" y="252" width="492" height="36" rx="8" fill="#eff6ff" stroke="#2563eb"/>
+  <text x="270" y="275" font-size="11" font-weight="800" fill="#1e40af" text-anchor="middle">見分けの鉄則：機械7割＆総額1位＝【中京】／ 化学大＝【京葉・瀬戸内】／ 印刷大＝【京浜】／ 食料品大＝【北海道・九州】</text>
+
+</svg>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 300" width="540" height="300" font-family="'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#16a34a"/>
+    </marker>
+    <marker id="arr-slate" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="540" height="300" rx="14" fill="#ffffff"/>
+
+  <text x="18" y="24" font-size="13" font-weight="800" fill="#0f172a">関数 y＝(1/2)x² （変域 −2 ≦ x ≦ 4）と変化の割合</text>
+  <line x1="60" y1="245" x2="465" y2="245" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-slate)"/>
+  <line x1="230" y1="275" x2="230" y2="32" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-slate)"/>
+  <text x="472" y="249" font-size="12" font-weight="800" fill="#334155">x</text>
+  <text x="238" y="40" font-size="12" font-weight="800" fill="#334155">y</text>
+  <text x="218" y="260" font-size="11.5" font-weight="700" fill="#334155">O</text>
+  <!-- x目盛り -2, 4 -->
+  <line x1="154" y1="241" x2="154" y2="249" stroke="#334155" stroke-width="1.8"/>
+  <text x="154" y="263" font-size="11.5" font-weight="700" fill="#334155" text-anchor="middle">−2</text>
+  <line x1="382" y1="241" x2="382" y2="249" stroke="#334155" stroke-width="1.8"/>
+  <text x="382" y="263" font-size="11.5" font-weight="700" fill="#334155" text-anchor="middle">4</text>
+  <polyline fill="none" stroke="#0f172a" stroke-width="2.4" points="108.4,132.4 112.2,139.3 116.0,146.0 119.8,152.5 123.6,158.8 127.4,164.8 131.2,170.6 135.0,176.2 138.8,181.6 142.6,186.8 146.4,191.8 150.2,196.5 154.0,201.0 157.8,205.3 161.6,209.4 165.4,213.2 169.2,216.8 173.0,220.2 176.8,223.4 180.6,226.4 184.4,229.2 188.2,231.7 192.0,234.0 195.8,236.1 199.6,238.0 203.4,239.6 207.2,241.0 211.0,242.2 214.8,243.2 218.6,244.0 222.4,244.6 226.2,244.9 230.0,245.0 233.8,244.9 237.6,244.6 241.4,244.0 245.2,243.2 249.0,242.2 252.8,241.0 256.6,239.6 260.4,238.0 264.2,236.1 268.0,234.0 271.8,231.7 275.6,229.2 279.4,226.4 283.2,223.4 287.0,220.2 290.8,216.8 294.6,213.2 298.4,209.4 302.2,205.3 306.0,201.0 309.8,196.5 313.6,191.8 317.4,186.8 321.2,181.6 325.0,176.2 328.8,170.6 332.6,164.8 336.4,158.8 340.2,152.5 344.0,146.0 347.8,139.3 351.6,132.4 355.4,125.2 359.2,117.8 363.0,110.2 366.8,102.4 370.6,94.4 374.4,86.2 378.2,77.7 382.0,69.0 385.8,60.1 389.6,51.0 393.4,41.6"/>
+  
+  <rect x="154" y="69" width="228" height="176" fill="#fef2f2" opacity="0.55" stroke="#fca5a5" stroke-dasharray="4,3"/>
+  <polyline fill="none" stroke="#dc2626" stroke-width="4.2" points="154.0,201.0 157.8,205.3 161.6,209.4 165.4,213.2 169.2,216.8 173.0,220.2 176.8,223.4 180.6,226.4 184.4,229.2 188.2,231.7 192.0,234.0 195.8,236.1 199.6,238.0 203.4,239.6 207.2,241.0 211.0,242.2 214.8,243.2 218.6,244.0 222.4,244.6 226.2,244.9 230.0,245.0 233.8,244.9 237.6,244.6 241.4,244.0 245.2,243.2 249.0,242.2 252.8,241.0 256.6,239.6 260.4,238.0 264.2,236.1 268.0,234.0 271.8,231.7 275.6,229.2 279.4,226.4 283.2,223.4 287.0,220.2 290.8,216.8 294.6,213.2 298.4,209.4 302.2,205.3 306.0,201.0 309.8,196.5 313.6,191.8 317.4,186.8 321.2,181.6 325.0,176.2 328.8,170.6 332.6,164.8 336.4,158.8 340.2,152.5 344.0,146.0 347.8,139.3 351.6,132.4 355.4,125.2 359.2,117.8 363.0,110.2 366.8,102.4 370.6,94.4 374.4,86.2 378.2,77.7 382.0,69.0"/>
+  <!-- 最小値 原点(0,0) -->
+  <circle cx="230" cy="245" r="6.5" fill="#dc2626"/>
+  <rect x="70" y="252" width="195" height="36" rx="8" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="167" y="268" font-size="11" font-weight="800" fill="#b91c1c" text-anchor="middle">⚠️ xが0をまたぐ ⇒ 最小値は y＝0！</text>
+  <text x="167" y="282" font-size="10.5" font-weight="700" fill="#991b1b" text-anchor="middle">（端点の y＝2 を最小にしない！）</text>
+  <!-- 最大値 (4,8) -->
+  <line x1="230" y1="69" x2="382" y2="69" stroke="#2563eb" stroke-width="1.8" stroke-dasharray="4,3"/>
+  <circle cx="382" cy="69" r="6" fill="#2563eb"/>
+  <text x="218" y="73" font-size="12" font-weight="800" fill="#1d4ed8" text-anchor="end">8</text>
+  <rect x="332" y="28" width="192" height="34" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="428" y="49" font-size="11.5" font-weight="800" fill="#1e40af" text-anchor="middle">最大値は x＝4 で y＝8 ⇒ 0≦y≦8</text>
+  <!-- 左端 (-2,2) -->
+  <line x1="154" y1="201" x2="230" y2="201" stroke="#64748b" stroke-width="1.4" stroke-dasharray="3,3"/>
+  <circle cx="154" cy="201" r="5" fill="#64748b"/>
+  <text x="242" y="205" font-size="11" font-weight="700" fill="#475569">2</text>
+
+
+</svg>
