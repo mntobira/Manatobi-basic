@@ -151,9 +151,9 @@ export function renderSubQuestionCard(ctx: SubQuestionCardContext, sq: SubQuesti
           : 'border-rose-300'
       }`}
     >
-      {/* 上段：正誤バナー ＋ 設問文 ＋ あなたの解答 / 正解 */}
+      {/* 上段：正誤バナー ＋ 設問文 ＋ あなたの解答 / 正解（短答・短選択肢はスマホでも左右2列に凝縮） */}
       <div
-        className={`p-3.5 md:p-4 space-y-3 ${answerBoxBaseClass} ${
+        className={`p-2.5 md:p-3.5 space-y-2 ${answerBoxBaseClass} ${
           isCorrect
             ? 'bg-emerald-50/80'
             : isUnanswered
@@ -161,31 +161,31 @@ export function renderSubQuestionCard(ctx: SubQuestionCardContext, sq: SubQuesti
             : 'bg-rose-50/75'
         }`}
       >
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center gap-2.5 min-w-0">
-            <div className="font-extrabold text-xs md:text-sm px-3 py-1 rounded-xl border text-[#1c2a39] bg-white border-[#dfd4c0] shadow-2xs">
+        <div className="flex flex-wrap items-center justify-between gap-1.5">
+          <div className="flex items-center gap-2 min-w-0">
+            <div className="font-extrabold text-xs px-2.5 py-0.5 rounded-lg border text-[#1c2a39] bg-white border-[#dfd4c0] shadow-2xs">
               {formatText(displayLabel)}
             </div>
             {isUnanswered ? (
-              <div className="flex items-center gap-1.5 font-extrabold text-sm text-[#6b5d47]">
-                <Circle size={17} />
-                <span>未回答 — 解説を読んで解き方をつかもう！</span>
+              <div className="flex items-center gap-1 font-extrabold text-[13px] text-[#6b5d47]">
+                <Circle size={15} />
+                <span>未回答 — 解き方をつかもう！</span>
               </div>
             ) : (
               <div
-                className={`flex items-center gap-1.5 font-extrabold text-sm ${
+                className={`flex items-center gap-1 font-extrabold text-[13px] sm:text-sm ${
                   isCorrect ? 'text-emerald-700' : 'text-rose-600'
                 }`}
               >
-                {isCorrect ? <CheckCircle2 size={18} /> : <XCircle size={18} />}
+                {isCorrect ? <CheckCircle2 size={16} /> : <XCircle size={16} />}
                 <span>
-                  {isCorrect ? '大正解！バッチリ！' : '惜しい！ここで覚えれば次は解ける！'}
+                  {isCorrect ? '大正解！バッチリ！' : '惜しい！ここで覚えよう！'}
                 </span>
               </div>
             )}
           </div>
           {sq.skill && (
-            <span className="inline-flex items-center rounded-full bg-white/90 border border-[#dfd4c0] px-2.5 py-0.5 text-[11px] font-extrabold text-[#5a6573]">
+            <span className="inline-flex items-center rounded-full bg-white/90 border border-[#dfd4c0] px-2 py-0.5 text-[10.5px] font-extrabold text-[#5a6573]">
               {sq.skill}
             </span>
           )}
@@ -193,16 +193,22 @@ export function renderSubQuestionCard(ctx: SubQuestionCardContext, sq: SubQuesti
 
         {/* 設問文をカード内にも表示（左右を見比べなくても何の問いかすぐ分かる） */}
         {listeningTracks.length === 0 && sqPromptBody.trim().length > 0 && (
-          <div className="rounded-xl bg-white/95 border border-[#e6dccb] px-3.5 py-2.5 text-sm font-bold leading-relaxed text-[#1c2a39] break-words [overflow-wrap:anywhere]">
+          <div className="rounded-xl bg-white/95 border border-[#e6dccb] px-2.5 py-1.5 sm:px-3 sm:py-2 text-[13.5px] sm:text-sm font-bold leading-snug text-[#1c2a39] break-words [overflow-wrap:anywhere]">
             {formatText(sqPromptBody, [], { prose: isEnglishChapter })}
           </div>
         )}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+        <div
+          className={`grid gap-2 ${
+            String(answers[sq.id] || '').length <= 22 && String(sq.correctAnswer || '').length <= 22
+              ? 'grid-cols-2'
+              : 'grid-cols-1 sm:grid-cols-2'
+          }`}
+        >
           <div>
-            <div className="text-xs font-extrabold mb-1 text-[#5c4f3d]">あなたの解答</div>
+            <div className="text-[11px] font-extrabold mb-0.5 text-[#5c4f3d]">あなたの解答</div>
             <div
-              className={`font-bold text-sm md:text-[15px] p-3 rounded-xl border break-words whitespace-pre-wrap flex items-start gap-2 ${
+              className={`font-bold text-[13px] sm:text-sm p-2 sm:p-2.5 rounded-xl border break-words whitespace-pre-wrap flex items-start gap-1.5 ${
                 isCorrect
                   ? 'bg-white border-emerald-300 text-emerald-800'
                   : isUnanswered
@@ -212,7 +218,7 @@ export function renderSubQuestionCard(ctx: SubQuestionCardContext, sq: SubQuesti
             >
               {userOptionIdx >= 0 && KANA_LABELS[userOptionIdx] && (
                 <span
-                  className={`inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-xs font-extrabold ${
+                  className={`inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md text-[11px] font-extrabold ${
                     isCorrect
                       ? 'bg-emerald-600 text-white'
                       : 'bg-rose-100 text-rose-700 border border-rose-200'
@@ -239,10 +245,10 @@ export function renderSubQuestionCard(ctx: SubQuestionCardContext, sq: SubQuesti
           </div>
 
           <div>
-            <div className="text-xs font-extrabold mb-1 text-emerald-800">正解</div>
-            <div className="font-bold text-sm md:text-[15px] p-3 rounded-xl border-2 border-emerald-300 bg-white text-emerald-800 break-words flex items-start gap-2">
+            <div className="text-[11px] font-extrabold mb-0.5 text-emerald-800">正解</div>
+            <div className="font-bold text-[13px] sm:text-sm p-2 sm:p-2.5 rounded-xl border-2 border-emerald-300 bg-white text-emerald-800 break-words flex items-start gap-1.5">
               {correctOptionIdx >= 0 && KANA_LABELS[correctOptionIdx] && (
-                <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-emerald-600 text-xs font-extrabold text-white">
+                <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-emerald-600 text-[11px] font-extrabold text-white">
                   {KANA_LABELS[correctOptionIdx]}
                 </span>
               )}

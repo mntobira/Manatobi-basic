@@ -465,6 +465,16 @@ function QuizBody({ mode, chapter, onFinish, onBack, onReturnToBattle, isGuest, 
       sq={sq}
       answers={answers}
       onSelect={handleOptionSelect}
+      onInstantSubmit={
+        !showingExplanation && (!perStep || activeStepSubs.length <= 1)
+          ? (sqId, opt) => {
+              const nextAnswers = { ...answers, [sqId]: opt };
+              window.setTimeout(() => {
+                handleNext(nextAnswers);
+              }, 140);
+            }
+          : undefined
+      }
       eliminated={eliminated}
       isEliminated={isEliminated}
       restoreOption={restoreOption}
@@ -852,6 +862,10 @@ function QuizBody({ mode, chapter, onFinish, onBack, onReturnToBattle, isGuest, 
 
         <AnswerPane
           currentQuestion={currentQuestion}
+          currentQuestionIndex={currentQuestionIndex}
+          perStep={perStep}
+          safeStepIndex={safeStepIndex}
+          totalSteps={listeningSteps.length}
           isDesktop={isDesktop}
           answers={answers}
           handleTextChange={handleTextChange}

@@ -335,8 +335,13 @@ export function useQuestionDerived({
    *
    * 化学など音源が無い教科では false のままなので、従来表示に影響しない。
    */
-  // 英文法（stepwise）も、音源は無いが同じ「設問＋選択肢を1枚のカード」表示にする
-  const listeningUnified = listeningTracks.length > 0 || currentQuestion?.stepwise === true;
+  // 音声トラックを持つ英語リスニング問題のみ listeningUnified とする。
+  // 5教科の1問ずつステップ進行（stepwise=true）は上の visibleGroupedSubQuestions（perStep）が担当し、
+  // listeningUnified=false に保つことで：
+  //  ・図表・長文のない単問（203ステージ）は ProblemPane を出さず1画面完結カードに集約
+  //  ・図表・スライド資料・長文のある大問（91ステージ）は ProblemPane に図表/資料/本文を表示しつつ
+  //    AnswerPane 側に現在ステップの設問文＋選択肢を1画面に収めて表示できる。
+  const listeningUnified = listeningTracks.length > 0;
 
   /**
    * スマホのリスニングで「高さの配り方を逆にする」レイアウトを使うか。

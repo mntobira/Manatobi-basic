@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { BookOpen, ChevronDown, ChevronUp, Maximize2, Minimize2 } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { BookOpen, ChevronDown, ChevronUp, Maximize2, Minimize2, X, ZoomIn } from 'lucide-react';
 import { formatText } from '../utils/textFormatter';
 import {
   buildSubQuestionList,
@@ -43,6 +43,28 @@ export function hasSubstantialLeadMaterial(
     subs.length > 0 &&
     subs.every((sq, idx) => splitQuestionLabel(sq.label || '', `問${idx + 1}`).body.trim().length > 0);
   return !allSubsSelfContained;
+}
+
+/**
+ * 図表・スライド資料がある問題で、スマホ時に大問リード文が
+ * 「上の資料を読んで(1)〜(5)に答えなさい」「入試頻出の5問です」のような
+ * 数値条件・数式を含まない純粋な案内文かどうかを判定する。
+ * （数式 `$...$` や距離・角度・電流等の数値条件がある場合は false を返し必ず表示する）
+ */
+function isRedundantVisualLeadOnMobile(cleaned: string, hasMaterials: boolean): boolean {
+  if (!cleaned) return true;
+  if (hasMaterials && /^上の「資料/u.test(cleaned) && cleaned.length <= 80) return true;
+  if (cleaned.includes('$') || cleaned.includes('|') || cleaned.includes('\n')) return false;
+  if (/[0-9０-９]+\s*(?:cm|mm|m|km|g|kg|mg|L|mL|秒|分|時間|°|度|%|倍|個|本|枚|人|円|V|A|mA|Ω|W|J|N|Hz|hPa)/u.test(cleaned)) {
+    return false;
+  }
+  if (
+    cleaned.length <= 125 &&
+    /(?:答えなさい|選びなさい|5問です|4問です|3問です|ステージです|制覇します|チェックしましょう)/u.test(cleaned)
+  ) {
+    return true;
+  }
+  return false;
 }
 
 export interface ProblemPaneProps {
@@ -107,7 +129,21 @@ export function ProblemPane({
   problemScrollRef,
   accent = '#2458A6',
 }: ProblemPaneProps) {
+  const [figureZoomOpen, setFigureZoomOpen] = useState(false);
   const materialTrack = listeningTracks.find((t) => t.subId === activeStepSub?.id);
+
+  useEffect(() => {
+    setFigureZoomOpen(false);
+  }, [currentQuestion?.id]);
+
+  useEffect(() => {
+    if (!figureZoomOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setFigureZoomOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [figureZoomOpen]);
 
   useEffect(() => {
     const pane = problemScrollRef.current;
@@ -158,10 +194,21 @@ export function ProblemPane({
     subs.length > 0 &&
     subs.every((sq, idx) => splitQuestionLabel(sq.label || '', `問${idx + 1}`).body.trim().length > 0);
 
+  const hasMaterials = Array.isArray(currentQuestion.materials) && currentQuestion.materials.length > 0;
+  const hasVisual = hasMaterials || Boolean(currentQuestion.imageUrl);
+  const cleanedLead = cleanQuestionText(currentQuestion.text || '').trim();
+  const hideVisualBoilerplateMobile =
+    !isDesktop &&
+    !isProblemExpanded &&
+    hasVisual &&
+    allSubsSelfContained &&
+    isRedundantVisualLeadOnMobile(cleanedLead, hasMaterials);
+
   return (
     <div
+      data-problem-pane
       className={`
-      lg:w-[46%] flex flex-col bg-[#fffdf8] border-b lg:border-b-0 lg:border-r border-[#e4d9c5] transition-all duration-200
+      lg:w-[47%] flex flex-col bg-[#fffdf8] border-b lg:border-b-0 lg:border-r border-[#e4d9c5] transition-all duration-200
       ${listeningMobileSplit && !listeningMobileNoFigure ? 'flex-1 min-h-0' : 'flex-none'}
       ${
         isDesktop
@@ -171,35 +218,37 @@ export function ProblemPane({
             : isProblemCollapsed
               ? 'h-auto relative z-20'
               : keyboardVisible
-                ? 'max-h-[24vh] h-auto relative z-20'
+                ? 'max-h-[22vh] h-auto relative z-20'
                 : listeningMobileNoFigure
-                  ? 'h-auto max-h-[44dvh] relative z-20'
+                  ? 'h-auto max-h-[40dvh] relative z-20'
                   : listeningMobileSplit
                     ? 'relative z-20'
-                    : 'max-h-[42%] h-auto relative z-20'
+                    : hasVisual
+                      ? 'max-h-[34dvh] h-auto relative z-20'
+                      : 'max-h-[36dvh] h-auto relative z-20'
       }
     `}
     >
-      {/* 見出しバー（スマホは高さを抑えて1画面の情報量を最大化） */}
+      {/* 見出しバー（スマホ1画面完結のためスリム30px帯に凝縮） */}
       <div
-        className={`flex items-center justify-between px-2.5 py-1.5 md:px-5 md:py-3 border-b border-[#ece2cf] bg-[#faf4e6] ${
+        className={`flex items-center justify-between px-2.5 py-1 md:px-5 md:py-2.5 border-b border-[#ece2cf] bg-[#faf4e6] ${
           !isDesktop && keyboardVisible ? 'hidden' : ''
         }`}
       >
-        <div className="flex items-center gap-2 min-w-0">
+        <div className="flex items-center gap-1.5 min-w-0">
           <span
-            className="inline-flex items-center justify-center rounded-lg px-2 py-0.5 text-[11px] md:text-xs font-extrabold text-white shrink-0"
+            className="inline-flex items-center justify-center rounded-md px-1.5 py-0.5 text-[10.5px] md:text-xs font-extrabold text-white shrink-0"
             style={{ backgroundColor: accent }}
           >
             ステージ {currentQuestionIndex + 1}
           </span>
-          <span className="inline-flex items-center gap-1 font-extrabold text-[#3d3222] text-xs md:text-sm truncate">
-            <BookOpen size={14} style={{ color: accent }} className="shrink-0" />
-            <span>
-              {Array.isArray(currentQuestion.materials) && currentQuestion.materials.length > 0
-                ? `スライド資料（全${currentQuestion.materials.length}枚）`
+          <span className="inline-flex items-center gap-1 font-extrabold text-[#3d3222] text-[11.5px] md:text-sm truncate">
+            <BookOpen size={13} style={{ color: accent }} className="shrink-0" />
+            <span className="truncate">
+              {hasMaterials
+                ? `資料全${currentQuestion.materials!.length}枚`
                 : currentQuestion.imageUrl
-                  ? 'グラフ・図形・問題'
+                  ? '図・グラフ'
                   : '問題文・資料'}
             </span>
           </span>
@@ -208,57 +257,71 @@ export function ProblemPane({
             <button
               type="button"
               onClick={() => setHighlights([])}
-              className="min-h-[32px] text-[11px] font-bold text-amber-800 bg-amber-100/80 px-2.5 rounded-full border border-amber-300 hover:bg-amber-200/70 transition-colors whitespace-nowrap cursor-pointer"
+              className="min-h-[26px] text-[10.5px] font-bold text-amber-800 bg-amber-100/80 px-2 rounded-full border border-amber-300 hover:bg-amber-200/70 transition-colors whitespace-nowrap cursor-pointer"
             >
               マーカー消去
             </button>
           )}
         </div>
 
-        {!isDesktop && (
-          <div className="flex items-center gap-1.5 shrink-0">
-            {!isProblemExpanded && (
+        <div className="flex items-center gap-1 shrink-0">
+          {currentQuestion.imageUrl && !hasMaterials && (
+            <button
+              type="button"
+              onClick={() => setFigureZoomOpen(true)}
+              aria-label="図やグラフを大きく拡大して見る"
+              className="inline-flex min-h-[28px] md:min-h-[32px] items-center gap-1 rounded-full border border-[#d6c9b1] bg-white px-2 md:px-2.5 text-[11px] font-extrabold text-[#3a2f20] shadow-[0_1px_0_#e6dccb] hover:bg-[#faf6ee] whitespace-nowrap cursor-pointer"
+            >
+              <ZoomIn size={12} />
+              <span>図を拡大</span>
+            </button>
+          )}
+
+          {!isDesktop && (
+            <>
+              {!isProblemExpanded && (
+                <button
+                  type="button"
+                  onClick={() => setIsProblemCollapsed(!isProblemCollapsed)}
+                  aria-expanded={!isProblemCollapsed}
+                  className="inline-flex min-h-[28px] items-center gap-0.5 rounded-full border border-[#dfd4c0] bg-white px-2 text-[11px] font-extrabold text-[#4a3d2b] shadow-[0_1px_0_#e6dccb] whitespace-nowrap cursor-pointer"
+                >
+                  {isProblemCollapsed ? (
+                    <>
+                      <span>開く</span>
+                      <ChevronDown size={12} />
+                    </>
+                  ) : (
+                    <>
+                      <span>たたむ</span>
+                      <ChevronUp size={12} />
+                    </>
+                  )}
+                </button>
+              )}
               <button
                 type="button"
-                onClick={() => setIsProblemCollapsed(!isProblemCollapsed)}
-                aria-expanded={!isProblemCollapsed}
-                className="inline-flex min-h-[36px] items-center gap-1 rounded-full border border-[#dfd4c0] bg-white px-2.5 text-xs font-extrabold text-[#4a3d2b] shadow-[0_1px_0_#e6dccb] whitespace-nowrap cursor-pointer"
+                onClick={() => {
+                  setIsProblemExpanded(!isProblemExpanded);
+                  setIsProblemCollapsed(false);
+                }}
+                className="inline-flex min-h-[28px] items-center gap-0.5 rounded-full border border-[#dfd4c0] bg-white px-2 text-[11px] font-extrabold text-[#4a3d2b] shadow-[0_1px_0_#e6dccb] whitespace-nowrap cursor-pointer"
               >
-                {isProblemCollapsed ? (
+                {isProblemExpanded ? (
                   <>
-                    <span>本文・図を開く</span>
-                    <ChevronDown size={13} />
+                    <Minimize2 size={11} />
+                    <span>閉じる</span>
                   </>
                 ) : (
                   <>
-                    <span>たたむ</span>
-                    <ChevronUp size={13} />
+                    <Maximize2 size={11} />
+                    <span>全画面</span>
                   </>
                 )}
               </button>
-            )}
-            <button
-              type="button"
-              onClick={() => {
-                setIsProblemExpanded(!isProblemExpanded);
-                setIsProblemCollapsed(false);
-              }}
-              className="inline-flex min-h-[36px] items-center gap-1 rounded-full border border-[#dfd4c0] bg-white px-2.5 text-xs font-extrabold text-[#4a3d2b] shadow-[0_1px_0_#e6dccb] whitespace-nowrap cursor-pointer"
-            >
-              {isProblemExpanded ? (
-                <>
-                  <Minimize2 size={12} />
-                  <span>閉じる</span>
-                </>
-              ) : (
-                <>
-                  <Maximize2 size={12} />
-                  <span>大きく読む</span>
-                </>
-              )}
-            </button>
-          </div>
-        )}
+            </>
+          )}
+        </div>
       </div>
 
       {/* 問題本文＆図表スクロール領域 */}
@@ -266,8 +329,8 @@ export function ProblemPane({
         ref={problemScrollRef}
         className={`${
           !isDesktop && !isProblemExpanded && isProblemCollapsed ? 'hidden' : ''
-        } flex-1 min-h-0 overflow-y-auto md:p-6 text-[14.5px] leading-[1.7] md:text-[15.5px] md:leading-[1.9] text-[#1c2a39] break-words [overflow-wrap:anywhere] ${
-          listeningMobileSplit ? 'flex flex-col px-3 pt-2 pb-3' : 'p-2.5 sm:p-5'
+        } flex-1 min-h-0 overflow-y-auto md:p-5 text-[14px] leading-[1.62] md:text-[15px] md:leading-[1.82] text-[#1c2a39] break-words [overflow-wrap:anywhere] ${
+          listeningMobileSplit ? 'flex flex-col px-2.5 pt-1.5 pb-2' : 'px-2.5 py-1.5 sm:p-4'
         } ${questionNeedsMathPalette ? 'font-math math-content' : 'font-modern'}`}
         onMouseUp={handleTextSelection}
         onTouchEnd={handleTextSelection}
@@ -380,44 +443,55 @@ export function ProblemPane({
               );
             })()}
 
-          {/* ★v6：社会の複数資料カルーセル（第6問B方式・左右矢印＆タブ切替）を最上部に表示★ */}
-          {!listeningUnified &&
-            Array.isArray(currentQuestion.materials) &&
-            currentQuestion.materials.length > 0 && (
-              <JukenMaterialCarousel
-                materials={currentQuestion.materials}
-                accent={accent}
-                compact={!isDesktop && !isProblemExpanded}
-                className="mb-2.5"
+          {/* ★社会の複数資料カルーセル（第6問B方式・左右矢印＆1行ピル切替）を最上部に表示★ */}
+          {!listeningUnified && hasMaterials && (
+            <JukenMaterialCarousel
+              materials={currentQuestion.materials!}
+              accent={accent}
+              compact={!isDesktop && !isProblemExpanded}
+              className="mb-1.5"
+            />
+          )}
+
+          {/* ★数学・理科・社会のグラフ・図形・実験図をスマホでもスクロールなしで前面に出す★ */}
+          {!listeningUnified && !hasMaterials && currentQuestion.imageUrl && (
+            <div
+              onClick={() => setFigureZoomOpen(true)}
+              title="タップで図を拡大表示します"
+              className="mb-1.5 rounded-xl border border-[#e3d8c4] bg-white p-1.5 sm:p-2.5 shadow-2xs cursor-zoom-in"
+            >
+              <QuestionFigure
+                src={currentQuestion.imageUrl}
+                caption={
+                  isDesktop || isProblemExpanded ? currentQuestion.imageCaption : undefined
+                }
+                figureNumber={
+                  isDesktop || isProblemExpanded
+                    ? getFigureNumber(figureNumberMap, currentQuestion.id)
+                    : undefined
+                }
+                tone="light"
+                className="mt-0"
+                imgClassName={
+                  isProblemExpanded
+                    ? 'max-h-[58dvh] object-contain'
+                    : 'max-h-[18.5dvh] sm:max-h-[26dvh] md:max-h-[42dvh] object-contain'
+                }
               />
-            )}
-
-          {/* ★v6：数学のグラフ・図形・実験図をスマホでもスクロールなしで前面に出すため上部に配置★ */}
-          {!listeningUnified &&
-            (!currentQuestion.materials || currentQuestion.materials.length === 0) &&
-            currentQuestion.imageUrl && (
-              <div className="mb-2.5 rounded-2xl border border-[#e3d8c4] bg-white p-2 sm:p-3 shadow-2xs">
-                <QuestionFigure
-                  src={currentQuestion.imageUrl}
-                  caption={currentQuestion.imageCaption}
-                  figureNumber={getFigureNumber(figureNumberMap, currentQuestion.id)}
-                  tone="light"
-                  className="mt-0"
-                  imgClassName="max-h-[26dvh] md:max-h-[44dvh] object-contain"
-                />
-              </div>
-            )}
+            </div>
+          )}
 
           {!listeningUnified &&
+            !hideVisualBoilerplateMobile &&
             (inlineQuestionRows ? (
-              <div className="flex flex-col gap-1.5">
+              <div className="flex flex-col gap-1">
                 {inlineQuestionRows.lead && (
                   <ExplanationBody
                     text={inlineQuestionRows.lead}
                     highlights={combinedHighlights}
                   />
                 )}
-                <ul className="flex flex-wrap gap-x-2 gap-y-1.5">
+                <ul className="flex flex-wrap gap-x-2 gap-y-1">
                   {inlineQuestionRows.rows.map((row, rIdx) => (
                     <li
                       key={rIdx}
@@ -436,12 +510,18 @@ export function ProblemPane({
                 </ul>
               </div>
             ) : (
-              cleanQuestionText(currentQuestion.text).trim().length > 0 && (
-                <div className="rounded-2xl border border-[#eae0ce] bg-white p-2.5 sm:p-4 shadow-2xs">
+              cleanedLead.length > 0 && (
+                <div
+                  className={
+                    hasVisual && !isDesktop && !isProblemExpanded
+                      ? 'rounded-lg border border-[#eae0ce] bg-[#faf6ee] px-2.5 py-1.5 text-[12.5px] leading-[1.48]'
+                      : 'rounded-xl sm:rounded-2xl border border-[#eae0ce] bg-white p-2.5 sm:p-4 shadow-2xs'
+                  }
+                >
                   <ExplanationBody
-                    text={cleanQuestionText(currentQuestion.text)}
+                    text={cleanedLead}
                     highlights={combinedHighlights}
-                    boxedSections
+                    boxedSections={!hasVisual || isDesktop || isProblemExpanded}
                   />
                 </div>
               )
@@ -475,6 +555,49 @@ export function ProblemPane({
             })()}
         </div>
       </div>
+
+      {/* ワンタップ全画面・図版ズームモーダル（座標・目盛り・地図・回路図の細部確認用） */}
+      {figureZoomOpen && currentQuestion.imageUrl && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="問題の図の拡大表示"
+          onClick={() => setFigureZoomOpen(false)}
+          className="fixed inset-0 z-[70] flex flex-col items-center justify-center bg-slate-900/85 p-3 sm:p-6 backdrop-blur-xs"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-3xl rounded-2xl border border-slate-200 bg-white p-3 sm:p-4 shadow-2xl"
+          >
+            <div className="mb-2 flex items-center justify-between gap-2">
+              <span className="truncate text-xs sm:text-sm font-extrabold text-[#1c2a39]">
+                ステージ {currentQuestionIndex + 1}：{currentQuestion.imageCaption || currentQuestion.title || '図・グラフ'}
+              </span>
+              <button
+                type="button"
+                onClick={() => setFigureZoomOpen(false)}
+                aria-label="拡大表示を閉じる"
+                className="inline-flex shrink-0 items-center gap-1 rounded-full bg-slate-800 px-3 py-1.5 text-xs font-extrabold text-white hover:bg-slate-700 cursor-pointer"
+              >
+                <X size={14} />
+                <span>閉じる</span>
+              </button>
+            </div>
+            <div className="overflow-auto rounded-xl border border-slate-200 bg-white p-2 max-h-[75dvh]">
+              <img
+                src={currentQuestion.imageUrl}
+                alt={currentQuestion.imageCaption || '問題の図'}
+                className="mx-auto w-full max-h-[70dvh] object-contain"
+              />
+            </div>
+            {cleanedLead.length > 0 && (
+              <p className="mt-2 text-xs sm:text-sm font-bold text-[#2b3948] leading-relaxed">
+                {formatText(cleanedLead)}
+              </p>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

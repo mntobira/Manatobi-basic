@@ -17,6 +17,10 @@ const isLongBlankHint = (hint: unknown) => {
 
 export interface AnswerPaneProps {
   currentQuestion: Problem;
+  currentQuestionIndex?: number;
+  perStep?: boolean;
+  safeStepIndex?: number;
+  totalSteps?: number;
   isDesktop: boolean;
   answers: Record<string, string | string[]>;
   handleTextChange: (sqId: string, value: string) => void;
@@ -52,8 +56,23 @@ function isSubAnswered(val: string | string[] | undefined): boolean {
   return String(val ?? '').trim().length > 0;
 }
 
+/**
+ * 図表・長文ペインが無い単問ステージ（203ステージ）において、
+ * 大問リード文が「次の(1)〜(5)の問いに答えなさい」「入試頻出の5問を完全制覇します」
+ * のような数値・数式条件を含まない案内文かどうかを判定する。
+ */
+function isGenericStandaloneIntro(text: string): boolean {
+  if (!text) return true;
+  if (text.includes('$') || text.includes('|') || text.includes('\n')) return false;
+  return text.length <= 135;
+}
+
 export function AnswerPane({
   currentQuestion,
+  currentQuestionIndex = 0,
+  perStep = false,
+  safeStepIndex = 0,
+  totalSteps = 1,
   isDesktop,
   answers,
   handleTextChange,
@@ -98,9 +117,12 @@ export function AnswerPane({
   }, [isDesktop, safeMobileAnsIdx, currentQuestion.id]);
 
   const hasSeparateLeadPane = hasSubstantialLeadMaterial(currentQuestion, listeningUnified);
-  const shortIntroText = !hasSeparateLeadPane
+  const rawShortIntro = !hasSeparateLeadPane
     ? cleanQuestionText(currentQuestion.text || '').trim()
     : '';
+  // スマホでは設問カード内に完全独立した問題文が入っているため、定型案内バナーを省いて1画面に収める
+  const shortIntroText =
+    !isDesktop && isGenericStandaloneIntro(rawShortIntro) ? '' : rawShortIntro;
 
   const allSubs = currentQuestion.subQuestions || [];
   const answeredCount = allSubs.filter((sq) => isSubAnswered(answers[sq.id])).length;
@@ -114,27 +136,28 @@ export function AnswerPane({
   return (
     <div
       ref={answerScrollRef}
+      data-answer-pane
       data-listening-answer-pane={listeningMaterialsMobile || undefined}
       className={`${
-        hasSeparateLeadPane ? 'lg:w-[54%]' : 'w-full'
+        hasSeparateLeadPane ? 'lg:w-[53%]' : 'w-full'
       } min-h-0 overflow-y-auto bg-[#fcf5e9] ${
-        listeningMobileSplit ? 'px-2.5' : 'px-3.5 sm:px-5'
-      } md:px-7 md:py-6 ${
+        listeningMobileSplit ? 'px-2.5' : 'px-2.5 sm:px-5'
+      } md:px-6 md:py-4 ${
         listeningMaterialsMobile
           ? 'flex-[0_1_auto] max-h-[58%] pt-0 overscroll-contain'
           : listeningMobileNoFigure
-            ? 'flex-1 flex flex-col justify-end pt-2'
+            ? 'flex-1 flex flex-col justify-end pt-1.5'
             : listeningMobileSplit
-              ? 'flex-none pt-2'
-              : 'flex-1 pt-3'
+              ? 'flex-none pt-1.5'
+              : 'flex-1 pt-2'
       } ${
         listeningMaterialsMobile
           ? 'pb-2'
           : isDesktop
-            ? 'pb-10'
+            ? 'pb-5'
             : listeningMobileSplit
-              ? 'pb-[calc(4.75rem+env(safe-area-inset-bottom))]'
-              : 'pb-[calc(6.5rem+env(safe-area-inset-bottom))]'
+              ? 'pb-[calc(3.9rem+env(safe-area-inset-bottom))]'
+              : 'pb-[calc(4.1rem+env(safe-area-inset-bottom))]'
       } relative ${
         !isDesktop && isProblemExpanded
           ? 'hidden'
@@ -145,31 +168,31 @@ export function AnswerPane({
     >
       <div
         className={`${
-          hasSeparateLeadPane ? 'max-w-2xl' : 'max-w-3xl'
-        } mx-auto ${listeningMobileSplit ? 'space-y-2.5' : 'space-y-3.5 md:space-y-5'} ${
+          hasSeparateLeadPane ? 'max-w-2xl' : 'max-w-2xl lg:max-w-3xl'
+        } mx-auto ${listeningMobileSplit ? 'space-y-2' : 'space-y-2.5 md:space-y-3.5'} ${
           listeningMobileNoFigure ? 'flex min-h-0 flex-1 flex-col' : ''
         }`}
       >
-        {/* 1文イントロ問題（図表・長文なし）のテーマバナー */}
+        {/* 1文イントロ問題（PC表示または条件つきリード文のみスリム表示） */}
         {shortIntroText && !listeningUnified && (
           <div
-            className="flex items-start gap-2.5 rounded-2xl border px-3.5 py-2.5 text-xs md:text-sm font-bold leading-relaxed text-[#3d3222] bg-[#fffdf7]"
+            className="flex items-center gap-2 rounded-xl border px-3 py-1.5 text-xs font-bold leading-snug text-[#3d3222] bg-[#fffdf7]"
             style={{
               borderColor: `color-mix(in srgb, ${accent} 28%, #e3d8c4)`,
             }}
           >
             <Sparkles
-              size={16}
+              size={14}
               style={{ color: accent }}
-              className="shrink-0 mt-0.5"
+              className="shrink-0"
               aria-hidden="true"
             />
             <span className="min-w-0 flex-1">{formatText(shortIntroText)}</span>
           </div>
         )}
 
-        {/* 小問ステップピルバー（(1)(2)(3)... タップで直接切り替え・回答状況が一目瞭然） */}
-        {!listeningUnified && allSubs.length > 1 && (
+        {/* 小問ステップピルバー（一括解答モード時のみ表示。1問ずつ進行時はカード見出し内にステップドットを統合） */}
+        {!listeningUnified && !perStep && allSubs.length > 1 && (
           <div className="sticky top-0 z-20 -mx-1 px-1 py-1.5 bg-[#fcf5e9]/95 backdrop-blur-xs">
             <div className="flex items-center justify-between gap-2 mb-1.5 px-1">
               <span className="text-xs font-extrabold text-[#4a3d2b]">
@@ -297,7 +320,7 @@ export function AnswerPane({
           })()}
 
         {/* 設問カード群（設問本文＋選択肢が1枚のカードに収まり視線移動ゼロ） */}
-        <div className={isDesktop ? 'space-y-4' : 'space-y-3'}>
+        <div className={isDesktop ? 'space-y-3' : 'space-y-2.5'}>
           {renderedAnswerGroups.map((g: AnswerGroup, gIdx: number) => {
             if (g.type === 'group') {
               return (
@@ -386,31 +409,71 @@ export function AnswerPane({
                 id={`ans-sq-card-${sq.id}`}
                 key={sq.id}
                 data-answered={answered || undefined}
-                className={`juken-sq-card flex flex-col gap-3.5 ${
+                className={`juken-sq-card flex flex-col gap-2 sm:gap-2.5 ${
                   listeningMaterialsMobile
-                    ? 'p-2.5'
+                    ? 'p-2'
                     : listeningMobileNoFigure
-                      ? 'min-h-0 flex-1 max-h-full px-3 py-3'
+                      ? 'min-h-0 flex-1 max-h-full px-2.5 py-2.5'
                       : listeningMobileSplit
-                        ? 'px-3 py-3.5'
-                        : 'p-4 sm:p-5'
+                        ? 'px-2.5 py-2.5'
+                        : 'p-3 sm:p-4'
                 }`}
               >
-                {/* カード見出し：問番号バッジ ＋ 回答ステータス */}
+                {/* カード見出し：ステージ/問番号バッジ ＋ 1行ステップドット ＋ 回答ステータス */}
                 {!listeningUnified && (
-                  <div className="flex items-center justify-between gap-2">
-                    <span
-                      className="inline-flex items-center justify-center rounded-xl px-3 py-1 text-xs md:text-sm font-extrabold text-white shadow-2xs"
-                      style={{
-                        backgroundColor: accent,
-                        fontFamily: 'var(--mt-font-display)',
-                      }}
-                    >
-                      {formatText(sqMarker)}
-                    </span>
+                  <div className="flex items-center justify-between gap-1.5">
+                    <div className="flex items-center gap-1.5 min-w-0">
+                      {!hasSeparateLeadPane && (
+                        <span className="inline-flex items-center rounded-md bg-[#f5efe2] border border-[#e3d8c4] px-1.5 py-0.5 text-[10.5px] font-extrabold text-[#5a4c36] shrink-0">
+                          ステージ{currentQuestionIndex + 1}
+                        </span>
+                      )}
+                      <span
+                        className="inline-flex items-center justify-center rounded-lg px-2.5 py-0.5 text-xs font-extrabold text-white shadow-2xs shrink-0"
+                        style={{
+                          backgroundColor: accent,
+                          fontFamily: 'var(--mt-font-display)',
+                        }}
+                      >
+                        {formatText(sqMarker)}
+                      </span>
+
+                      {perStep && totalSteps > 1 && (
+                        <div
+                          className="inline-flex items-center gap-1 ml-0.5"
+                          aria-label={`全${totalSteps}問中 ${safeStepIndex + 1}問目`}
+                        >
+                          <div className="hidden min-[360px]:flex items-center gap-1">
+                            {Array.from({ length: totalSteps }).map((_, sIdx) => {
+                              const stepSq = allSubs[sIdx];
+                              const stepDone = stepSq ? isSubAnswered(answers[stepSq.id]) : sIdx < safeStepIndex;
+                              const isCur = sIdx === safeStepIndex;
+                              return (
+                                <span
+                                  key={sIdx}
+                                  className={`inline-block rounded-full transition-all ${
+                                    isCur ? 'w-4 h-2' : 'w-2 h-2'
+                                  }`}
+                                  style={{
+                                    backgroundColor: isCur
+                                      ? accent
+                                      : stepDone
+                                        ? '#10b981'
+                                        : '#dfd4c0',
+                                  }}
+                                />
+                              );
+                            })}
+                          </div>
+                          <span className="text-[11px] font-extrabold text-[#6b5d47] tabular-nums">
+                            {safeStepIndex + 1}/{totalSteps}
+                          </span>
+                        </div>
+                      )}
+                    </div>
 
                     <span
-                      className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11.5px] font-extrabold ${
+                      className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-extrabold shrink-0 ${
                         answered
                           ? 'bg-[#e3f3ea] text-[#1f7a4d]'
                           : 'bg-[#f6efe2] text-[#7a6a4c]'
@@ -418,13 +481,13 @@ export function AnswerPane({
                     >
                       {answered ? (
                         <>
-                          <Check size={12} className="stroke-[3]" />
+                          <Check size={11} className="stroke-[3]" />
                           <span>選択ずみ</span>
                         </>
                       ) : sq.type === 'multiple_choice' ? (
-                        <span>ア〜エから1つ選ぼう</span>
+                        <span>4択</span>
                       ) : (
-                        <span>答えを入力しよう</span>
+                        <span>記述・短答</span>
                       )}
                     </span>
                   </div>
@@ -433,7 +496,7 @@ export function AnswerPane({
                 {/* 設問本文をカード内に直接表示（左右や上下の別枠を探し回るストレスをゼロにする） */}
                 {!listeningUnified && sqPromptBody.trim().length > 0 && (
                   <div
-                    className={`rounded-xl bg-[#faf6ee] border border-[#ede3d1] px-3 py-2.5 text-[15px] md:text-[16px] font-bold leading-[1.68] text-[#1c2a39] break-words [overflow-wrap:anywhere] ${
+                    className={`rounded-xl bg-[#faf6ee] border border-[#ede3d1] px-2.5 py-2 sm:px-3 sm:py-2.5 text-[14.5px] sm:text-[15.5px] font-bold leading-[1.52] sm:leading-[1.62] text-[#1c2a39] break-words [overflow-wrap:anywhere] ${
                       questionNeedsMathPalette ? 'font-math math-content' : 'font-modern'
                     }`}
                   >
@@ -443,7 +506,7 @@ export function AnswerPane({
                   </div>
                 )}
 
-                {/* ★v6：小問固有の複数資料カルーセル（社会など）またはグラフ・図形（数学など）を前面表示★ */}
+                {/* ★小問固有の複数資料カルーセル（社会など）またはグラフ・図形（数学など）を前面表示★ */}
                 {!listeningUnified && Array.isArray(sq.materials) && sq.materials.length > 0 && (
                   <JukenMaterialCarousel
                     materials={sq.materials}
@@ -454,13 +517,13 @@ export function AnswerPane({
                 {!listeningUnified &&
                   (!sq.materials || sq.materials.length === 0) &&
                   sq.imageUrl && (
-                    <div className="rounded-xl border border-[#e3d8c4] bg-white p-2 shadow-2xs">
+                    <div className="rounded-xl border border-[#e3d8c4] bg-white p-1.5 shadow-2xs">
                       <QuestionFigure
                         src={sq.imageUrl}
-                        caption={sq.imageCaption}
+                        caption={isDesktop ? sq.imageCaption : undefined}
                         tone="light"
                         className="mt-0"
-                        imgClassName="max-h-[26dvh] md:max-h-[38dvh] object-contain"
+                        imgClassName="max-h-[19dvh] md:max-h-[32dvh] object-contain"
                       />
                     </div>
                   )}
@@ -548,37 +611,37 @@ export function AnswerPane({
           })}
         </div>
 
-        {/* PC版・下部アクションバー */}
+        {/* PC版・下部アクションバー（1画面完結スリム設計） */}
         {isDesktop && (
-          <div className="pt-4 border-t border-[#e3d8c4] flex items-center justify-between gap-4">
+          <div className="pt-2.5 border-t border-[#e3d8c4] flex items-center justify-between gap-4">
             <button
               type="button"
               onClick={handlePrevious}
               disabled={!canGoPrevious}
-              title="前のセットへ（←キー）"
-              aria-label="前のセットへ"
-              className={`inline-flex min-h-[48px] items-center justify-center gap-1.5 px-4 rounded-2xl font-extrabold text-sm transition-all border-2 shrink-0 cursor-pointer ${
+              title="前の問題へ（←キー）"
+              aria-label="前の問題へ"
+              className={`inline-flex min-h-[44px] items-center justify-center gap-1.5 px-4 rounded-xl font-extrabold text-sm transition-all border-2 shrink-0 cursor-pointer ${
                 !canGoPrevious
                   ? 'border-[#e6dfd2] text-[#b8afa0] cursor-not-allowed bg-[#f7f2e8]'
                   : 'border-[#dfd4c0] text-[#3d3222] hover:bg-white bg-[#fffdf7] shadow-[0_2px_0_#e6dccb]'
               }`}
             >
-              <ChevronLeft size={18} className="stroke-[2.5]" aria-hidden="true" />
-              <span>前の大問</span>
+              <ChevronLeft size={17} className="stroke-[2.5]" aria-hidden="true" />
+              <span>前へ</span>
             </button>
 
             <div className="flex items-center gap-3">
               <span className="text-xs font-extrabold text-[#6b5d47] hidden sm:inline">
                 {visibleAllAnswered
-                  ? '選択バッチリ！採点しよう'
+                  ? '選択バッチリ！採点しよう（→キー）'
                   : visibleSubs.length > 1
                     ? `${visibleAnsweredCount}/${visibleSubs.length} 問回答中`
                     : '選択肢を選んで採点しよう'}
               </span>
               <button
                 type="button"
-                onClick={handleNext}
-                className="inline-flex items-center justify-center gap-2 px-7 min-h-[52px] rounded-2xl font-extrabold text-base transition-all cursor-pointer active:translate-y-0.5"
+                onClick={() => handleNext()}
+                className="inline-flex items-center justify-center gap-2 px-6 min-h-[46px] rounded-xl font-extrabold text-[15px] transition-all cursor-pointer active:translate-y-0.5"
                 style={{
                   fontFamily: 'var(--mt-font-display)',
                   backgroundColor: visibleAllAnswered ? '#f29a1f' : accent,
@@ -587,13 +650,13 @@ export function AnswerPane({
                     ? '2px solid #c47406'
                     : `2px solid color-mix(in srgb, ${accent} 78%, #000 22%)`,
                   boxShadow: visibleAllAnswered
-                    ? '0 4px 0 #a86204, 0 8px 18px rgba(242,154,31,0.24)'
-                    : `0 4px 0 color-mix(in srgb, ${accent} 68%, #000 26%)`,
+                    ? '0 3px 0 #a86204, 0 6px 14px rgba(242,154,31,0.22)'
+                    : `0 3px 0 color-mix(in srgb, ${accent} 68%, #000 26%)`,
                 }}
               >
-                <CheckCircle2 size={19} aria-hidden="true" />
+                <CheckCircle2 size={18} aria-hidden="true" />
                 <span>答え合わせ・解説を見る！</span>
-                <ChevronRight size={18} className="stroke-[2.75]" />
+                <ChevronRight size={17} className="stroke-[2.75]" />
               </button>
             </div>
           </div>

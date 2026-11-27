@@ -91,12 +91,14 @@ export function JukenMaterialCarousel({
           go(dx < 0 ? 1 : -1);
         }
       }}
-      className={`rounded-2xl border border-[#dfd4c0] bg-white p-2 sm:p-2.5 shadow-2xs select-none outline-none ${className}`}
+      className={`rounded-xl sm:rounded-2xl border border-[#dfd4c0] bg-white ${
+        compact ? 'p-1.5' : 'p-2 sm:p-2.5'
+      } shadow-2xs select-none outline-none ${className}`}
     >
-      {/* 上部：現在表示中の資料タイトル＋枚数インジケータ */}
-      <div className="mb-1.5 flex items-center justify-between gap-2 px-1">
-        <div className="flex min-w-0 items-center gap-1.5">
-          {current.badge && (
+      {/* 上部：現在表示中の資料タイトル ＋（compact時はダイレクト切替ピルも1行統合）＋ 拡大ボタン */}
+      <div className="mb-1 flex items-center justify-between gap-1.5 px-0.5">
+        <div className="flex min-w-0 items-center gap-1">
+          {current.badge && !compact && (
             <span
               className="shrink-0 rounded-md px-1.5 py-0.5 text-[10.5px] font-extrabold text-white"
               style={{ backgroundColor: accent }}
@@ -104,23 +106,53 @@ export function JukenMaterialCarousel({
               {current.badge}
             </span>
           )}
-          <span className="truncate text-xs sm:text-[13px] font-extrabold text-[#1c2a39]">
+          <span className="truncate text-[11.5px] sm:text-[13px] font-extrabold text-[#1c2a39]">
             {current.title}
           </span>
         </div>
-        <div className="flex shrink-0 items-center gap-1.5">
+
+        <div className="flex shrink-0 items-center gap-1">
+          {compact && count > 1 && (
+            <div className="flex items-center gap-0.5" role="tablist" aria-label="表示する資料を選ぶ">
+              {materials.map((m, i) => {
+                const selected = i === safeIndex;
+                return (
+                  <button
+                    key={m.id || i}
+                    type="button"
+                    role="tab"
+                    aria-selected={selected}
+                    data-carousel-dot={i}
+                    onClick={() => setIndex(i)}
+                    className={`inline-flex min-h-[24px] items-center justify-center rounded-full border px-1.5 text-[10px] font-extrabold transition-colors cursor-pointer ${
+                      selected
+                        ? 'border-[#2C3E50] bg-[#2C3E50] text-white'
+                        : 'border-[#dfd4c0] bg-[#faf6ee] text-[#4a3d2b]'
+                    }`}
+                  >
+                    {m.label ? m.label.replace(/^資料\s*/, '資') : `${i + 1}`}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+          {current.table && compact && (
+            <span className="hidden min-[380px]:inline-flex rounded-full bg-[#f5efe2] px-1.5 py-0.5 text-[9.5px] font-extrabold text-[#6b5d47]">
+              タップ○×可
+            </span>
+          )}
           {current.imageUrl && (
             <button
               type="button"
               onClick={() => setZoomOpen(true)}
               aria-label="現在の資料図版を大きく拡大表示する"
-              className="inline-flex items-center gap-1 rounded-full border border-[#d6c9b1] bg-[#faf6ee] px-2 py-0.5 text-[10.5px] font-extrabold text-[#3a2f20] hover:bg-white cursor-pointer"
+              className="inline-flex min-h-[24px] items-center gap-0.5 rounded-full border border-[#d6c9b1] bg-[#faf6ee] px-2 py-0.5 text-[10px] font-extrabold text-[#3a2f20] hover:bg-white cursor-pointer"
             >
-              <Maximize2 size={11} />
+              <Maximize2 size={10} />
               <span>拡大</span>
             </button>
           )}
-          {count > 1 && (
+          {!compact && count > 1 && (
             <span className="shrink-0 rounded-full bg-[#f5efe2] px-2 py-0.5 text-[11px] font-extrabold text-[#5b4f3d] tabular-nums">
               資料 {safeIndex + 1}/{count}
             </span>
@@ -136,7 +168,9 @@ export function JukenMaterialCarousel({
             onClick={() => go(-1)}
             aria-label="前の資料へ切り替え"
             data-carousel-prev
-            className="flex w-9 sm:w-11 shrink-0 items-center justify-center rounded-xl border border-[#d6c9b1] bg-[#faf6ee] text-2xl font-black text-[#2C3E50] hover:bg-[#f2eadb] active:scale-95 transition-transform cursor-pointer"
+            className={`flex ${
+              compact ? 'w-7 text-xl' : 'w-9 sm:w-11 text-2xl'
+            } shrink-0 items-center justify-center rounded-lg sm:rounded-xl border border-[#d6c9b1] bg-[#faf6ee] font-black text-[#2C3E50] hover:bg-[#f2eadb] active:scale-95 transition-transform cursor-pointer`}
           >
             ‹
           </button>
@@ -145,8 +179,10 @@ export function JukenMaterialCarousel({
         <div
           aria-live="polite"
           aria-label={`資料 ${safeIndex + 1} / ${count}（${current.label}）`}
-          className={`min-w-0 flex-1 overflow-y-auto rounded-xl border border-[#ebe2d1] bg-[#fffdf9] p-2 ${
-            compact ? 'max-h-[26dvh] sm:max-h-[34dvh]' : 'max-h-[29dvh] sm:max-h-[40dvh]'
+          className={`min-w-0 flex-1 overflow-y-auto rounded-lg sm:rounded-xl border border-[#ebe2d1] bg-[#fffdf9] ${
+            compact
+              ? 'max-h-[19dvh] sm:max-h-[28dvh] p-1.5'
+              : 'max-h-[29dvh] sm:max-h-[40dvh] p-2'
           }`}
         >
           {/* 画像・SVG 図版 */}
@@ -156,9 +192,12 @@ export function JukenMaterialCarousel({
                 src={current.imageUrl}
                 alt={current.imageCaption || current.title}
                 loading="lazy"
-                className="mx-auto max-h-[22dvh] sm:max-h-[32dvh] w-auto max-w-full rounded border border-slate-300 bg-white object-contain"
+                onClick={() => setZoomOpen(true)}
+                className={`mx-auto ${
+                  compact ? 'max-h-[16.5dvh] sm:max-h-[24dvh]' : 'max-h-[22dvh] sm:max-h-[32dvh]'
+                } w-auto max-w-full rounded border border-slate-300 bg-white object-contain cursor-zoom-in`}
               />
-              {current.imageCaption && (
+              {current.imageCaption && !compact && (
                 <p className="mt-1 text-center text-[11px] font-bold text-slate-500 leading-snug">
                   {current.imageCaption}
                 </p>
@@ -169,13 +208,15 @@ export function JukenMaterialCarousel({
           {/* 統計表・比較表（セルをタップで ○ / × メモ機能つき） */}
           {current.table && (
             <div className="overflow-x-auto">
-              <table className="w-full border-collapse text-xs sm:text-[13px]">
+              <table className={`w-full border-collapse ${compact ? 'text-[11px]' : 'text-xs sm:text-[13px]'}`}>
                 <thead>
                   <tr className="bg-[#f4ede0] text-[#3a2f20]">
                     {current.table.headers.map((h, hi) => (
                       <th
                         key={hi}
-                        className="border border-[#dcd0ba] px-2 py-1 text-center font-extrabold whitespace-nowrap"
+                        className={`border border-[#dcd0ba] ${
+                          compact ? 'px-1.5 py-0.5' : 'px-2 py-1'
+                        } text-center font-extrabold whitespace-nowrap`}
                       >
                         {formatText(h)}
                       </th>
@@ -204,7 +245,9 @@ export function JukenMaterialCarousel({
                         {row.map((cell, ci) => (
                           <td
                             key={ci}
-                            className={`border border-[#e3d8c4] px-2 py-1 ${
+                            className={`border border-[#e3d8c4] ${
+                              compact ? 'px-1.5 py-0.5' : 'px-2 py-1'
+                            } ${
                               ci === 0 ? 'font-extrabold text-[#1c2a39] whitespace-nowrap' : 'text-center font-bold text-[#2b3948]'
                             }`}
                           >
@@ -225,19 +268,23 @@ export function JukenMaterialCarousel({
                   })}
                 </tbody>
               </table>
-              <p className="mt-1 text-right text-[10.5px] font-bold text-slate-400">
-                💡 表の行をタップすると ○ / × の消去法メモがつけられます
-              </p>
+              {!compact && (
+                <p className="mt-1 text-right text-[10.5px] font-bold text-slate-400">
+                  💡 表の行をタップすると ○ / × の消去法メモがつけられます
+                </p>
+              )}
             </div>
           )}
 
           {/* 史料・年表・要点リスト */}
           {current.lines && current.lines.length > 0 && (
-            <ul className="space-y-1 text-xs sm:text-[13.5px] font-bold leading-relaxed text-[#1c2a39]">
+            <ul className={`space-y-1 ${compact ? 'text-[11.5px] leading-snug' : 'text-xs sm:text-[13.5px] leading-relaxed'} font-bold text-[#1c2a39]`}>
               {current.lines.map((line, li) => (
                 <li
                   key={li}
-                  className="rounded-lg border border-[#ece3d3] bg-white px-2.5 py-1.5"
+                  className={`rounded-lg border border-[#ece3d3] bg-white ${
+                    compact ? 'px-2 py-1' : 'px-2.5 py-1.5'
+                  }`}
                 >
                   {formatText(line)}
                 </li>
@@ -246,7 +293,7 @@ export function JukenMaterialCarousel({
           )}
 
           {current.note && (
-            <p className="mt-1.5 text-[11px] font-bold text-slate-500 leading-snug">
+            <p className="mt-1 text-[10.5px] font-bold text-slate-500 leading-snug">
               ※ {formatText(current.note)}
             </p>
           )}
@@ -258,15 +305,17 @@ export function JukenMaterialCarousel({
             onClick={() => go(1)}
             aria-label="次の資料へ切り替え"
             data-carousel-next
-            className="flex w-9 sm:w-11 shrink-0 items-center justify-center rounded-xl border border-[#d6c9b1] bg-[#faf6ee] text-2xl font-black text-[#2C3E50] hover:bg-[#f2eadb] active:scale-95 transition-transform cursor-pointer"
+            className={`flex ${
+              compact ? 'w-7 text-xl' : 'w-9 sm:w-11 text-2xl'
+            } shrink-0 items-center justify-center rounded-lg sm:rounded-xl border border-[#d6c9b1] bg-[#faf6ee] font-black text-[#2C3E50] hover:bg-[#f2eadb] active:scale-95 transition-transform cursor-pointer`}
           >
             ›
           </button>
         )}
       </div>
 
-      {/* 下部：資料1・資料2・資料3… ダイレクト切替タブ */}
-      {count > 1 && (
+      {/* 下部：PC・拡大時はゆったりした資料ピルタブを表示（compact時は上部1行に統合済み） */}
+      {!compact && count > 1 && (
         <div
           className="mt-1.5 flex flex-wrap items-center justify-center gap-1"
           role="tablist"
@@ -282,7 +331,7 @@ export function JukenMaterialCarousel({
                 aria-selected={selected}
                 data-carousel-dot={i}
                 onClick={() => setIndex(i)}
-                className={`inline-flex min-h-[32px] items-center justify-center rounded-full border px-2.5 text-[11.5px] font-extrabold transition-colors cursor-pointer ${
+                className={`inline-flex min-h-[30px] items-center justify-center rounded-full border px-2.5 text-[11.5px] font-extrabold transition-colors cursor-pointer ${
                   selected
                     ? 'border-[#2C3E50] bg-[#2C3E50] text-white shadow-2xs'
                     : 'border-[#dfd4c0] bg-[#faf6ee] text-[#4a3d2b] hover:bg-white'

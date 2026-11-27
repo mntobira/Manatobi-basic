@@ -89,25 +89,25 @@ export function QuizTimerBar({ timeLimit, running, onTick, resetKey }: QuizTimer
       aria-label={isOver ? `目安時間を${overSec}秒経過` : `目安残り${formatSec(remaining)}`}
       role="timer"
     >
-      <div className="flex items-center justify-between px-3 md:px-6 py-1">
-        <div className={`flex items-center gap-1.5 text-[11.5px] font-extrabold ${textColor} transition-colors`}>
-          <Clock size={12} />
+      <div className="flex items-center justify-between px-2.5 md:px-5 py-[2px]">
+        <div className={`flex items-center gap-1 text-[10.5px] leading-tight font-extrabold ${textColor} transition-colors`}>
+          <Clock size={11} />
           {isOver ? (
             <span className="tabular-nums">
-              <span>じっくり思考中</span>
+              <span>思考中</span>
               <span className="ml-1">+{formatSec(overSec)}</span>
               <span className="ml-1.5 font-bold text-[#7a6a4c] hidden sm:inline">（焦らず最後まで解こう！）</span>
             </span>
           ) : (
             <span className="tabular-nums">
-              <span className="text-[#6b5d47]">目標タイム 残り</span>
+              <span className="text-[#6b5d47]">残り</span>
               <span className="ml-1 font-extrabold">{formatSec(remaining)}</span>
-              <span className="text-[#9a8c76] ml-1">/ 目安 {formatSec(timeLimit)}</span>
+              <span className="text-[#9a8c76] ml-1">/ 目安{formatSec(timeLimit)}</span>
             </span>
           )}
         </div>
       </div>
-      <div className="h-1 w-full bg-[#ede4d3] overflow-hidden">
+      <div className="h-[3px] w-full bg-[#ede4d3] overflow-hidden">
         <div
           className={`h-full ${barColor} transition-all duration-200 ease-linear`}
           style={{ width: `${pct}%` }}
