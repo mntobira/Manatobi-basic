@@ -159,9 +159,9 @@ export const JAPANESE_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "rate": 86,
             "difficulty": 1,
             "wrongReasons": [
-              "反対の意味。",
-              "主述関係。",
-              "動詞＋目的語。"
+              "「勝つ」と「負ける」のような正反対の意味（対義語）を組み合わせた構成である。",
+              "「頭が痛む」のように主語＋述語の関係で組み立てられた二字熟語である。",
+              "「林を植える」のように動詞＋目的語（下から上へ返る）の関係の熟語である。"
             ]
           },
           {
@@ -178,9 +178,9 @@ export const JAPANESE_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "rate": 88,
             "difficulty": 1,
             "wrongReasons": [
-              "誤り。",
-              "誤り。",
-              "誤り。"
+              "「請け負う」などに使う漢字であり、伝統を引き継ぐ意味の「受け継ぐ」には使わない。",
+              "「引き継ぐ」は「継ぐ」と書き、「次ぐ」は「〜に次ぐ第2位」のように順位・順序に使う。",
+              "「享受する」などに使う漢字であり、先代から引き継ぐ場合は「受け継ぐ」と書く。"
             ]
           },
           {
@@ -265,9 +265,9 @@ export const JAPANESE_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "rate": 80,
             "difficulty": 2,
             "wrongReasons": [
-              "「主観」の対義語。",
-              "「特殊」の対義語。",
-              "「具体」の対義語。"
+              "「主観（自分の見方）」の対義語は「客観」であり、問いの対義語ペアとは異なる。",
+              "「特殊（限られた事例）」の対義語は「普遍・一般」である。",
+              "「具体（はっきりした形）」の対義語は「抽象」である。"
             ]
           },
           {
@@ -481,9 +481,9 @@ export const JAPANESE_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "rate": 72,
             "difficulty": 3,
             "wrongReasons": [
-              "過去ではない。",
-              "完了ではない。",
-              "命令ではない。"
+              "過去の出来事を振り返っているのではなく、目の前にあることに気づいた発見・確認である。",
+              "動作がちょうど終わった完了（「やっと書き上げた」など）ではない。",
+              "相手に動作を命じる用法（「さっさと歩いた！」など）ではなく、見つけた瞬間の確認である。"
             ]
           },
           {
@@ -1478,9 +1478,9 @@ export const JAPANESE_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "rate": 90,
             "difficulty": 1,
             "wrongReasons": [
-              "語順反転ではない。",
-              "動詞で終わっている。",
-              "枕詞ではない。"
+              "語順を入れ替える倒置法ではなく、山を人間のように表現した擬人法である。",
+              "文末は動詞「笑う」「眠る」で終わっており、名詞で止める体言止めではない。",
+              "特定の語を導く五音の枕詞（「あをによし」など）ではなく、季節の山を表す擬人法である。"
             ]
           },
           {
@@ -1750,9 +1750,9 @@ export const JAPANESE_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "rate": 86,
             "difficulty": 2,
             "wrongReasons": [
-              "現代語への偏り。",
-              "誤り。",
-              "誤り。"
+              "古語の「をかし」「あはれなり」は現代語の「滑稽」「かわいそう」よりはるかに広い美意識を表す。",
+              "どちらも不快さや騒がしさではなく、宮廷文学を代表する美的情趣を表す重要古語である。",
+              "貧富や豪華さではなく、知的な明るさ（をかし）としみじみした情趣（あはれなり）の対比である。"
             ]
           },
           {

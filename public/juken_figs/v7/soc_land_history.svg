@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 300" width="540" height="300" font-family="'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#16a34a"/>
+    </marker>
+    <marker id="arr-slate" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="540" height="300" rx="14" fill="#ffffff"/>
+
+  <text x="18" y="25" font-size="13.5" font-weight="800" fill="#0f172a">【資料1】日本の土地制度の変遷（公地公民 → 荘園 → 太閤検地 → 地租改正）</text>
+  <!-- 5ステップフロー -->
+  <rect x="20" y="55" width="150" height="86" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="95" y="76" font-size="12" font-weight="900" fill="#1e40af" text-anchor="middle">① 飛鳥・奈良前半</text>
+  <text x="95" y="96" font-size="11.5" font-weight="800" fill="#0f172a" text-anchor="middle">大化の改新(645)→班田収授法</text>
+  <text x="95" y="115" font-size="10.5" fill="#334155" text-anchor="middle">【公地公民】6歳以上に口分田</text>
+  <text x="95" y="131" font-size="10.5" fill="#dc2626" font-weight="700" text-anchor="middle">租・調・庸の税負担で逃亡増</text>
+
+  <line x1="172" y1="98" x2="193" y2="98" stroke="#334155" stroke-width="2.4" marker-end="url(#arr-slate)"/>
+
+  <rect x="195" y="55" width="150" height="86" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="270" y="76" font-size="12" font-weight="900" fill="#92400e" text-anchor="middle">② 743年〜平安</text>
+  <text x="270" y="96" font-size="11.5" font-weight="800" fill="#0f172a" text-anchor="middle">墾田永年私財法(743)</text>
+  <text x="270" y="115" font-size="10.5" fill="#334155" text-anchor="middle">開墾地の永久私有を公認！</text>
+  <text x="270" y="131" font-size="10.5" fill="#dc2626" font-weight="700" text-anchor="middle">⇒ 貴族・寺社の【荘園】拡大</text>
+
+  <line x1="347" y1="98" x2="368" y2="98" stroke="#334155" stroke-width="2.4" marker-end="url(#arr-slate)"/>
+
+  <rect x="370" y="55" width="150" height="86" rx="10" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+  <text x="445" y="76" font-size="12" font-weight="900" fill="#065f46" text-anchor="middle">③ 鎌倉〜室町</text>
+  <text x="445" y="96" font-size="11.5" font-weight="800" fill="#0f172a" text-anchor="middle">国ごとに守護・荘園に地頭</text>
+  <text x="445" y="115" font-size="10.5" fill="#334155" text-anchor="middle">1185年 源頼朝が全国設置</text>
+  <text x="445" y="131" font-size="10.5" fill="#065f46" font-weight="700" text-anchor="middle">御恩（新恩給与）と奉公</text>
+
+  <rect x="75" y="172" width="185" height="96" rx="10" fill="#fff1f2" stroke="#e11d48" stroke-width="2"/>
+  <text x="167" y="194" font-size="12" font-weight="900" fill="#9f1239" text-anchor="middle">④ 安土桃山（豊臣秀吉）</text>
+  <text x="167" y="214" font-size="11.5" font-weight="800" fill="#0f172a" text-anchor="middle">太閤検地 ＆ 刀狩(1588)</text>
+  <text x="167" y="233" font-size="10.5" fill="#334155" text-anchor="middle">全国統一基準【石高】で測量</text>
+  <text x="167" y="252" font-size="11" font-weight="800" fill="#dc2626" text-anchor="middle">【荘園制が完全消滅】＋兵農分離！</text>
+
+  <line x1="262" y1="220" x2="288" y2="220" stroke="#334155" stroke-width="2.4" marker-end="url(#arr-slate)"/>
+
+  <rect x="292" y="172" width="185" height="96" rx="10" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="384" y="194" font-size="12" font-weight="900" fill="#5b21b6" text-anchor="middle">⑤ 明治維新（1873年）</text>
+  <text x="384" y="214" font-size="11.5" font-weight="800" fill="#0f172a" text-anchor="middle">地租改正（地券交付）</text>
+  <text x="384" y="233" font-size="10.5" fill="#334155" text-anchor="middle">収穫高→【地価の3%】を【現金】で</text>
+  <text x="384" y="252" font-size="11" font-weight="800" fill="#5b21b6" text-anchor="middle">土地所有者（地主）が納税！</text>
+
+</svg>

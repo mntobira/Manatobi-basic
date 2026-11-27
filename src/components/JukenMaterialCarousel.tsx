@@ -1,4 +1,5 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { Maximize2, X } from 'lucide-react';
 import type { SlideMaterial } from '../types/curriculum';
 import { formatText } from '../utils/textFormatter';
 
@@ -32,8 +33,18 @@ export function JukenMaterialCarousel({
 }: JukenMaterialCarouselProps) {
   const count = materials.length;
   const [index, setIndex] = useState(0);
+  const [zoomOpen, setZoomOpen] = useState(false);
   const [cellMarks, setCellMarks] = useState<Record<string, '○' | '×' | undefined>>({});
   const touchRef = useRef<{ x: number; y: number } | null>(null);
+
+  useEffect(() => {
+    if (!zoomOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setZoomOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [zoomOpen]);
 
   if (count === 0) return null;
   const safeIndex = ((index % count) + count) % count;
@@ -97,11 +108,24 @@ export function JukenMaterialCarousel({
             {current.title}
           </span>
         </div>
-        {count > 1 && (
-          <span className="shrink-0 rounded-full bg-[#f5efe2] px-2 py-0.5 text-[11px] font-extrabold text-[#5b4f3d] tabular-nums">
-            資料 {safeIndex + 1}/{count}
-          </span>
-        )}
+        <div className="flex shrink-0 items-center gap-1.5">
+          {current.imageUrl && (
+            <button
+              type="button"
+              onClick={() => setZoomOpen(true)}
+              aria-label="現在の資料図版を大きく拡大表示する"
+              className="inline-flex items-center gap-1 rounded-full border border-[#d6c9b1] bg-[#faf6ee] px-2 py-0.5 text-[10.5px] font-extrabold text-[#3a2f20] hover:bg-white cursor-pointer"
+            >
+              <Maximize2 size={11} />
+              <span>拡大</span>
+            </button>
+          )}
+          {count > 1 && (
+            <span className="shrink-0 rounded-full bg-[#f5efe2] px-2 py-0.5 text-[11px] font-extrabold text-[#5b4f3d] tabular-nums">
+              資料 {safeIndex + 1}/{count}
+            </span>
+          )}
+        </div>
       </div>
 
       {/* 中央：左右矢印（‹ ／ ›）＋ スライド本体（第6問B方式） */}
@@ -268,6 +292,48 @@ export function JukenMaterialCarousel({
               </button>
             );
           })}
+        </div>
+      )}
+
+      {zoomOpen && current.imageUrl && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${current.title} の拡大表示`}
+          onClick={() => setZoomOpen(false)}
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-900/80 p-3 sm:p-6 backdrop-blur-xs"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-3xl rounded-2xl border border-slate-200 bg-white p-3 sm:p-4 shadow-2xl"
+          >
+            <div className="mb-2 flex items-center justify-between gap-2">
+              <span className="truncate text-xs sm:text-sm font-extrabold text-[#1c2a39]">
+                {current.label}：{current.title}
+              </span>
+              <button
+                type="button"
+                onClick={() => setZoomOpen(false)}
+                aria-label="拡大表示を閉じる"
+                className="inline-flex shrink-0 items-center gap-1 rounded-full bg-slate-800 px-3 py-1.5 text-xs font-extrabold text-white hover:bg-slate-700 cursor-pointer"
+              >
+                <X size={14} />
+                <span>閉じる</span>
+              </button>
+            </div>
+            <div className="overflow-auto rounded-xl border border-slate-200 bg-white p-2 max-h-[72dvh]">
+              <img
+                src={current.imageUrl}
+                alt={current.imageCaption || current.title}
+                className="mx-auto w-full max-h-[68dvh] object-contain"
+              />
+            </div>
+            {current.imageCaption && (
+              <p className="mt-2 text-center text-xs font-bold text-slate-600">
+                {current.imageCaption}
+              </p>
+            )}
+          </div>
         </div>
       )}
     </div>

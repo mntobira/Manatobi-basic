@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 300" width="540" height="300" font-family="'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#16a34a"/>
+    </marker>
+    <marker id="arr-slate" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="540" height="300" rx="14" fill="#ffffff"/>
+
+  <text x="18" y="24" font-size="13" font-weight="800" fill="#0f172a">3地点A・B(Aの真東)・C(Aの真南)の柱状図（深さ目盛り）</text>
+  
+  <text x="115" y="54" font-size="12.5" font-weight="800" fill="#0f172a" text-anchor="middle">A地点(基準)</text>
+  <text x="115" y="71" font-size="11" font-weight="800" fill="#2563eb" text-anchor="middle">地表標高 40m</text>
+  <rect x="92" y="85" width="46" height="120" fill="#fefce8" stroke="#334155" stroke-width="2"/>
+  <rect x="92" y="85" width="46" height="30" fill="#fde68a" stroke="#334155" stroke-width="1.2"/>
+  <rect x="92" y="115" width="46" height="15" fill="#fca5a5" stroke="#dc2626" stroke-width="1.8"/>
+  <rect x="92" y="130" width="46" height="75" fill="#cbd5e1" stroke="#334155" stroke-width="1.2"/>
+  <text x="145" y="89" font-size="10" fill="#475569">0m</text>
+  <text x="145" y="119" font-size="10.5" font-weight="800" fill="#dc2626">10m</text>
+  <text x="145" y="134" font-size="10" font-weight="700" fill="#dc2626">15m</text>
+  <text x="115" y="126" font-size="9.5" font-weight="800" fill="#7f1d1d" text-anchor="middle">凝灰岩</text>
+
+  
+  <text x="275" y="54" font-size="12.5" font-weight="800" fill="#0f172a" text-anchor="middle">B地点(Aの東)</text>
+  <text x="275" y="71" font-size="11" font-weight="800" fill="#2563eb" text-anchor="middle">地表標高 50m</text>
+  <rect x="252" y="85" width="46" height="120" fill="#fefce8" stroke="#334155" stroke-width="2"/>
+  <rect x="252" y="85" width="46" height="60" fill="#fde68a" stroke="#334155" stroke-width="1.2"/>
+  <rect x="252" y="145" width="46" height="15" fill="#fca5a5" stroke="#dc2626" stroke-width="1.8"/>
+  <rect x="252" y="160" width="46" height="45" fill="#cbd5e1" stroke="#334155" stroke-width="1.2"/>
+  <text x="305" y="89" font-size="10" fill="#475569">0m</text>
+  <text x="305" y="149" font-size="10.5" font-weight="800" fill="#dc2626">20m</text>
+  <text x="305" y="164" font-size="10" font-weight="700" fill="#dc2626">25m</text>
+  <text x="275" y="156" font-size="9.5" font-weight="800" fill="#7f1d1d" text-anchor="middle">凝灰岩</text>
+
+  
+  <text x="435" y="54" font-size="12.5" font-weight="800" fill="#0f172a" text-anchor="middle">C地点(Aの南)</text>
+  <text x="435" y="71" font-size="11" font-weight="800" fill="#2563eb" text-anchor="middle">地表標高 30m</text>
+  <rect x="412" y="85" width="46" height="120" fill="#fefce8" stroke="#334155" stroke-width="2"/>
+  <rect x="412" y="85" width="46" height="45" fill="#fde68a" stroke="#334155" stroke-width="1.2"/>
+  <rect x="412" y="130" width="46" height="15" fill="#fca5a5" stroke="#dc2626" stroke-width="1.8"/>
+  <rect x="412" y="145" width="46" height="60" fill="#cbd5e1" stroke="#334155" stroke-width="1.2"/>
+  <text x="465" y="89" font-size="10" fill="#475569">0m</text>
+  <text x="465" y="134" font-size="10.5" font-weight="800" fill="#dc2626">15m</text>
+  <text x="465" y="149" font-size="10" font-weight="700" fill="#dc2626">20m</text>
+  <text x="435" y="141" font-size="9.5" font-weight="800" fill="#7f1d1d" text-anchor="middle">凝灰岩</text>
+
+  <text x="270" y="224" font-size="11" font-weight="700" fill="#475569" text-anchor="middle">凡例：上層＝砂岩（黄） ／ 赤帯＝凝灰岩（火山灰・鍵層：厚さ5m） ／ 下層＝泥岩（灰）</text>
+  
+
+</svg>

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 300" width="540" height="300" font-family="'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#16a34a"/>
+    </marker>
+    <marker id="arr-slate" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="540" height="300" rx="14" fill="#ffffff"/>
+
+  <text x="18" y="24" font-size="13" font-weight="800" fill="#0f172a">生徒20人の通学時間のヒストグラム（度数分布）</text>
+  <!-- 軸 -->
+  <line x1="80" y1="235" x2="460" y2="235" stroke="#334155" stroke-width="1.8"/>
+  <line x1="80" y1="235" x2="80" y2="55" stroke="#334155" stroke-width="1.8"/>
+  <!-- 横グリッド (1人=20px: 2人=40, 4人=80, 6人=120, 8人=160) -->
+  <line x1="80" y1="195" x2="445" y2="195" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="80" y1="155" x2="445" y2="155" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="80" y1="115" x2="445" y2="115" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="80" y1="75" x2="445" y2="75" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="70" y="239" font-size="11" fill="#475569" text-anchor="end">0</text>
+  <text x="70" y="199" font-size="11" fill="#475569" text-anchor="end">2</text>
+  <text x="70" y="159" font-size="11" fill="#475569" text-anchor="end">4</text>
+  <text x="70" y="119" font-size="11" fill="#475569" text-anchor="end">6</text>
+  <text x="70" y="79" font-size="11" fill="#475569" text-anchor="end">8(人)</text>
+  <!-- 棒: 2, 5, 7, 4, 2 -->
+  <rect x="80" y="195" width="70" height="40" fill="#bfdbfe" stroke="#1d4ed8" stroke-width="1.6"/>
+  <rect x="150" y="135" width="70" height="100" fill="#bfdbfe" stroke="#1d4ed8" stroke-width="1.6"/>
+  <rect x="220" y="95" width="70" height="140" fill="#bfdbfe" stroke="#1d4ed8" stroke-width="1.6"/>
+  <rect x="290" y="155" width="70" height="80" fill="#bfdbfe" stroke="#1d4ed8" stroke-width="1.6"/>
+  <rect x="360" y="195" width="70" height="40" fill="#bfdbfe" stroke="#1d4ed8" stroke-width="1.6"/>
+  <text x="115" y="189" font-size="11.5" font-weight="800" fill="#1e3a8a" text-anchor="middle">2人</text>
+  <text x="185" y="129" font-size="11.5" font-weight="800" fill="#1e3a8a" text-anchor="middle">5人</text>
+  <text x="255" y="89" font-size="11.5" font-weight="800" fill="#1e3a8a" text-anchor="middle">7人</text>
+  <text x="325" y="149" font-size="11.5" font-weight="800" fill="#1e3a8a" text-anchor="middle">4人</text>
+  <text x="395" y="189" font-size="11.5" font-weight="800" fill="#1e3a8a" text-anchor="middle">2人</text>
+  <!-- xラベル -->
+  <text x="80" y="253" font-size="11" font-weight="700" fill="#334155" text-anchor="middle">0</text>
+  <text x="150" y="253" font-size="11" font-weight="700" fill="#334155" text-anchor="middle">10</text>
+  <text x="220" y="253" font-size="11" font-weight="700" fill="#334155" text-anchor="middle">20</text>
+  <text x="290" y="253" font-size="11" font-weight="700" fill="#334155" text-anchor="middle">30</text>
+  <text x="360" y="253" font-size="11" font-weight="700" fill="#334155" text-anchor="middle">40</text>
+  <text x="430" y="253" font-size="11" font-weight="700" fill="#334155" text-anchor="middle">50(分)</text>
+  <text x="260" y="280" font-size="11.5" font-weight="700" fill="#475569" text-anchor="middle">階級（以上〜未満） ／ 合計 20人</text>
+  
+
+</svg>

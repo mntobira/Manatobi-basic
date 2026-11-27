@@ -284,8 +284,8 @@ export const MATH_V6_EXPANSION: Record<string, ChapterExpansionSpec> = {
             choices: ['あと $300\\text{m}$', 'あと $900\\text{m}$', 'あと $200\\text{m}$', 'あと $400\\text{m}$'],
             wrongReasons: [
               '$900\\text{m}$ は家から進んだ距離であり残り距離ではない！',
-              '計算ミス。',
-              '計算ミス。',
+              '兄は分速 $60\\text{m}$ で $15$ 分間に $900\\text{m}$ 進むが、駅までの全長は $1200\\text{m}$ なので残りは $300\\text{m}$。',
+              '全長 $1200\\text{m}$ から $900\\text{m}$ を引くと残り $300\\text{m}$ であり $400\\text{m}$ ではない。',
             ],
             skill: '残り距離の読み取り',
             rate: 79,
@@ -353,7 +353,7 @@ export const MATH_V6_EXPANSION: Record<string, ChapterExpansionSpec> = {
             wrongReasons: [
               '$18\\text{cm}^2$ は下の $\\triangle\\text{OCB}$ の面積である。',
               '2倍と誤ったミス。',
-              '計算ミス。',
+              '底辺比 $\\text{OD}:\\text{OB}=2:3$ より $8 \\times \\dfrac{3}{2} = 12\\text{cm}^2$ であり、足し算の $+2$ ではない。',
             ],
             skill: '高さが等しい三角形の面積比',
             rate: 69,
@@ -435,7 +435,7 @@ export const MATH_V6_EXPANSION: Record<string, ChapterExpansionSpec> = {
             wrongReasons: [
               '$4\\text{cm}$ は側面の二等辺三角形の高さであり立体の高さではない！',
               '$(3\\sqrt{2})^2 = 18$ を $6$ と誤ったミス。',
-              '引き算ミス。',
+              '$25 - 18 = 7$ を $8$ と引き算ミスして $\\sqrt{8}=2\\sqrt{2}$ とした誤り。',
             ],
             skill: '正四角錐の高さ（三平方）',
             rate: 68,
@@ -547,7 +547,7 @@ export const MATH_V6_EXPANSION: Record<string, ChapterExpansionSpec> = {
             prompt: '立方体から三角錐 $\\text{A-BDE}$ を切り取った【残りの立体の体積】は、もとの立方体の何分のいくつか。',
             choices: ['$\\dfrac{5}{6}$', '$\\dfrac{3}{4}$', '$\\dfrac{2}{3}$', '$\\dfrac{7}{8}$'],
             wrongReasons: [
-              '計算ミス。',
+              '切り取った三角錐は立方体 $216\\text{cm}^3$ の $\\dfrac{36}{216}=\\dfrac{1}{6}$ なので、残りは $\\dfrac{5}{6}$ である。',
               '底面の $\\frac{1}{2}$ を忘れたミス。',
               '中点切断と混同したミス。',
             ],

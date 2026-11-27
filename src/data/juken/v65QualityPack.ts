@@ -521,7 +521,7 @@ export const MATH_V65_QUALITY: Record<string, ChapterExpansionSpec> = {
             wrongReasons: [
               '三角形の面積公式の $\\dfrac{1}{2}$ を掛け忘れて $11\\times 6=66$ としたミス。',
               '高さを $4\\text{cm}$ と見誤ったミス。',
-              '計算ミス。',
+              '高さを $8\\text{cm}$ と見誤って $\\dfrac{1}{2}\\times 11\\times 8=44$ としたミス。',
             ],
             skill: '等積変形を利用した四角形の面積計算',
             rate: 85,

@@ -503,6 +503,23 @@ export function ChapterSelection({
                                   );
                                   const sqCount = Math.max(1, (question.subQuestions || []).length);
                                   const dMeta = DIFF_META[diff];
+                                  const hasAnnotatedFig = Boolean(
+                                    question.explanationImageUrl ||
+                                      (question.subQuestions || []).some((sq) => Boolean(sq.explanationImageUrl)),
+                                  );
+                                  const hasSlideMaterials = Boolean(
+                                    (question.materials && question.materials.length > 0) ||
+                                      (question.subQuestions || []).some(
+                                        (sq) => Boolean(sq.materials && sq.materials.length > 0),
+                                      ),
+                                  );
+                                  const hasFigure =
+                                    !hasAnnotatedFig &&
+                                    !hasSlideMaterials &&
+                                    Boolean(
+                                      question.imageUrl ||
+                                        (question.subQuestions || []).some((sq) => Boolean(sq.imageUrl)),
+                                    );
                                   return (
                                     <li key={question.id}>
                                       <button
@@ -537,6 +554,21 @@ export function ChapterSelection({
                                               {dMeta.label}
                                             </span>
                                             <span className="juken-stage-qcount">{sqCount}問</span>
+                                            {hasAnnotatedFig && (
+                                              <span className="juken-stage-feature" data-kind="annotated">
+                                                ✏️書き込み図解
+                                              </span>
+                                            )}
+                                            {hasSlideMaterials && (
+                                              <span className="juken-stage-feature" data-kind="carousel">
+                                                📊スライド資料
+                                              </span>
+                                            )}
+                                            {hasFigure && (
+                                              <span className="juken-stage-feature" data-kind="figure">
+                                                📐図表
+                                              </span>
+                                            )}
                                           </span>
                                           <span className="grammar-round-title">
                                             {rawLabel || `ステージ ${questionIndex + 1}`}

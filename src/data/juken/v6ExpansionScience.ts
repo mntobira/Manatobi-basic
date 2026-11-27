@@ -359,7 +359,7 @@ export const SCIENCE_V6_EXPANSION: Record<string, ChapterExpansionSpec> = {
             choices: ['$408\\text{m}$', '$816\\text{m}$', '$170\\text{m}$', '$283\\text{m}$'],
             wrongReasons: [
               '$340 \\times 2.4 = 816\\text{m}$ は音が「行って帰ってきた往復距離」であり、半分にし忘れた最頻出ミス！',
-              '計算ミス。',
+              '$170\\text{m}$ は往復 $1.0\\text{秒}$ のときの距離であり、今回は往復 $2.4\\text{秒}$（片道 $1.2\\text{秒}$）。',
               '割り算にしてしまったミス。',
             ],
             skill: '音の速さと反射（山びこ計算）',
@@ -597,7 +597,7 @@ export const SCIENCE_V6_EXPANSION: Record<string, ChapterExpansionSpec> = {
             wrongReasons: [
               '$30 \\div 170$ と「水の質量」だけで割ってしまった最頻出ミス！分母は溶液全体（水 $170 +$ 食塩 $30 = 200\\text{g}$）である！',
               '$250 \\times 0.08 = 20\\text{g}$ の小数点を誤ったミス。',
-              '計算ミス。',
+              '溶質 $30\\text{g}$ の数値をそのまま濃度 $30\\%$ にしてしまった誤り。',
             ],
             skill: '質量パーセント濃度の計算',
             rate: 77,

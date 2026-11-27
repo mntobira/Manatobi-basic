@@ -51,8 +51,8 @@ export const SCIENCE_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "difficulty": 3,
             "wrongReasons": [
               "逆方向に動かすと視野の外へ逃げる。",
-              "左右の向きが逆。",
-              "上下の向きが逆。"
+              "左右だけ逆に動かしてしまい、中央からさらに右へ外れてしまう。",
+              "上下だけ逆に動かしてしまい、中央からさらに上へ外れてしまう。"
             ]
           },
           {
@@ -404,7 +404,7 @@ export const SCIENCE_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "rate": 92,
             "difficulty": 1,
             "wrongReasons": [
-              "体細胞の数。",
+              "24本は減数分裂をする前の体細胞の染色体数であり、生殖細胞では半分になる。",
               "2倍にはならない。",
               "1/4にはならない。"
             ]
@@ -494,7 +494,7 @@ export const SCIENCE_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "difficulty": 2,
             "wrongReasons": [
               "2で割り忘れた往復距離。",
-              "計算ミス。",
+              "$340 \\div 2 = 170$ と1秒分の片道距離と混同した計算ミス（$2.4$ 秒の半分は $1.2$ 秒）。",
               "2秒分の往復距離。"
             ]
           },
@@ -714,9 +714,9 @@ export const SCIENCE_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "rate": 78,
             "difficulty": 3,
             "wrongReasons": [
-              "計算ミス。",
-              "桁ずれ。",
-              "桁ずれ。"
+              "$1 \\div 0.0025 = 400$ と周期の数値を見誤った計算ミス（$1 \\div 0.004 = 250\\text{ Hz}$）。",
+              "$1 \\div 0.004 = 250$ の小数点の位置を1桁誤ったミス。",
+              "$0.004 \\times 10000 = 40$ と逆算と掛け算を取り違えたミス。"
             ]
           },
           {
@@ -733,8 +733,8 @@ export const SCIENCE_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "rate": 80,
             "difficulty": 2,
             "wrongReasons": [
-              "掛け算ミス。",
-              "桁ずれ。",
+              "$6 \\times 4 = 24$ と力と面積を掛けてしまったミス（圧力＝力 $\\div$ 面積）。",
+              "$6 \\div 0.04 = 150$ の小数点移動を1桁多くずらしてしまったミス。",
               "600gで割ったミス。"
             ]
           },
@@ -839,9 +839,9 @@ export const SCIENCE_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "rate": 85,
             "difficulty": 2,
             "wrongReasons": [
-              "境界面での反射。",
-              "直進性。",
-              "波の重なり。"
+              "全反射は水中やガラスから空気へ進む光が入射角を大きくしたとき境界面ですべて反射する現象。",
+              "光の直進は均一な物質中を光がまっすぐ進む性質であり、虹色に分かれる現象ではない。",
+              "干渉はシャボン玉の膜などで波が重なり合って強め合ったり弱め合ったりする現象。"
             ]
           }
         ]
@@ -917,7 +917,7 @@ export const SCIENCE_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "wrongReasons": [
               "6で割ったミス。",
               "0.6を掛けたミス。",
-              "桁ずれ。"
+              "$14.4 \\div 0.6 = 24$ と6打点の時間を $0.6$ 秒と1桁誤ったミス（60Hzの6打点は $0.1$ 秒）。"
             ]
           },
           {
@@ -1254,8 +1254,8 @@ export const SCIENCE_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "rate": 75,
             "difficulty": 3,
             "wrongReasons": [
-              "混合物。",
-              "混合物。",
+              "空気は窒素（約78%）・酸素（約21%）・アルゴンなどが混ざり合った混合物である。",
+              "食塩水は水（溶媒）に塩化ナトリウム（溶質）が溶けた混合物である。",
               "塩化水素の水溶液（混合物）。"
             ]
           }
@@ -1314,7 +1314,7 @@ export const SCIENCE_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "wrongReasons": [
               "結びついた酸素の質量。",
               "すでに反応した銅の質量。",
-              "引き算ミス。"
+              "$2.6 - 1.0 = 1.6\\text{ g}$ など反応した銅の質量（$2.0\\text{ g}$）を誤って引いた計算ミス。"
             ]
           },
           {
@@ -1352,7 +1352,7 @@ export const SCIENCE_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "wrongReasons": [
               "2倍にする必要はない。",
               "ふたをしていないので気体が逃げる。",
-              "計算ミス。"
+              "$125.0 - 123.9 = 1.1\\text{ g}$ の小数引き算で反応後の小数部分 $3.9$ をそのまま答えたミス。"
             ]
           },
           {
@@ -2077,7 +2077,7 @@ export const SCIENCE_BANK_EXPANSION: Record<string, ChapterExpansionSpec> = {
             "wrongReasons": [
               "正断層は左右に引っ張る力でできる。",
               "不整合は浸食面を境に重なる構造。",
-              "誤り。"
+              "正断層は左右に引く力ででき、鍵層は離れた地層の新旧を対比する火山灰層などのことである。"
             ]
           }
         ]

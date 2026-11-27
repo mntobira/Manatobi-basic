@@ -194,6 +194,11 @@ for (const sub of SUBJECTS) {
           choice4Total += 1;
           if (sq.distractors && sq.distractors.length > 0) {
             withDistractors += 1;
+            for (const d of sq.distractors) {
+              if (!d.why || d.why.trim().length < 16) {
+                fail(`小問 ${sq.id} の誤答解説 (no=${d.no}) が短すぎます (<16文字): "${d.why}"`);
+              }
+            }
           } else {
             fail(`小問 ${sq.id} に誤答選択肢別の解説 (distractors / wrongReasons) が設定されていません！`);
           }
@@ -208,6 +213,15 @@ for (const sub of SUBJECTS) {
 
     for (const pr of ch.practiceProblems) checkProblem(pr, false);
     for (const pr of ch.miniTest) checkProblem(pr, true);
+
+    if (sub.id === 'social') {
+      const hasCarouselInChapter = [...ch.practiceProblems, ...ch.miniTest].some(
+        (pr) => pr.materials && pr.materials.length >= 2,
+      );
+      if (!hasCarouselInChapter) {
+        fail(`社会の単元 ${ch.id} (${ch.title}) に第6問B式スライド資料カルーセルが設定されていません`);
+      }
+    }
   }
 
   subjectSummary[sub.id] = {

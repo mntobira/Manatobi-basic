@@ -117,7 +117,11 @@ export const EXTRA_ENGLISH_CHAPTERS: readonly Chapter[] = [
           {
             prompt: 'Could you show your ticket (　　) the station staff at the gate?',
             choices: ['to', 'for', 'with', 'of'],
-            wrongReasons: ['show は見せる相手が必要な動詞なので for ではなく to。', 'with は不適。', 'of は不適。'],
+            wrongReasons: [
+              'show は見せる相手（方向）を表すため for ではなく to を用いる（for は buy / make / cook など）。',
+              'with は「〜と一緒に／〜を使って」を表す前置詞であり、show 物 to 人 の形には使えない。',
+              'of は ask 物 of 人 以外では第4文型の書き換えに使えない。',
+            ],
             skill: '第4文型の書き換え',
             rate: 84,
             oneLine: 'show 人 物 ⇔ show 物 to 人！',

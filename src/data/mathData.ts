@@ -4,6 +4,7 @@ import { EXTRA_MATH_CHAPTERS } from './juken/extraMath';
 import { MATH_BANK_EXPANSION } from './juken/bankExpansionMath';
 import { MATH_V6_EXPANSION } from './juken/v6ExpansionMath';
 import { MATH_V65_QUALITY } from './juken/v65QualityPack';
+import { MATH_V7_VISUALS } from './juken/v7MathVisuals';
 
 const mathParts: Part[] = [
   {
@@ -1518,14 +1519,17 @@ const mathParts: Part[] = [
 export const mathData: Part[] = applyChapterExpansions(
   applyChapterExpansions(
     applyChapterExpansions(
-      mathParts.map((part) => {
-        const extras = EXTRA_MATH_CHAPTERS.filter((ch) => ch.id.startsWith(part.id.replace('ma_part', 'ma') + '_'));
-        return extras.length ? { ...part, chapters: [...part.chapters, ...extras] } : part;
-      }),
-      MATH_BANK_EXPANSION,
+      applyChapterExpansions(
+        mathParts.map((part) => {
+          const extras = EXTRA_MATH_CHAPTERS.filter((ch) => ch.id.startsWith(part.id.replace('ma_part', 'ma') + '_'));
+          return extras.length ? { ...part, chapters: [...part.chapters, ...extras] } : part;
+        }),
+        MATH_BANK_EXPANSION,
+      ),
+      MATH_V6_EXPANSION,
     ),
-    MATH_V6_EXPANSION,
+    MATH_V65_QUALITY,
   ),
-  MATH_V65_QUALITY,
+  MATH_V7_VISUALS,
 );
 export const MATH_STATS = countSubjectStats(mathData);
