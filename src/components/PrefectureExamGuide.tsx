@@ -546,7 +546,7 @@ export const PrefectureExamGuide: React.FC<PrefectureExamGuideProps> = ({
                     <span>学力検査の満点・試験時間</span>
                   </div>
                   <p className="mt-1.5 text-sm sm:text-base font-extrabold text-[#1c2a39]">
-                    {activePref.scoreScale}
+                    {activePref.scoreSummary}
                   </p>
                   <p className="mt-1 text-xs font-semibold text-[#5a6573] flex items-center gap-1">
                     <Clock className="w-3.5 h-3.5 shrink-0" />
@@ -622,11 +622,11 @@ export const PrefectureExamGuide: React.FC<PrefectureExamGuideProps> = ({
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   {[
-                    { key: 'english', label: '英語', color: '#2458A6', tip: activePref.subjectTips.english },
-                    { key: 'math', label: '数学', color: '#0E7C86', tip: activePref.subjectTips.math },
-                    { key: 'japanese', label: '国語', color: '#B5495B', tip: activePref.subjectTips.japanese },
-                    { key: 'science', label: '理科', color: '#2A7B4C', tip: activePref.subjectTips.science },
-                    { key: 'social', label: '社会', color: '#B86B19', tip: activePref.subjectTips.social },
+                    { key: 'english', label: '英語', color: '#2458A6', tip: activePref.subjectTrends.english },
+                    { key: 'math', label: '数学', color: '#0E7C86', tip: activePref.subjectTrends.math },
+                    { key: 'japanese', label: '国語', color: '#B5495B', tip: activePref.subjectTrends.japanese },
+                    { key: 'science', label: '理科', color: '#2A7B4C', tip: activePref.subjectTrends.science },
+                    { key: 'social', label: '社会', color: '#B86B19', tip: activePref.subjectTrends.social },
                   ].map((s) => (
                     <div
                       key={s.key}
@@ -664,22 +664,36 @@ export const PrefectureExamGuide: React.FC<PrefectureExamGuideProps> = ({
                   )}
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                  {activePref.recommendedChapters.map((rec, idx) => (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => onStartChapter(rec.chapterId, rec.subject)}
-                      className="juken-card-interactive text-left p-3.5 flex items-center justify-between gap-2"
-                    >
-                      <span className="text-xs sm:text-sm font-extrabold text-[#1c4687]">
-                        {rec.label}
-                      </span>
-                      <span className="w-8 h-8 rounded-full bg-[#2458a6] text-white inline-flex items-center justify-center shrink-0">
-                        <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
-                      </span>
-                    </button>
-                  ))}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {activePref.recommendedChapters.map((rec, idx) => {
+                    const subjLabels: Record<string, string> = {
+                      english: '英語',
+                      math: '数学',
+                      japanese: '国語',
+                      science: '理科',
+                      social: '社会',
+                    };
+                    return (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => onStartChapter(rec.chapterId, rec.subject)}
+                        className="juken-card-interactive text-left p-3.5 flex items-center justify-between gap-2.5"
+                      >
+                        <div className="min-w-0 space-y-1">
+                          <span className="inline-block rounded-md bg-[#eaf2fd] px-2 py-0.5 text-[11px] font-black text-[#1c4687]">
+                            {subjLabels[rec.subject] ?? rec.subject} ・ {rec.chapterId}
+                          </span>
+                          <span className="block text-xs sm:text-sm font-extrabold text-[#1c2a39] leading-snug">
+                            {rec.reason}
+                          </span>
+                        </div>
+                        <span className="w-8 h-8 rounded-full bg-[#2458a6] text-white inline-flex items-center justify-center shrink-0">
+                          <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -827,15 +841,15 @@ export const PrefectureExamGuide: React.FC<PrefectureExamGuideProps> = ({
                     <span className="text-base sm:text-lg font-bold text-[#dbeafe]">
                       / {simResult.rawMax} 点満点（得点率 {simResult.percentage}%）
                     </span>
-                    {simResult.hokkaidoRank && (
+                    {simResult.specialBadge && (
                       <span className="px-3 py-1 rounded-full bg-[#f29a1f] text-[#1f1405] text-xs sm:text-sm font-black">
-                        北海道：{simResult.hokkaidoRank}
+                        {simResult.specialBadge}
                       </span>
                     )}
                   </div>
-                  {nf.scaledMax !== nf.rawMax && (
+                  {nf.scaledMax && nf.scaledMax !== nf.rawMax && (
                     <p className="mt-1 text-xs sm:text-sm font-bold text-[#e0edff]">
-                      総合選抜換算：<strong>{simResult.scaledScore}</strong> / {nf.scaledMax} 点（＋当日学力検査 {nf.examScaledMax} 点
+                      総合選抜換算：<strong>{simResult.scaledScore}</strong> / {nf.scaledMax} 点（＋当日学力検査 {nf.examScaledMax ?? nf.examMax} 点
                       {nf.extraBonusMax && nf.extraBonusLabel ? ` ＋ ${nf.extraBonusLabel} ${nf.extraBonusMax} 点` : ''}）
                     </p>
                   )}
@@ -981,8 +995,8 @@ export const PrefectureExamGuide: React.FC<PrefectureExamGuideProps> = ({
                   </tr>
                   <tr>
                     <td className="font-extrabold">学力検査の配点・時間</td>
-                    <td>{activePref.scoreScale}（{activePref.timePerSubject}）</td>
-                    <td>{comparePref.scoreScale}（{comparePref.timePerSubject}）</td>
+                    <td>{activePref.scoreSummary}（{activePref.timePerSubject}）</td>
+                    <td>{comparePref.scoreSummary}（{comparePref.timePerSubject}）</td>
                   </tr>
                   <tr>
                     <td className="font-extrabold">解答形式タイプ</td>

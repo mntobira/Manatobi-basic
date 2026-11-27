@@ -45,8 +45,14 @@ for (const pref of PREFECTURE_EXAMS) {
   if (!(sim.rawScore > 0 && sim.rawMax > 0 && sim.percentage > 75 && sim.percentage < 85)) {
     fail(`${pref.name} のオール4シミュレーション結果が異常です: ${JSON.stringify(sim)}`);
   }
-  if (pref.recommendedChapters.length < 3) {
-    fail(`${pref.name} のおすすめ単元が不足しています`);
+  if (!Array.isArray(sim.targetTiers) || sim.targetTiers.length !== 3 || sim.targetTiers.some((t) => !(t.requiredExamScore > 0))) {
+    fail(`${pref.name} の targetTiers (UI当日目標点データ) が不正です: ${JSON.stringify(sim.targetTiers)}`);
+  }
+  if (!pref.scoreSummary || !pref.scoreScale || !pref.subjectTrends?.english || !pref.subjectTips?.english) {
+    fail(`${pref.name} の配点・教科別傾向プロパティが不足しています`);
+  }
+  if (pref.recommendedChapters.length < 3 || pref.recommendedChapters.some((r) => !r.reason || !r.label)) {
+    fail(`${pref.name} のおすすめ単元が不足しているか label/reason が空です`);
   }
 }
 
