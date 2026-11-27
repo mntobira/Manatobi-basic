@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 300" width="540" height="300" font-family="'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#16a34a"/>
+    </marker>
+    <marker id="arr-slate" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="540" height="300" rx="14" fill="#ffffff"/>
+
+  <text x="18" y="24" font-size="12.8" font-weight="800" fill="#0f172a">放物線 y ＝ (1/2)x² と直線 y ＝ 4 で囲まれた領域（周上を含む）の格子点</text>
+  <line x1="102" y1="45" x2="102" y2="255" stroke="#e2e8f0" stroke-width="1.2"/><text x="102" y="248" font-size="10.5" font-weight="700" fill="#475569" text-anchor="middle">-4</text><line x1="144" y1="45" x2="144" y2="255" stroke="#e2e8f0" stroke-width="1.2"/><text x="144" y="248" font-size="10.5" font-weight="700" fill="#475569" text-anchor="middle">-3</text><line x1="186" y1="45" x2="186" y2="255" stroke="#e2e8f0" stroke-width="1.2"/><text x="186" y="248" font-size="10.5" font-weight="700" fill="#475569" text-anchor="middle">-2</text><line x1="228" y1="45" x2="228" y2="255" stroke="#e2e8f0" stroke-width="1.2"/><text x="228" y="248" font-size="10.5" font-weight="700" fill="#475569" text-anchor="middle">-1</text><line x1="270" y1="45" x2="270" y2="255" stroke="#e2e8f0" stroke-width="1.2"/><line x1="312" y1="45" x2="312" y2="255" stroke="#e2e8f0" stroke-width="1.2"/><text x="312" y="248" font-size="10.5" font-weight="700" fill="#475569" text-anchor="middle">1</text><line x1="354" y1="45" x2="354" y2="255" stroke="#e2e8f0" stroke-width="1.2"/><text x="354" y="248" font-size="10.5" font-weight="700" fill="#475569" text-anchor="middle">2</text><line x1="396" y1="45" x2="396" y2="255" stroke="#e2e8f0" stroke-width="1.2"/><text x="396" y="248" font-size="10.5" font-weight="700" fill="#475569" text-anchor="middle">3</text><line x1="438" y1="45" x2="438" y2="255" stroke="#e2e8f0" stroke-width="1.2"/><text x="438" y="248" font-size="10.5" font-weight="700" fill="#475569" text-anchor="middle">4</text><line x1="85" y1="232" x2="455" y2="232" stroke="#e2e8f0" stroke-width="1.2"/><line x1="85" y1="198" x2="455" y2="198" stroke="#e2e8f0" stroke-width="1.2"/><text x="258" y="202" font-size="10.5" font-weight="700" fill="#475569" text-anchor="end">1</text><line x1="85" y1="164" x2="455" y2="164" stroke="#e2e8f0" stroke-width="1.2"/><text x="258" y="168" font-size="10.5" font-weight="700" fill="#475569" text-anchor="end">2</text><line x1="85" y1="130" x2="455" y2="130" stroke="#e2e8f0" stroke-width="1.2"/><text x="258" y="134" font-size="10.5" font-weight="700" fill="#475569" text-anchor="end">3</text><line x1="85" y1="96" x2="455" y2="96" stroke="#e2e8f0" stroke-width="1.2"/><text x="258" y="100" font-size="10.5" font-weight="700" fill="#475569" text-anchor="end">4</text><line x1="85" y1="62" x2="455" y2="62" stroke="#e2e8f0" stroke-width="1.2"/><text x="258" y="66" font-size="10.5" font-weight="700" fill="#475569" text-anchor="end">5</text>
+  <line x1="80" y1="232" x2="462" y2="232" stroke="#0f172a" stroke-width="2" marker-end="url(#arr-slate)"/>
+  <line x1="270" y1="255" x2="270" y2="38" stroke="#0f172a" stroke-width="2" marker-end="url(#arr-slate)"/>
+  <text x="260" y="247" font-size="11" font-weight="800" fill="#0f172a">O</text>
+  <!-- y = 4 -->
+  <line x1="90" y1="96" x2="450" y2="96" stroke="#16a34a" stroke-width="2.4"/>
+  <text x="454" y="100" font-size="12" font-weight="800" fill="#15803d">y ＝ 4</text>
+  <!-- y = (1/2)x^2 -->
+  <polyline points="135.6,57.9 139.8,68.6 144.0,79.0 148.2,89.0 152.4,98.7 156.6,108.1 160.8,117.1 165.0,125.8 169.2,134.1 173.4,142.1 177.6,149.7 181.8,157.0 186.0,164.0 190.2,170.6 194.4,176.9 198.6,182.9 202.8,188.5 207.0,193.8 211.2,198.7 215.4,203.3 219.6,207.5 223.8,211.4 228.0,215.0 232.2,218.2 236.4,221.1 240.6,223.7 244.8,225.9 249.0,227.8 253.2,229.3 257.4,230.5 261.6,231.3 265.8,231.8 270.0,232.0 274.2,231.8 278.4,231.3 282.6,230.5 286.8,229.3 291.0,227.8 295.2,225.9 299.4,223.7 303.6,221.1 307.8,218.2 312.0,215.0 316.2,211.4 320.4,207.5 324.6,203.3 328.8,198.7 333.0,193.8 337.2,188.5 341.4,182.9 345.6,176.9 349.8,170.6 354.0,164.0 358.2,157.0 362.4,149.7 366.6,142.1 370.8,134.1 375.0,125.8 379.2,117.1 383.4,108.1 387.6,98.7 391.8,89.0 396.0,79.0 400.2,68.6 404.4,57.9" fill="none" stroke="#2563eb" stroke-width="2.6"/>
+  <text x="412" y="66" font-size="12" font-weight="800" fill="#1d4ed8">y ＝ (1/2)x²</text>
+  
+
+</svg>

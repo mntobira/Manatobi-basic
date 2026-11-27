@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 300" width="540" height="300" font-family="'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#16a34a"/>
+    </marker>
+    <marker id="arr-slate" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="540" height="300" rx="14" fill="#ffffff"/>
+
+  <text x="18" y="24" font-size="13" font-weight="800" fill="#0f172a">定滑車A・動滑車Bで 120N（12kg）の物体を 0.5m 引き上げる実験</text>
+  <!-- 天井 -->
+  <line x1="40" y1="48" x2="230" y2="48" stroke="#334155" stroke-width="4"/>
+  <line x1="280" y1="48" x2="490" y2="48" stroke="#334155" stroke-width="4"/>
+  <!-- 定滑車 A -->
+  <text x="68" y="70" font-size="12" font-weight="900" fill="#1e293b">装置A（定滑車）</text>
+  <line x1="135" y1="48" x2="135" y2="82" stroke="#334155" stroke-width="3"/>
+  <circle cx="135" cy="96" r="22" fill="#e2e8f0" stroke="#0f172a" stroke-width="2.2"/>
+  <circle cx="135" cy="96" r="4" fill="#0f172a"/>
+  <line x1="113" y1="96" x2="113" y2="156" stroke="#2563eb" stroke-width="2.4"/>
+  <line x1="157" y1="96" x2="157" y2="168" stroke="#dc2626" stroke-width="2.4" marker-end="url(#arr-red)"/>
+  <text x="192" y="156" font-size="11.5" font-weight="800" fill="#dc2626">引く力 F₁</text>
+  <rect x="91" y="156" width="44" height="36" rx="5" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="113" y="179" font-size="11.5" font-weight="900" fill="#92400e" text-anchor="middle">120N</text>
+
+  <!-- 動滑車 B -->
+  <text x="398" y="70" font-size="12" font-weight="900" fill="#1e293b">装置B（動滑車）</text>
+  <line x1="328" y1="48" x2="328" y2="134" stroke="#2563eb" stroke-width="2.4"/>
+  <line x1="372" y1="134" x2="372" y2="66" stroke="#dc2626" stroke-width="2.4" marker-end="url(#arr-red)"/>
+  <text x="415" y="92" font-size="11.5" font-weight="800" fill="#dc2626">引く力 F₂</text>
+  <circle cx="350" cy="134" r="22" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2.2"/>
+  <circle cx="350" cy="134" r="4" fill="#1d4ed8"/>
+  <line x1="350" y1="134" x2="350" y2="164" stroke="#334155" stroke-width="2.6"/>
+  <rect x="328" y="164" width="44" height="36" rx="5" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="350" y="187" font-size="11.5" font-weight="900" fill="#92400e" text-anchor="middle">120N</text>
+  
+  <!-- 動滑車の2本のひもで半分ずつ支える書き込み -->
+  <text x="316" y="114" font-size="11.5" font-weight="900" fill="#dc2626" text-anchor="end">60N</text>
+  <text x="386" y="114" font-size="11.5" font-weight="900" fill="#dc2626">60N</text>
+  <rect x="24" y="216" width="492" height="72" rx="10" fill="#fef2f2" stroke="#dc2626" stroke-width="1.6"/>
+  <text x="270" y="237" font-size="11.5" font-weight="800" fill="#b91c1c" text-anchor="middle">【仕事の原理】道具を使っても仕事の大きさ W ＝ 120N × 0.5m ＝ 60J は変わらない！</text>
+  <text x="270" y="257" font-size="11" font-weight="800" fill="#1e40af" text-anchor="middle">定滑車A：力 120N・引く長さ 0.5m ／ 動滑車B（摩擦・滑車重さ無視）：力 60N（半分）・引く長さ 1.0m（2倍）！</text>
+  <text x="270" y="276" font-size="10.8" font-weight="800" fill="#15803d" text-anchor="middle">※動滑車自身が重さ 20N をもつ応用問題では：必要な力 ＝ (120＋20)÷2 ＝ 70N！（仕事の効率＝60J/70J）</text>
+
+
+</svg>

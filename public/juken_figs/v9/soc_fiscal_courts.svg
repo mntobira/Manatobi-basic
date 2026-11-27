@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 300" width="540" height="300" font-family="'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#16a34a"/>
+    </marker>
+    <marker id="arr-slate" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="540" height="300" rx="14" fill="#ffffff"/>
+
+  <text x="18" y="24" font-size="13" font-weight="800" fill="#0f172a">日本の一般会計（歳入・歳出・基礎的財政収支）と裁判の三審制</text>
+  <!-- 左：歳入と歳出 -->
+  <rect x="20" y="38" width="256" height="244" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+  <text x="148" y="58" font-size="12" font-weight="900" fill="#1e40af" text-anchor="middle">国の一般会計予算（約110兆円規模）</text>
+  <!-- 歳入バー -->
+  <text x="78" y="78" font-size="11" font-weight="800" fill="#0f172a" text-anchor="middle">【歳入】</text>
+  <rect x="44" y="86" width="68" height="106" fill="#3b82f6" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="78" y="136" font-size="10.5" font-weight="800" fill="#ffffff" text-anchor="middle">租税・印紙</text>
+  <text x="78" y="151" font-size="10" font-weight="700" fill="#dbeafe" text-anchor="middle">(約6割強)</text>
+  <rect x="44" y="192" width="68" height="56" fill="#f87171" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="78" y="220" font-size="10.5" font-weight="900" fill="#ffffff" text-anchor="middle">公債金(国債)</text>
+  <text x="78" y="235" font-size="10" font-weight="800" fill="#fee2e2" text-anchor="middle">(約3割＝借金)</text>
+
+  <!-- 歳出バー -->
+  <text x="208" y="78" font-size="11" font-weight="800" fill="#0f172a" text-anchor="middle">【歳出】</text>
+  <rect x="174" y="86" width="68" height="58" fill="#10b981" stroke="#047857" stroke-width="1.5"/>
+  <text x="208" y="114" font-size="10.2" font-weight="900" fill="#ffffff" text-anchor="middle">社会保障関係費</text>
+  <text x="208" y="129" font-size="9.8" font-weight="800" fill="#d1fae5" text-anchor="middle">(最大・約1/3！)</text>
+  <rect x="174" y="144" width="68" height="44" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+  <text x="208" y="169" font-size="10.2" font-weight="900" fill="#ffffff" text-anchor="middle">国債費(元利払)</text>
+  <rect x="174" y="188" width="68" height="32" fill="#6366f1" stroke="#4338ca" stroke-width="1.5"/>
+  <text x="208" y="208" font-size="9.8" font-weight="800" fill="#ffffff" text-anchor="middle">地方交付税交付金</text>
+  <rect x="174" y="220" width="68" height="28" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+  <text x="208" y="238" font-size="9.8" font-weight="800" fill="#ffffff" text-anchor="middle">公共事業・文教等</text>
+
+  <text x="148" y="270" font-size="9.8" font-weight="900" fill="#b91c1c" text-anchor="middle">PB(基礎的財政収支)＝「税収等」と「国債費を除く歳出」の差！</text>
+
+  <!-- 右：三審制（控訴・上告） -->
+  <rect x="290" y="38" width="230" height="244" rx="10" fill="#fef2f2" stroke="#dc2626" stroke-width="1.6"/>
+  <text x="405" y="58" font-size="12" font-weight="900" fill="#991b1b" text-anchor="middle">人権を守る「三審制」の流れ</text>
+  <rect x="335" y="72" width="140" height="36" rx="8" fill="#fee2e2" stroke="#dc2626" stroke-width="1.8"/>
+  <text x="405" y="94" font-size="12" font-weight="900" fill="#991b1b" text-anchor="middle">最高裁判所（終審・違憲審査）</text>
+
+  <line x1="390" y1="146" x2="390" y2="112" stroke="#dc2626" stroke-width="2.2" marker-end="url(#arr-red)"/>
+  <text x="434" y="134" font-size="11" font-weight="900" fill="#dc2626">上告（じょうこく）</text>
+
+  <rect x="335" y="148" width="140" height="36" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"/>
+  <text x="405" y="170" font-size="12" font-weight="800" fill="#0f172a" text-anchor="middle">高等裁判所</text>
+
+  <line x1="390" y1="222" x2="390" y2="188" stroke="#2563eb" stroke-width="2.2" marker-end="url(#arr-blue)"/>
+  <text x="434" y="210" font-size="11" font-weight="900" fill="#1d4ed8">控訴（こうそ）</text>
+
+  <rect x="306" y="224" width="198" height="44" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"/>
+  <text x="405" y="243" font-size="11" font-weight="800" fill="#0f172a" text-anchor="middle">地方裁判所・家庭裁判所・簡易裁判所</text>
+  <text x="405" y="259" font-size="9.8" font-weight="800" fill="#b45309" text-anchor="middle">※裁判員制度は【重大な刑事事件の第一審（地裁）】のみ！</text>
+
+</svg>

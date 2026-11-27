@@ -19,7 +19,7 @@
  * このファイルは ★試合が終わってリザルト画面が出たときだけ★ 読み込む。
  *
  * -------------------------------------------------------------------
- * ■ 収録数: 218 問（oneLine を持つ問題だけ）
+ * ■ 収録数: 228 問（oneLine を持つ問題だけ）
  * -------------------------------------------------------------------
  * 機械生成の問題は元データに1行解答が無いので入っていない。
  * 画面側は「無い問題は答えの行を出さない」作りにしてある。
@@ -201,6 +201,11 @@ export const ANSWERS: readonly (readonly [string, string])[] = [
   ["q:en3_2:en3_2_v65_p1:en3_2_v65_p1_q3","a library ＝ borrow books for free（無料で本を借りる）＋ return（返却する）＝【a library（図書館）】！"],
   ["q:en3_2:en3_2_v65_p1:en3_2_v65_p1_q4","No, thank you. ＝ Would you like ~? を断るとき ＝【No, thank you.】（もらうとき＝ Yes, please.）！"],
   ["q:en3_2:en3_2_v65_p1:en3_2_v65_p1_q5","My brother has lived in Kyoto for three years. ＝ 過去から今までずっと住んでいる ＝【has lived（または has been living）in ~ for 期間】！"],
+  ["q:en3_2:en3_2_v9_p1:en3_2_v9_p1_q1","イ → エ → ア → ウ ＝ 到着してイチゴ摘み（イ）→ だから運ぶのを手伝った（エ：`So`）→ 喜んでジャムの作り方を教えてくれた（ア）→ 翌朝食べた（ウ：`the jam`）！"],
+  ["q:en3_2:en3_2_v9_p1:en3_2_v9_p1_q2","im-**por**-tant（important） ＝ `im-POR-tant`・`mu-SE-um`・`gui-TAR`・`ho-TEL`・`va-CA-tion` は後ろ（第2音節）アクセントの5大頻出語！"],
+  ["q:en3_2:en3_2_v9_p1:en3_2_v9_p1_q3","were you ＝ 前が否定の be動詞 `You weren't ~` ⇒ コンマの後ろは肯定の **`were you?`**！"],
+  ["q:en3_2:en3_2_v9_p1:en3_2_v9_p1_q4","Yes, I do. ＝ 英語の Yes/No は相手の聞き方に関係なく【食べるなら100% `Yes, I do.`／食べないなら100% `No, I don't.`】！"],
+  ["q:en3_2:en3_2_v9_p1:en3_2_v9_p1_q5","What do you think he bought? ＝ `Do you know + 疑問詞 S V?` に対し、`think` のときは疑問詞が先頭へ飛び出し **`What do you think + S + V?`**！"],
   ["q:en4_1:en4_1_exp_m1:en4_1_exp_m1_q1","in case of ＝ in case of rain ＝「雨天の場合には」！"],
   ["q:en4_1:en4_1_exp_m1:en4_1_exp_m1_q2","More than ＝ more than half of ~ ＝「半数以上の〜」 ／ less than half of ~ ＝「半数未満の〜」！"],
   ["q:en4_1:en4_1_exp_m1:en4_1_exp_m1_q3","whether ＝ whether S V (or not) ＝「SがVするかどうか」！"],
@@ -247,4 +252,9 @@ export const ANSWERS: readonly (readonly [string, string])[] = [
   ["q:en4_2:en4_2_v8_p1:en4_2_v8_p1_q3","当日の 13:30 までに 1階のカウンターで申し込む必要がある ＝ イベントは `14:00–14:45` だが、`Sign up at the 1F counter by 13:30 on the day!`（当日13:30までに1階カウンターで受付）！"],
   ["q:en4_2:en4_2_v8_p1:en4_2_v8_p1_q4","「〜するために（目的）」を表すので、不定詞を用いた `in order to sign up ~`（または `to sign up ~`）に近い意味になる ＝ 間に形容詞がない **`so that S can ~` ＝「Sが〜できるように（目的）」**！（`so 形容詞 that ~`＝「とても…なので〜」と区別！）"],
   ["q:en4_2:en4_2_v8_p1:en4_2_v8_p1_q5","Let's meet at the entrance of the library at 10:00 a.m. It is closed on Mondays, but it is open until 7:00 p.m. on Saturdays. ＝ 超重要語法：形容詞 `be open until 7:00`（7時までずっと開いている：継続） vs `sign up by 1:30`（1時半までに申し込む：期限）！"],
+  ["q:en4_2:en4_2_v9_p1:en4_2_v9_p1_q1","Because people can buy books easily on the Internet. ＝ 第1段落第2文 `People can buy books easily on the Internet, so fewer people visit bookstores` の因果反転（`so` ⇔ `Because`）！"],
+  ["q:en4_2:en4_2_v9_p1:en4_2_v9_p1_q2","Short handwritten cards about why the books helped them. ＝ `puts their favorite used books in their own box with short handwritten cards` を正確にキャッチ！"],
+  ["q:en4_2:en4_2_v9_p1:en4_2_v9_p1_q3","After school on Fridays. ＝ `volunteer there after school and read picture books to young children on Fridays` ⇒ 金曜の放課後！"],
+  ["q:en4_2:en4_2_v9_p1:en4_2_v9_p1_q4","It has become lively again, and people of various ages talk about books together. ＝ 最終文 `become lively again` ＋ `people of different ages` ⇔ `people of various ages` のパラフレーズ！"],
+  ["q:en4_2:en4_2_v9_p1:en4_2_v9_p1_q5","Connecting People Through Small Book Boxes ＝ 部分的な単語（Internet や High school）だけの選択肢を消し、全体の核「小さな本箱を通じた人々のつながり」を選ぶ！"],
 ];

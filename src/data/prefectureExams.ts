@@ -78,7 +78,9 @@ export interface PrefectureExamInfo {
   /** 合格発表日 MM-DD */
   resultMonthDay: string;
   examSystemName: string;
+  /** 学力検査の配点概要（UI互換エイリアス scoreScale も保持） */
   scoreSummary: string;
+  scoreScale?: string;
   timePerSubject: string;
   /** 英語リスニングの配点・時間詳細 */
   listeningDetail: string;
@@ -101,9 +103,19 @@ export interface PrefectureExamInfo {
     science: string;
     social: string;
   };
+  /** UI互換エイリアス（subjectTrends と同値） */
+  subjectTips?: {
+    english: string;
+    math: string;
+    japanese: string;
+    science: string;
+    social: string;
+  };
   /** この都道府県で最優先すべきマナトビ内おすすめ単元ID */
-  recommendedChapters: { chapterId: string; subject: SubjectKey; reason: string }[];
+  recommendedChapters: { chapterId: string; subject: SubjectKey; reason: string; label?: string }[];
 }
+
+export type NaishinGradeInput = GradeInput;
 
 type RawPrefEntry = Omit<PrefectureExamInfo, 'recommendedChapters'> & {
   recommendedChapters?: PrefectureExamInfo['recommendedChapters'];
@@ -211,7 +223,7 @@ const RAW_ENTRIES: readonly RawPrefEntry[] = [
     eikenDetail: '調査書の「資格・検定」欄に記載され、推薦入学者選抜や第3枠（個人調査書重視枠）で各高校の基準により評価。',
     customProblem: '全道共通問題（2022年度に学校裁量問題を廃止し思考力型の共通問題へ一本化＋一部進学校で英数理等の傾斜配点）',
     representativeSchools: '札幌南・札幌北・札幌西・札幌東・旭川東・函館中部',
-    recentReform: '裁量問題廃止後の全道統一問題が定着。上位校向けに各教科終盤に発展的な思考・記述設問が配置される二層構造。',
+    recentReform: '令和9年度（2027春）より道外からの入学者受け入れを広げる実証事業（特例校指定・連携型推薦）を開始（なお調査書の出欠記録削除は令和10年度から）。裁量問題廃止後の全道統一問題が定着。',
     keyFeature: '名物「内申ランク（A〜Mランク）」制度！中1の成績が2倍で315点満点に入るため早期からの評定管理と、札幌東西南北を狙うなら高難度の終盤記述対策が不可欠。',
     subjectTrends: {
       english: '大問4〜5構成。図表・Webページ融合の実用文読解と25語前後の意見英作文が毎年出題。',
@@ -250,7 +262,7 @@ const RAW_ENTRIES: readonly RawPrefEntry[] = [
   },
   {
     code: 3, id: 'iwate', name: '岩手県', shortName: '岩手', region: '北海道・東北', mapPos: [10, 2],
-    examMonthDay: '03-04', resultMonthDay: '03-15', examSystemName: '一般入学者選抜',
+    examMonthDay: '03-04', resultMonthDay: '03-15', examSystemName: '一般入学者選抜（2日間）',
     scoreSummary: '500点満点（各100点×5）→ 学力・調査書とも1000点満点スケール換算',
     timePerSubject: '各50分',
     listeningDetail: '約12分・約24点（対話応答・内容一致）',
@@ -402,7 +414,7 @@ const RAW_ENTRIES: readonly RawPrefEntry[] = [
     eikenDetail: '調査書の諸活動欄に記載、特色選抜実施校で評価対象となる場合あり。',
     customProblem: '全校共通問題（水戸一・土浦一・竹園などは中高一貫併設化が進行）',
     representativeSchools: '水戸第一・土浦第一・竹園・竜ヶ崎第一・日立第一',
-    recentReform: '2月下旬実施の早期日程。全国学力調査・共通テストを意識した会話リード・資料横断型の問題が定着。',
+    recentReform: '【令和9年度（2027春）改革】欠員が生じた学校を対象とした「第2希望校の出願制度」を新設し、従来の第2次募集を廃止！2月25日実施の早期日程で会話リード・資料横断型問題が定着。',
     keyFeature: 'B群の「学力重視選抜」があるため内申に不安があっても当日高得点で逆転合格が可能！情報量の多い新傾向問題への慣れが鍵。',
     subjectTrends: {
       english: 'プレゼンスライドやグラフを見ながら解く読解と、自分の考えを書く英作文が融合。',
@@ -429,7 +441,7 @@ const RAW_ENTRIES: readonly RawPrefEntry[] = [
     eikenDetail: '一般選抜での一律加点規定なし（特色選抜での自己PRに活用）。',
     customProblem: '全校共通問題',
     representativeSchools: '宇都宮・宇都宮女子・栃木・大田原・石橋',
-    recentReform: '2027年度（令和9年度）より一般選抜が2月下旬（2月24日頃）へ前倒し実施！早期の過去問仕上げが必須に。',
+    recentReform: '【令和9年度（2027春）大改革】①全日制の全志願者が一般選抜に出願し学力検査を受検（特色選抜も一般の学力検査を使用、定員上限50%）、②英語リスニングに「1回だけ流す問題」を新規導入、③2月24日実施！',
     keyFeature: '宇都宮高・宇女高などトップ校はなんと【当日点9：内申点1】！完全実力主義の本番勝負で、骨太な記述・応用問題が並ぶ。',
     subjectTrends: {
       english: '長文の総語数が多く、30語前後のまとまった自由英作文で論理性と文法正確性が問われる。',
@@ -456,7 +468,7 @@ const RAW_ENTRIES: readonly RawPrefEntry[] = [
     eikenDetail: '調査書に記載でき、各高校の選抜基準により評価材料となる。',
     customProblem: '全校共通問題（2024年度より前期・後期を一本化）',
     representativeSchools: '前橋・前橋女子・高崎・高崎女子・太田',
-    recentReform: '一本化新制度に加え、2月16日・17日と全国最速タイの時期に2日間日程で実施！',
+    recentReform: '【令和9年度（2027春）変更】調査書から「出欠席の記録」を削除！一本化新制度のもと2月16日・17日の全国最速タイ2日間日程で実施。',
     keyFeature: '全国最速クラス（2月中旬）の2日間入試！丁寧な誘導付きの思考力・記述問題が多く、国語は45分のため時間管理が鍵。',
     subjectTrends: {
       english: '対話補充と自由英作文の双方が出題され、複数の資料を読み取る実用長文も必出。',
@@ -510,9 +522,9 @@ const RAW_ENTRIES: readonly RawPrefEntry[] = [
     },
     eikenPolicyType: '県共通の加点規定なし',
     eikenDetail: '一般選抜の県共通加点規定なし（学校設定検査の自己表現等で言及可能）。',
-    customProblem: '全校共通問題（思考力を問う記述＋マークシート併用）',
+    customProblem: '全校共通問題（マーク式＋記述式の併用 ※令和9年度より学校設定検査の「思考力を問う問題」は廃止）',
     representativeSchools: '県立千葉・県立船橋・東葛飾・佐倉・千葉東・薬園台',
-    recentReform: '2026年度よりマークシート解答用紙を導入しつつ記述も残すハイブリッド形式へ移行＆英語リスニング1回放送化！',
+    recentReform: '【令和9年度（2027春）大改革】①学力検査が「マーク式＋記述式の併用」へ本格移行、②学校設定検査「思考力を問う問題」を廃止！英語60分＆リスニング1回読み放送に要注意。',
     keyFeature: '2月16日・17日の早期2日間入試！英語は60分＆リスニング1回放送、国語にも放送聞き取り検査あり。トップ校は内申係数0.5で圧倒的当日点勝負！',
     subjectTrends: {
       english: '60分試験・リスニング1回読み！語彙・対話・イラスト英作文・長文3題と分量が多く集中力が鍵。',
@@ -540,7 +552,7 @@ const RAW_ENTRIES: readonly RawPrefEntry[] = [
     eikenDetail: '英検加点はないが、全員受験の中学校英語スピーキングテスト【ESAT-J】がA=20点〜F=0点の6段階で総合点に直結加算！',
     customProblem: '進学指導重点校7校（日比谷・西・国立・戸山・青山・立川・八王子東）＋進学重視型単位制等で国・数・英が【自校作成問題】！',
     representativeSchools: '日比谷・西・国立・戸山・青山・立川・八王子東・新宿・国分寺・国際',
-    recentReform: 'マークシート中心（記述は英作・数学証明/作図・国語200字作文など要所に配置）＋ESAT-J 20点加算が完全定着。',
+    recentReform: '【令和9年度（2027春）変更】学力検査と調査書点を「7：3」と「10：0（当日点100%）」の両方で計算し高い方を採用する方式を新たに全日制普通科2校で追加実施！ESAT-J 20点加算も継続。',
     keyFeature: '中3成績のみ＆実技4教科が2倍（実技の「5」1つが約9.2点相当）＋ESAT-J 20点加算！7:3の1020点満点スケールで明確に計算できる。',
     subjectTrends: {
       english: '共通はマーク＋Eメール返信3文英作文（12点）。自校作成校は超長文読解と40〜60語級の本格自由英作文。',
@@ -582,8 +594,8 @@ const RAW_ENTRIES: readonly RawPrefEntry[] = [
   // ==================== 中部・東海・北陸 ====================
   {
     code: 15, id: 'niigata', name: '新潟県', shortName: '新潟', region: '中部・東海・北陸', mapPos: [8, 3],
-    examMonthDay: '02-25', resultMonthDay: '03-08', examSystemName: '一般選抜',
-    scoreSummary: '500点満点→1000点満点総合スケール換算（＋一部学校独自検査）',
+    examMonthDay: '02-25', resultMonthDay: '03-08', examSystemName: '一般選抜（学校設定枠新設・2日間）',
+    scoreSummary: '500点満点→1000点満点総合スケール換算（＋2日目に学校設定枠検査等）',
     timePerSubject: '各50分',
     listeningDetail: '約12分・約25〜30点',
     answerFormat: '記述＋記号標準型', naishinSpan: '中1〜中3',
@@ -598,7 +610,7 @@ const RAW_ENTRIES: readonly RawPrefEntry[] = [
     eikenDetail: '国際フロンティア高校など一部高校の学校設定枠で英検等の資格加点（最大150点枠等）を実施。',
     customProblem: '全校共通問題（新潟・長岡など一部上位校で翌日等に学校独自検査・筆答検査を実施する場合あり）',
     representativeSchools: '新潟・新潟南・長岡・高田・三条',
-    recentReform: '2月下旬（2月25日頃）へと日程が前倒しされ、標準〜発展の記述良問が安定した大問構成で出題。',
+    recentReform: '【令和9年度（2027春）大改革】従来の「特色化選抜」を廃止し一般選抜内に「学校設定枠」を新設！本検査は2月25日（5教科）・26日（学校設定枠検査等）の2日間日程へ移行。',
     keyFeature: '新潟高・長岡高など進学校は当日7：内申3の1000点換算！素直で質の高い問題が多く、過去問研究と記述演習が直結する。',
     subjectTrends: {
       english: 'リスニング＋対話文・スピーチ長文＋条件英作文のバランス型。',
@@ -652,7 +664,7 @@ const RAW_ENTRIES: readonly RawPrefEntry[] = [
     eikenDetail: '一般入学での一律加点規定なし。',
     customProblem: '全校共通問題（全国屈指の高難度記述問題！）',
     representativeSchools: '金沢泉丘・金沢二水・金沢桜丘・小松・七尾',
-    recentReform: '5教科合計の平均点が250〜270点前後になることも多い全国屈指の「記述・思考力難関県」。',
+    recentReform: '【令和9年度（2027春）変更】Web出願システムを新規導入！5教科合計平均点が250〜270点前後になることも多い全国屈指の「記述・思考力難関県」。',
     keyFeature: '公立共通問題としては全国トップクラスの記述量と難度！部分点を積み上げる「白紙にしない記述力」が合否を決める。',
     subjectTrends: {
       english: '長文2題＋対話文に加え、まとまった語数で自分の考えを書く自由英作文の比重が高い。',
@@ -679,7 +691,7 @@ const RAW_ENTRIES: readonly RawPrefEntry[] = [
     eikenDetail: '高志高校（探究創造科）など一部高校の特色選抜で英検2級以上等を出願資格要件に設定！',
     customProblem: '全校共通問題（英語60分！）',
     representativeSchools: '藤島・高志・武生・若狭',
-    recentReform: '2月18日・19日と北陸では突出して早い2月中旬実施！英語60分間で思考力・発信力を重視。',
+    recentReform: '【令和9年度（2027春）変更】国語・英語・理科・社会の学力検査で「デジタル採点」を導入（枠内に濃く丁寧に書くことが必須！数学も令和10年度導入予定）。2月18日・19日の早期実施。',
     keyFeature: '全国学力トップ県・福井ならではの記述と思考力の良問揃い！2月中旬実施のため冬休み前の完成が必須。',
     subjectTrends: {
       english: '60分試験。長文の論理展開把握と自由英作文での表現力がしっかり問われる。',
@@ -693,7 +705,7 @@ const RAW_ENTRIES: readonly RawPrefEntry[] = [
     code: 19, id: 'yamanashi', name: '山梨県', shortName: '山梨', region: '中部・東海・北陸', mapPos: [8, 5],
     examMonthDay: '03-03', resultMonthDay: '03-11', examSystemName: '後期募集',
     scoreSummary: '500点満点（各100点×5教科）',
-    timePerSubject: '各50分（2027年度より英語も45分→50分へ拡大！）',
+    timePerSubject: '全5教科 各50分（令和9年度より社・数・理・英すべて50分に統一！）',
     listeningDetail: '約12分・30点（県がリスニング比重30%を明記！）',
     answerFormat: '記述＋記号標準型', naishinSpan: '中1〜中3',
     naishinDetail: '中1〜中3の評定合計135点満点（高校により中3比重を高める換算あり）。',
@@ -706,7 +718,7 @@ const RAW_ENTRIES: readonly RawPrefEntry[] = [
     eikenDetail: '調査書の特記事項欄に記入可能（前期募集等で参考資料）。',
     customProblem: '全校共通問題',
     representativeSchools: '甲府南・甲府第一・甲府西・甲府東・吉田',
-    recentReform: '2027年度入試より英語の試験時間が45分→50分に延長！リスニング30点満点の比重が大きい。',
+    recentReform: '【令和9年度（2027春）変更】後期募集の社会・数学・理科・英語の解答時間をすべて50分に統一拡大！さらに長期欠席者等を対象に調査書を用いない特別選抜も全県立高で実施。',
     keyFeature: '英語リスニングが30点満点（30%）と高配点！全体的に基礎〜標準の良問が多く、ケアレスミス防止が高得点の鍵。',
     subjectTrends: {
       english: '50分化で長文と英作文の思考時間が確保しやすくなった一方、リスニング30点の取りこぼしは厳禁。',
@@ -842,7 +854,7 @@ const RAW_ENTRIES: readonly RawPrefEntry[] = [
     eikenDetail: '後期選抜での県共通加点規定なし（前期選抜の自己PR・面接で活用）。',
     customProblem: '全校共通問題（四日市・津・伊勢・桑名・松阪などトップ校も共通250点満点で競う！）',
     representativeSchools: '四日市・津・伊勢・桑名・津西・四日市南・松阪・上野',
-    recentReform: 'Web出願導入が進む一方、各教科45分・50点満点のスピード＆記述ハイブリッド型を堅持。四日市・津などは215〜230/250点の高得点争い！',
+    recentReform: '【令和9年度（2027春）変更】調査書の欠席日数・行動の記録等を削除・変更し、「みえ版フレキシブル高校」に伴うフレキシブル特別枠選抜を新設！後期選抜は各教科45分・50点満点のスピード＆記述型を堅持。',
     keyFeature: '【本アプリの対策プリント完全準拠！】1教科わずか45分・50点満点（計250点）！内申は中3の45点のみで、第2段階の学力重視枠により当日の得点力で大逆転も可能！',
     subjectTrends: {
       english: '45分で大問5題！大問1リスニング→大問2対話→【大問3：対話補充＆テーマ英作文（1問2点の減点採点）】→大問4資料/メール→大問5長文！',
@@ -883,9 +895,9 @@ const RAW_ENTRIES: readonly RawPrefEntry[] = [
   },
   {
     code: 26, id: 'kyoto', name: '京都府', shortName: '京都', region: '近畿', mapPos: [4, 4],
-    examMonthDay: '03-08', resultMonthDay: '03-17', examSystemName: '中期選抜（一般選抜 ※前期は2/18）',
-    scoreSummary: '中期選抜：学力200点（各40点×5）＋内申195点 ＝ 395点満点',
-    timePerSubject: '中期：各40分（英語は筆記40分＋リスニング約10分）',
+    examMonthDay: '02-18', resultMonthDay: '03-05', examSystemName: '前期選抜（旧前期・中期一本化 新制度）',
+    scoreSummary: '共通枠・独自枠（従来の前期・中期を一本化し2月18日に統一学力検査を実施！）',
+    timePerSubject: '共通学力検査 各40〜50分（専門学科等は独自検査併用）',
     listeningDetail: '約10分・8〜10点（40点満点中・別枠10分実施）',
     answerFormat: '記述＋記号標準型', naishinSpan: '中1〜中3',
     naishinDetail: '中1〜中3すべて【主要5教科×1＋実技4教科×2＝65点】×3学年＝195点満点！中期選抜では学力200点：内申195点でほぼ1：1！',
@@ -898,7 +910,7 @@ const RAW_ENTRIES: readonly RawPrefEntry[] = [
     eikenDetail: '活動実績報告書に資格を記入でき、前期選抜のA方式・B方式等で評価対象。',
     customProblem: '中期選抜（普通科）は全校共通問題 ／ 堀川・嵯峨野・西京などの専門学科（2月前期）は超難関の【自校作成問題】！',
     representativeSchools: '堀川・西京・嵯峨野・洛北・山城・桃山・南陽',
-    recentReform: '前期選抜（2月18日頃・共通3教科または専門学科独自問題）と中期選抜（3月上旬・5教科各40分）の二段階構造。',
+    recentReform: '【令和9年度（2027春）大改革】従来の前期選抜・中期選抜を一本化し、新「前期選抜（共通枠・独自枠）」と「後期選抜」の2回制へ再編！統一学力検査は2月18日（木）に前倒し実施！',
     keyFeature: '普通科本命の「中期選抜」は1教科40分・40点満点の超短時間決戦＆中1からの実技2倍内申（195点）が当日点（200点）とほぼ同等の重み！',
     subjectTrends: {
       english: '中期は筆記40分！長文・対話・語順整序を迷わず処理するテンポが命。専門学科は超長文記述。',
@@ -954,7 +966,7 @@ const RAW_ENTRIES: readonly RawPrefEntry[] = [
     eikenDetail: '一般選抜での県共通加点規定なし（推薦入試等の調査書・面接で活用）。',
     customProblem: '一般選抜は全校共通問題（2月の推薦入試では専門学科・コースで適性検査・小論文を実施）',
     representativeSchools: '神戸・長田・兵庫・星陵・姫路西・加古川東・宝塚北・市立西宮',
-    recentReform: '全国で最も遅い3月11日頃の学力検査。複数志願選抜（第2志望まで出願可・第1志望に20〜25点加算）の戦略性が極めて高い。',
+    recentReform: '【令和9年度（2027春）変更】調査書の部活動・特別活動等における「特別取扱い」規定を廃止し公平性を明確化！3月11日実施・複数志願選抜（第1志望20〜25点加算）の戦略性が極めて高い。',
     keyFeature: '実技4教科の評定1が「7.5点」（主要教科の約2倍）に化ける衝撃の250点内申！しかも当日の共通問題（マーク＋短答）は全国屈指の高難度・低平均点！',
     subjectTrends: {
       english: '英作文の出題が少なく、代わりに複数図表＋長文の情報統合リーディングが極めてハイレベル。',
@@ -966,7 +978,7 @@ const RAW_ENTRIES: readonly RawPrefEntry[] = [
   },
   {
     code: 29, id: 'nara', name: '奈良県', shortName: '奈良', region: '近畿', mapPos: [5, 7],
-    examMonthDay: '03-10', resultMonthDay: '03-17', examSystemName: '一般選抜',
+    examMonthDay: '02-24', resultMonthDay: '03-05', examSystemName: '一次選抜（2日間）',
     scoreSummary: '250点満点（各50点×5 ※上位校で傾斜配点あり）＋内申135点',
     timePerSubject: '各50分',
     listeningDetail: '約12分・約12点（50点満点中）',
@@ -981,7 +993,7 @@ const RAW_ENTRIES: readonly RawPrefEntry[] = [
     eikenDetail: '一般選抜での一律加点規定なし。',
     customProblem: '全校共通問題（奈良・畝傍・郡山など上位校は数・英・国に傾斜配点を設定）',
     representativeSchools: '奈良・畝傍・郡山・平城/国際・高田・橿原',
-    recentReform: '特色選抜（2月下旬）と一般選抜（3月中旬）の2日程。上位進学校は英・数の傾斜配点で本番逆転力を重視。',
+    recentReform: '2026年度からの新制度（一次選抜：2月24日・25日の2日間実施＋二次選抜）が定着！奈良・畝傍・郡山など上位校は英・数の傾斜配点で本番逆転力を重視。',
     keyFeature: '内申は「中2＋中3×2＝135点」！奈良・畝傍・郡山を目指すなら傾斜配点がかかる数学・英語での高得点が絶対条件。',
     subjectTrends: {
       english: '長文読解と自分の意見をまとめる自由英作文が出題され、速読と記述の両輪が必要。',
@@ -1391,7 +1403,7 @@ const RAW_ENTRIES: readonly RawPrefEntry[] = [
     eikenDetail: '県共通の加点規定なし。',
     customProblem: '全校共通問題',
     representativeSchools: '大分上野丘・大分舞鶴・大分豊府・中津南・日田',
-    recentReform: '福岡と同じ60点×5＝300点満点！大分上野丘・舞鶴など上位校は当日点8:2〜7:3で本番の実力を強く重視。',
+    recentReform: '【令和9年度（2027春）変更】推薦入学者選抜のA・B区分を廃止し「学校推薦型」と「自己推薦型（地域活性化枠含む）」へ再編！一般（一次選抜）は60点×5＝300点満点で進学校は当日8:2〜7:3の本番重視。',
     keyFeature: '60点×5＝300点満点＆進学校は当日8：内申2！記述・活用問題の比率が高く、実戦演習量がそのまま勝敗を決める。',
     subjectTrends: {
       english: 'リスニング＋対話・長文＋条件英作文で速読力と英作表現力が必要。',
@@ -1484,10 +1496,18 @@ const RAW_ENTRIES: readonly RawPrefEntry[] = [
   },
 ];
 
-export const PREFECTURE_EXAMS: readonly PrefectureExamInfo[] = RAW_ENTRIES.map((entry) => ({
-  ...entry,
-  recommendedChapters: entry.recommendedChapters ?? buildRecommendedChapters(entry),
-}));
+export const PREFECTURE_EXAMS: readonly PrefectureExamInfo[] = RAW_ENTRIES.map((entry) => {
+  const recs = (entry.recommendedChapters ?? buildRecommendedChapters(entry)).map((r) => ({
+    ...r,
+    label: r.label ?? r.reason,
+  }));
+  return {
+    ...entry,
+    scoreScale: entry.scoreSummary,
+    subjectTips: entry.subjectTrends,
+    recommendedChapters: recs,
+  };
+});
 
 /**
  * 通知表の評定（1〜5、小数可）から指定都道府県の換算内申点と得点率・目標当日点を算出する純関数
@@ -1515,11 +1535,20 @@ export interface NaishinSimResult {
   percentage: number;
   /** 北海道ランク等の特別表記があれば返す */
   specialBadge?: string;
+  hokkaidoRank?: string;
   /** 志望レベル別に必要な当日学力検査の目安得点（examMax満点中） */
   targetExamScores: {
     tier: 'トップ進学校（偏差値66+）' | '上位進学校（偏差値60前後）' | '中堅人気校（偏差値52前後）';
     requiredScore: number;
     examMax: number;
+    perSubjectAvg: number;
+  }[];
+  /** UI互換フォーマット */
+  targetTiers: {
+    tierLabel: string;
+    requiredExamScore: number;
+    examMax: number;
+    requiredExamPct: number;
     perSubjectAvg: number;
   }[];
 }
@@ -1558,6 +1587,7 @@ export function simulatePrefectureNaishin(pref: PrefectureExamInfo, g: GradeInpu
       : rawScore;
 
   let specialBadge: string | undefined;
+  let hokkaidoRank: string | undefined;
   if (pref.id === 'hokkaido') {
     const ranks = [
       [296, 'Aランク'], [276, 'Bランク'], [256, 'Cランク'], [236, 'Dランク'],
@@ -1565,11 +1595,14 @@ export function simulatePrefectureNaishin(pref: PrefectureExamInfo, g: GradeInpu
       [136, 'Iランク'], [116, 'Jランク'], [96, 'Kランク'], [76, 'Lランク'], [0, 'Mランク'],
     ] as const;
     const found = ranks.find(([min]) => rawScore >= min);
+    hokkaidoRank = found ? `${found[1]}（${Math.round(rawScore)}/315点）` : undefined;
     specialBadge = found ? `北海道 ${found[1]}（${Math.round(rawScore)}/315）` : undefined;
   } else if (pref.id === 'tokyo') {
     specialBadge = `換算内申 ${Math.round(rawScore)}/65 → 総合換算 ${scaledScore}/300点`;
   } else if (pref.id === 'hyogo') {
     specialBadge = `兵庫内申 ${rawScore}/250点（実技4教科分：${Math.round(g.j3Prac * 4 * 7.5 * 10) / 10}/150点）`;
+  } else if (pref.id === 'kagoshima') {
+    specialBadge = `鹿児島内申 ${rawScore}/450点（実技4教科分：${Math.round(g.j3Prac * 4 * 20)}/400点）`;
   } else if (pref.id === 'osaka') {
     specialBadge = `大阪タイプⅠ内申 ${Math.round(rawScore * 0.6)}/270点（素換算 ${Math.round(rawScore)}/450点）`;
   }
@@ -1602,6 +1635,14 @@ export function simulatePrefectureNaishin(pref: PrefectureExamInfo, g: GradeInpu
     };
   });
 
+  const targetTiers = targetExamScores.map((t) => ({
+    tierLabel: t.tier,
+    requiredExamScore: t.requiredScore,
+    examMax: t.examMax,
+    requiredExamPct: t.examMax > 0 ? Math.round((t.requiredScore / t.examMax) * 100) : 0,
+    perSubjectAvg: t.perSubjectAvg,
+  }));
+
   return {
     rawScore,
     rawMax: f.rawMax,
@@ -1609,7 +1650,9 @@ export function simulatePrefectureNaishin(pref: PrefectureExamInfo, g: GradeInpu
     scaledMax,
     percentage,
     specialBadge,
+    hokkaidoRank,
     targetExamScores,
+    targetTiers,
   };
 }
 
