@@ -1,5 +1,5 @@
 import React from 'react';
-import { AlertTriangle, BookOpen, ChevronLeft, ChevronRight, Coins, Flag, TrendingUp } from 'lucide-react';
+import { AlertTriangle, BookOpen, ChevronLeft, ChevronRight, Coins, Flag, Target, TrendingUp } from 'lucide-react';
 import { QUESTION_REPORT_FORM_URL } from '../../features/legal/legalText';
 import type { SubQuestion } from '../../types/curriculum';
 import type { ResultPage } from './explanationLogic';
@@ -59,7 +59,15 @@ export function ResultStage({ resultTotalJudgeable, resultTotalCorrect, studyRew
  *   「次の回へ／単元選択に戻る／ホームに戻る」は詳しい解説の画面の下（ReviewBottomBar）にまとめる。
  * 元は2つの兄弟要素（下の余白 div とバー本体）だったので、Fragment で同じ並びのまま返す。
  */
-export function ResultSummaryActions({ onOpenDetail, wrongCount }: { onOpenDetail: () => void; wrongCount: number }) {
+export function ResultSummaryActions({
+  onOpenDetail,
+  wrongCount,
+  onRetryWrong,
+}: {
+  onOpenDetail: () => void;
+  wrongCount: number;
+  onRetryWrong?: () => void;
+}) {
   return (
     <>
       <div className="practice-bottom-spacer is-summary" aria-hidden="true" />
@@ -67,6 +75,17 @@ export function ResultSummaryActions({ onOpenDetail, wrongCount }: { onOpenDetai
           <button type="button" className="practice-detail-open" data-practice-open-detail onClick={onOpenDetail}>
             <BookOpen size={18} aria-hidden="true" />詳しい解説を見る{wrongCount > 0 ? `（まちがい${wrongCount}問）` : ''}<ChevronRight size={18} aria-hidden="true" />
           </button>
+          {wrongCount > 0 && onRetryWrong && (
+            <button
+              type="button"
+              className="practice-retry-wrong-quick"
+              data-practice-retry-wrong-quick
+              onClick={onRetryWrong}
+            >
+              <Target size={16} aria-hidden="true" />
+              <span>間違えた{wrongCount}問だけすぐ解き直す</span>
+            </button>
+          )}
           {/* F1（2026-11-04 レビューのご要望「問題点をすぐ報告したい」）：見つけたその場で報告できる。Googleフォームが開く */}
           <a className="practice-report-link" data-practice-report href={QUESTION_REPORT_FORM_URL} target="_blank" rel="noopener noreferrer">
             <Flag size={15} aria-hidden="true" />この問題の不具合を報告する

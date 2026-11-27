@@ -4,7 +4,9 @@ import {
   AlertTriangle,
   ArrowLeft,
   BookOpen,
+  Check,
   CheckCircle2,
+  Copy,
   Lightbulb,
   PenTool,
   RotateCcw,
@@ -36,6 +38,7 @@ export const JukenWritingDojo: React.FC<JukenWritingDojoProps> = ({ onBack }) =>
   );
   const [drafts, setDrafts] = useState<Record<string, string>>({});
   const [results, setResults] = useState<Record<string, AutoCheckResult>>({});
+  const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
   const [completedIds, setCompletedIds] = useState<Record<string, boolean>>(() => {
     try {
       const raw = localStorage.getItem('mntb_juken_writing_done');
@@ -407,9 +410,32 @@ export const JukenWritingDojo: React.FC<JukenWritingDojoProps> = ({ onBack }) =>
                         {currentTask.modelAnswers.map((ans, idx) => (
                           <li
                             key={idx}
-                            className="rounded-xl bg-white border border-[#efe2c9] px-3.5 py-2.5 text-sm font-bold text-[#1c4687]"
+                            className="rounded-xl bg-white border border-[#efe2c9] px-3.5 py-2.5 text-sm font-bold text-[#1c4687] flex flex-col sm:flex-row sm:items-center justify-between gap-2"
                           >
-                            {ans}
+                            <span>{ans}</span>
+                            <div className="flex items-center gap-1.5 shrink-0">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  navigator.clipboard?.writeText(ans).catch(() => {});
+                                  setCopiedIdx(idx);
+                                  window.setTimeout(() => setCopiedIdx(null), 1600);
+                                }}
+                                className="inline-flex items-center gap-1 rounded-lg border border-[#d6c7ae] bg-[#fffaf0] px-2.5 py-1 text-[11px] font-extrabold text-[#5a4a36] hover:bg-[#fdf0db] cursor-pointer"
+                              >
+                                {copiedIdx === idx ? <Check className="w-3 h-3 text-[#1f7a4d]" /> : <Copy className="w-3 h-3" />}
+                                <span>{copiedIdx === idx ? 'コピー済' : 'コピー'}</span>
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  setDrafts((prev) => ({ ...prev, [currentTask.id]: ans }))
+                                }
+                                className="inline-flex items-center gap-1 rounded-lg bg-[#e7eef8] px-2.5 py-1 text-[11px] font-extrabold text-[#1c4687] hover:brightness-95 cursor-pointer"
+                              >
+                                <span>解答欄に写して練習</span>
+                              </button>
+                            </div>
                           </li>
                         ))}
                       </ul>
